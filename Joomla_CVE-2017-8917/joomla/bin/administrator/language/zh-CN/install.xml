@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4" client="administrator" type="language" method="upgrade">
+	<name>Chinese Simplified</name>
+	<tag>zh-CN</tag>
+	<version>3.4.1.2</version>
+	<creationDate>2015-3-14</creationDate>
+	<author>CHN Translation Team: joomla.cn</author>
+	<authorEmail>zhous1998@sohu.com</authorEmail>
+	<authorUrl>www.joomla.cn</authorUrl>
+	<copyright>Copyright (C) 2005 - 2014 简体中文翻译组（joomla.cn）及Open Source Matters，版权所有。</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>
+    <![CDATA[
+<div align="center">
+ <table border="0" width="90%">
+  <table width="100%" border="0">
+  <tr>
+    <td colspan="2">Chinese language for Joomla 3.x front-end. Translated by CHN Joomla Translation Team, one of Joomla Accredited Translations.</td>
+  </tr>
+  <tr>
+    <td colspan="2">Joomla 3.4简体中文语言是由Joomla官方翻译组的Derek Joe在Joomla 2.5翻译工作的基础上补充翻译。</td>
+  </tr>
+  <tr>
+    <td colspan="2">Joomla简体中文语言包的主要贡献人：</td>
+  </tr>
+  <tr>
+    <td colspan="2">前台： <a href="http://joomlacode.org/gf/user/wuyujie/" target="_blank">武玉杰</a>(wuyujie)、 <a href="http://joomlacode.org/gf/user/gzpan123/" target="_blank">郭志攀</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">后台： <a href="http://joomlacode.org/gf/user/keydiagram/" target="_blank">Key Diagram</a>、<a href="http://joomlacode.org/gf/user/tchyusuf/">Yusuf  Wang</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">安装： <a href="http://joomlacode.org/gf/user/freechoice/" target="_blank">Johnathan Cheun</a>、<a href="http://joomlacode.org/gf/user/tchyusuf/">Yusuf  Wang</a>、 <a href="http://joomlacode.org/gf/user/zhous/" target="_blank">Derek Joe</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">示范内容及编辑器： <a href="http://joomlacode.org/gf/user/zhous/" target="_blank">Derek Joe</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">多谢大家的奉献精神和辛勤劳动！</td>
+  </tr>
+  <tr>
+    <td width="132"><p><a href="http://www.joomla.cn" target="_blank"><img src="http://www.joomla.cn/images/aboutJoomlaChina.png" alt="囧啦!中国" width="130" height="70" align="left" longdesc="http://www.joomla.cn"><br />
+    </a></p></td>
+    <td valign="middle"><a href="http://www.joomla.cn" target="_blank">Joomla及其扩展汉化的分享与讨论请访问"囧啦!中国"</a><br />
+      <b>欢迎喜欢翻译的朋友</b><br />
+    <a href="http://www.joomla.cn" target="_blank"><b>加入我们的翻译组</b></a></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+ </div>
+  ]]>
+	</description>
+	<files>
+		<filename>index.html</filename>
+		<filename>zh-CN.com_admin.ini</filename>
+		<filename>zh-CN.com_admin.sys.ini</filename>
+		<filename>zh-CN.com_banners.ini</filename>
+		<filename>zh-CN.com_banners.sys.ini</filename>
+		<filename>zh-CN.com_ajax.ini</filename>
+		<filename>zh-CN.com_ajax.sys.ini</filename>
+		<filename>zh-CN.com_cache.ini</filename>
+		<filename>zh-CN.com_cache.sys.ini</filename>
+		<filename>zh-CN.com_categories.ini</filename>
+		<filename>zh-CN.com_categories.sys.ini</filename>
+		<filename>zh-CN.com_checkin.ini</filename>
+		<filename>zh-CN.com_checkin.sys.ini</filename>
+		<filename>zh-CN.com_config.ini</filename>
+		<filename>zh-CN.com_config.sys.ini</filename>
+		<filename>zh-CN.com_contact.ini</filename>
+		<filename>zh-CN.com_contact.sys.ini</filename>
+		<filename>zh-CN.com_content.ini</filename>
+		<filename>zh-CN.com_content.sys.ini</filename>
+		<filename>zh-CN.com_contenthistory.ini</filename>
+		<filename>zh-CN.com_contenthistory.sys.ini</filename>
+		<filename>zh-CN.com_cpanel.ini</filename>
+		<filename>zh-CN.com_cpanel.sys.ini</filename>
+		<filename>zh-CN.com_finder.ini</filename>
+		<filename>zh-CN.com_finder.sys.ini</filename>
+		<filename>zh-CN.com_installer.ini</filename>
+		<filename>zh-CN.com_installer.sys.ini</filename>
+		<filename>zh-CN.com_joomlaupdate.ini</filename>
+		<filename>zh-CN.com_joomlaupdate.sys.ini</filename>
+		<filename>zh-CN.com_languages.ini</filename>
+		<filename>zh-CN.com_languages.sys.ini</filename>
+		<filename>zh-CN.com_login.ini</filename>
+		<filename>zh-CN.com_login.sys.ini</filename>
+		<filename>zh-CN.com_mailto.sys.ini</filename>
+		<filename>zh-CN.com_media.ini</filename>
+		<filename>zh-CN.com_media.sys.ini</filename>
+		<filename>zh-CN.com_menus.ini</filename>
+		<filename>zh-CN.com_menus.sys.ini</filename>
+		<filename>zh-CN.com_messages.ini</filename>
+		<filename>zh-CN.com_messages.sys.ini</filename>
+		<filename>zh-CN.com_modules.ini</filename>
+		<filename>zh-CN.com_modules.sys.ini</filename>
+		<filename>zh-CN.com_newsfeeds.ini</filename>
+		<filename>zh-CN.com_newsfeeds.sys.ini</filename>
+		<filename>zh-CN.com_plugins.ini</filename>
+		<filename>zh-CN.com_plugins.sys.ini</filename>
+		<filename>zh-CN.com_postinstall.ini</filename>
+		<filename>zh-CN.com_postinstall.sys.ini</filename>
+		<filename>zh-CN.com_redirect.ini</filename>
+		<filename>zh-CN.com_redirect.sys.ini</filename>
+		<filename>zh-CN.com_search.ini</filename>
+		<filename>zh-CN.com_search.sys.ini</filename>
+		<filename>zh-CN.com_tags.ini</filename>
+		<filename>zh-CN.com_tags.sys.ini</filename>
+		<filename>zh-CN.com_templates.ini</filename>
+		<filename>zh-CN.com_templates.sys.ini</filename>
+		<filename>zh-CN.com_users.ini</filename>
+		<filename>zh-CN.com_users.sys.ini</filename>
+		<filename>zh-CN.com_weblinks.ini</filename>
+		<filename>zh-CN.com_weblinks.sys.ini</filename>
+		<filename>zh-CN.com_wrapper.ini</filename>
+		<filename>zh-CN.com_wrapper.sys.ini</filename>
+		<filename>zh-CN.ini</filename>
+		<filename>zh-CN.lib_joomla.ini</filename>
+		<filename>zh-CN.localise.php</filename>
+		<filename>zh-CN.mod_custom.ini</filename>
+		<filename>zh-CN.mod_custom.sys.ini</filename>
+		<filename>zh-CN.mod_feed.ini</filename>
+		<filename>zh-CN.mod_feed.sys.ini</filename>
+		<filename>zh-CN.mod_latest.ini</filename>
+		<filename>zh-CN.mod_latest.sys.ini</filename>
+		<filename>zh-CN.mod_logged.ini</filename>
+		<filename>zh-CN.mod_logged.sys.ini</filename>
+		<filename>zh-CN.mod_login.ini</filename>
+		<filename>zh-CN.mod_login.sys.ini</filename>
+		<filename>zh-CN.mod_menu.ini</filename>
+		<filename>zh-CN.mod_menu.sys.ini</filename>
+		<filename>zh-CN.mod_multilangstatus.ini</filename>
+		<filename>zh-CN.mod_multilangstatus.sys.ini</filename>
+		<filename>zh-CN.mod_popular.ini</filename>
+		<filename>zh-CN.mod_popular.sys.ini</filename>
+		<filename>zh-CN.mod_quickicon.ini</filename>
+		<filename>zh-CN.mod_quickicon.sys.ini</filename>
+		<filename>zh-CN.mod_stats_admin.ini</filename>
+		<filename>zh-CN.mod_stats_admin.sys.ini</filename>
+		<filename>zh-CN.mod_status.ini</filename>
+		<filename>zh-CN.mod_status.sys.ini</filename>
+		<filename>zh-CN.mod_submenu.ini</filename>
+		<filename>zh-CN.mod_submenu.sys.ini</filename>
+		<filename>zh-CN.mod_title.ini</filename>
+		<filename>zh-CN.mod_title.sys.ini</filename>
+		<filename>zh-CN.mod_toolbar.ini</filename>
+		<filename>zh-CN.mod_toolbar.sys.ini</filename>
+		<filename>zh-CN.mod_version.ini</filename>
+		<filename>zh-CN.mod_version.sys.ini</filename>
+		<filename>zh-CN.plg_authentication_cookie.ini</filename>
+		<filename>zh-CN.plg_authentication_cookie.sys.ini</filename>
+		<filename>zh-CN.plg_authentication_gmail.ini</filename>
+		<filename>zh-CN.plg_authentication_gmail.sys.ini</filename>
+		<filename>zh-CN.plg_authentication_joomla.ini</filename>
+		<filename>zh-CN.plg_authentication_joomla.sys.ini</filename>
+		<filename>zh-CN.plg_authentication_ldap.ini</filename>
+		<filename>zh-CN.plg_authentication_ldap.sys.ini</filename>
+		<filename>zh-CN.plg_captcha_recaptcha.ini</filename>
+		<filename>zh-CN.plg_captcha_recaptcha.sys.ini</filename>
+		<filename>zh-CN.plg_content_emailcloak.ini</filename>
+		<filename>zh-CN.plg_content_emailcloak.sys.ini</filename>
+		<filename>zh-CN.plg_content_finder.ini</filename>
+		<filename>zh-CN.plg_content_finder.sys.ini</filename>
+		<filename>zh-CN.plg_content_geshi.ini</filename>
+		<filename>zh-CN.plg_content_geshi.sys.ini</filename>
+		<filename>zh-CN.plg_content_joomla.ini</filename>
+		<filename>zh-CN.plg_content_joomla.sys.ini</filename>
+		<filename>zh-CN.plg_content_loadmodule.ini</filename>
+		<filename>zh-CN.plg_content_loadmodule.sys.ini</filename>
+		<filename>zh-CN.plg_content_pagebreak.ini</filename>
+		<filename>zh-CN.plg_content_pagebreak.sys.ini</filename>
+		<filename>zh-CN.plg_content_pagenavigation.ini</filename>
+		<filename>zh-CN.plg_content_pagenavigation.sys.ini</filename>
+		<filename>zh-CN.plg_content_vote.ini</filename>
+		<filename>zh-CN.plg_content_vote.sys.ini</filename>
+		<filename>zh-CN.plg_editors_codemirror.ini</filename>
+		<filename>zh-CN.plg_editors_codemirror.sys.ini</filename>
+		<filename>zh-CN.plg_editors_none.ini</filename>
+		<filename>zh-CN.plg_editors_none.sys.ini</filename>
+		<filename>zh-CN.plg_editors_tinymce.ini</filename>
+		<filename>zh-CN.plg_editors_tinymce.sys.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_article.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_article.sys.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_image.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_image.sys.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_pagebreak.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_pagebreak.sys.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_readmore.ini</filename>
+		<filename>zh-CN.plg_editors-xtd_readmore.sys.ini</filename>
+		<filename>zh-CN.plg_extension_joomla.ini</filename>
+		<filename>zh-CN.plg_extension_joomla.sys.ini</filename>
+		<filename>zh-CN.plg_finder_categories.ini</filename>
+		<filename>zh-CN.plg_finder_categories.sys.ini</filename>
+		<filename>zh-CN.plg_finder_contacts.ini</filename>
+		<filename>zh-CN.plg_finder_contacts.sys.ini</filename>
+		<filename>zh-CN.plg_finder_content.ini</filename>
+		<filename>zh-CN.plg_finder_content.sys.ini</filename>
+		<filename>zh-CN.plg_finder_newsfeeds.ini</filename>
+		<filename>zh-CN.plg_finder_newsfeeds.sys.ini</filename>
+		<filename>zh-CN.plg_finder_tags.ini</filename>
+		<filename>zh-CN.plg_finder_tags.sys.ini</filename>
+		<filename>zh-CN.plg_finder_weblinks.ini</filename>
+		<filename>zh-CN.plg_finder_weblinks.sys.ini</filename>
+		<filename>zh-CN.plg_installer_webinstaller.ini</filename>
+		<filename>zh-CN.plg_installer_webinstaller.sys.ini</filename>
+		<filename>zh-CN.plg_quickicon_extensionupdate.ini</filename>
+		<filename>zh-CN.plg_quickicon_extensionupdate.sys.ini</filename>
+		<filename>zh-CN.plg_quickicon_joomlaupdate.ini</filename>
+		<filename>zh-CN.plg_quickicon_joomlaupdate.sys.ini</filename>
+		<filename>zh-CN.plg_search_categories.ini</filename>
+		<filename>zh-CN.plg_search_categories.sys.ini</filename>
+		<filename>zh-CN.plg_search_contacts.ini</filename>
+		<filename>zh-CN.plg_search_contacts.sys.ini</filename>
+		<filename>zh-CN.plg_search_content.ini</filename>
+		<filename>zh-CN.plg_search_content.sys.ini</filename>
+		<filename>zh-CN.plg_search_newsfeeds.ini</filename>
+		<filename>zh-CN.plg_search_newsfeeds.sys.ini</filename>
+		<filename>zh-CN.plg_search_tags.ini</filename>
+		<filename>zh-CN.plg_search_tags.sys.ini</filename>
+		<filename>zh-CN.plg_search_weblinks.ini</filename>
+		<filename>zh-CN.plg_search_weblinks.sys.ini</filename>
+		<filename>zh-CN.plg_system_cache.ini</filename>
+		<filename>zh-CN.plg_system_cache.sys.ini</filename>
+		<filename>zh-CN.plg_system_debug.ini</filename>
+		<filename>zh-CN.plg_system_debug.sys.ini</filename>
+		<filename>zh-CN.plg_system_highlight.ini</filename>
+		<filename>zh-CN.plg_system_highlight.sys.ini</filename>
+		<filename>zh-CN.plg_system_languagecode.ini</filename>
+		<filename>zh-CN.plg_system_languagecode.sys.ini</filename>
+		<filename>zh-CN.plg_system_languagefilter.ini</filename>
+		<filename>zh-CN.plg_system_languagefilter.sys.ini</filename>
+		<filename>zh-CN.plg_system_log.ini</filename>
+		<filename>zh-CN.plg_system_log.sys.ini</filename>
+		<filename>zh-CN.plg_system_logout.ini</filename>
+		<filename>zh-CN.plg_system_logout.sys.ini</filename>
+		<filename>zh-CN.plg_system_p3p.ini</filename>
+		<filename>zh-CN.plg_system_p3p.sys.ini</filename>
+		<filename>zh-CN.plg_system_redirect.ini</filename>
+		<filename>zh-CN.plg_system_redirect.sys.ini</filename>
+		<filename>zh-CN.plg_system_remember.ini</filename>
+		<filename>zh-CN.plg_system_remember.sys.ini</filename>
+		<filename>zh-CN.plg_system_sef.ini</filename>
+		<filename>zh-CN.plg_system_sef.sys.ini</filename>
+		<filename>zh-CN.plg_twofactorauth_totp.ini</filename>
+		<filename>zh-CN.plg_twofactorauth_totp.sys.ini</filename>
+		<filename>zh-CN.plg_twofactorauth_yubikey.ini</filename>
+		<filename>zh-CN.plg_twofactorauth_yubikey.sys.ini</filename>
+		<filename>zh-CN.plg_user_contactcreator.ini</filename>
+		<filename>zh-CN.plg_user_contactcreator.sys.ini</filename>
+		<filename>zh-CN.plg_user_joomla.ini</filename>
+		<filename>zh-CN.plg_user_joomla.sys.ini</filename>
+		<filename>zh-CN.plg_user_profile.ini</filename>
+		<filename>zh-CN.plg_user_profile.sys.ini</filename>
+		<filename>zh-CN.tpl_hathor.ini</filename>
+		<filename>zh-CN.tpl_hathor.sys.ini</filename>
+		<filename>zh-CN.tpl_isis.ini</filename>
+		<filename>zh-CN.tpl_isis.sys.ini</filename>
+		<filename file="meta">install.xml</filename>
+		<filename file="meta">zh-CN.xml</filename>
+	</files>
+	<params />
+</extension>

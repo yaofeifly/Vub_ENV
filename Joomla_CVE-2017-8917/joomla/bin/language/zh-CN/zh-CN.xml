@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metafile version="3.4" client="site">
+    <tag>zh-CN</tag>
+	<name>中文（简体）</name>
+	<version>3.4.1.2</version>
+	<creationDate>2015-03-03</creationDate>
+	<author>Joomla简体中文翻译组：joomla.cn</author>
+	<authorEmail>zhous1998@sohu.com</authorEmail>
+	<authorUrl>www.joomla.cn</authorUrl>
+	<copyright>Copyright (C) 2005 - 2015 Open Source Matters &amp; 囧啦中国（joomla.cn），版权所有。</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<description>Joomla 3.4 网站前台语言，Joomla简体中文翻译组（joomla.cn）翻译。交流基地：囧啦!中国（joomla.cn）或新浪微博“囧啦中国”（weibo.com/JoomlaChina）</description>
+	<metadata>
+		<name>中文（简体）</name>
+		<tag>zh-CN</tag>
+		<rtl>0</rtl>
+		<locale>zh_CN.utf8, zh_CN.UTF-8, zh, zho, zhi, zh_CN, zho_CN, zhi_CN, chn_CN, cn, simplified_chinese</locale>
+		<firstDay>0</firstDay>
+		<weekEnd>0,6</weekEnd>
+	</metadata>
+	<params />
+</metafile>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.4" client="site" type="language" method="upgrade">
+	<name>Chinese Simplified</name>
+	<tag>zh-CN</tag>
+	<version>3.4.1.2</version>
+	<creationDate>2015-03-03</creationDate>
+	<author>CHN Translation Team: joomla.cn</author>
+	<authorEmail>zhous1998@sohu.com</authorEmail>
+	<authorUrl>www.joomla.cn</authorUrl>
+	<copyright>Copyright (C) 2005 - 2015 简体中文翻译组（joomla.cn）及Open Source Matters，版权所有。</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>
+    <![CDATA[
+<div align="center">
+ <table border="0" width="90%">
+  <table width="100%" border="0">
+  <tr>
+    <td colspan="2">Chinese language for Joomla 3.x front-end. Translated by CHN Joomla Translation Team, one of Joomla Accredited Translations.</td>
+  </tr>
+  <tr>
+    <td colspan="2">Joomla 3.4简体中文语言是由Joomla官方翻译组的Derek Joe在Joomla 2.5翻译工作的基础上补充翻译。</td>
+  </tr>
+  <tr>
+    <td colspan="2">Joomla简体中文语言包的主要贡献人：</td>
+  </tr>
+  <tr>
+    <td colspan="2">前台： <a href="http://joomlacode.org/gf/user/wuyujie/" target="_blank">武玉杰</a>(wuyujie)、 <a href="http://joomlacode.org/gf/user/gzpan123/" target="_blank">郭志攀</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">后台： <a href="http://joomlacode.org/gf/user/keydiagram/" target="_blank">Key Diagram</a>、<a href="http://joomlacode.org/gf/user/tchyusuf/">Yusuf  Wang</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">安装： <a href="http://joomlacode.org/gf/user/freechoice/" target="_blank">Johnathan Cheun</a>、<a href="http://joomlacode.org/gf/user/tchyusuf/">Yusuf  Wang</a>、 <a href="http://joomlacode.org/gf/user/zhous/" target="_blank">Derek Joe</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">示范内容及编辑器： <a href="http://joomlacode.org/gf/user/zhous/" target="_blank">Derek Joe</a></td>
+  </tr>
+  <tr>
+    <td colspan="2">多谢大家的奉献精神和辛勤劳动！</td>
+  </tr>
+  <tr>
+    <td width="132"><p><a href="http://www.joomla.cn" target="_blank"><img src="http://www.joomla.cn/images/aboutJoomlaChina.png" alt="囧啦!中国" width="130" height="70" align="left" longdesc="http://www.joomla.cn"><br />
+    </a></p></td>
+    <td valign="middle"><a href="http://www.joomla.cn" target="_blank">Joomla及其扩展汉化的分享与讨论请访问"囧啦!中国"</a><br />
+      <b>欢迎喜欢翻译的朋友</b><br />
+    <a href="http://www.joomla.cn" target="_blank"><b>加入我们的翻译组</b></a></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>
+ </div>
+  ]]>
+	</description>
+	<files>
+		<filename>index.html</filename>
+		<filename>zh-CN.com_ajax.ini</filename>
+		<filename>zh-CN.com_config.ini</filename>
+		<filename>zh-CN.com_contact.ini</filename>
+		<filename>zh-CN.com_content.ini</filename>
+		<filename>zh-CN.com_finder.ini</filename>
+		<filename>zh-CN.com_mailto.ini</filename>
+		<filename>zh-CN.com_media.ini</filename>
+		<filename>zh-CN.com_messages.ini</filename>
+		<filename>zh-CN.com_newsfeeds.ini</filename>
+		<filename>zh-CN.com_search.ini</filename>
+		<filename>zh-CN.com_tags.ini</filename>
+		<filename>zh-CN.com_users.ini</filename>
+		<filename>zh-CN.com_weblinks.ini</filename>
+		<filename>zh-CN.com_wrapper.ini</filename>
+		<filename>zh-CN.files_joomla.sys.ini</filename>
+		<filename>zh-CN.finder_cli.ini</filename>
+		<filename>zh-CN.ini</filename>
+		<filename>zh-CN.lib_fof.sys.ini</filename>
+		<filename>zh-CN.lib_idna_convert.sys.ini</filename>
+		<filename>zh-CN.lib_joomla.ini</filename>
+		<filename>zh-CN.lib_joomla.sys.ini</filename>
+		<filename>zh-CN.lib_phpmailer.sys.ini</filename>
+		<filename>zh-CN.lib_phputf8.sys.ini</filename>
+		<filename>zh-CN.lib_simplepie.sys.ini</filename>
+		<filename>zh-CN.localise.php</filename>
+		<filename>zh-CN.mod_articles_archive.ini</filename>
+		<filename>zh-CN.mod_articles_archive.sys.ini</filename>
+		<filename>zh-CN.mod_articles_categories.ini</filename>
+		<filename>zh-CN.mod_articles_categories.sys.ini</filename>
+		<filename>zh-CN.mod_articles_category.ini</filename>
+		<filename>zh-CN.mod_articles_category.sys.ini</filename>
+		<filename>zh-CN.mod_articles_latest.ini</filename>
+		<filename>zh-CN.mod_articles_latest.sys.ini</filename>
+		<filename>zh-CN.mod_articles_news.ini</filename>
+		<filename>zh-CN.mod_articles_news.sys.ini</filename>
+		<filename>zh-CN.mod_articles_popular.ini</filename>
+		<filename>zh-CN.mod_articles_popular.sys.ini</filename>
+		<filename>zh-CN.mod_banners.ini</filename>
+		<filename>zh-CN.mod_banners.sys.ini</filename>
+		<filename>zh-CN.mod_breadcrumbs.ini</filename>
+		<filename>zh-CN.mod_breadcrumbs.sys.ini</filename>
+		<filename>zh-CN.mod_custom.ini</filename>
+		<filename>zh-CN.mod_custom.sys.ini</filename>
+		<filename>zh-CN.mod_feed.ini</filename>
+		<filename>zh-CN.mod_feed.sys.ini</filename>
+		<filename>zh-CN.mod_finder.ini</filename>
+		<filename>zh-CN.mod_finder.sys.ini</filename>
+		<filename>zh-CN.mod_footer.ini</filename>
+		<filename>zh-CN.mod_footer.sys.ini</filename>
+		<filename>zh-CN.mod_languages.ini</filename>
+		<filename>zh-CN.mod_languages.sys.ini</filename>
+		<filename>zh-CN.mod_login.ini</filename>
+		<filename>zh-CN.mod_login.sys.ini</filename>
+		<filename>zh-CN.mod_menu.ini</filename>
+		<filename>zh-CN.mod_menu.sys.ini</filename>
+		<filename>zh-CN.mod_random_image.ini</filename>
+		<filename>zh-CN.mod_random_image.sys.ini</filename>
+		<filename>zh-CN.mod_related_items.ini</filename>
+		<filename>zh-CN.mod_related_items.sys.ini</filename>
+		<filename>zh-CN.mod_search.ini</filename>
+		<filename>zh-CN.mod_search.sys.ini</filename>
+		<filename>zh-CN.mod_stats.ini</filename>
+		<filename>zh-CN.mod_stats.sys.ini</filename>
+		<filename>zh-CN.mod_syndicate.ini</filename>
+		<filename>zh-CN.mod_syndicate.sys.ini</filename>
+		<filename>zh-CN.mod_tags_popular.ini</filename>
+		<filename>zh-CN.mod_tags_popular.sys.ini</filename>
+		<filename>zh-CN.mod_tags_similar.ini</filename>
+		<filename>zh-CN.mod_tags_similar.sys.ini</filename>
+		<filename>zh-CN.mod_users_latest.ini</filename>
+		<filename>zh-CN.mod_users_latest.sys.ini</filename>
+		<filename>zh-CN.mod_weblinks.ini</filename>
+		<filename>zh-CN.mod_weblinks.sys.ini</filename>
+		<filename>zh-CN.mod_whosonline.ini</filename>
+		<filename>zh-CN.mod_whosonline.sys.ini</filename>
+		<filename>zh-CN.mod_wrapper.ini</filename>
+		<filename>zh-CN.mod_wrapper.sys.ini</filename>
+		<filename>zh-CN.tpl_beez3.ini</filename>
+		<filename>zh-CN.tpl_beez3.sys.ini</filename>
+		<filename>zh-CN.tpl_protostar.ini</filename>
+		<filename>zh-CN.tpl_protostar.sys.ini</filename>
+		<filename file="meta">install.xml</filename>
+		<filename file="meta">zh-CN.xml</filename>	</files>
+	<params />
+</extension>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="3.4" method="upgrade">
+    <name>简体中文语言包</name>
+    <tag>zh-CN</tag>
+    <packagename>zh-CN</packagename>
+	<version>3.4.1.2</version>
+	<creationDate>2015-03-03</creationDate>
+	<author>CHN Translation Team: joomla.cn</author>
+	<authorEmail>zhous1998@sohu.com</authorEmail>
+	<authorUrl>www.joomla.cn</authorUrl>
+	<copyright>Copyright (C) 2005 - 2015 囧啦中国（joomla.cn）及Open Source Matters，版权所有。</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<packager>Joomla! China</packager>
+	<packagerurl>www.joomla.cn</packagerurl>
+	<description>
+	<![CDATA[
+	<h3>Joomla! 3.4.1简体中文语言包第一版</h3>
+    <h3>Joomla! 3.4.1 Full Simplified Chinese (zh-CN) Language Package version 2</h3>
+	<div>
+	<a href="http://www.joomla.cn" target="_blank"><img src="http://www.joomla.cn/images/joomla.cn_logo.png" alt="囧啦!中国（Joomla.cn）" title="翻译基地：囧啦!中国（Joomla.cn）" /></a>。<br><br>欢迎加入“Joomla使用交流”Q群：154673214、72746093。<br><br>
+	Joomla官方翻译组周朝晖（Derek Zhou）组织翻译。<br><br>感谢Joomla简体中文翻译组的所有志愿者：<br>武玉杰、Key Diagram、Yusuf  Wang、郭志攀、Eric Wong（http://berocks2.com/）、wayne82！<br>欢迎喜欢翻译的朋友加入我们。<br><br>
+	 <br>
+	</div>
+	]]>
+	</description>
+ <files>
+        <file type="language" client="site" id="zh-CN">site_zh-CN.zip</file>
+        <file type="language" client="administrator" id="zh-CN">admin_zh-CN.zip</file>
+  </files>
+    <updateservers>
+        <server type="collection" priority="1" name="Accredited Joomla! Translations">http://update.joomla.org/language/translationlist_3.xml</server>
+    </updateservers>
+</extension>
