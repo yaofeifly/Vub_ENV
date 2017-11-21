@@ -1,0 +1,174 @@
+{template "content","header"}
+<!--main-->
+<div class="main">
+	<div class="col-left">
+    	<div class="news-hot">
+        	<div class="content">
+        	{pc:content  action="position" posid="2" order="listorder DESC" num="4"}
+        	 {loop $data $r}
+                <h4 class="blue"><a href="{$r[url]}" title="{$r[title]}">{str_cut($r[title],36,'')}</a></h4>
+                <p>{if $n==1}<img src="{thumb($r[thumb],90,60)}" width="90" height="60"/>{/if}{str_cut($r[description],112)}</p>
+                <div class="bk20 hr"><hr /></div>
+               {/loop}  
+             {/pc}   
+            </div>
+        </div>
+        <div class="slide">
+            <div class="FocusPic">
+            {pc:content  action="position" posid="1"  order="listorder DESC" thumb="1" num="5"}
+            	<div class="content" id="main-slide">
+                    <div class="changeDiv">  
+                    {loop $data $r}
+                        <a href="{$r['url']}" title="{str_cut($r['title'],30)}"><img src="{thumb($r['thumb'],310,260)}" alt="{$r['title']}" width="310" height="260" /></a>
+                    {/loop}
+                    </div>
+                </div>
+            {/pc}
+            </div>
+            <div class="bk10"></div>
+        	<div class="box extend">
+            	<div class="col-left">争议</div>
+                <div class="col-auto">
+				{pc:block pos="index_block_1"}{/pc}
+				</div>
+                <script language="javascript" src="{APP_PATH}caches/poster_js/10.js"></script>
+            </div>
+        </div>
+        <div class="bk10"></div>
+        <div class="box">
+        		<h5>图片新闻</h5>
+          {pc:content  action="position" posid="12" thumb="1" order="listorder DESC" num="10"}
+            <ul class="content news-photo picbig">
+             {loop $data $r}
+            	<li>
+                    <div class="img-wrap">
+                        <a href="{$r[url]}" title="{$r[title]}"><img src="{thumb($r[thumb],110,0)}" title="{$r[title]}"/></a>
+                    </div>
+                    <a href="{$r[url]}" title="{$r[title]}">{str_cut($r[title],20)}</a>
+                </li>
+                {/loop}
+            </ul>
+            {/pc}
+        </div>
+        <div class="bk10"></div>
+        {loop subcat(0,0,0,$siteid) $r}
+        {php $num++}
+        <div class="box cat-area" {if $num%2!=0}style=" margin-right:10px"{/if}>
+        		<h5 class="title-1">{$r[catname]}<a href="{$r[url]}" class="more">更多>></a></h5>
+             <div class="content">
+             {pc:content  action="lists" catid="$r[catid]" order="updatetime DESC" thumb="1" num="1" return="info"}
+             {loop $info $v}
+             	<p>
+             		<img src="{thumb($v[thumb],90,0)}" width="90" height="60"/>
+                    <strong><a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],28)}</a></strong><br />{str_cut($v['description'],100)}
+                </p>
+              {/loop}
+              {/pc}                
+                <div class="bk15 hr"></div>
+                {pc:content action="lists" catid="$r[catid]" num="5" order="id DESC" return="info"}
+
+                <ul class="list lh24 f14">
+                {loop $info $v}
+                	<li>·<a href="{$v['url']}" target="_blank" title="{$v['title']}"{title_style($v[style])}>{str_cut($v['title'],40)}</a></li>
+                {/loop}
+                </ul>
+                {/pc}
+            </div>
+        </div>
+        {if $num%2==0}<div class="bk10"></div>{/if}
+		{/loop}
+    </div>
+    <div class="col-auto">
+    	<div class="box">
+        	 <h5 class="title-2">公告<a href="" class="more">&nbsp;</a></h5>
+             <div class="content">
+                {pc:announce  action="lists" siteid="$siteid" num="2"}
+                <ul class="list lh24 f14">
+                   {loop $data $r}
+                     <li> <a href="{APP_PATH}index.php?m=announce&c=index&a=show&aid={$r['aid']}">{$r['title']}</a></li>
+                   {/loop}
+                </ul>
+                {/pc}
+            </div>
+        </div>
+        <div class="bk10"></div>
+        <div class="box">
+        	<h5 class="title-2">专题<a href="{APP_PATH}index.php?m=special&c=index&a=special&siteid={$siteid}" class="more">更多>></a></h5>
+            <div class="content special">
+            {pc:special  action="lists" siteid="$siteid" elite="1" listorder="3" num="2"}
+            {loop $data $r}
+            	{if $n!=1}<div class="hr bk15"></div>{/if}
+                <p style="margin:0">
+             		<a href="{$r[url]}"><img src="{$r[thumb]}" width="90" height="70" /></a>
+                    <strong><a href="{$r[url]}">{str_cut($r[title],'18')}</a></strong><br />{str_cut($r['description'],50)}
+                </p>
+            {/loop}
+            {/pc}
+            </div>
+        </div>
+        <div class="bk10"></div>
+        <div class="box">
+            <h5 class="title-2"><span class="rt fn f12 tab SwapTab"><span class="fb">热点</span> | <span >评论</span> | <span>关注</span></span>排行</h5>
+            <div class="tab-content">
+            <ul class="content digg">
+			{pc:content action="hits" catid="6" num="10" order="views DESC"}
+				{loop $data $r}
+					<li><a href="{$r[url]}" target="_blank" title="{$r[title]}"{title_style($r[style])}>{$r[title]}</a></li>
+				{/loop}
+			{/pc}
+            </ul>
+            <ul class="content digg hidden">
+			{pc:comment action="bang" num="10" cache="3600"}
+				{loop $data $r}
+					<li><a href="{$r[url]}" target="_blank">{$r[title]}</a></li>
+				{/loop}
+			{/pc}
+            </ul>
+            <ul class="content digg hidden">
+			{pc:content action="hits" catid="6" num="10" order="views DESC"}
+				{loop $data $r}
+					<li><a href="{$r[url]}" target="_blank">{$r[title]}</a></li>
+				{/loop}
+			{/pc}
+            </ul>
+            </div>
+        </div><div class="bk10"></div>
+        <div class="box">
+            <h5 class="title-2">调查问卷<a href="{APP_PATH}index.php?m=vote&c=index&siteid={$siteid}" class="more">更多>></a></h5>
+ 
+<script language="javascript" src="{APP_PATH}index.php?m=vote&c=index&a=show&action=js&subjectid=1&type=3"></script>
+        </div>
+    </div>
+    <div class="bk10"></div>
+	
+	<div class="box blogroll ylink">
+    	<h5><a href="{APP_PATH}index.php?m=link&siteid={$siteid}" hidefocus="true" class="rt">更多>></a>友情链接<a href="{APP_PATH}index.php?m=link&c=index&a=register&siteid={$siteid}" class="red">申请链接</a></h5>
+        <div class="bk10"></div>
+	<ul class="colli imgul">
+        {pc:link  action="type_list" siteid="$siteid" linktype="1" order="listorder DESC" num="8" return="pic_link"}
+        {loop $pic_link $v}
+        <li><a href="{$v['url']}" title="{$v['name']}" target="_blank"><img src="{$v[logo]}" width="88" height="31" /></a></li>
+        {/loop}
+        {/pc}
+    </ul>
+     {pc:link  action="type_list" siteid="$siteid" order="listorder DESC" num="10" return="dat"}
+     <div class="bk10"></div>
+	<div class="linka">
+		{loop $dat $v}
+              {if $type==0}
+              <a href="{$v[url]}" target="_blank">{$v[name]}</a> |
+              {else}
+              <a href="{$v[url]}" target="_blank"><img src="{$v[logo]}" width="88" height="31" style="border: 1px solid #FFBE7A;"></a> 
+              {/if}
+		{/loop}
+ 	</div>
+	{/pc}
+</div>
+</div>
+<script type="text/javascript"> 
+$(function(){
+	new slide("#main-slide","cur",310,260,1);//焦点图
+	new SwapTab(".SwapTab","span",".tab-content","ul","fb");//排行TAB
+})
+</script>
+{template "content","footer"}
