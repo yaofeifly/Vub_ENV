@@ -15,15 +15,15 @@ Ubuntu 64位操作系统。
 
 ## **【实验步骤】**
 
-**步骤1：**访问环境url，点击进行测试环境
+**步骤1：** 访问环境url，点击进行测试环境
 
-**步骤2：**通过Python脚本构造反弹shell的payload
+**步骤2：** 通过Python脚本构造反弹shell的payload
 
-**步骤3：**通过burpsuite对数据进行截获和修改，把经过base64编码过的payload放入cookie字段
+**步骤3：** 通过burpsuite对数据进行截获和修改，把经过base64编码过的payload放入cookie字段
 
-**步骤4：**通过burpsuite对数据进行重新发送，通过对反弹shell的端口进行监听
+**步骤4：** 通过burpsuite对数据进行重新发送，通过对反弹shell的端口进行监听
 
-**步骤5：**反弹shell成功对目录进行扫描，查看flag.txt，通过命令执行查看flag.txt获取flag。
+**步骤5：** 反弹shell成功对目录进行扫描，查看flag.txt，通过命令执行查看flag.txt获取flag。
 
 执行结果：
 先通过Python脚本获取反弹shell的命令payload：
