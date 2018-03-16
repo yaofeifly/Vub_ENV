@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>留言本信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form method="post" action="admin_data.php?ac=save&tab=gbook" name="form1" id="form1">
+<input id="g_id" name="g_id" type="hidden" value="{g_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<table class="tb">
+	<tr><th class="thfirst">留言内容：</th></tr>
+	<tr><td><textarea id="g_content" rows="8" style="width:100%;" name="g_content">{g_content}</textarea></td></tr>
+	<tr><th class="thfirst">回复内容：</th></tr>
+	<tr><td><textarea id="g_reply" rows="8" style="width:100%;" name="g_reply">{g_reply}</textarea></td></tr>
+	<tr>
+    <td align="center"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>会员管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(checkCount('u_id[]')==0){alert("请至少选择一个数据");return;}
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=user");
+			$("#form1").submit();
+		}
+	});
+	$("#btnAdd").click(function(){
+		location.href='?m=user-info';
+	});
+	$("#btnSearch").click(function(){
+		location.href='?m=user-list-group-'+$("#group").val()+'-status-'+$("#status").val()+'-wd-'+encodeURI($("#wd").val());
+	});
+});
+</script>
+</head>
+<body>
+<table class="tbinfo pleft">
+	<thead>
+		<tr><th><span style="float:left">会员管理</span><span style="float:right;"></span> </th></tr>
+	</thead>
+    <tr>
+    <td>筛选条件：
+	<select id="group" name="group">
+	<option value="">会员组别</option>
+	<!-- BEGIN list_group -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_group -->
+	</select>
+	&nbsp;
+	<select id="status" name="status">
+	<option value="">会员状态</option>
+	<!-- BEGIN list_status -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_status -->
+	</select>
+	&nbsp;关键字：<input id="wd" size="40" name="wd" onClick="this.select();" value="{wd}">
+	<input class="input" type="button" value="搜索" id="btnSearch">
+	</td>
+	</tr>
+</table>
+<form method="POST" name="form1" id="form1">
+<table class="tb">
+	<tr>
+		<th width="50" class="thfirst">编号</th>
+		<th>名称</th>
+		<th width="150">会员组</th>
+		<th width="100">状态</th>
+		<th width="100">计费类型</th>
+      	<th width="100">积分</th>
+      	<th width="100">推荐人数</th>
+      	<th width="150">最后登录</th>
+      	<th width="100">登录次数</th>
+		<th width="100">操作</th>
+	</tr>
+<!-- IF isnull -->
+<tr><td colspan="10" align="center">未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_user -->
+	<tr>
+    	<td><input name="u_id[]" type="checkbox" id="u_id" value="{u_id}" />{u_id}</td>
+      	<td>{u_name}</td>
+      	<td>{u_group}</td>
+		<td>{u_status}</td>
+      	<td>{u_flag}</td>
+      	<td>{u_points}</td>
+      	<td>{u_extend}</td>
+      	<td>{u_logintime}</td>
+      	<td>{u_loginnum}</td>
+      	<td>
+	    <a href="?m=user-info-id-{u_id}">修改</a> |
+	    <a href="admin_data.php?ac=del&tab=user&u_id={u_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	    </td>
+	</tr>
+	<!-- END list_user -->
+	<tr align="center">
+      <td colspan="10"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+	<tr><td colspan="10">
+    <input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('u_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('u_id[]');">
+	<input type="button" value="添加" id="btnAdd" class="input" />
+	<input type="button" value="删除" id="btnDel" class="input" />
+    </td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

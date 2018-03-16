@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>定时挂机任务 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+var b=false;
+var iv_cj,iv_makeinfo,iv_makeindex,iv_maketype;
+var url='',typeids='';
+
+$(function(){
+	$("#btnGO").click(function(){
+		var time = new Array();
+		time['cj'] = Number($("#ds_cj").val());
+		time['makeinfo'] = Number($("#ds_makeinfo").val());
+		time['makeindex'] = Number($("#ds_makeindex").val());
+		time['maketype'] = Number($("#ds_maketype").val());
+		if(time['cj'] > 0){
+			iv_cj = window.setInterval('cj()',1000*60* time['cj']);
+		}
+		if(time['makeinfo'] > 0){
+			iv_makeinfo = window.setInterval('makeinfo()',1000*60* time['makeinfo']);
+		}
+		if(time['makeindex'] > 0){
+			iv_makeindex = window.setInterval('makeindex()',1000*60* time['makeindex']);
+		}
+		if(time['maketype'] > 0){
+			$.ajax({
+				type: 'get',
+				cache: false,
+				dataType: 'text',
+				url: "admin_data.php?ac=typenow&tab=vod",
+				timeout: 3000, 
+				success:function(r){
+					
+				}
+			});
+			iv_maketype = window.setInterval('maketype()',1000*60* time['maketype']);
+		}
+		$("#dsinfo").css("display",'');
+		$(this).val('执行中...');
+		$("#btnGO").attr('disabled',true);
+		$("#btnCancel").attr('disabled',false);
+		$b=true;
+		
+	});
+	$("#btnCancel").click(function(){
+		window.clearInterval(iv_cj);
+		window.clearInterval(iv_makeinfo);
+		window.clearInterval(iv_makeindex);
+		window.clearInterval(iv_maketype);
+		$("#sp_cj").html('');
+		$("#sp_makeinfo").html('');
+		$("#sp_makeindex").html('');
+		$("#sp_maketype").html('');
+		$("#dsinfo").css("display",'none');
+		$("#btnGO").val('执行任务');
+		$("#btnGO").attr('disabled',false);
+		$("#btnCancel").attr('disabled',true);
+		$b=false;
+	});
+});
+function cj()
+{
+	var rc=false;
+	if(url==''){
+		$("#ds_url option:selected").each(function() {
+			if(rc){ url+=','; }
+			url += $(this).val();
+			rc=true;
+		});
+    }
+	else{
+		$("#sp_cj").html("<iframe width='100%' height='200' src='"+url+"' scrolling='auto'></iframe>");
+	}
+}
+function makeinfo()
+{
+	$("#sp_makeinfo").html("<iframe width='100%' height='200' src='index.php?m=make-info-tab-vod-min-10' scrolling='auto'></iframe>");
+}
+function makeindex()
+{
+	$("#sp_makeindex").html("<iframe width='100%' height='200' src='index.php?m=make-index-tab-vod-jump-1' scrolling='auto'></iframe>");
+}
+function maketype()
+{
+	$("#sp_maketype").html("<iframe width='100%' height='200' src='index.php?m=make-type-tab-vod-ids-"+typeids+"' scrolling='auto'></iframe>");
+}
+function reflogin()
+{
+	$("#sp_reflogin").html("<iframe width='100%' height='100' src='index.php?m=admin-wel' scrolling='auto' style='display:none'></iframe>");
+}
+
+</script>
+<style type="text/css">
+table{ border:1px solid #F0F0F0; font-size:12px; padding:5px； }
+input{ text-align:center}
+.w50{ width:50px}
+.w500{ width:500px}
+select{ font-size:16px; }
+</style>
+</head>
+<body>
+<div style="width:650px; height:350px; margin:0 auto;">
+<table class="tbinfo pleft">
+<thead><th colspan="2">定时采集生成插件WEB挂机版</th></thead>
+<tr>
+<td width="50%" rowspan="5"> <div style="height:300px;"> <script src="http://www.maccms.com/union/xmlutf_2014_ds.js" charset="utf-8"></script></div></td>
+<td>采集抓取频率(分钟/次)： <input id="ds_cj" name="ds_cj" type="text"  value="5" class="w50"/></td>
+</tr>
+<tr>
+<td>内容生成频率(分钟/次)： <input id="ds_makeinfo" name="ds_makeinfo" type="text"  value="6" class="w50"/></td>
+</tr>
+<tr>
+<td>首页生成频率(分钟/次)： <input id="ds_makeindex" name="ds_makeindex" type="text"  value="20" class="w50"/></td>
+</tr>
+<tr>
+<td>栏目生成频率(分钟/次)： <input id="ds_maketype" name="ds_maketype" type="text"  value="120" class="w50"/></td>
+</tr>
+<tr>
+<td>注：不需要定时操作的模块,请填写0</td>
+</tr>
+<tr><td colspan="2" style="text-align:center"><input class="input" type="button" id="btnGO" value="执行任务"/>&nbsp;<input class="input" type="button" id="btnCancel" value="停止执行" disabled=true/></td></tr>
+</table>
+</div>
+<br><br><br><br>
+<div id="dsinfo" style="width:650px;margin:0 auto;display:none;">
+<table border='0' cellpadding='0' cellspacing='0' width='760' height='100%' align='center' style="border:1px solid #CCCCCC; font-size:12px">
+<tr><td valign='top' id='sp_cj' height='150'>定时采集等侍中...</td></tr>
+<tr><td valign='top' height='1' style="background:#e8e8e8"></td></tr>
+<tr><td valign='top' id='sp_makeinfo' height='150'>生成内容页等侍中...</td></tr>
+<tr><td valign='top' height='1' style="background:#e8e8e8"></td></tr>
+<tr><td valign='top' id='sp_makeindex' height='150'>生成首页等侍中...</td></tr>
+<tr><td valign='top' height='1' style="background:#e8e8e8"></td></tr>
+<tr><td valign='top' id='sp_maketype' height='150'>生成栏目页等侍中...</td></tr>
+</table>
+<span id="sp_reflogin"></span>
+</div>
+</body>
+</html>

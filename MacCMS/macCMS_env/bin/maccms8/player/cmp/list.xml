@@ -1,0 +1,31 @@
+﻿<!--
+CMP音乐列表文件
+
+所有列表参数说明请见：http://bbs.cenfun.com/thread-10893-1-1.html
+
+更多详细参数说明，请参见CMP交流论坛http://bbs.cenfun.com/
+-->
+<list>
+  <m type="" src="music/test.mp3" lrc="lrc/lrc.txt" label="1,MP3音乐测试" />
+  <m type="" src="music/test.flv" lrc="" label="2,FLV视频测试" />
+  <m type="3" src="music/test.mp3" lrc="" label="3,WMP类型测试" />
+  <m type="" src="plugins/bigbg.swf" lrc="lrc/kmc.xml" scalemode="1" duration="10" label="4,Flash播放测试" />
+  <m type="" src="logo.png" lrc="" scalemode="1" duration="5" label="4,图片播放测试" />
+  <m label="歌词lrc/kmc">
+    <m type="" src="music/test.mp3" lrc="lrc/lrc.txt" label="lrc歌词" />
+    <m type="" src="music/test.mp3" lrc="lrc/kmc.xml" label="kmc卡拉OK歌词" />
+    <m type="" src="music/test.mp3" lrc="lrc/text.htm" label="文本歌词(支持简单html)" />
+  </m>
+  <m list_src="list.xml" label="子列表" />
+  <m label="目录">
+    <m label="二级目录">
+      <m label="三级目录">
+        <m type="" src="music/test.mp3" lrc="" label="test" />
+      </m>
+    </m>
+    <m type="" src="music/test.mp3" lrc="" label="test" />
+  </m>
+  <m label="打开的目录" opened="1">
+    <m type="" src="music/test.mp3" lrc="" label="test" />
+  </m>
+</list>

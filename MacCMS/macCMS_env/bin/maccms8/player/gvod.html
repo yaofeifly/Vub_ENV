@@ -1,0 +1,12 @@
+<script src="http://union.maccms.com/player8/gvod.js" type="text/javascript"></script>
+<script> 
+var gvod = gvod_player();
+gvod.height = parent.MacPlayer.Height;
+gvod.width = parent.MacPlayer.Width;
+gvod.stickPage = "http://union.maccms.com/html/loading.html"
+gvod.nextPage = parent.MacPlayer.GetNextUrl();
+gvod.nextUrl = parent.MacPlayer.PlayUrl1;
+gvod.title = parent.MacPlayer.PlayName;
+gvod.installPage="http://union.maccms.com/html/gvod.html";
+gvod.play(parent.MacPlayer.PlayUrl);
+</script>

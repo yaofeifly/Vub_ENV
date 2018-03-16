@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>{maccms:name} - 用户登录 </title>
+<meta name="keywords" content="{maccms:keywords}"/>
+<meta name="description" content="{maccms:description}"/>
+<link href="{maccms:path}template/user/css/base.css" type="text/css" rel="stylesheet"/>
+<link href="{maccms:path}template/user/css/qirebox.css" type="text/css" rel="stylesheet"/>
+<script>var SitePath='{maccms:path}',SiteAid='{maccms:siteaid}',SiteTid='{maccms:sitetid}',SiteId='{maccms:siteid}';</script>
+<script src="{maccms:path}js/jquery.js"></script>
+<script src="{maccms:path}js/common.js"></script>
+<script src="{maccms:path}template/user/js/formValidator-4.0.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){	
+	$("body").bind('keyup',function(event) {
+		if(event.keyCode==13){ $('#btnLogin').click(); }
+	}); 
+	$('#btnLogin').click(function() {
+		if ($('#u_name').val()  == '') { alert('请输入用户！'); $("#u_name").focus(); return false; }
+		if ($('#u_password').val()  == '') { alert('请输入密码！'); $("#u_password").focus(); return false; }
+		$("#form1").submit();
+	});
+});
+</script>
+</head>
+<body>
+<div class="layout" id="sign-header">
+	<div id="sign-logo">
+		<a href="{maccms:path}"><img src="{maccms:path}template/user/images/logo.png" alt=""/></a>
+	</div>
+</div>
+<!-- // sign-header end -->
+<div class="layout" id="sign-content">
+	<div class="ui-box ui-qire sign-focus" id="login-box">
+		<div class="ui-title fn-clear">
+			<span>还没有会员帐号？请<a href="index.php?m=user-reg.html">注册会员</a></span>
+			<h2>{maccms:name}会员登录</h2>
+		</div>
+		<div class="ui-cnt fn-clear">
+			<form id="loginform_web" method="post" action="index.php?m=user-check.html">
+	      	<input id="flag" name="flag" type="hidden" value="center">
+				<div class="ui-form" id="sign-primary">
+					<div class="ui-form-item fn-clear">
+						<label for="u_name" class="ui-label w100">您的帐号：</label><input type="text" id="u_name" name="u_name" class="ui-input w220" value=""/>
+						<p class="ui-message" id="u_nameTip">
+							请输入有效的用户名
+						</p>
+					</div>
+					<div class="ui-form-item fn-clear">
+						<label for="u_password" class="ui-label w100">密码：</label><input type="password" id="u_password" name="u_password" maxlength="20" class="ui-input w220" value=""/>
+						<p class="ui-message" id="u_passwordTip">
+							6-16个字符
+						</p>
+					</div>
+					<div class="ui-form-item ui-form-checkbox fn-clear">
+						<label class="ui-label w100">&nbsp;</label>
+						<div class="ui-form-block w220">
+							<label for="remember" class="ui-label-checkbox"><input type="checkbox" name="remember" id="remember" checked="checked" value="1"/>下次自动登录
+							</label><a href="index.php?m=user-findpass.html">忘记密码了？</a>
+						</div>
+					</div>
+					<div class="ui-form-item fn-clear">
+						<label class="ui-label w100">&nbsp;</label><input type="submit" id="btnLogin" class="ui-button w220" value="用户登录"/>
+						
+					</div>
+				</div>
+				<!-- // ui-form#sign-primary end -->
+			</form>
+			<div id="sign-app">
+				<div class="sign-app-list">
+					<h5>注册通行证可享会员服务</h5>
+					<h5>收费影片</h5>
+					<h5>会员影片</h5>
+					<h5>特殊影片</h5>
+					
+					<h5>你还可以用以下方式直接登录：</h5>
+					<a href="{maccms:path}index.php?m=user-reg-ref-qqlogin.html"><img src="{maccms:path}template/user/images/qq_login.gif" alt=""/></a>
+				</div>
+			</div>
+			<!-- // sign-app end -->
+		</div>
+	</div>
+	<!-- // sign-box#regbox end -->
+	<script type="text/javascript">
+		$.formValidator.initConfig({
+			formID:"loginform_web",
+			debug:false,
+			submitOnce:false,
+			onSuccess:function(){
+				//alert('dddddddddddddd');
+				$("#loginform_web").qiresub({
+					curobj:$("#loginform_web #loginbt"),
+					txt:'数据提交中,请稍后...',
+					onsucc:function(result){
+						$.hidediv(result);
+					}
+				}).post({url:'/user-login-viluser'});
+				return false;
+			},
+			onError:function(msg,obj,errorlist){
+				$("#errorlist").empty();
+				$.map(errorlist,function(msg){
+					$("#errorlist").append("<li>" + msg + "</li>")
+				});
+				//alert(msg);
+			},
+			submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...'
+		});
+		$("#loginform_web #u_name").formValidator({
+			onShow:"请输入正确的用户名",
+			onFocus:"至少4个字符",
+			onCorrect:"填写正确"
+		})
+		.inputValidator({
+			min:4,
+			onError:"你输入的用户名非法,请确认"
+		});
+		$("#loginform_web #u_password").formValidator({
+			onShow:"请输入密码",
+			onFocus:"至少6个长度",
+			onCorrect:"密码合法"
+		})
+		.inputValidator({
+			min:6,
+			empty:{
+				leftEmpty:false,
+				rightEmpty:false,
+				emptyError:"密码两边不能有空符号"
+			},
+			onError:"你输入的密码非法,请确认"
+		});
+	</script>
+</div>
+{foot}
+</body>
+</html>

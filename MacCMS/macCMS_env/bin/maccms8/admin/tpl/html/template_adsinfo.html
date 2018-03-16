@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>自定义广告信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			file:{
+				required:true,
+				maxlength:64
+			}
+		}
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form method="post" action="?m=template-adssave" name="form1" id="form1">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">广告文件信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="150" class="hl" >广告文件名：</td>
+	<td class="hl"><input id="file" size=50 value="{file}" name="file" {readonly}>.js
+	&nbsp;&nbsp;&nbsp;广告内容需要html转js操作，否则无法正常显示。
+	</td>
+	</tr>
+	<tr>
+	<td>广告代码：</td>
+	<td><textarea id="filecontent" name="filecontent" style="width:90%;" rows="15">{filecontent}</textarea></td>
+	</tr>
+	<tr>
+	<td colspan="2" align="center"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"></td>
+	</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

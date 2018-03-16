@@ -1,0 +1,494 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>网站参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#htmltabs li").each(function(i,row){
+		if($.cookie("configtab")==i && i>0){
+			settab(i);
+		}
+	});
+	$("#btnMemCached").click(function(){
+		$.get("admin_data.php?ac=memcached&host="+$("#app_memcachedhost").val()+"&port="+$("#app_memcachedport").val(),function(r){
+			if(r=='ok'){alert('恭喜测试可用');}else{alert('不可用请检查配置项');}
+		});
+	});
+	$("input[@type=radio][name=upload_thumb]").bind("click",function(){
+		$(this).val() == 0 ? $("#thumbop").hide() :$("#thumbop").show();
+	});
+	$("input[@type=radio][name=upload_watermark]").bind("click",function(){
+		$(this).val() == 0 ? $("#opw").hide() :$("#opw").show();
+	});
+	$("input[@type=radio][name=app_cachetype]").bind("click",function(){
+		$(this).val() == 0 ? $("#memcachedinfo").hide() :$("#memcachedinfo").show();
+	});
+	var upload_thumb_val = $("input[@type=radio][name=upload_thumb][checked]").val();
+	if(upload_thumb_val==1){ $("#thumbop").show(); }
+	var upload_watermark_val = $("input[@type=radio][name=upload_watermark][checked]").val();
+	if(upload_watermark_val==1){ $("#opw").show(); }
+	var app_cachetype_val = $("input[@type=radio][name=app_cachetype][checked]").val();
+	if(app_cachetype_val==1){ $("#memcachedinfo").show(); }
+	
+});
+
+function settab(to){
+	$("#htmltabs li").each(function(i,row){
+		if("tabs.title"+ to == $(this).attr("id")){
+			$("#tab"+i).show(); $(this).attr("class","hover");
+		}
+		else{
+			$("#tab"+i).hide(); $(this).removeClass("hover");
+		}
+	});
+	$.cookie("configtab",to);
+}
+function sethtmldir(id,value){
+	if(value){
+		$('#'+id).val(value);
+	}
+}
+</script>
+</head>
+<body>
+<form method="post" action="?m=system-configsave" id="form1" name="form1">
+	<ul id="htmltabs" style="padding:0">
+		<li id="tabs.title0" class="hover" onclick="settab('0');" style="cursor:pointer">站点</li>
+		<li id="tabs.title1" onclick="settab('1');" style="cursor:pointer">常用</li>
+		<li id="tabs.title2" onclick="settab('2');" style="cursor:pointer">会员</li>
+		<li id="tabs.title3" onclick="settab('3');" style="cursor:pointer">其他</li>
+		<li id="tabs.title4" onclick="settab('4');" style="cursor:pointer">附件</li>
+		<li>&nbsp;&nbsp;&nbsp;<input type="submit" id="btnSave" class="input" value="更新参数">&nbsp;如配置出错，请手动修改 inc/config/config.php文件。</li>
+	</ul>
+	
+	<table class="tbinfo pleft" id="tab0" style="display:">
+	<tr> 
+      <td width="150" class="hl">网站名称：</td>
+      <td class="hl"><input name="site_name" value="{site_name}" size="60"> 
+       <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>网站域名：</td>
+      <td><input name="site_url" value="{site_url}" size="60">
+        <font color="#FF0000">＊</font> 如：www.maccms.com,不要加http://</td>
+    </tr>
+    <tr>
+      <td>网站关键字：</td>
+      <td><input name="site_keywords" value="{site_keywords}" size="60">
+       <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>网站描述信息：</td>
+      <td><input name="site_description" value="{site_description}" size="60">
+       <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>网站备案号：</td>
+      <td><input name="site_icp" value="{site_icp}" size="60"></td>
+    </tr>
+    <tr>
+      <td>站长QQ号码：</td>
+      <td><input name="site_qq" value="{site_qq}" size="60"></td>
+    </tr>
+    <tr>
+      <td>站长Email邮箱：</td>
+      <td><input name="site_email" value="{site_email}" size="60"></td>
+    </tr>
+    <tr>
+      <td>安装目录：</td>
+      <td><input name="site_installdir" value="{site_installdir}" size="60">
+        <font color="#FF0000">＊</font> 根目录 ＂/＂，二级目录 ＂/maccms/＂以此类推 </td>
+    </tr>
+        <tr>
+          <td>当前使用模板：</td>
+          <td><select name="site_templatedir" style="width:100px" >
+          <!-- BEGIN list_site_templatedir -->
+          <option value="{v}" {c}>{n}</option>
+          <!-- END list_site_templatedir -->
+          </select>
+          &nbsp;模板目录：<input name="site_htmldir" value="{site_htmldir}" size="10"/>
+        </td>
+    </tr>
+    <tr>
+      <td>统计代码：</td>
+      <td><textarea name="site_tj" style="width:600px;height:80px">{site_tj}</textarea>
+      	<font color="#FF0000">＊</font>
+      </td>
+    </tr>
+    <tr>
+		<td>提示信息：</td>
+	    <td><font color="#FF0000">为了安全不提供在线配置数据库连接信息，如需修改请手工配置inc/config/config.php配置项。</font></td>
+	</tr>
+	</table>
+	
+	
+	<table class="tbinfo pleft" id="tab1" style="display:none;">
+	<tr>
+      <td width="150" class="hl">缓存类型方式：</td>
+      <td class="hl">
+      	<!-- BEGIN list_app_cachetype -->
+		<input type="radio" name="app_cachetype" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_app_cachetype -->
+		<font id="memcachedinfo" style="display:none;">&nbsp;
+			服务器IP：<input id="app_memcachedhost" name="app_memcachedhost" value="{app_memcachedhost}" size=30>
+			&nbsp;端口：<input id="app_memcachedport" name="app_memcachedport" value="{app_memcachedport}" size=30>
+			&nbsp;<input class="input" type="button" id="btnMemCached" value="测试">
+		</font>
+	  </td>
+    </tr>
+    <tr>
+      <td>常用资源缓存：</td>
+      <td>
+      	<!-- BEGIN list_app_cache -->
+		<input type="radio" name="app_cache" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_app_cache -->
+	  </td>
+    </tr>
+    <tr>
+      <td>动态页面缓存：</td>
+      <td>
+      	<!-- BEGIN list_app_dynamiccache -->
+		<input type="radio" name="app_dynamiccache" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_app_dynamiccache -->
+	  </td>
+    </tr>
+    <tr>
+      <td>压缩页面代码：</td>
+      <td>
+      	<!-- BEGIN list_app_compress -->
+		<input type="radio" name="app_compress" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_app_compress -->
+	  </td>
+    </tr>
+   	<tr>
+      <td>缓存时间(分)：</td>
+      <td>
+      	<input name="app_cachetime" value="{app_cachetime}" size="10">
+        <font color="#FF0000">＊</font>
+      </td>
+    </tr>
+    <tr>
+      <td>后台列表显示数量：</td>
+      <td><input name="app_pagesize" value="{app_pagesize}" size="10">
+      	<font color="#FF0000">＊</font>
+      </td>
+    </tr>
+    <tr>
+      <td>后台登陆安全码：</td>
+      <td><input name="app_safecode" value="{app_safecode}" size="10">
+      	<font color="#FF0000">＊</font>
+      </td>
+    </tr>
+    <tr>
+      <td>页面后缀名：</td>
+      <td>
+		<select name="app_suffix" style="width:100px">
+		<!-- BEGIN list_app_suffix -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_app_suffix -->
+		</select>
+		&nbsp;生成页面间隔：
+		<input name="app_maketime" value="{app_maketime}" size="5">秒
+		&nbsp;每次生成数量：
+		<input name="app_makesize" value="{app_makesize}" size="5">条</td>
+    </tr>
+	<tr>
+      <td>视频播放器显示排序：</td>
+      <td>
+      	<!-- BEGIN list_app_playersort -->
+		<input type="radio" name="app_playersort" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_app_playersort -->
+      </td>
+    </tr>
+    <tr>
+      <td>视频地区列表：</td>
+      <td><input name="app_area" value="{app_area}" size="100">
+      	<font color="#FF0000">＊</font>
+      </td>
+    </tr>
+    <tr>
+      <td>视频语言列表：</td>
+      <td><input name="app_lang" value="{app_lang}" size="100">
+      	<font color="#FF0000">＊</font>
+      </td>
+    </tr>
+    <tr>
+      <td>视频加密地址：</td>
+      <td>
+        <select name="app_encrypt" style="width:150px">
+        <!-- BEGIN list_app_encrypt -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_app_encrypt -->
+        </select>
+        &nbsp;弹窗播放下载：
+        <select name="app_isopen" style="width:150px">
+        <!-- BEGIN list_app_isopen -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_app_isopen -->
+        </select>
+        </td>
+    </tr>
+	</table>
+    
+	<table class="tbinfo pleft" id="tab2" style="display:none">
+	<tr>
+      <td width="150" class="hl">会员中心状态：</td>
+      <td class="hl">
+      	<!-- BEGIN list_user_status -->
+		<input type="radio" name="user_status" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_user_status -->
+	  </td>
+    </tr>
+	<tr>
+      <td>是否开启会员注册：</td>
+      <td>
+      	<!-- BEGIN list_user_reg -->
+		<input type="radio" name="user_reg" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_user_reg -->
+       </td>
+    </tr>
+	<tr>
+      <td>注册用户默认状态：</td>
+      <td>
+      	<!-- BEGIN list_user_regstate -->
+		<input type="radio" name="user_regstate" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_user_regstate -->
+      </td>
+    </tr>
+    <tr>
+      <td>是否开启推广赚积分：</td>
+      <td>
+      	<!-- BEGIN list_user_popularizestate -->
+		<input type="radio" name="user_popularizestate" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_user_popularizestate -->
+      </td>
+    </tr>
+    <tr>
+      <td>注册用户默认会员组：</td>
+      <td>
+        <select name="user_reggroup" id="user_reggroup">
+        	<option value="0">请选择会员组</option>
+        	<!-- BEGIN list_user_reggroup -->
+			<option value="{v}" {c}>{n}</option>
+			<!-- END list_user_reggroup -->
+        </select>(必须先建立好会员组)
+      </td>
+    </tr>
+    <tr>
+      <td>注册赠送点数：</td>
+      <td>
+      	<input name="user_regpoint" value="{user_regpoint}" size="10" />
+        <font color="#FF0000">＊</font></td>
+    </tr>
+    <tr>
+      <td>每推广1个人获取积分数：</td>
+      <td>
+        <input name="user_popularize" value="{user_popularize}" size="10"/>
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>包周所需积分数：</td>
+      <td>
+      	<input name="user_weekpoint" value="{user_weekpoint}" size="10" />
+        <font color="#FF0000">＊</font></td>
+    </tr>
+    <tr>
+      <td>包月所需积分数：</td>
+      <td>
+      	<input name="user_monthpoint" value="{user_monthpoint}" size="10" />
+        <font color="#FF0000">＊</font></td>
+    </tr>
+    <tr>
+      <td>包年所需积分数：</td>
+      <td>
+      	<input name="user_yearpoint" value="{user_yearpoint}" size="10" />
+        <font color="#FF0000">＊</font></td>
+    </tr>
+	</table>
+	
+	<table class="tbinfo pleft" id="tab3" style="display:none">
+    <tr>
+      <td width="150" class="hl">留言本状态：</td>
+      <td class="hl">
+      	<!-- BEGIN list_other_gbook -->
+		<input type="radio" name="other_gbook" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_other_gbook -->
+	  </td>
+    </tr>
+    <tr>
+      <td>留言是否审核：</td>
+      <td>
+      	<!-- BEGIN list_other_gbookaudit -->
+		<input type="radio" name="other_gbookaudit" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_other_gbookaudit -->
+	  </td>
+    </tr>
+    <tr>
+      <td>留言是否开启验证码：</td>
+      <td>
+      	<!-- BEGIN list_other_gbookverify -->
+		<input type="radio" name="other_gbookverify" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_other_gbookverify -->
+	  </td>
+    </tr>
+    <tr>
+      <td>留言本每页显示个数：</td>
+      <td><input name="other_gbooknum" value="{other_gbooknum}" size="10">
+        </td>
+    </tr>
+    <tr>
+      <td>留言时间间隔(单位:秒)：</td>
+      <td><input name="other_gbooktime" value="{other_gbooktime}" size="10">
+        </td>
+    </tr>
+    <tr>
+      <td>评论状态：</td>
+      <td>
+      	<!-- BEGIN list_other_comment -->
+		<input type="radio" name="other_comment" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_other_comment -->
+	  </td>
+    </tr>
+    <tr>
+      <td>评论是否审核：</td>
+      <td>
+      	<!-- BEGIN list_other_commentaudit -->
+		<input type="radio" name="other_commentaudit" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_other_commentaudit -->
+	  </td>
+    </tr>
+    <tr>
+      <td>评论是否开启验证码：</td>
+      <td>
+      	<!-- BEGIN list_other_commentverify -->
+		<input type="radio" name="other_commentverify" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_other_commentverify -->
+	  </td>
+    </tr>
+    <tr>
+      <td>评论每页显示个数：</td>
+      <td><input name="other_commentnum" value="{other_commentnum}" size="10">
+        </td>
+    </tr>
+    <tr>
+      <td>评论时间间隔(单位:秒)：</td>
+      <td><input name="other_commenttime" value="{other_commenttime}" size="10">
+        </td>
+    </tr>
+    <tr>
+      <td>评论留言关键字过滤：</td>
+      <td>
+		<textarea name="other_filter" rows="8" style="width:350px;">{other_filter}</textarea>
+      </td>
+    </tr>
+	</table>
+	
+	<table class="tbinfo pleft" id="tab4" style="display:none">
+	<tr>
+      <td width="150" class="hl">自动生成缩略图：</td>
+      <td class="hl">
+      	<!-- BEGIN list_upload_thumb -->
+		<input type="radio" name="upload_thumb" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_upload_thumb -->
+		<font id="thumbop" style="display:none;">&nbsp;&nbsp;缩略图大小：
+        <input name="upload_thumbw" value="{upload_thumbw}" size="10" /> x <input name="upload_thumbh" value="{upload_thumbh}" size="10" />
+        </font>&nbsp;&nbsp;
+	  </td>
+    </tr>
+	<tr>
+      <td>图片文字水印：</td>
+      <td>
+      	<!-- BEGIN list_upload_watermark -->
+		<input type="radio" name="upload_watermark" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_upload_watermark -->
+        <font id="opw" style="display:none;">&nbsp;&nbsp;水印位置：
+        <select name="upload_waterlocation"  id="upload_waterlocation" style="width:54px;">
+        	<!-- BEGIN list_upload_waterlocation -->
+			<option value="{v}" {c}>{n}</option>
+			<!-- END list_upload_waterlocation -->
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;水印文字：
+        <input name="upload_waterfont" value="{upload_waterfont}" size="15" />
+        </font> &nbsp;&nbsp;
+	  </td>
+    </tr>
+	<tr>
+      <td>图片保存路径：</td>
+      <td>
+		<select name="upload_picpath" id="upload_picpath">
+			<!-- BEGIN list_upload_picpath -->
+			<option value="{v}" {c}>{n}</option>
+			<!-- END list_upload_picpath -->
+        </select> 
+	  </td>
+    </tr>
+	<tr>
+	      <td>远程图片访问：</td>
+	      <td>
+	      	<!-- BEGIN list_upload_remote -->
+			<input type="radio" name="upload_remote" value="{v}" {c} />{n}&nbsp;
+			<!-- END list_upload_remote -->
+	        <font color="#FF0000">＊</font> 是否调用远程图片地址 </td>
+	    </tr>
+		<tr>
+	      <td>远程图片访问地址：</td>
+	      <td><input name="upload_remoteurl" value="{upload_remoteurl}" size="50"> 
+	        (必须/结尾)如 http://img.maccms.com/ </td>
+	    </tr>
+		<td>FTP远程附件：</td>
+	      <td>
+	      	<!-- BEGIN list_upload_ftp -->
+			<input type="radio" name="upload_ftp" value="{v}" {c} />{n}&nbsp;
+			<!-- END list_upload_ftp -->
+	        <font color="#FF0000">＊</font>开启将影响上传速度,但是可以将附件转移到FTP服务器(上传图片或采集时自动保存到远程服务器)
+	      </td>
+	    </tr>
+		<tr>
+	      <td>FTP上传成功后删除本地图片：</td>
+	      <td>
+	      	<!-- BEGIN list_upload_ftpdel -->
+			<input type="radio" name="upload_ftpdel" value="{v}" {c} />{n}&nbsp;
+			<!-- END list_upload_ftpdel -->
+	        <font color="#FF0000">＊</font> 成功上传到远程服务器后，是否删除对应的文件 </td>
+	    </tr>
+		<tr>
+	      <td>FTP 服务器：</td>
+	      <td><input name="upload_ftphost" value="{upload_ftphost}" size="50"> 
+	        服务器地址,不需要加"http://",一般为IP</td>
+	    </tr>
+	    <tr>
+	      <td>FTP 用户名：</td>
+	      <td><input name="upload_ftpuser" value="{upload_ftpuser}" size="50">
+	        FTP服务器登录用的用户名 </td>
+	    </tr>
+	        <tr>
+	      <td>FTP 密码：</td>
+	      <td><input name="upload_ftppass" value="{upload_ftppass}" size="50">
+	        FTP服务器登录用的密码 </td>
+	    </tr>
+		<tr>
+	      <td>FTP 端口：</td>
+	      <td><input name="upload_ftpport" value="{upload_ftpport}" size="10"> 
+	        服务器端口, 一般为 21 </td>
+	    </tr>
+	    <tr>
+	      <td>FTP保存文件夹：</td>
+	      <td><input name="upload_ftpdir" value="{upload_ftpdir}" size="50"> 
+	        (请确保已经建立)相对于FTP服务器根目录, 如/wwwroot/ </td>
+	    </tr>
+	    <tr>
+	      <td>提示信息：</td>
+	      <td><font color="#FF0000">请确保空间php环境支持ftp相关函数后再开启，例如（ftp_connect，ftp_login等）。 此功能暂时只针对视频图片。</font></td>
+	    </tr>
+	</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>定时任务管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnAdd").click(function(){
+		location.href='?m=system-timminginfo';
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" name="form1" id="form1">
+<table class="tb">
+	<tr>
+		<th class="thfirst">任务名称</th>
+		<th>任务描述</th>
+		<th>任务状态</th>
+		<th>最后运行时间</th>
+		<th width="120">操作</th>
+	</tr>
+<!-- IF isnull -->
+<tr><td colspan=5 align=center>未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_timming -->
+	<tr>
+	  	<td><input name="ids[]" type="checkbox" value="{name}" />{name}</td>
+      	<td>{des}</td>
+      	<td>{status}</td>
+      	<td>{runtime}</td>
+      	<td>
+      	<a target="_blank" href="../inc/timming.php?m={name}">测试</a> |
+	    <a href="?m=system-timminginfo-name-{name}">修改</a> |
+	    <a href="admin_xml.php?ac=delxml&tab=timming&val={name}" onClick="return confirm('确定要删除吗?');">删除</a></td>
+	</tr>
+	<!-- END list_timming -->
+<!-- ENDIF isnull -->
+	<tr><td colspan="5">
+    <input type="button" id="btnAdd" value="添加" class="input" />
+    </td></tr>
+</table>
+</form>
+
+{foot}
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>定时任务信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			name:{
+				required:true,
+				stringCheck:true
+			},
+			file:{
+				required:true
+			},
+			paramets:{
+				required:true
+			}
+		}
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" action="admin_xml.php?ac=savexml&tab=timming" name="form1" id="form1">
+<input type="hidden" id="flag" name="flag" value="{flag}">
+<input type="hidden" id="backurl" name="backurl" value="{backurl}">
+<table class="tbinfo pleft">
+    <tr>
+      <td width="150" class="hl">任务名称：</td>
+      <td class="hl">
+      <input id="name" name="name" size="60" value="{name}" <!-- IF isedit -->readonly<!-- ENDIF isedit -->>
+	  </td>
+    </tr>
+    <tr>
+      <td>任务描述：</td>
+      <td>
+      <input id="des" name="des" size="60" value="{des}">
+	  </td>
+    </tr>
+    <tr>
+	<td>任务状态：</td>
+	<td>
+	<select id="status" name="status">
+	<!-- BEGIN list_status -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_status -->
+	</select>
+	</td>
+	</tr>
+    <tr>
+      <td>执行文件：</td>
+      <td>
+      <input id="file" name="file" size="60" value="{file}">
+      <br>不能包含路径，程序脚本必须存放于 /inc/timming/目录中
+	  </td>
+    </tr>
+    <tr>
+      <td>执行参数：</td>
+      <td>
+      <input id="paramets" name="paramets" size="60" value="{paramets}" >
+      <br>可以留空，格式:action=timming&id=1
+	  </td>
+    </tr>
+    <tr>
+      <td>采集周期选择：</td>
+      <td>
+      	<!-- BEGIN list_weeks -->
+      	<input type="checkbox" name="weeks[]" class="checkbox" value="{v}" {c}>{n}&nbsp;
+      	<!-- END list_weeks -->
+      	<br>
+      	<input type="button" value="全选" class="input" onClick="checkAll('weeks[]');"> 
+      	<input type="button" value="反选" class="input" onClick="checkOther('weeks[]');">
+       </td>
+    </tr>
+    <tr>
+      <td>采集时间选择：</td>
+      <td>
+      	<!-- BEGIN list_hours -->
+      	<input type="checkbox" name="hours[]" class="checkbox" value="{v}" {c}>{n}&nbsp;
+      	<!-- END list_hours -->
+      	<br>
+      	<input type="button" value="全选" class="input" onClick="checkAll('hours[]');"> 
+      	<input type="button" value="反选" class="input" onClick="checkOther('hours[]');">
+       </td>
+    </tr>
+    <tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"></td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

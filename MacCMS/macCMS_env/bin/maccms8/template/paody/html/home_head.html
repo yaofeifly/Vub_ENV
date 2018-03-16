@@ -1,0 +1,54 @@
+<div class="wrap">
+  <div class="header box mb">
+    <a class="l logo" target="_self" href="http://{maccms:url}"><img src="{maccms:path_tpl}images/logo.png" width="200" height="47" border="0" alt="{maccms:name}" /></a>
+    <div class="l searchbar">
+      <form action="{maccms:link_search_vod}" method="post">
+        <input type="text" id="wd" name="wd" class="sin" onblur="if(this.value==''){ this.value='100万部影片任你搜索';this.style.color='#cfcdcd';}" onfocus="if(this.value=='100万部影片任你搜索'){this.value='';this.style.color='';}" value="100万部影片任你搜索" />
+        <input type="submit" name="submit" class="submit" value="搜 索" />
+      </form>
+      <p><script type="text/javascript" language="javascript" src="{maccms:path_ads}sou.js"></script></p>
+    </div>
+    <!--/SearchBar-->
+    <div class="toprad r"><script type="text/javascript" language="javascript" src="{maccms:path_ads}right.js"></script></div>
+  </div>
+  <!--/Header-->
+</div>
+<!--/Wrap-->
+<div class="nav mb">
+  <div class="navtop">
+    <div class="wrap">
+		<a href="{maccms:path}" {if-A:{maccms:siteaid}=10} class="this"{endif-A} target="_self">首　页</a>
+		<span></span>
+		{maccms:menu type=1,2,3,4}
+		<a href="[menu:link]" {if-A:[menu:id]={maccms:curvodtypeid}} class="this"{endif-A} title="[menu:name]" target="_self">[menu:name]</a>
+      <span></span>
+	  {/maccms:menu}
+      <a href="{maccms:link_topic_vod}" title="专题" {if-A:{maccms:siteaid}=13} class="this"{endif-A} >专题</a>
+      <span></span>
+      <a href="{maccms:link_index_art}" title="新闻" {if-A:{maccms:siteaid}=20} class="this"{endif-A} >新闻</a>
+      <span></span>
+      <a href="{maccms:link_map_vod}" title="地图" {if-A:{maccms:siteaid}=11} class="this"{endif-A} >地图</a>
+      <span></span>
+      <a href="{maccms:getlink tv.html}" title="直播" target="_blank">直播</a>
+      <span></span>
+      <a href="{maccms:link_gbook}" title="留言本" target="_blank">留言本</a>
+      <span></span>
+    </div>
+  </div>
+  <div class="wrap vv">
+    <div class="navbottom">
+      <div class="l">
+      	{if-A:{maccms:curvodtypepid}==0}
+      		{maccms:menu parent={maccms:curvodtypeid}}
+      		<a href="[menu:link]" title="[menu:name]" >[menu:name]</a>
+      		{/maccms:menu}
+      	{endif-A}
+      </div>
+      <div class="r">
+      <a class="bar_login" id="login" href="{maccms:path}index.php?m=user-index.html" >用户中心</a> |
+      <a class="bar_history" id="history" href="javascript:void(0);" >观看记录</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/Nav-->

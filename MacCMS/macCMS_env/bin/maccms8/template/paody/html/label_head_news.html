@@ -1,0 +1,44 @@
+<div class="wrap">
+  <div class="header box mb">
+    <a class="l logo" target="_self" href="http://{maccms:url}"><img src="{maccms:path_tpl}images/logo.png" width="200" height="47" border="0" alt="{maccms:name}" /></a>
+    <div class="l searchbar">
+      <form action="{maccms:link_search_art}" method="post">
+        <input type="text" name="wd" class="sin" onblur="if(this.value==''){ this.value='100万部影片任你搜索';this.style.color='#cfcdcd';}" onfocus="if(this.value=='100万部影片任你搜索'){this.value='';this.style.color='';}" value="100万部影片任你搜索" />
+        <input type="submit" name="submit" class="submit" value="搜 索" />
+      </form>
+      <p>{maccms:keywords}</p>
+    </div>
+    <!--/SearchBar-->
+    <div class="toprad r"><script type="text/javascript" language="javascript" src="{maccms:path_ads}right.js"></script></div>
+  </div>
+  <!--/Header-->
+</div>
+<!--/Wrap-->
+<div class="nav mb">
+  <div class="navtop">
+    <div class="wrap">
+		<a href="{maccms:path}" target="_self">首　页</a>
+      <span></span>
+	  {maccms:menu parent=0 order=asc}
+		<a href="[menu:link]" {if-A:[menu:id]={maccms:curvodtypeid}} class="this"{endif-A} title="[menu:name]" target="_self">[menu:name]</a>
+      <span></span>
+	  {/maccms:menu}
+      <a href="{maccms:link_topic_vod}" title="明星合集" >明星合集</a>
+      <span></span>
+      <a href="{maccms:link_index_art}" title="剧情介绍" class="this">剧情介绍</a>
+      <span></span>
+    </div>
+  </div>
+  <div class="wrap vv">
+    <div class="navbottom">
+      <div class="l">
+        <strong>娱乐频道：</strong>
+      {maccms:menu table=art parent=0 order=asc}
+		<a href="[menu:link]" title="[menu:name]">[menu:name]</a>
+  {/maccms:menu}
+      </div>
+      <div class="r"><a href="{maccms:link_gbook}">求片留言</a>|<a class="aHistory" id="history" href="javascript:void(0);" >观看记录</a></div>
+    </div>
+  </div>
+</div>
+<!--/Nav-->

@@ -1,0 +1,2 @@
+MacPlayer.Html = '<embed type="application/x-shockwave-flash" src="http://img1.c0.ku6.cn/player/pV2.8.4.swf" id="Player" bgcolor="#FFFFFF" quality="high" allowfullscreen="true" allowNetworking="internal" allowscriptaccess="never" wmode="transparent" menu="false" always="false"  pluginspage="http://www.macromedia.com/go/getflashplayer" width="100%" height="'+MacPlayer.Height+'" flashvars="&flag=v&auto=1&SAlign=LT&vid='+MacPlayer.PlayUrl+'">';
+MacPlayer.Show();

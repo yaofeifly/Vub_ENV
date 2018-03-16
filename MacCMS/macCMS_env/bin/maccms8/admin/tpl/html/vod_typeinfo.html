@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>视频分类信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form action="admin_data.php?ac=save&tab=vod_type" method="post" name="form1" id="form1">
+<input id="t_id" name="t_id" type="hidden" value="{t_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">视频分类信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">父级分类：</td>
+	<td class="hl"><select id="t_pid" name="t_pid" style="width:150px">
+      <option value="0">顶级分类</option>
+      <!-- BEGIN list_ptype -->
+      <option value="{v}" {c}>{n}</option>
+      <!-- END list_ptype -->
+	  </select>
+	</td>
+	</tr>
+	<tr>
+	<td>名称：</td>
+	<td><input type="text" id="t_name" name="t_name" size="50" value="{t_name}" />
+	</td>
+	</tr>
+	<tr>
+	<td>别名：</td>
+	<td><input type="text" id="t_enname" name="t_enname" size="50" value="{t_enname}" />
+	</td>
+	</tr>
+	<tr>
+	<td>分类模板：</td>
+	<td><input type="text" id="t_tpl" name="t_tpl" size="50" value="{t_tpl}" />
+	</td>
+	</tr>
+	<tr>
+	<td>列表筛选模板：</td>
+	<td><input type="text" id="t_tpl_list" name="t_tpl_list" size="50" value="{t_tpl_list}" />
+	</td>
+	</tr>
+	<tr>
+	<td>内容模板：</td>
+	<td><input type="text" id="t_tpl_vod" name="t_tpl_vod" size="50" value="{t_tpl_vod}" />
+	</td>
+	</tr>
+	<tr>
+	<td>播放模板：</td>
+	<td><input type="text" id="t_tpl_play" name="t_tpl_play" size="50" value="{t_tpl_play}" />
+	</td>
+	</tr>
+	<tr>
+	<td>下载模板：</td>
+	<td><input type="text" id="t_tpl_down" name="t_tpl_down" size="50" value="{t_tpl_down}" />
+	</td>
+	</tr>
+	<tr>
+	<td>SEO关键字：</td>
+	<td><input type="text" id="t_key" name="t_key" size="50" value="{t_key}" />
+	</td>
+	</tr>
+	<tr>
+	<td>SEO描述：</td>
+	<td><input type="text" id="t_des" name="t_des" size="50" value="{t_des}" />
+	</td>
+	</tr>
+	<tr>
+	<td>SEO标题：</td>
+	<td><input type="text" id="t_title" name="t_title" size="50" value="{t_title}" />
+	</td>
+	</tr>
+	<tr>
+	<td>排序：</td>
+	<td><input type="text" id="t_sort" name="t_sort" size="15" value="{t_sort}" />
+	</td>
+	</tr>
+	<tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+  </form>
+</table>
+</form>
+{foot}
+</body>
+</html>

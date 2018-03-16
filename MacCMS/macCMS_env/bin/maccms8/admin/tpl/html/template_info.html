@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>模版文件信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" action="?m=template-save" name="form1" id="form1">
+<input type="hidden" id="backurl" name="backurl" value="{backurl}">
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">文件名称：</td>
+	<td class="hl"><input id="filename" name="filename" type="text" value="{filename}" size="60" {readonly} >
+	<!-- IF isadd -->
+		<select name="suffix"><option value=".html">.html</option><option value=".js">.js</option><option value=".xml">.xml</option></select>自定义页面以label_开头,如果需要生成到html目录用$$替换目录/杠，如：html$$hot.html
+	<!-- ENDIF isadd -->
+    </td>
+	</tr>
+	<tr>
+	<td colspan="2">
+	<textarea class="temp_t" id="filecontent" name="filecontent" style="width:99%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="30">{filecontent}</textarea>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2" align="center">
+	<input id="path" name="path" type="hidden" value="{path}">
+	<input id="file" name="file" type="hidden" value="{file}">
+	<input class="input" type="submit" value="保存" id="btnSave">
+	<input class="input" type="button" value="返回" id="btnCancel">
+	</td>
+	</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

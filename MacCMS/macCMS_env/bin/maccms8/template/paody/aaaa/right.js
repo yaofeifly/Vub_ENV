@@ -1,0 +1,1 @@
+﻿MAC.AdsWrap(230,60,'right广告位');

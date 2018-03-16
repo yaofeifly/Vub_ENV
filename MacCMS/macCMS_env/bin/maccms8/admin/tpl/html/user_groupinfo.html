@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>会员组信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form action="admin_data.php?ac=save&tab=user_group" method="post" name="form1" id="form1">
+<input id="ug_id" name="ug_id" type="hidden" value="{ug_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">会员组信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">会员组名称：</td>
+	<td class="hl"><INPUT id="ug_name" size="50" value="{ug_name}" name="ug_name">
+	</td>
+	</tr>
+	<tr>
+	<td>包含分类：<br></td>
+	<td>
+	<!-- BEGIN list_type -->
+	<input type="checkbox" name="ug_type[]" value="{v}" {c}/>{n}&nbsp;{s}
+	<!-- END list_type -->
+	</td>
+	</tr>
+	<tr>
+	<td>权限：<br></td>
+	<td>
+	<!-- BEGIN list_popedom -->
+	<input type="checkbox" name="ug_popedom[]" value="{v}" {c}/>{n}&nbsp;{s}
+	<!-- END list_popedom -->
+	</td>
+    </tr>
+	<tr>
+	<td>升级所需积分：<br>(使用积分购买组权限)</td>
+	<td>
+	<INPUT id="ug_upgrade" size="20" value="{ug_upgrade}" name="ug_upgrade">
+	</td>
+    </tr>
+	<tr>
+	<td>权限值：<br>(数值越大权限越高)</td>
+	<td>
+	<INPUT id="ug_popvalue" size="20" value="{ug_popvalue}" name="ug_popvalue">
+	</td>
+	</tr>
+	<tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

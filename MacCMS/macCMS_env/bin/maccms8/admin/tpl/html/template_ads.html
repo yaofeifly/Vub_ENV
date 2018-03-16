@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>自定义广告管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnAdd").click(function(){
+		location.href='?m=template-adsinfo';
+	});
+});
+</script>
+</head>
+<body>
+<div class="toptit"><H3>当前模版广告文件存放路径：{adspath}</H3></div>
+<form method="post" action="" name="form1" id="form1">
+<table class="tb">
+	<tr>
+	<th width="200" class="thfirst">广告名称</th>
+	<th width="150" >文件大小</th>
+	<th width="150" >修改时间</th>
+	<th>广告调用代码</th>
+	<th width="100">操作</th>
+	</tr>
+	<!-- IF isnull -->
+	<tr><td colspan="5" align="center">未查询到任何数据</td></tr>
+	<!-- ELSE isnull -->
+	<!-- BEGIN list_ads -->
+	<tr>
+	<td>{file}</td>
+	<td>{size} Kb</td>
+	<td>{time}</td>
+	<td>
+	  <input id="text{file}" name="text{file}" type="text" value='<script src="{path}"></script>' size="70"> 
+	  <input type="button" value="复制" class="input" onClick='copyData(document.getElementById("text{file}").value);'>
+	</td>
+	<td>
+	<a href="?m=template-adsinfo-file-{filecode}">修改</a> |
+	<A href="?m=template-adsdel-file-{filecode}" onClick="return confirm('确定要删除吗?');">删除</a>
+	</td>
+	</tr>
+	<!-- END list_ads -->
+	<tr>
+	<td colspan="5" class="pleft">
+	<input type="button" id="btnAdd" value="添加"  class="input"/>
+	</td>
+	</tr>
+<!-- ENDIF isnull -->
+</table>
+</form>
+{foot}
+</body>
+</html>

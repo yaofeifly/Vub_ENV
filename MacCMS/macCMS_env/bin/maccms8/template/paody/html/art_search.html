@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>搜索{page:key}_{maccms:name}</title>
+<meta name="keywords" content="{page:name}第{page:now}页{page:key}" />
+<meta name="description" content="{page:name}第{page:now}页{page:des}" />
+{maccms:include}
+</head>
+<body>
+{maccms:load head_news.html}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="box mb">
+    <div class="main l">
+      <div class="box b">
+        <h4>搜索新闻 {page:key} 共 {page:datacount} 条</h4>
+        {if-A:{page:datacount}==0}
+	<center><h3> 暂无数据 </h3></center>
+	{else-A}
+        <div class="newsbox">
+        {maccms:art pagesize=20 order=desc by=time}
+          <p><em>[art:numfill]</em><a href="[art:link]">[art:colorname]</a><span>[art:time style=mm-dd]</span></p>
+          {/maccms:art}
+        </div>
+        <div class="page">{maccms:pages len=6}</div>
+        {endif-A}
+      </div>
+      <!--/Box-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b mb">
+        <h5>热映电影</h5>
+        <ul>
+         {maccms:vod num=12 type=1 by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+<div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}list250x250.js"></script></div>
+      <div class="svlist b">
+        <h5>热播电视剧</h5>
+        <ul>
+          {maccms:vod num=12 type=2 by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-bottom.js"></script></div>
+</div>
+<!--/Wrap-->
+{maccms:foot}
+</body>
+</html>

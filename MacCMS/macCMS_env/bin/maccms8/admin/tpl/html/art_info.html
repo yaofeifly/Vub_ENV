@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>文章信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript" src="tpl/js/jscolor.js"></script>
+<script language="javascript" src="editor/xheditor-zh-cn.min.js"></script>
+<script language="javascript" src="editor/xheditor_lang/zh-cn.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			a_name:{
+				required:true
+			},
+			a_type:{
+				required:true
+			}
+		}
+	});
+	$("#btnRndHits").click(function(){
+		$("#a_hits").val( rndNum(999) );
+		$("#a_monthhits").val( rndNum(300) );
+		$("#a_weekhits").val( rndNum(100) );
+		$("#a_dayhits").val( rndNum(10) );
+		$("#a_up").val( rndNum(100) );
+		$("#a_down").val( rndNum(100) );
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<div id="showpic" style="display:none;"><img name="showpic_img" id="showpic_img" width="120" height="160"></div>
+<form action="admin_data.php?ac=save&tab=art" method="post" name="form1" id="form1">
+<input id="a_id" name="a_id" type="hidden" value="{a_id}">
+<input name="a_addtime" type="hidden" value="{a_addtime}">
+<input name="a_time" type="hidden" value="{a_time}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">文章信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">参数：</td>
+	<td class="hl">
+	<select id="a_type" name="a_type" >
+	<option value="">请选择分类</option>
+	<!-- BEGIN list_type -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_type -->
+	</select>
+	&nbsp;<select id="a_level" name="a_level" >
+	<option value="">选择推荐值</option>
+	<!-- BEGIN list_level -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_level -->
+	</select>
+	&nbsp;<select id="a_hide" name="a_hide">
+	<!-- BEGIN list_hide -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_hide -->
+	</select>
+	&nbsp;<input type="checkbox" name="uptime" value="1" class="nst" checked>更新时间
+	&nbsp;<input type="checkbox" name="a_lock" value="1" class="nst" title="锁定后采集不更新" <!-- IF islock --> checked <!-- ENDIF islock -->>锁定
+	</td>
+	</tr>
+	<tr>
+	<td>标题：</td>
+	<td><input id="a_name" name="a_name" size="90" value="{a_name}" >
+	&nbsp;高亮：<input id="a_color" name="a_color" type="text" size="5" class="color" value="{a_color}" style="background-color:{a_color}">
+	&nbsp;首字母：<input id="a_letter" name="a_letter" size="2" value="{a_letter}" >
+	</td>
+	</tr>
+	<tr>
+	<td>副标：</td>
+	<td><input id="a_subname" name="a_subname" size="90" value="{a_subname}" >&nbsp;来源：<input id="a_from" name="a_from" size="20" value="{a_from}" > 
+	</td>
+	</tr>
+	<tr>
+	<td>拼音：</td>
+	<td><input id="a_enname" name="a_enname" size="90" value="{a_enname}" >&nbsp;作者：<input id="a_author" name="a_author" size="20" value="{a_author}" >
+	</td>
+	</tr>
+	<tr>
+	<td>TAG：</td>
+	<td><input id="a_tag" name="a_tag" size="90" value="{a_tag}" >&nbsp;<input type="checkbox" name="uptag" value="1" class="nst" checked>自动生成
+	</td>
+	</tr>
+	<tr> 
+    <td>图片：</td>
+    <td><input id="a_pic" name="a_pic" type="text" size="50" value="{a_pic}" onMouseOver="showpic(event,this.value);" onMouseOut="hiddenpic();"/>&nbsp;<iframe src="editor/uploadshow.php?action=art&id=a_pic&path=art" scrolling="no" topmargin="0" width="270" height="26" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe></td>
+	</tr>
+	<tr>
+	<td>人气：</td>
+	<td>总：<input id="a_hits" name="a_hits" type="text" size="4" value="{a_hits}">
+	&nbsp;月：<input id="a_monthhits" name="a_monthhits" type="text" size="4" value="{a_monthhits}">
+	&nbsp;周：<input id="a_weekhits" name="a_weekhits" type="text" size="4" value="{a_weekhits}">
+	&nbsp;日：<input id="a_dayhits" name="a_dayhits" type="text" size="4" value="{a_dayhits}">
+	&nbsp;顶：<input id="a_up" name="a_up" type="text" size="4" value="{a_up}">
+	&nbsp;踩：<input id="a_down" name="a_down" type="text" size="4" value="{a_down}">
+	&nbsp;<input class="input" type="button" id="btnRndHits" value="随机" style="cursor:pointer;" />
+	</td>
+	</tr>
+	<tr>
+	<td>简介：</td>
+	<td><textarea id="a_remarks" name="a_remarks" style="width:700px;height:50px;" title="如果不填写简介则自动截取内容前100字">{a_remarks}</textarea>
+	</td>
+	</tr>
+	<tbody id="artlist">
+	<!-- BEGIN list_content -->
+	<tr><td>&nbsp;分页内容{n}:</td><td><span style='float:right;'>操作：&nbsp;&nbsp;<a href="javascript:void(0)" onclick="clearSect('a_content{n}')">清空</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="removeSect(this)">删除</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="upSect(this)">上移</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="downSect(this)">下移</a>&nbsp;&nbsp;<br><br></span> <textarea name='a_content[]' id='a_content{n}' class="xheditor {tools:'BtnBr,Cut,Copy,Paste,Pastetext,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,Align,List,Outdent,Indent,Link,Unlink,Img,Flash,Media,Table,Source,Fullscreen',width:'100%',height:'250',upBtnText:'上传',html5Upload:false,upMultiple:1,upLinkUrl:'{editorRoot}upload.php?action=xht&path=art',upImgUrl:'{editorRoot}upload.php?action=xht&path=art'}">{v}</textarea></td></tr>
+	<!-- END list_content -->
+	</tbody>
+    <tr>
+    <td colspan="2">
+    <img onClick="appendart({contentcount})" src="../images/icons/edit_add.png" style="cursor:pointer" />&nbsp;&nbsp;单击添加一页内容
+    </td>
+    </tr>
+    <tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+<script> if($("#artlist").html() ==""){ appendart({contentcount}) };</script>
+{foot}
+</body>
+</html>

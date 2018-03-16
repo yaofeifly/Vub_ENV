@@ -1,0 +1,1 @@
+﻿document.writeln('fenxiang广告位');

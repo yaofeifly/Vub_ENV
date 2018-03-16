@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>{maccms:url}</loc>
+<lastmod>{maccms:date}</lastmod>
+<changefreq>hourly</changefreq>
+<priority>1.0</priority>
+</url>
+{maccms:vod num=30 page=true order=desc by=time}
+<url>
+<loc>http://{maccms:url}[vod:link]</loc>
+<lastmod>[vod:time style=Y-m-d]</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.8</priority>
+</url>
+{/maccms:vod}
+</urlset>

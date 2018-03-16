@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>文章管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<style>select{width:110px; }</style>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=art");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#btnHide").click(function(){
+		ajaxshow('btnHide','hide','art','a_id','a_hide','');
+	});
+	$("#btnLevel").click(function(){
+		ajaxshow('btnLevel','level','art','a_id','a_level','');
+	});
+	$("#btnType").click(function(){
+		ajaxshow('btnType','type','art','a_id','a_type','');
+	});
+	$("#btnHits").click(function(){
+		ajaxshow('btnHits','hits','art','a_id','a_hits','');
+	});
+	$("#btnMake").click(function(){
+		if(checkCount('a_id[]')==0){ alert("请至少选择一个数据");return }
+		var item = "",rc=false;
+		$("input[name='a_id[]']").each(function(){
+			if(this.checked){
+				if(rc)item += ',';
+				item += this.value;
+				rc=true;
+			}
+		});
+        location.href='?m=make-info-tab-art-no-'+item;
+	});
+	$("#btnRepeat").click(function(){
+		var repeatlen = $("#repeatlen").val();
+		var reg = /^\d+$/;
+		var re = repeatlen.match(reg);
+		if (!re){ alert("请输入数字");$("#repeatlen").focus();return;}
+		if (repeatlen >10){ alert("长度最大10");$("#repeatlen").focus();return;}
+		location.href='?m=art-list-repeat-ok-repeatlen-'+repeatlen;
+	});
+	$("#btnSearch").click(function(){
+		location.href='?m=art-list-type-'+$("#type").val()+'-topic-'+$("#topic").val()+'-level-'+$("#level").val()+'-hide-'+$("#hide").val()+'-lock-'+$("#lock").val()+'-by-'+$("#by").val()+'-wd-'+encodeURI($("#wd").val());
+	});
+});
+function gosyncpic(){
+	if(confirm('确定要同步下载远程图片吗? \\n\\n同步失败的图片将被置空!\\n\\n数据不可恢复，请做好备份!')){
+		location.href = '?m=extend-picsyncart';
+	}
+}
+</script>
+</head>
+<body>
+<table class="tbinfo pleft">
+	<thead>
+		<tr><th><span style="float:left">文章管理</span><span style="float:right;">【<a href="###" onclick="javascript:gosyncpic();"><font color="red"><strong>同步下载远程图片</strong></font></a>】</span> </th></tr>
+	</thead>
+	<!-- IF isrepeat -->
+	<tr>
+	<td>
+		&nbsp; 检测名称长度：<input id="repeatlen" size="2" name="repeatlen" value="{repeatlen}">
+		&nbsp;<input class="input" type="button" value="检测重复数据" id="btnRepeat" name="btnRepeat">
+		&nbsp; 长度为0时检测全字匹配
+		<input type="hidden" id="repeatok" name="repeatok" value="{repeatok}" />
+	</td>
+	</tr>
+	<!-- ELSE isrepeat -->
+	    <tr>
+	<td class="hl" colspan="2">
+	过滤条件：<select id="type" name="stype">
+	<option value="">文章栏目</option>
+	<!-- BEGIN list_type -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_type -->
+	</select>
+	&nbsp;
+	<select id="topic" name="topic">
+	<option value="">文章专题</option>
+	<!-- BEGIN list_topic -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_topic -->
+	</select>
+	&nbsp;
+	<select id="by" name="by">
+	<option value="">文章排序</option>
+	<!-- BEGIN list_by -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_by -->
+	</select>
+	&nbsp;
+	<select id="level" name="level">
+	<option value="">文章推荐</option>
+	<!-- BEGIN list_level -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_level -->
+	</select>
+	&nbsp;
+	<select id="hide" name="hide">
+	<option value="">文章显隐</option>
+	<!-- BEGIN list_hide -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_hide -->
+	</select>
+	&nbsp;
+	<select id="lock" name="lock">
+	<option value="">文章锁定</option>
+	<!-- BEGIN list_lock -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_lock -->
+	</select>
+	&nbsp;关键字：<input id="wd" size="40" name="wd" value="{wd}" onClick="this.select();">
+	<input class="input" type="button" value="搜索" id="btnSearch">
+	</td>
+	</tr>
+	<!-- ENDIF isrepeat -->
+</table>
+
+<form method="post" action="" name="form1" id="form1">
+<table class="tb">
+	<tr>
+	<th width="60" class="thfirst">编号</th>
+	<th>名称</th>
+	<th width="100">分类</th>
+	<th width="100">人气</th>
+	<th width="60">推荐</th>
+	<th width="60">浏览</th>
+	<th width="150">更新时间</th>
+	<th width="100">操作</th>
+	</tr>
+	<!-- IF isnull -->
+	<tr><td colspan="8" align="center">未查询到任何数据</td></tr>
+	<!-- ELSE isnull -->
+	<!-- BEGIN list_art -->
+	<tr>
+	<td><input name="a_id[]" type="checkbox" id="a_id" value="{a_id}" />{a_id}</td>
+	<td><a target="_blank" href="{a_link}">{a_name}</a> {a_hide} {a_lock}</td>
+	<td>{a_type}</td>
+	<td>{a_hits}</td>
+	<td id="level_{a_id}"><img src="../images/icons/ico{a_level}.gif" border="0" style="cursor: pointer;" onclick="ajaxshow('level_{a_id}','level','art','a_id','a_level','{a_id}')" /></td>
+	<td><!-- IF ismake --><a href="?m=make-info-tab-art-no-{a_id}"><img src="../images/icons/html_no.gif"></a><!-- ELSE ismake --><a target="_blank" href="{a_link}"><img src="../images/icons/html_ok.gif"></a><!-- ENDIF ismake --></td>
+	<td>{a_time}</td>
+	<td>
+	<a href="?m=art-info-id-{a_id}">修改</a> |
+	<a href="admin_data.php?ac=del&tab=art&a_id={a_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	</td>
+	</tr>
+	<!-- END list_art -->
+	<tr>
+	<td colspan="8" class="pleft">
+	<input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('a_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('a_id[]');">
+	<input type="button" id="btnDel" value="删除" class="input" />
+	<input type="button" id="btnHide" value="显隐" class="input"/>
+	<input type="button" id="btnLevel" value="推荐" class="input">
+	<input type="button" id="btnType" value="分类" class="input">
+	<input type="button" id="btnHits" value="人气" class="input">
+	<input type="button" id="btnMake" value="生成" class="input">
+	</td></tr>
+    <tr align="center">
+      <td colspan="8"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+</table>
+</form>
+{foot}
+</body>
+</html>

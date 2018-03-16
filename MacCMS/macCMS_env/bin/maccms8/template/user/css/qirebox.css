@@ -1,0 +1,353 @@
+/*
+    ColorBox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+#colorbox, #cboxOverlay{position:absolute; top:0; left:0; z-index:9999;}
+#cboxOverlay{position:fixed; width:100%; height:100%;}
+#cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+#cboxContent{sposition:relative;}
+#cboxLoadedContent{overflow:hidden;}
+#cboxTitle{margin:0;}
+#cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
+#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+.cboxPhoto{float:left; margin:auto; border:0; display:block;}
+.cboxIframe{width:100%; height:100%; display:block; border:0;}
+
+/* 
+    User Style:
+    Change the following styles to modify the appearance of ColorBox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay{background:#000;}
+#colorbox{}
+    #cboxContent{margin:5px;*margin: -18px 0 18px 0;overflow: hidden;}
+        .cboxIframe{background:#fff;}
+        #cboxError{padding:50px; border:1px solid #ccc;}
+        #cboxTitle{position:absolute; top:-20px; left:0; color:#ccc;}
+        #cboxCurrent{position:absolute; top:-20px; right:0px; color:#ccc;}
+        #cboxSlideshow{position:absolute; top:-20px; right:90px; color:#fff;}
+        #cboxPrevious{position:absolute; top:50%; left:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top left; width:28px; height:65px; text-indent:-9999px;}
+        #cboxPrevious:hover{background-position:bottom left;}
+        #cboxNext{position:absolute; top:50%; right:5px; margin-top:-32px; background:url(images/controls.png) no-repeat top right; width:28px; height:65px; text-indent:-9999px;}
+        #cboxNext:hover{background-position:bottom right;}
+        #cboxLoadingOverlay{background:#fff;}
+        #cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
+  
+		  
+/* #colorbox */
+#colorbox{
+	background: url(../images/transparent.png);
+	_background:#ccc;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 0 5px #000;
+	-moz-box-shadow:0 0 5px #000;
+	box-shadow:0 0 5px #000;
+	padding: 0;	
+	position: fixed;
+	_position: absolute;
+}
+
+/* , #cboxWrapper */
+#cboxWrapper{
+	position: relative;
+}
+
+/* cboxWrapper*/
+ #cboxLoadedContent{
+	border:1px solid #fff;
+	*border:1px solid #000;
+	background: #fff;	
+	overflow: hidden;	
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;	
+}				  
+
+/* ui-dialog-close */
+#cboxClose{			
+	display: block;
+	position:absolute;
+	top:-10px;
+	right:-10px;
+	width: 29px;
+	height: 29px;
+	overflow: hidden;
+	text-indent: -999px;
+	cursor: pointer;
+	background: url(../images/close.png) 0 0 no-repeat;
+	
+	opacity:0.9;
+}
+#cboxClose{
+	*position:absolute;
+	*top:8px;
+	*right:8px;
+	*display: block;
+	*width: 11px;
+	*height: 11px;
+	*overflow: hidden;
+	*text-indent: -9999px;
+	*cursor: pointer;
+	*background: url(../images/close.gif) 0 0 no-repeat;
+	*opacity:0.3;
+}
+
+	#cboxClose:hover{opacity:1.0;}
+
+.qirebox-overlayBG{
+	position:fixed; 
+	top:0; 
+	left:0; 
+	width:100%; 
+	height:100%; 
+	z-index: 999999;
+	background-color: #000;
+	
+	filter:alpha(opacity=60);
+	opacity: 0.6;
+	
+	_position:absolute; 
+	_left: expression(documentElement.scrollLeft + documentElement.clientWidth - this.offsetWidth); 
+	_top: expression(documentElement.scrollTop + documentElement.clientHeight - this.offsetHeight);
+		
+}
+
+
+/* qirebox */
+.qirebox{
+	z-index: 9999999;
+	text-align: left;
+	padding: 5px;	
+	position:fixed; 
+	top:300px;
+	left:50%; 
+	margin: 0 0 0 -100px;
+	_position:absolute; 
+	_top:expression(documentElement.scrollTop);
+	_margin-top:300px; 
+	background: url(../images/transparent.png);
+	_background:#ccc;
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 0 5px #333;
+	-moz-box-shadow:0 0 5px #333;
+	box-shadow:0 0 5px #333;
+}
+.qirebox .ui-iframe{
+	width: 155px;
+	height: 72px;
+}
+
+/* ui-dialog */
+.ui-dialog{
+	_display: inline-block;
+	overflow: hidden;
+	border:1px solid #fff;
+	*border:1px solid #bbb;
+	background: transparent;
+	
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;	
+	
+	min-width: 200px;
+ 	_width:expression(document.body.clientWidth < 200 ? "200px" : "auto");
+}		
+	/* .ui-dialog-title */
+	.ui-dialog-title{
+		height: 35px;
+		line-height: 33px;
+		*line-height: 35px;
+		padding: 0 50px 0 15px;
+		border-bottom: 1px solid #e4e8ea;
+		background: url(../images/ui-dialog-title.gif) 0 0 repeat-x #f7f9fa;
+	}
+		.ui-dialog-title h5{
+			font-size: 14px;
+			font-weight: bold;
+			color: #333;
+		}	
+	
+	/* ui-dialog-cnt */	
+	.ui-dialog-cnt{		
+		padding: 10px;
+		overflow: hidden;
+		background: #fff;
+	}
+		/* ui-dialog-tip */
+		.ui-dialog-tip{
+			height: 50px;
+			line-height: 48px;
+			padding: 0 20px 0 53px;
+			font-size: 14px;
+			margin: 0 5px;
+			background-position: 0 0;
+			background-repeat: no-repeat;			
+		}
+		.ui-dialog-tip.loading{
+			background-image: url(../images/loading.gif);
+			background-position: 3px 6px;
+		}
+		.ui-dialog-tip.alert{
+			background-image: url(../images/icons/alert.png);
+			_background-image: url(../images/icons/alert.gif);
+		}
+		.ui-dialog-tip.succ{
+			background-image: url(../images/icons/succ.png);
+			_background-image: url(../images/icons/succ.gif);
+		}
+		.ui-dialog-tip.error{
+			background-image: url(../images/icons/error.png);
+			_background-image: url(../images/icons/error.gif);
+		}
+		.ui-dialog-tip.cross{
+			background-image: url(../images/icons/cross.png);
+			_background-image: url(../images/icons/cross.gif);
+		}
+	
+	
+	/* ui-dialog-todo */	
+	.ui-dialog-todo{	
+		padding: 7px;
+		overflow: hidden;
+		height: 25px;
+		text-align: center;
+		border-top: 1px solid #ddd;
+		background: #f5f5f5;
+	}
+	.ui-dialog-todo-left{
+		text-align: left;
+		padding: 9px 25px 5px 25px;
+	}
+		.ui-dialog-todo .ui-link{
+			display: inline-block;
+			float: none;			
+			border-radius:5px;	
+			padding: 0 10px;
+			margin: 0 3px;
+		}
+	
+	/* ui-dialog-close */	
+	.ui-dialog-close{
+		position:absolute;
+		top:12px;
+		right:13px;
+		display: block;
+		width: 11px;
+		height: 11px;
+		overflow: hidden;
+	}
+		.ui-dialog-close .close{			
+			display: block;
+			width: 11px;
+			height: 11px;
+			overflow: hidden;
+			text-indent: -999px;
+			cursor: pointer;
+			background: url(../images/close.gif) 0 0 no-repeat;
+			
+			opacity:0.3;
+		}
+		.ui-dialog-close .close:hover{opacity:1.0;}
+	
+	
+
+/* login-dialog	 */
+.ui-login-dialog{width: 500px;overflow: hidden;}
+.ui-login-dialog .ui-form{width: 300px; padding: 15px 0 0 15px;}	
+.ui-login-dialog .ui-form-title{margin-right:10px;}	
+.ui-login-dialog .ui-label{text-align: left; padding: 0 5px 0 3px; width: 40px;}
+.ui-login-dialog .ui-form-item{margin: 0 0 15px 0; width: 290px;}
+.ui-login-dialog .ui-label-checkbox{font-size: 12px;}	
+.ui-login-dialog .ui-label-checkbox input{_margin: 7px 0 0 -3px;}	
+.ui-login-dialog .ui-input{width: 240px; float: right; margin: 0;}	
+.ui-login-dialog .ui-button{margin: 0; float: right;}
+
+.ui-login-dialog .form-bar{
+	width: 136px;
+	height: 195px;
+	padding: 15px 5px 0 25px;
+	margin: 0;
+	text-align: left;
+}		
+	.ui-login-dialog .form-bar li{
+		font-size: 12px;
+		padding: 0 0 5px 0;
+		text-align: left;
+	}		
+	.ui-login-dialog .form-bar li a{ font-weight: bold; color: #e12160; }	
+	
+/* feedback */
+#add-feedback .ui-dialog-width{
+	width: 520px;
+	overflow: hidden;
+	height: auto;
+}	
+	.ui-gb-dialog .ui-form{
+		width: 490px;
+		overflow: hidden;
+		padding: 20px 0 0 20px;
+	}
+	.ui-gb-dialog .ui-form-title{ width: 475px;}
+	.ui-gb-dialog .ui-dialog-tab ul{
+		overflow: hidden;
+		width: 540px;
+		padding: 0 0 15px 0;
+	}
+	.ui-gb-dialog .ui-dialog-tab li{
+		width: 105px;
+		height: 40px;
+		line-height: 38px;
+		*line-height: 40px;
+		float: left;
+		overflow: hidden;
+		text-align: center;
+		border: 1px solid #ddd;	
+		background: #f5f5f5;
+		margin: 0 15px 0 0;
+		font-size: 14px;
+		cursor: pointer;
+		position: relative;
+	}
+	.ui-gb-dialog .ui-dialog-tab li.current{
+		color: #e12160;
+		font-weight: bold;
+		border: 1px solid #e12160;
+		background: #fff;
+	}
+	.ui-gb-dialog .ui-dialog-tab li span{
+		display: block;
+		width: 26px;
+		height: 26px;
+		overflow: hidden;
+		text-indent: -999px;
+		cursor: pointer;
+		background: url(../images/selected.gif) 0 0 no-repeat;
+		display: none;
+		position: absolute;
+		right: 0;
+		_right: -1px;
+		bottom: 0;
+	}
+	.ui-gb-dialog .ui-dialog-tab li.current span{ display: block;}
+	
+/* reviewedit-form */
+#reviewedit-form .ui-form-item #cc{
+	margin-top: 6px;
+}	
+
+/* login-dialog	 */
+.ui-promsg-dialog{width: 470px;overflow: hidden;}
+.ui-promsg-dialog .ui-form{padding: 15px 0 0 15px; width: 450px;}	
+.ui-promsg-dialog .ui-form-title{margin-right:10px;}	
+.ui-promsg-dialog .ui-label{text-align: left; padding: 0;}
+.ui-promsg-dialog .ui-form-item{margin: 0 0 15px 0;}
+.ui-promsg-dialog .ui-input{float: left;}
+.ui-promsg-dialog .ui-form .ui-form-button{width: 438px;}
+.ui-promsg-dialog .ui-form .ui-button{margin: 0;float: left; } 

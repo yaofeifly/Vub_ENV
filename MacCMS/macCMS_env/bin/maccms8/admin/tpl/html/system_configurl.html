@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>URL参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#htmltabs li").each(function(i,row){
+		if($.cookie("configtaburl")==i && i>0){
+			settab(i);
+		}
+	});
+});
+
+function settab(to){
+	$("#htmltabs li").each(function(i,row){
+		if("tabs.title"+ to == $(this).attr("id")){
+			$("#tab"+i).show(); $(this).attr("class","hover");
+		}
+		else{
+			$("#tab"+i).hide(); $(this).removeClass("hover");
+		}
+	});
+	$.cookie("configtaburl",to);
+}
+function sethtmldir(id,value){
+	if(value){
+		$('#'+id).val(value);
+	}
+}
+</script>
+</head>
+<body>
+<form method="post" action="?m=system-configurlsave" id="form1" name="form1">
+	<ul id="htmltabs" style="padding:0">
+		<li id="tabs.title0" class="hover" onclick="settab('0');" style="cursor:pointer">URL模式</li>
+		<li id="tabs.title1" onclick="settab('1');" style="cursor:pointer">URL静态路径</li>
+		<li id="tabs.title2" onclick="settab('2');" style="cursor:pointer">URL伪静态规则</li>
+		<li>&nbsp;&nbsp;&nbsp;<input type="submit" id="btnSave" class="input" value="更新参数">&nbsp;如配置出错，请手动修改 inc/config/config.php文件。</li>
+	</ul>
+	
+	<table class="tbinfo pleft" id="tab0" style="display:">
+	<tr>
+      <td colspan=2 class="hl"><font color="#FF0000">浏览模式相关配置： 配置后请根据需要配置URL静态或URL伪静态</font></td>
+    </tr>
+    
+    <tr>
+      <td>留言本：</td>
+      <td>
+		<select name="view_gbook" id="view_gbook" style="width:150px;">
+		<!-- BEGIN list_view_gbook -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_gbook -->
+        </select>
+        &nbsp;RSS服务：
+        <select name="view_rss" id="view_rss" style="width:150px;">
+        <!-- BEGIN list_view_rss -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_rss -->
+        </select>
+        &nbsp;自定义页面：
+        <select name="view_label" id="view_label" style="width:150px;">
+        <!-- BEGIN list_view_label -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_label -->
+        </select>
+        </td>
+    </tr>
+    <tr>
+      <td colspan=2> </td>
+    </tr>
+    <tr>
+      <td>视频首页浏览模式：</td>
+      <td>
+		<select name="view_vodindex" id="view_vodindex" style="width:150px;">
+		<!-- BEGIN list_view_vodindex -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodindex -->
+        </select>
+        &nbsp;视频地图浏览模式：
+        <select name="view_vodmap" id="view_vodmap" style="width:150px;">
+        <!-- BEGIN list_view_vodmap -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodmap -->
+        </select>
+        &nbsp;视频搜索浏览模式：
+        <select name="view_vodsearch" id="view_vodsearch" style="width:150px;">
+        <!-- BEGIN list_view_vodsearch -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodsearch -->
+        </select>
+        </td>
+    </tr>
+   <tr>
+      <td>视频分类浏览模式：</td>
+      <td>
+		<select name="view_vodtype" id="view_vodtype" style="width:150px;">
+		<!-- BEGIN list_view_vodtype -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodtype -->
+        </select>
+        &nbsp;视频筛选浏览模式：
+        <select name="view_vodlist" id="view_vodlist" style="width:150px;">
+        <!-- BEGIN list_view_vodlist -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodlist -->
+        </select>
+       </td>
+    </tr>
+    <tr>
+      <td>专题首页浏览模式：</td>
+      <td>
+        <select name="view_vodtopicindex" id="view_vodtopicindex" style="width:150px;">
+        <!-- BEGIN list_view_vodtopicindex -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodtopicindex -->
+        </select>
+        &nbsp;视频专题浏览模式：
+        <select name="view_vodtopic" id="view_vodtopic" style="width:150px;">
+        <!-- BEGIN list_view_vodtopic -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodtopic -->
+        </select>
+        </td>
+    </tr>
+    <tr>
+      <td>视频内容页面设置：</td>
+      <td>
+        <select name="view_voddetail" id="view_voddetail" style="width:150px;">
+        <!-- BEGIN list_view_voddetail -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_voddetail -->
+        </select>
+		&nbsp;视频播放浏览模式：
+        <select name="view_vodplay" id="view_vodplay" style="width:150px;">
+        <!-- BEGIN list_view_vodplay -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_vodplay -->
+        </select>
+        &nbsp;视频下载浏览模式：
+        <select name="view_voddown" id="view_voddown" style="width:150px;">
+        <!-- BEGIN list_view_voddown -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_voddown -->
+        </select>
+      </td> 
+    </tr>
+    <tr>
+      <td colspan=2> </td>
+    </tr>
+    <tr>
+      <td width="150" class="hl">文章首页浏览模式：</td>
+      <td class="hl">
+		<select name="view_artindex" style="width:150px;">
+		<!-- BEGIN list_view_artindex -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_artindex -->
+        </select>
+        &nbsp;文章地图浏览模式：
+        <select name="view_artmap" id="view_artmap" style="width:150px;">
+        <!-- BEGIN list_view_artmap -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_artmap -->
+        </select>
+        &nbsp;文章搜索浏览模式：
+        <select name="view_artsearch" id="view_artsearch" style="width:150px;">
+        <!-- BEGIN list_view_artsearch -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_artsearch -->
+        </select>
+        </td>
+    </tr>
+    <tr>
+      <td>文章分类浏览模式：</td>
+      <td>
+      	<select name="view_arttype" style="width:150px;">
+        <!-- BEGIN list_view_arttype -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_arttype -->
+        </select>
+        &nbsp;文章筛选浏览模式：
+        <select name="view_artlist" id="view_artlist" style="width:150px;">
+        <!-- BEGIN list_view_artlist -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_artlist -->
+        </select>
+   		</td>
+    </tr>
+    <tr>
+      <td>专题首页浏览模式：</td>
+      <td>
+        <select name="view_arttopicindex" id="view_arttopicindex" style="width:150px;">
+        <!-- BEGIN list_view_arttopicindex -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_arttopicindex -->
+        </select>
+		&nbsp;文章专题浏览模式：
+		<select name="view_arttopic" style="width:150px;">
+		<!-- BEGIN list_view_arttopic -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_arttopic -->
+        </select>
+        </td>
+    </tr>
+    <tr>
+      <td>文章内容浏览模式：</td>
+      <td>
+		<select name="view_artdetail" style="width:150px;">
+        <!-- BEGIN list_view_artdetail -->
+		<option value="{v}" {c}>{n}</option>
+		<!-- END list_view_artdetail -->
+        </select>
+        </td>
+    </tr>
+    </table>
+    
+	<table class="tbinfo pleft" id="tab1" style="display:none">
+	<tr>
+      <td colspan=2 class="hl"><font color="#FF0000">静态相关配置： URL不用填写后缀，禁止出现 * : ?  ' " < > | \ 等字符，{id} {en} 至少出现1个 </font></td>
+    </tr>
+    <tr>
+      <td width="150" class="hl">视频首页路径：</td>
+      <td class="hl">
+      	<input name="path_vodindex" type="text" id="path_vodindex" value="{path_vodindex}" size="80" />
+	  </td>
+    </tr>
+    <tr>
+	  <td>视频地图页路径：</td>
+	  <td><input name="path_vodmap" type="text" id="path_vodmap" value="{path_vodmap}" size="80" />
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频分类页路径：</td>
+	  <td><input name="path_vodtype" type="text" id="path_vodtype" value="{path_vodtype}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_vodtype',this.value);"><option>常用结构</option><option value="vodtypehtml/{id}/index">1.vodtypehtml/id/</option><option value="vodtypehtml/{md5}/index">2.vodtypehtml/md5值/</option></option><option value="vodtypehtml/{en}/index">3.vodtypehtml/en/</option><option value="vodtypehtml/{id}">4.vodtypehtml/id.html</option><option value="vodtypehtml/{md5}">5.vodtypehtml/md5.html</option><option value="vodtypehtml/{en}">6.vodtypehtml/en.html</option></select>
+	  	变量：{id} {en} {p_id} {p_en}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频专题首页路径：</td>
+	  <td><input name="path_vodtopicindex" type="text" id="path_vodtopicindex" value="{path_vodtopicindex}" size="80" />
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频专题列表页路径：</td>
+	  <td><input name="path_vodtopic" type="text" id="path_vodtopic" value="{path_vodtopic}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_vodtopic',this.value);"><option>常用结构</option><option value="vodtopichtml/{id}/index">1.vodtopichtml/id/</option><option value="vodtopichtml/{md5}/index">2.vodtopichtml/md5值/</option></option><option value="vodtopichtml/{en}/index">3.vodtopichtml/en/</option><option value="vodtopichtml/{id}">4.vodtopichtml/id.html</option><option value="vodtopichtml/{md5}">5.vodtopichtml/md5.html</option><option value="vodtopichtml/{en}">6.vodtopichtml/en.html</option></select>
+	  变量：{id} {en}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频内容页路径：</td>
+	  <td><input name="path_voddetail" type="text" id="path_voddetail" value="{path_voddetail}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_voddetail',this.value);"><option>常用结构</option><option value="vodhtml/{id}/index">1.vodhtml/id/</option><option value="vodhtml/{md5}/index">2.vodhtml/md5值/</option></option><option value="vodhtml/{en}/index">3.vodhtml/en/</option><option value="vodhtml/{id}">4.vodhtml/id.html</option><option value="vodhtml/{md5}">5.vodhtml/md5.html</option><option value="vodhtml/{en}">6.vodhtml/en.html</option></select>
+	  变量：{id} {en} {year} {month} {day} {type_id} {type_en} {type_pid} {type_pen}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频播放页路径：</td>
+	  <td><input name="path_vodplay" type="text" id="path_vodplay" value="{path_vodplay}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_vodplay',this.value);"><option>常用结构</option><option value="vodplayhtml/{id}/index">1.vodplayhtml/id/</option><option value="vodplayhtml/{md5}/index">2.vodplayhtml/md5值/</option></option><option value="vodplayhtml/{enname}/index">3.vodplayhtml/enname/</option><option value="vodplayhtml/{id}">4.vodplayhtml/id.html</option><option value="vodplayhtml/{md5}">5.vodplayhtml/md5.html</option><option value="vodplayhtml/{enname}">6.vodplayhtml/enname.html</option></select>
+	  变量：{id} {en} {year} {month} {day} {type_id} {type_en} {type_pid} {type_pen}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频下载页路径：</td>
+	  <td><input name="path_voddown" type="text" id="path_voddown" value="{path_voddown}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_voddown',this.value);"><option>常用结构</option><option value="voddownhtml/{id}/index">1.voddownhtml/id/</option><option value="voddownhtml/{md5}/index">2.voddownhtml/md5值/</option></option><option value="voddownhtml/{en}/index">3.downhtml/en/</option><option value="voddownhtml/{id}">4.voddownhtml/id.html</option><option value="voddownhtml/{md5}">5.voddownhtml/md5.html</option><option value="voddownhtml/{en}">6.voddownhtml/en.html</option></select>
+	  变量：{id} {en} {year} {month} {day} {type_id} {type_en} {type_pid} {type_pen}
+	  </td>
+	</tr>
+	<tr>
+	  <td>文章首页路径：</td>
+	  <td><input name="path_artindex" type="text" id="path_artindex" value="{path_artindex}" size="80" /></td>
+	</tr>
+	<tr>
+	  <td>文章地图页路径：</td>
+	  <td><input name="path_artmap" type="text" id="path_artmap" value="{path_artmap}" size="80" /></td>
+	</tr>
+	<tr>
+	  <td>文章分类页路径：</td>
+	  <td><input name="path_arttype" type="text" id="path_arttype" value="{path_arttype}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_arttype',this.value);"><option>常用结构</option><option value="arttypehtml/{id}/index">1.arttypehtml/id/</option><option value="arttypehtml/{md5}/index">2.arttypehtml/md5值/</option></option><option value="arttypehtml/{en}/index">3.arttypehtml/en/</option><option value="arttypehtml/{id}">4.arttypehtml/id.html</option><option value="arttypehtml/{md5}">5.arttypehtml/md5.html</option><option value="arttypehtml/{en}">6.arttypehtml/en.html</option></select>
+	  变量：{id} {en} {p_id} {p_en}
+	  </td>
+	</tr>
+	<tr>
+	  <td>文章专题首页路径：</td>
+	  <td><input name="path_arttopicindex" type="text" id="path_arttopicindex" value="{path_arttopicindex}" size="80" /></td>
+	</tr>
+	<tr>
+	  <td>文章专题列表页路径：</td>
+	  <td><input name="path_arttopic" type="text" id="path_arttopic" value="{path_arttopic}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_arttopic',this.value);"><option>常用结构</option><option value="arttopichtml/{id}/index">1.arttopichtml/id/</option><option value="arttopichtml/{md5}/index">2.arttopichtml/md5值/</option></option><option value="arttopichtml/{en}/index">3.arttopichtml/en/</option><option value="arttopichtml/{id}">4.arttopichtml/id.html</option><option value="arttopichtml/{md5}">5.arttopichtml/md5.html</option><option value="arttopichtml/{en}">6.arttopichtml/en.html</option></select>
+	  变量：{id} {en}
+	  </td>
+	</tr>
+	<tr>
+	  <td>文章内容页路径：</td>
+	  <td><input name="path_artdetail" type="text" id="path_artdetail" value="{path_artdetail}" size="80" />
+	  <select style="width:120px" onChange="sethtmldir('path_artdetail',this.value);"><option>常用结构</option><option value="arthtml/{id}/index">1.arthtml/id/</option><option value="arthtml/{md5}/index">2.arthtml/md5值/</option></option><option value="arthtml/{en}/index">3.arthtml/en/</option><option value="arthtml/{id}">4.arthtml/id.html</option><option value="arthtml/{md5}">5.arthtml/md5.html</option><option value="arthtml/{en}">6.arthtml/en.html</option></select>
+	  变量：{id} {en} {year} {month} {day} {type_id} {type_en} {type_pid} {type_pen} 
+	  </td>
+	</tr>
+    </table>
+    
+	<table class="tbinfo pleft" id="tab2" style="display:none">
+	<tr>
+      <td colspan=2 class="hl"><font color="#FF0000">Rewrite相关配置：所标注变量的顺序请按照对应页面接收参数的顺序出现 </font></td>
+    </tr>
+    <tr>
+      <td width="150" class="hl">视频首页规则：</td>
+      <td class="hl">
+      	<input name="rewrite_vodindex" type="text" id="rewrite_vodindex" value="{rewrite_vodindex}" size="80" /> 变量：{pg}
+	  </td>
+    </tr>
+    <tr>
+	  <td>视频地图页规则：</td>
+	  <td><input name="rewrite_vodmap" type="text" id="rewrite_vodmap" value="{rewrite_vodmap}" size="80" />
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频分类页规则：</td>
+	  <td><input name="rewrite_vodtype" type="text" id="rewrite_vodtype" value="{rewrite_vodtype}" size="80" /> 变量：{id} {pg}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频筛选页规则：</td>
+	  <td><input name="rewrite_vodlist" type="text" id="rewrite_vodlist" value="{rewrite_vodlist}" size="80" /> 变量：{id} {pg} {order} {by} {year} {letter} {area} {lang}
+	  </td> 
+	</tr>
+	<tr>
+	  <td>视频专题首页规则：</td>
+	  <td><input name="rewrite_vodtopicindex" type="text" id="rewrite_vodtopicindex" value="{rewrite_vodtopicindex}" size="80" /> 变量：{pg}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频专题列表页规则：</td>
+	  <td><input name="rewrite_vodtopic" type="text" id="rewrite_vodtopic" value="{rewrite_vodtopic}" size="80" /> 变量：{id} {pg}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频内容页规则：</td>
+	  <td><input name="rewrite_voddetail" type="text" id="rewrite_voddetail" value="{rewrite_voddetail}" size="80" /> 变量：{id}
+	  </td>
+	</tr>
+	<tr>
+	  <td>视频播放页规则：</td>
+	  <td><input name="rewrite_vodplay" type="text" id="rewrite_vodplay" value="{rewrite_vodplay}" size="80" /> 变量：{id} {src} {num}</td>
+	</tr>
+	<tr>
+	  <td>视频下载页规则：</td>
+	  <td><input name="rewrite_voddown" type="text" id="rewrite_voddown" value="{rewrite_voddown}" size="80" /> 变量：{id} {src} {num}</td>
+	</tr>
+	<tr>
+	  <td>视频搜索页规则：</td>
+	  <td><input name="rewrite_vodsearch" type="text" id="rewrite_vodsearch" value="{rewrite_vodsearch}" size="80" /> 变量：{pg} {wd} {starring}</td>
+	</tr>
+	
+	
+	<tr>
+	  <td>文章首页规则：</td>
+	  <td><input name="rewrite_artindex" type="text" id="rewrite_artindex" value="{rewrite_artindex}" size="80" /> 变量：{pg}</td>
+	</tr>
+	<tr>
+	  <td>文章地图页规则：</td>
+	  <td><input name="rewrite_artmap" type="text" id="rewrite_artmap" value="{rewrite_artmap}" size="80" /></td>
+	</tr>
+	<tr>
+	  <td>文章分类页规则：</td>
+	  <td><input name="rewrite_arttype" type="text" id="rewrite_arttype" value="{rewrite_arttype}" size="80" /> 变量：{id} {pg}</td>
+	</tr>
+	<tr>
+	  <td>文章筛选页规则：</td>
+	  <td><input name="rewrite_artlist" type="text" id="rewrite_artlist" value="{rewrite_artlist}" size="80" /> 变量：{id} {pg} {order} {by}  {letter}
+	  </td> 
+	</tr>
+	<tr>
+	  <td>文章专题首页规则：</td>
+	  <td><input name="rewrite_arttopicindex" type="text" id="rewrite_arttopicindex" value="{rewrite_arttopicindex}" size="80" /> 变量：{pg}</td>
+	</tr>
+	<tr>
+	  <td>文章专题列表页规则：</td>
+	  <td><input name="rewrite_arttopic" type="text" id="rewrite_arttopic" value="{rewrite_arttopic}" size="80" /> 变量：{id} {pg}</td>
+	</tr>
+	<tr>
+	  <td>文章内容页规则：</td>
+	  <td><input name="rewrite_artdetail" type="text" id="rewrite_artdetail" value="{rewrite_artdetail}" size="80" /> 变量：{id} {pg}</td>
+	</tr>
+	<tr>
+	  <td>文章搜索页规则：</td>
+	  <td><input name="rewrite_artsearch" type="text" id="rewrite_artsearch" value="{rewrite_artsearch}" size="80" /> 变量：{pg} {wd}</td>
+	</tr>
+	
+	<tr>
+	  <td>留言本规则：</td>
+	  <td><input name="rewrite_gbook" type="text" id="rewrite_gbook" value="{rewrite_gbook}" size="80" /> 变量：{pg}</td>
+	</tr>
+	<tr>
+	  <td>RSS规则：</td>
+	  <td><input name="rewrite_rss" type="text" id="rewrite_rss" value="{rewrite_rss}" size="80" /> 变量：{method} {pg}</td>
+	</tr>
+	<tr>
+	  <td>自定义页规则：</td>
+	  <td><input name="rewrite_label" type="text" id="rewrite_label" value="{rewrite_label}" size="80" /> 变量：{label} {pg}</td>
+	</tr>
+    </table>
+    
+	</table>
+</form>
+{foot}
+</body>
+</html>

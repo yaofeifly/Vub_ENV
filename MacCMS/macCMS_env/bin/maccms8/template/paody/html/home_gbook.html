@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>留言本-泡电影</title>
+<meta name="keywords" content="留言本-泡电影" />
+<meta name="description" content="留言本-泡电影" />	
+{maccms:include}
+</head>
+<body>
+{maccms:head}
+<div class="wrap">
+
+<section class="comment sec" id="cmt_anchor">
+<!--留言开始-->
+<div class="cmt_msg" id="cmt_msg">
+	<form class="cmt_form clearfix" action="{maccms:path}index.php?m=gbook-save" method="post">
+		<input type="hidden" id="g_rid" name="g_rid" value="">
+		<a class="face_wrap fl" href="javascript:;"><img class="face" src="{maccms:path_tpl}images/home/duface.png"></a>
+		<div class="input_wrap fl clearfix">
+				<textarea id="g_content" name="g_content" class="fl"  onKeyup="MAC.Remaining(this,200,'g_remaining')" onfocus="if(this.value=='请在这里发表您的个人看法，最多200个字。'){this.value='';}" onblur="if(this.value==''){this.value='请在这里发表您的个人看法，最多200个字。';};"	>请在这里发表您的个人看法，最多200个字。</textarea>
+			<p class="fl clearfix">
+				<img onclick="MAC.AddEm('g_content',1);" src="{maccms:path}images/face/1.gif"><img onclick="MAC.AddEm('g_content',2);" src="{maccms:path}images/face/2.gif"><img onclick="MAC.AddEm('g_content',3);" src="{maccms:path}images/face/3.gif"><img onclick="MAC.AddEm('g_content',4);" src="{maccms:path}images/face/4.gif"><img onclick="MAC.AddEm('g_content',5);" src="{maccms:path}images/face/5.gif"><img onclick="MAC.AddEm('g_content',6);" src="{maccms:path}images/face/6.gif"><img onclick="MAC.AddEm('g_content',7);" src="{maccms:path}images/face/7.gif"><img onclick="MAC.AddEm('g_content',8);" src="{maccms:path}images/face/8.gif"><img onclick="MAC.AddEm('g_content',9);" src="{maccms:path}images/face/9.gif"><img onclick="MAC.AddEm('g_content',10);" src="{maccms:path}images/face/10.gif"><img onclick="MAC.AddEm('g_content',11);" src="{maccms:path}images/face/11.gif"><img onclick="MAC.AddEm('g_content',12);" src="{maccms:path}images/face/12.gif"><img onclick="MAC.AddEm('g_content',13);" src="{maccms:path}images/face/13.gif"><img onclick="MAC.AddEm('g_content',14);" src="{maccms:path}images/face/14.gif"><img onclick="MAC.AddEm('g_content',15);" src="{maccms:path}images/face/15.gif"><img onclick="MAC.AddEm('g_content',16);" src="{maccms:path}images/face/16.gif">
+				<span class="remaining fr" id="g_remaining">200</span>
+			</p>
+		</div>
+		<p class="smt_wrap fl clearfix">
+			<span class="total fl">共<em id="item_count">{maccms:count_gbook_all}</em>条留言，今日<em>{maccms:count_gbook_day}</em>条留言。</span>
+			<span class="fr clearfix">
+				<span id="g_login" style="display: none;">
+					<span></span>
+				</span>
+				昵称:<input class="cmt_text" id="g_name" name="g_name" type="text" value="游客">{if-A:{maccms:gbookverify}==1} 验证码:<input type="text" id="g_code" name="g_code" class="cmt_text"/>&nbsp;&nbsp;<img id="g_code_img" class="cmt_verify" src="{maccms:path}inc/common/code.php?a=gbook&s=" title="看不清楚? 换一张！" onClick="src='{maccms:path}inc/common/code.php?a=gbook&s='+Math.random()"/>{endif-A}
+				<input class="cmt_post" type="submit" value="发布" >
+			</span>
+		</p>
+	</form>
+	
+	<div class="cmt_wrap" >
+		{if-A:{page:datacount}==0}
+		<center><h3> 暂无留言，快来抢沙发吧！</h3></center>
+		{else-A}
+		{maccms:gbook pagesize=10 order=desc by=time}
+		<div class="cmt_item clearfix">
+			<a class="face_wrap fl" href="javascript:;"><img class="face" src="{maccms:path_tpl}images/home/duface.png"></a>
+			<div class="item_con fl">
+				<p class="top">
+					<span class="fr" style="padding-right: 11px;">[gbook:time style=Y-m-d H:i:s]</span>
+					<a class="name" href="javascript:;">[gbook:name]</a>
+					(<a target="_blank">[gbook:ip]</a>)
+				</p>
+				{if-B:!isN("[gbook:reply]")}
+				<div class="cmt_item inner" ><p class="top"><span class="fr" style="padding-right: 11px;">[gbook:replytime style=Y-m-d H:i:s]</span><a class="name" href="javascript:;">管理员回复：</a></p><p class="con">[gbook:reply]</p><div class="bottom clearfix" style="visibility: hidden;"><ul class="fr clearfix"><li> </li></ul></div></div>
+				{endif-B}
+				<p class="con">[gbook:content]</p>
+				
+			</div>
+		</div>
+		{/maccms:gbook}
+		
+		<div class="page">{maccms:pages len=6}</div>
+		{endif-A}
+	 	</div>
+	
+</div>
+<!--留言结束-->
+</section>
+{maccms:foot}
+<!--/Footer-->
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>《[vod:name]》百度影音电影-[vod:remarks]下载-[vod:from]在线观看 - [vod:typename] - {maccms:name}</title>
+<meta name="keywords" content="《[vod:name]》高清下载,《[vod:name]》在线观看,《[vod:name]》百度影音" />
+<meta name="description" content="[vod:name]剧情:[vod:contenttext len=60]" />
+{maccms:include}
+[vod:history]
+</head>
+<body>
+{maccms:head}
+<!--/Nav-->
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="position">当前位置：[vod:textlink]</div>
+  <div class="box mb bd">
+    <div class="l infobox">
+      <div class="l poster"><a href="#play" target="_self"><img src="[vod:pic]" alt="[vod:name]" /></a><span>海报/剧照欣赏</span></div>
+      <div class="r info">
+        <ul>
+          <li><span>片名：</span><h1>[vod:name]</h1></li>
+          <li><span>状态：</span>[vod:remarks]<div style="display:none">[vod:hits]</div></li>
+          <li><span>导演：</span>[vod:directedlink]</li>
+          <li><span>主演：</span>[vod:starringlink]</li>
+          <li><span>分类：</span><a target="_blank" href="[vod:typelink]">[vod:typename]</a> [vod:classlink]</li>
+          <li><span>年份：</span>[vod:yearlink]</li>
+          <li><span>地区：</span>[vod:arealink]</li>
+          <li><span>语言：</span>[vod:langlink]</li>
+          <li class="nob"><span>Tag ：</span>[vod:taglink]</li>
+          <li><span>更新时间：</span>[vod:addtime]</li>
+        </ul>
+      </div>
+      <!--/Info-->
+    </div>
+    <!--/InfoBox-->
+    <div class="r money_336">
+    <script type="text/javascript" language="javascript" src="{maccms:path_ads}neirong306.js"></script>
+    </div>
+    <!--/Money_336-->
+  </div>
+  <!--/Box-->
+<div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}neirong902.js"></script></div>
+<div class="gonggao">【电影观看小贴士】：[TS/TC：抢先非清晰版] [DVD：普通清晰版] [BD：蓝光高清无水印版] [HD：1080/720P高清版]  - 其中，BD和HD为高清版，建议宽带2M以上的用户观看</div>
+ 
+  <div  id="bofang" class="box mb"> 
+    <div class="l main_c">
+     {maccms:play}
+      <div class="b playlist mb" id="play_[play:num]">
+           <h4><strong>[vod:name][play:from]在线观看<span>[[play:tip]]</span></strong><p class="more red"><span id="vlink_[play:num]_s1"><em onclick="Order(1,'vlink_[play:num]',[play:num])">倒序↑</em></span><span id="vlink_[play:num]_s2"><em onclick="Order(0,'vlink_[play:num]',[play:num])">顺序↓</em></span></p></h4>
+        <div id="vlink_[play:num]">
+       <ul>{maccms:url order=asc}<li><a href="[url:link]" target="_blank">[url:name]</a></li>{/maccms:url}</ul>
+        </div>
+      </div>
+      {/maccms:play}
+      {maccms:down}
+      <div class="b playlist mb" id="down_[down:num]">
+           <h4><strong>[vod:name][down:from]在线观看<span>[[down:tip]]</span></strong><p class="more red"></p></h4>
+        <div id="vlink_[down:num]">
+       <ul>{maccms:url order=asc}<li><a href="[url:link]" target="_blank">[url:name]</a></li>{/maccms:url}</ul>
+        </div>
+      </div>
+      {/maccms:down}
+      
+      <!--/PlayList-->
+	 <script>//Wnew(0);</script>
+      <div class="commend b commend_c mb">
+        <h4><strong>[vod:name]相关影片</strong></h4>
+        <ul>
+           {maccms:vod type=current num=10 order=desc by=time}
+          <li><a href="[vod:link]" title="[vod:name]" class="bk"><img src="[vod:pic]" alt="[vod:name]" /></a><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span><strong><a href="[vod:link]">[vod:name]</a></strong></li>{/maccms:vod}
+        </ul>
+      </div>
+      <!--/Commend-->
+      <div class="b description">
+        <h4><strong>[vod:name]剧情介绍</strong></h4>
+        <ul>[vod:content]<br /></br>[[vod:name]高清、百度影音、中字下载、迅雷下载、快车下载、BT下载、[vod:name]全集在线观看、{maccms:name} {maccms:url} ]</ul>
+      </div>
+      <!--/Description-->
+    </div>
+    <!--/Main-->
+    <div class="side_c r">
+      <div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}neirong301.js"></script></div>
+     <div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}neirong302.js"></script></div>
+      <div class="svlist b">
+        <h5>热门[vod:typename]</h5>
+        <ul>
+         {maccms:vod num=10 type=current by=weekhits order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+	[vod:comment]
+</div><div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}neirong903.js"></script></div>
+<!--/Wrap-->
+{maccms:foot}
+<!--/Footer-->
+</body>
+</html>

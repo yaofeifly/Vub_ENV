@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>图片管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(confirm('确定要删除吗')){ $("#form1").attr("action","?m=extend-picdel"); $("#form1").submit()}else{return false}
+	});
+	$("#btnChk").click(function(){
+		if(confirm('确定要清理垃圾图片吗?')){ location.href="?m=extend-picchk" }else{return false}
+	});
+});
+</script>
+</head>
+<body>
+<form action="?action=del" method="post" id="form1" name="form1">
+<table class="tb">
+<tr><th class="thfirst">文件名</th><th>文件大小</th><th>修改时间</th></tr>
+<!-- IF ischild -->
+<tr><td colspan="3"><img src="../images/icons/dir.gif"><a href="?m=extend-pic-path-{uppath}">上级目录</a></td></tr>
+<!-- ENDIF ischild -->
+<!-- BEGIN list_picpath -->
+<tr><td colspan="3"><img src="../images/icons/dir.gif"><a href="?m=extend-pic-path-{path}">{name}</a></td></tr>
+<!-- END list_picpath -->
+<!-- BEGIN list_picfile -->
+<tr><td>&nbsp;<input type="checkbox" name="fname[]" value="{path}">&nbsp;<img src="../images/icons/asp.gif"><a href="{path}" target="_blank">{name}</a></td><td>{size}KB</td><td>{time}</td></tr>
+<!-- END list_picfile -->
+<tr><td colspan=3>本目录下共有<font color=red><b>{pathcount}</b></font>个目录,<font color=red><b>{filecount}</b></font>个文件,占用<font color=red><b>{sumsize}</b></font>空间</td></tr>
+<tr><td colspan=3><input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('fname[]');">&nbsp;<input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('fname[]');">&nbsp;<input type="button" id="btnDel" class="input" value="删除" >&nbsp;<input type="button" id="btnChk" class="input" value="清理无用图片" ></td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

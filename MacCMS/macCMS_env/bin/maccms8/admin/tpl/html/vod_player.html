@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>播放器管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnAdd").click(function(){
+		location.href='?m=vod-playerinfo';
+	});
+	$("#btnImport").click(function(){
+		showwin();
+	});
+});
+function showwin()
+{
+	$.webox({
+		width:330,
+		height:150,
+		bgvisibel:true,
+		title:'导入视频播放器代码',
+		html: $("#win1").html()
+	});
+}
+</script>
+</head>
+<body>
+<form method="POST" name="form1" id="form1">
+<table class="tb">
+	<tr>
+		<th class="thfirst">编码</th>
+		<th>名称</th>
+		<th width="100">序号</th>
+		<th width="100">状态</th>
+		<th>地址</th>
+		<th>备注</th>
+		<th width="120">操作</th>
+	</tr>
+<!-- IF isnull -->
+<tr><td colspan=7 align=center>未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_player -->
+	<tr>
+	  <td>{from}</td>
+	  <td>{show}</td>
+	  <td>{sort}</td>
+	  <td>{status}</td>
+	  <td>{des}</td>
+	  <td>{tip}</td>
+      <td>
+	  <a href="?m=vod-playerinfo-from-{from}">修改</a> |
+	  <a href="admin_xml.php?ac=exportxml&tab=vodplay&val={from}">导出</a> |
+	  <a href="admin_xml.php?ac=delxml&tab=vodplay&val={from}" onClick="return confirm('确定要删除吗?');">删除</a></td>
+    </tr>
+	<!-- END list_player -->
+<!-- ENDIF isnull -->
+	<tr><td colspan="7">
+    <input type="button" id="btnAdd" value="添加" class="input" />
+    <input type="button" id="btnImport" value="导入" class="input" />
+    </td></tr>
+</table>
+</form>
+<div id="win1" style="display:none;padding:5px;width:400px;" >
+<form enctype="multipart/form-data" action="?m=vod-playerup" method="post">
+<table class="tb">
+  <tbody>
+  	<tr>
+  		<td colspan="2" align="center">
+         <input type="file" id="file1" name="file1">
+		<input type="submit" name="submit" class="input2" value="开始导入">
+		</td>
+  	</tr>
+</table>
+</form>
+</div>
+{foot}
+</body>
+</html>

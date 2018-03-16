@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>友情链接信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			l_name:{
+				required:true
+			},
+			l_url:{
+				required:true
+			},
+			l_type:{
+				required:true
+			}
+		}
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form action="admin_data.php?ac=save&tab=link" method="post" name="form1" id="form1">
+<input id="l_id" name="l_id" type="hidden" value="{l_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">友情链接信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100">网站名称：</td>
+	<td><input id="l_name" name="l_name" size="50" value="{l_name}" >
+	</td>
+	</tr>
+	<tr>
+	<td>网站地址：</td>
+	<td><input id="l_url" name="l_url" size="50" value="{l_url}"  >
+	</td>
+	</tr>
+	<tr>
+	<td>logo地址：</td>
+	<td>
+	<input id="l_logo" name="l_logo" size="50" value="{l_logo}"  >
+	</td>
+	</tr>
+	<tr>
+	<td>链接类型：</td>
+	<td>
+	<select id="l_type" name="l_type" style="width:100px;">
+	<option value="0" {l_type_c0}>文字链接</option>
+	<option value="1" {l_type_c1}>图片链接</option>
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>排序号：</td>
+	<td><input id="l_sort" name="l_sort" size="15" value="{l_sort}" >
+	</td>
+	</tr>
+    <tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

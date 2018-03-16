@@ -1,0 +1,2 @@
+MacPlayer.Html = '<embed src="'+SitePath+'player/ckplayer/ckplayer.swf" flashvars="f='+MacPlayer.PlayServer+MacPlayer.PlayUrl+'&my_url='+encodeURIComponent(window.location.href)+'" quality="high" width="100%" height="'+MacPlayer.Height+'" align="middle" allowScriptAccess="always" allowFullscreen="true" type="application/x-shockwave-flash"></embed>';
+MacPlayer.Show();

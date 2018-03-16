@@ -1,0 +1,33 @@
+﻿<!--
+CMP4配置文件
+
+所有配置参数说明请见：http://bbs.cenfun.com/thread-10891-1-1.html
+
+更多详细参数说明，请参见CMP交流论坛http://bbs.cenfun.com/
+-->
+<cmp 
+	name = "CMP4 - 『生活需要音乐』" 
+	link = "http://bbs.cenfun.com/" 
+	description = "CMP4 - 『生活需要音乐』 - http://bbs.cenfun.com/"
+	logo = "{src:logo.png,xywh:[10R,10R,0,0]}"
+	
+	skins = "skins/default.zip,skins/xdj.zip,skins/qqplayer.zip,skins/wmp11.zip,skins/exobud.zip,skins/tudou.zip,skins/mini/vplayer.zip"
+	plugins = ""
+	backgrounds = ""
+	lists = ""
+	
+	src_handler = "" 
+	lrc_handler = ""
+
+	skin_id = ""
+
+	play_id = ""
+	auto_play = ""
+	list_delete = ""
+	
+	sound_sample = "true"
+	mixer_displace = "true"
+	mixer_filter = "true"
+	
+	counter = "http://img.users.51.la/3389672.asp"
+/>

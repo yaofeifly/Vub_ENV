@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>留言本管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=gbook");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#btnClear").click(function(){
+		if(confirm('确定要清空吗')){
+			location.href='admin_data.php?ac=clear&tab=gbook';
+		}
+	});
+	$("#btnHide").click(function(){
+		ajaxshow('btnHide','hide','gbook','g_id','g_hide','');
+	});
+	$("#btnSearch").click(function(){
+		location.href='?m=extend-gbook-hide-'+$("#hide").val()+'-reply-'+$("#reply").val()+'-vid-'+$("#vid").val()+'-wd-'+encodeURI($("#wd").val());
+	});
+});
+</script>
+</head>
+<body>
+<table class="tbinfo pleft">
+	<thead>
+		<tr><th><span style="float:left">留言本管理</span><span style="float:right;"></span> </th></tr>
+	</thead>
+    <tr>
+    <td>筛选条件：
+	<select id="hide" name="hide">
+	<!-- BEGIN list_hide -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_hide -->
+	</select>
+	&nbsp;
+	<select id="reply" name="reply">
+	<!-- BEGIN list_reply -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_reply -->
+	</select>
+	&nbsp;
+	<select id="vid" name="vid">
+	<!-- BEGIN list_vid -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_vid -->
+	</select>
+	&nbsp;关键字：<input id="wd" size="40" name="wd" onClick="this.select();" value="{wd}">
+	<input class="input" type="button" value="搜索" id="btnSearch">
+	</td>
+	</tr>
+</table>
+<form method="post" action="" name="form1" id="form1">
+<table class="tb">
+	<tr>
+	<th width="100" class="thfirst">编号</th>
+	<th width="120">留言类型</th>
+	<th>留言内容</th>
+	<th width="100">昵称</th>
+	<th width="100">用户IP</th>
+	<th width="150">留言时间</th>
+	<th width="100">回复状态</th>
+	<th width="120">操作</th>
+	</tr>
+	<!-- IF isnull -->
+	<tr><td colspan="8" align="center">未查询到任何数据</td></tr>
+	<!-- ELSE isnull -->
+	<!-- BEGIN list_gbook -->
+	<tr>
+	<td><input name="g_id[]" type="checkbox" id="g_id" value="{g_id}" />{g_id}</td>
+	<td>{g_flag} <!-- IF isflag --><a target="_blank" href="index.php?m=vod-list-id-{g_vid}">[浏览]</a><!-- ENDIF isflag -->	</td>
+	<td>{g_content}</td>
+	<td>{g_name}</td>
+	<td>{g_ip}</td>
+	<td>{g_time}</td>
+	<td><a href="?m=extend-gbookinfo-id-{g_id}">{g_reply}</a></td>
+	<td>
+	<!-- IF isorder -->
+	<a href="admin_data.php?ac=set&tab=gbook&colid=g_id&col=g_sort&id={g_id}&val=0"><font color=red>取消</font></a> |
+	<!-- ELSE isorder -->
+	<a href="admin_data.php?ac=set&tab=gbook&colid=g_id&col=g_sort&id={g_id}&val=1"><font color=green>置顶</font></a> |
+	<!-- ENDIF isorder -->	
+	<!-- IF ishide -->
+	<a href="admin_data.php?ac=set&tab=gbook&colid=g_id&col=g_hide&id={g_id}&val=0"><font color=green>显示</font></a> |
+	<!-- ELSE ishide -->
+	<a href="admin_data.php?ac=set&tab=gbook&colid=g_id&col=g_hide&id={g_id}&val=1"><font color=red>隐藏</font></a> |
+	<!-- ENDIF ishide -->
+	<a href="admin_data.php?ac=del&tab=gbook&g_id={g_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	</td>
+	</tr>
+	<!-- END list_gbook -->
+	<tr>
+	<td colspan="8" class="pleft">
+	<input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('g_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('g_id[]');">
+	<input type="button" id="btnDel" value="删除" class="input" />
+	<input type="button" id="btnHide" value="显隐" class="input"/>
+	<input type="button" id="btnClear" value="清空" class="input"/>
+	</td></tr>
+    <tr align="center">
+      <td colspan="8"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>伪原创信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<form action="?m=system-configpsesave" method="post" name="form1" id="form1">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<table class="tb">
+<tr class="thead"><th width="30%" align=left>同义词库</th><th align=left>随机词库</th></tr>
+<tr>
+	<td valign="top">
+	<textarea id="psesyn" name="psesyn" style="width:100%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="22">{psesyn}</textarea>
+	</td>
+	<td valign="top">
+	<textarea id="psernd" name="psernd" style="width:100%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="22">{psernd}</textarea>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2" class="red">
+	<font color=red>同义词：每行一个，不要有空行，格式：要替换=替换后。</font>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2">
+	<font color=red>随机词库：字符段一般20条左右即可，可以是笑话小故事，也可以加入超链接。</font>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2" class="red">
+	<font color=red>此项功能影响采集性能，请不要一次加入太多词条 。适当的伪原创有助于搜索引擎收录。该功能只在新增数据时有效。</font>
+	</td>
+	</tr>
+	<tr>
+	<td colspan="2" class="red">
+	<font color=red>不使用替换功能请在<a href="?m=system-configcollect">【采集参数设置中禁用】。 </a></font>
+	</td>
+	</tr>
+	<tr>
+	<td align="center" colspan="2">
+		<input type="submit" id="btnSave" name="btnSave" value="保存内容" class="input" />
+	</td>
+	</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

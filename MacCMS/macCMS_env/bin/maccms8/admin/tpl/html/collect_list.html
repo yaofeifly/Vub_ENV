@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>联盟资源库数据列表 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+function jump(ac,ac2) {
+    var url = '?m=collect-'+ac+'-ac2-'+ac2+'-xt-{xt}-ct-{ct}-group-{group}-flag-{flag}';
+    switch (ac2) {
+    case 'sel':
+    	if(checkCount('ids[]')==0){
+			alert("请先选择所采集的数据");
+            return
+		}
+        url += "-pg-{pg}-type-{type}";
+        break;
+    case 'day':
+        if (xt == "1" || xt == "2") {
+            rday = "24"
+        } else {
+            rday = "1"
+        }
+        url += "-hour-{hour}";
+        break;
+    case 'type':
+        url += "-type-{type}";
+        break;
+    case 'all':
+        break;
+    case 'list':
+        url += '-pg-1-type-0-wd-' + encodeURI($("#rkey").val()) + '-apiurl-{apiurl}';
+        location.href = url;
+        return;
+        break
+    }
+    url += '-apiurl-{apiurl}';
+    $("#form3").attr("action", url);
+    $("#form3").submit()
+}
+</script>
+</head>
+<body>
+<div class="nav">
+<ul>
+<!-- IF isnull -->
+<!-- ELSE isnull -->
+	<li><a href="?m=collect-list-xt-{xt}-ct-{ct}-group-{group}-flag-{flag}-pg-1-type--wd--apiurl-{apiurl}"><font color="#FF0000"><b>查看全部资源</b></font></a></li>
+	<!-- BEGIN list_type -->
+	<li><a href="?m=collect-list-xt-{xt}-ct-{ct}-group-{group}-flag-{flag}-pg-1-type-{v}-wd--apiurl-{apiurl}">{n}</a>
+	<!-- IF isbind -->
+	<a id="type{flag}{v}" href="javascript:void(0)" onclick="setunion('vod','{v}','{flag}{v}');"><font color=red>[已绑]</font></a>
+	<!-- ELSE isbind -->
+	<a id="type{flag}{v}" href="javascript:void(0)" onclick="setunion('vod','{v}','{flag}{v}');"><font color=green>[未绑]</font></a>
+	<!-- ENDIF isbind -->
+	</li>
+	<!-- END list_type -->
+<!-- ENDIF isnull -->
+</ul>
+</div>
+<table class="tb" style="padding-top:0px;border-top:1px solid #DEEFFA;border-bottom:0px solid #DEEFFA;">
+<tr><td align="center">数据查询：<input id="rkey" name="rkey" type="text" onFocus="if (value =='请输入关键词'){value =''}" value="{wd}" size="30" >&nbsp;<input class="input" type="button" id="btnSearch" value="查询数据" onclick="jump('list','list');" />&nbsp;<font color='red'>采集前请绑定相应分类 ，没有绑定分类的将不会采集入库</font></td></tr>
+</table>
+<form action="" method="post" id="form3" name="form3">
+<table class="tb"><tr><th>名称</th><th width="100">分类</th><th width="100">来源</th><th width="150">时间</th></tr>
+<!-- IF isnull -->
+<tr><td colspan="4" align="center">未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_data -->
+	<tr>
+	<td><input name="ids[]" type="checkbox" value="{id}" {chk}/> {name} <a target="_blank" href="?m=vod-list-wd-{nameencode}"><font color="red">查</font></a></td>
+	<td>{typename}</td>
+	<td>{from}</td>
+	<td>{time}</td>
+	</tr>
+	<!-- END list_data -->
+<tr><td colspan="4"><input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('ids[]');">&nbsp;<input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('ids[]');">&nbsp;<input type='button' value='采选中' class="input" onClick="jump('cj','sel')"/>&nbsp;<input type='button' class="input" value='采当天' onClick="jump('cj','day')"/>&nbsp;<input type='button' class="input" value='采全部' onClick="jump('cj','all')"/><!-- IF istype -->&nbsp;<input type='button' value='采分类' class="input" onClick="jump('cj','type')" /> <!-- ENDIF istype --></td></tr>
+<tr><td colspan="4" align="center"><div class="pages">{pages}</div></td></tr>
+</table>
+</form>
+<!-- ENDIF isnull -->
+</table>
+{foot}
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>剧情分类管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnEdit").click(function(){
+		if(checkCount('c_id[]')==0){ alert("请至少选择一个数据");return; }
+		$("#form1").attr("action","?m=vod-classsaveall");
+		$("#form1").submit();
+	});
+	$("#btnDel").click(function(){
+		if(checkCount('c_id[]')==0){ alert("请至少选择一个数据");return; }
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=vod_class");
+			$("#form1").submit();
+		}
+	});
+	$("#btnAdd").click(function(){
+		location.href='?m=vod-classinfo';
+	});
+	$("#btnHide").click(function(){
+		ajaxshow('btnHide','hide','vod_class','c_id','c_hide','');
+	});
+	$("#btnMove").click(function(){
+		ajaxshow('btnMove','shift','vod_class','c_id','','');
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" name="form1" id="form1">
+<table class="tb">
+	<tr>
+		<th width="200" class="thfirst">编号、名称</th>
+		<th width="100">排序</th>
+		<th width="120">中文名</th>
+		<th >操作</th>
+	</tr>
+<!-- IF isnull -->
+<tr><td colspan="4" align="center">未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	
+	<!-- BEGIN list_type -->
+	<tr>
+    	<td>{t_id}、{t_name}</td>
+      	<td> </td>
+      	<td> </td>
+      	<td>
+		<a href="?m=vod-classinfo-pid-{t_id}"><font color=green>添加</font></a>
+	    </td>
+	</tr>
+		<!-- BEGIN list_class -->
+		<tr>
+	    	<td>{c_span}<input name="c_id[]" type="checkbox" value="{c_id}" />{c_id}、{c_name} </td>
+	      	<td><input class="w50" type="text" name="c_sort{c_id}" value="{c_sort}"></td>
+	      	<td><input class="w90" type="text" name="c_name{c_id}" value="{c_name}"></td>
+	      	<td>
+	      	<!-- IF ishide -->
+			<a href="admin_data.php?ac=hide&tab=vod_class&colid=c_id&col=c_hide&id={c_id}&val=0"><font color=green>显示</font></a> |
+			<!-- ELSE ishide -->
+			<a href="admin_data.php?ac=hide&tab=vod_class&colid=c_id&col=c_hide&id={c_id}&val=1"><font color=red>隐藏</font></a> |
+			<!-- ENDIF ishide -->
+		    <a href="?m=vod-classinfo-id-{c_id}">修改</a> |
+		    <a href="admin_data.php?ac=del&tab=vod_class&c_id={c_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+		    </td>
+		</tr>
+		<!-- END list_class -->
+	<!-- END list_type -->
+	
+<!-- ENDIF isnull -->
+	<tr><td colspan="4">
+    <input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('c_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('c_id[]');">
+	<input type="button" value="添加" id="btnAdd" class="input" />
+	<input type="button" value="修改" id="btnEdit" class="input" />
+	<input type="button" value="删除" id="btnDel" class="input" />
+	<input type="button" value="显隐" id="btnHide" class="input" />
+    </td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

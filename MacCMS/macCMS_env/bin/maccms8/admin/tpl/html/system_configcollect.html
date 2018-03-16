@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>采集参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configcollectsave" id="form1" name="form1">
+<table class="tbinfo pleft">
+	<thead><th colspan="2">采集相关配置</th></thead>
+	<tr>
+      <td colspan=2><font color="#FF0000">视频模块相关配置：</font></td>
+    </tr>
+	<tr>
+	<td width="150" class="hl">收费资源授权码：</td>
+	<td class="hl">
+	<input name="vod_key" value="{vod_key}" size="50">
+	</td>
+	</tr>
+	<tr>
+	<td>随机点击量：</td>
+	<td>
+	<input name="vod_hitsstart" value="{vod_hitsstart}" size="20">
+	到 <input name="vod_hitsend" value="{vod_hitsend}" size="20"> 之间
+	</td>
+	</tr>
+	<tr>
+	<td>随机评分数：</td>
+	<td>
+	<!-- BEGIN list_vod_score -->
+	<input type="radio" name="vod_score" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_score -->
+	</td>
+	</tr>
+	<tr>
+	<td>采集后数据状态：</td>
+	<td>
+	<!-- BEGIN list_vod_hide -->
+	<input type="radio" name="vod_hide" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_hide -->
+	</td>
+	</tr>
+	<tr>
+	<td>采集过程中同步图片：</td>
+	<td>
+	<!-- BEGIN list_vod_pic -->
+	<input type="radio" name="vod_pic" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_pic -->
+	</td>
+	</tr>
+	<tr>
+	<td>自动生成TAG：</td>
+	<td>
+	<!-- BEGIN list_vod_tag -->
+	<input type="radio" name="vod_tag" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_tag --> 会影响采集速度
+	</td>
+	</tr>
+	<tr>
+	<td>介绍随机插入语句：</td>
+	<td>
+	<!-- BEGIN list_vod_psernd -->
+	<input type="radio" name="vod_psernd" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_psernd -->
+	<input class="input" type="button" value="编辑词库" onclick="location.href='?m=system-configpse-flag-vod'">
+	</td>
+	</tr>
+	<tr>
+	<td>介绍同义词替换：</td>
+	<td>
+	<!-- BEGIN list_vod_psesyn -->
+	<input type="radio" name="vod_psesyn" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_psesyn -->
+	</td>
+	</tr>
+	<tr>
+	<td>入库重复规则：</td>
+	<td>
+	<input name="vod_inrule[]" type="checkbox" disabled='disabled' checked='checked' value='a' />视频标题&nbsp;+
+	<!-- BEGIN list_vod_inrule -->
+	<input name="vod_inrule[]" type="checkbox" value='{v}' {c} />{n}&nbsp;
+	<!-- END list_vod_inrule -->
+	</td>
+	</tr>
+	<tr>
+	<td>二次更新规则：</td>
+	<td>
+	<!-- BEGIN list_vod_uprule -->
+	<input name="vod_uprule[]" type="checkbox" value='{v}' {c} />{n}&nbsp;
+	<!-- END list_vod_uprule -->
+	<br>&nbsp;注：选择图片，不管是本地图片还是远程图片都强制更新；不选择，本地图片将跳过更新。
+	</td>
+	</tr>
+	<tr>
+	<td>影片过滤：</td>
+	<td>
+	<textarea name="vod_filter" rows="4" style="width:550px;table-layout:fixed;word-wrap:break-word;">{vod_filter}</textarea>多个数据请用逗号分隔
+	</td>
+	</tr>
+	<tr>
+      <td colspan=2><font color="#FF0000">文章模块相关配置：</font></td>
+    </tr>
+	<tr>
+	<td width="150" class="hl">收费资源授权码：</td>
+	<td class="hl">
+	<input name="art_key" value="{art_key}" size="50">
+	</td>
+	</tr>
+	<tr>
+	<td>随机点击量：</td>
+	<td>
+	<input name="art_hitsstart" value="{art_hitsstart}" size="20">
+	到 <input name="art_hitsend" value="{art_hitsend}" size="20"> 之间
+	</td>
+	</tr>
+	<tr>
+	<td>采集后数据状态：</td>
+	<td>
+	<!-- BEGIN list_art_hide -->
+	<input type="radio" name="art_hide" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_art_hide -->
+	</td>
+	</tr>
+	<tr>
+	<td>采集过程中同步图片：</td>
+	<td>
+	<!-- BEGIN list_art_pic -->
+	<input type="radio" name="art_pic" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_art_pic -->
+	</td>
+	</tr>
+	<tr>
+	<td>自动生成TAG：</td>
+	<td>
+	<!-- BEGIN list_art_tag -->
+	<input type="radio" name="art_tag" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_art_tag --> 会影响采集速度
+	</td>
+	</tr>
+	<tr>
+	<td>介绍随机插入语句：</td>
+	<td>
+	<!-- BEGIN list_art_psernd -->
+	<input type="radio" name="art_psernd" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_art_psernd -->
+	<input class="input" type="button" value="编辑词库" onclick="location.href='?m=system-configpse-flag-art'">
+	</td>
+	</tr>
+	<tr>
+	<td>介绍同义词替换：</td>
+	<td>
+	<!-- BEGIN list_art_psesyn -->
+	<input type="radio" name="art_psesyn" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_art_psesyn -->
+	</td>
+	</tr>
+	<tr>
+	<td>入库重复规则：</td>
+	<td>
+	<input name="art_inrule[]" type="checkbox" disabled='disabled' checked='checked' value='a' />文章标题&nbsp;+
+	<!-- BEGIN list_art_inrule -->
+	<input name="art_inrule[]" type="checkbox" value='{v}' {c} />{n}&nbsp;
+	<!-- END list_art_inrule -->
+	</td>
+	</tr>
+	<tr>
+	<td>二次更新规则：</td>
+	<td>
+	<!-- BEGIN list_art_uprule -->
+	<input name="art_uprule[]" type="checkbox" value='{v}' {c} />{n}&nbsp;
+	<!-- END list_art_uprule -->
+	</td>
+	</tr>
+	<tr>
+	<td>文章过滤：</td>
+	<td>
+	<textarea name="art_filter" rows="4" style="width:550px;table-layout:fixed;word-wrap:break-word;">{art_filter}</textarea>多个数据请用逗号分隔
+	</td>
+	</tr>
+	<tr>
+      <td colspan="2"  align=center>
+		&nbsp;&nbsp;&nbsp;&nbsp;<input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+        如出错请手动修改 inc/config/config.php 文件
+	  </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

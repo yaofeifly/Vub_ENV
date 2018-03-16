@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>电影大全-电视剧大全-{maccms:name}</title>
+<meta name="keywords" content="电影大全,电视剧大全,最新电影,热播电视剧" />
+<meta name="description" content="{maccms:name}提供2013最新电影、最好看的电视剧、高清电影下载" />
+{maccms:include}
+
+</head>
+<body>
+{maccms:head}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  
+  {maccms:matrix type=all}
+  <div class="commend b map mb">
+    <h4><strong>[matrix:name]</strong><a href="[matrix:link]" class="more">更多</a></h4>
+    <ol class="nb">
+	{maccms:vod num=40 order=desc by=time type=[matrix:id]}
+	<li><a href="[vod:link]" >[vod:name]</a><span>[vod:typename]/[vod:year]</span></li>
+   {/maccms:vod}
+    </ol>
+  </div>{/maccms:matrix}
+  <!--/Map-->
+   
+  <div class="commend b map mb">
+    <h4><strong>明星合集</strong><a href="{maccms:link_topic_vod}" class="more">更多</a></h4>
+    <ol class="nb">
+     {maccms:topic id=all order=desc by=time}
+<li><a href="[topic:link]" target="_blank">[topic:name]</a></li>
+{/maccms:topic}
+    </ol>
+  </div>
+  <!--/Map-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index902.js"></script></div>
+</div>
+<!--/Wrap-->
+
+{maccms:foot}
+
+<!--/Footer-->
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>服务器组信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			from:{
+				required:true,
+				stringCheck:true,
+				maxlength:32
+			},
+			des:{
+				required:true,
+				maxlength:255
+			},
+			show:{
+				required:true,
+				stringCheck:true,
+				maxlength:64
+			},
+			sort:{
+				number:true
+			},
+			tip:{
+				maxlength:255
+			}
+		}
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" action="admin_xml.php?ac=savexml&tab=vodserver" name="form1" id="form1">
+<input type="hidden" id="flag" name="flag" value="{flag}">
+<input type="hidden" id="backurl" name="backurl" value="{backurl}">
+<table class="tb">
+	<tr>
+	<td width="150" class="hl">编码(英文)：</td>
+	<td class="hl"><input id="from" size="50" name="from" value="{from}">
+	</td>
+    </tr>
+	<tr>
+	<td>名称：</td>
+	<td><input id="show" size="50" name="show" value="{show}" >
+	</td>
+    </tr>
+    <tr>
+	<td>地址：</td>
+	<td><input id="des" size="50" name="des" value="{des}" >
+	</td>
+	</tr>
+    <tr>
+	<td>状态：</td>
+	<td>
+	<select id="status" name="status" style="width:100px;">
+	<!-- BEGIN list_status -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_status -->
+	</select>
+	</td>
+	</tr>
+    <tr>
+     <td>排序：</td>
+      <td><input id="sort" size="8" value="{sort}" name="sort" >
+	  </td>
+    </tr>
+    <tr>
+     <td>备注：</td>
+      <td>
+      <TEXTAREA id="tip" NAME="tip" ROWS="8" style="width:300px;table-layout:fixed; word-wrap:break-word;">{tip}</TEXTAREA>
+	  </td>
+    </tr>
+    <tr align="center" >
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"></td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

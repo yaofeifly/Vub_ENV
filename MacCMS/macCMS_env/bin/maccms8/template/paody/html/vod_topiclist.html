@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{page:name},{page:name}最新电影电视剧在线观看 -  第{page:now}页 -  {maccms:name}</title>
+<meta name="keywords" content="{page:name},{page:name}最新电影,{page:name}最新电视剧" />
+<meta name="description" content="{maccms:des}" />
+{maccms:include}
+</head>
+<body>
+{maccms:load head_topic.html}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="box mb">
+    <div class="main l">
+      <div class="b hot_topic mb">
+        <h6>当前位置：<a href="/">首页</a> > <a href="{maccms:link_topic_vod}">明星合集</a> > {page:name}</h6>
+        <ul>
+          <li><a href="{page:link}" class="l"><img src="{page:pic}" alt="{page:name}" /></a>
+          <div class="htr r"><h3><a href="{page:link}">{page:name}</a> <span>点击：{page:hits} 共{page:datacount}部</span></h3>
+          <p>{page:des}<a href="{page:link}">[详细]</a></p></div></li>
+       </ul>
+      </div>
+      <!--/Hot Topic-->
+      <div class="b topic mb">
+        <h4><strong>详细视频</strong></h4>
+        <ul>
+        {maccms:vod pagesize=10 topic=current order=desc by=time}
+          <li>
+            <a href="[vod:link]" class="l"><img src="[vod:pic]" alt="[vod:name]" /></a>
+            <div class="topic_r r">
+              <h3>
+              <a href="[vod:link]">[vod:name len=10]</a>
+              <a href="[vod:typelink]" class="type">[vod:typename]</a>
+              <span></span>
+              <strong>{if-A:[vod:state]>1000}[vod:state]期{elseif: [vod:state]>0}更新至[vod:state]集{elseif-A:!isN("[vod:remarks]")}完结{else-A} {endif-A}</strong>
+              <label>[vod:hits]<em>([vod:scorenum]人评)</em></label>
+              </h3>
+              <p><span>导演：<em>[vod:directed]</em></span><span>更新时间：<em>[vod:time style=mm-dd]</em></span><span>语言：<em>[vod:lang] </em></span></p>
+              <p>主演：<em>[vod:starring]</em></p>
+              <div>[vod:contenttext len=80]<span class="end"></span> <a href="[vod:link]">点击观看 >></a></div>
+            </div>
+          </li>
+         {/maccms:vod}
+        </ul>
+        <div class="page">{maccms:pages len=6}</div>
+      </div>
+      <!--/Topic-->
+      <div class="b hot_topic topic_list">
+        <h4><strong>精彩专题总汇</strong></h4>
+        <ul>
+        {maccms:topic id=all order=desc by=hits num=3}
+          <li><a href="[topic:link]" class="l"><img src="[topic:pic]" alt="[topic:name]" /></a><h3><a href="[topic:link]">[topic:name]</a></h3><p>[topic:des len=30] <a href="[topic:link]">[详细]</a></p></li>
+       {/maccms:topic}</ul>
+      </div>
+      <!--/Hot Topic-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b mb">
+        <h5>最近添加的专题</h5>
+        <ul>
+         {maccms:topic num=15 order=desc by=time}
+<li><h3><em{if-A:[topic:num]<4} class="n3"{endif-A}>{if-A:[topic:num]<10}0[topic:num]{else-A}[topic:num]{endif-A}</em><a href="[topic:link]" target="_blank">[topic:name]</a></h3><span> </span></li>
+{/maccms:topic}
+        </ul>
+      </div>
+      <!--/SVList-->
+<div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}list250X250.js"></script></div>
+      <div class="svlist b">
+        <h5>热门专题排行榜</h5>
+        <ul>
+          {maccms:topic num=51 order=desc by=monthhits}
+<li><h3><em{if-A:[topic:num]<4} class="n3"{endif-A}>{if-A:[topic:num]<10}0[topic:num]{else-A}[topic:num]{endif-A}</em><a href="[topic:link]" target="_blank">[topic:name]</a></h3><span> </span></li>
+{/maccms:topic}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index902.js"></script></div>
+</div>
+<!--/Wrap-->
+{maccms:foot}
+<!--/Footer-->
+</body>
+</html>

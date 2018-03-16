@@ -1,0 +1,12 @@
+# 将 RewriteEngine 模式打开
+RewriteEngine On
+
+# 修改以下语句中的 /maccms 为你的网站目录地址，如果程序放在根目录中，请将 /maccms 修改为 /
+RewriteBase /
+
+# Rewrite 系统规则请勿修改
+RewriteRule ^vod-(.*)$ index.php\?m=vod-$1
+RewriteRule ^art-(.*)$ index.php\?m=art-$1
+RewriteRule ^gbook-(.*)$ index.php\?m=gbook-$1
+RewriteRule ^label-(.*)$ index.php\?m=label-$1
+RewriteRule ^map-(.*)$ index.php\?m=map-$1

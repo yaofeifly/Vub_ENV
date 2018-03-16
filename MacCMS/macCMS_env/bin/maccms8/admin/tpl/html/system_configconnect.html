@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>一键登录参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configconnectsave" id="form1" name="form1">
+  <table class="tbinfo pleft">
+    <thead><th colspan="2">QQ互联登陆配置选项：【<a target="_blank" href="http://connect.qq.com/?maccms">点击进入注册</a>】</th></thead>
+    <tr>
+      <td width="150" >状态：</td>
+      <td class="hl">
+        <!-- BEGIN list_qq_status -->
+		<input type="radio" name="qq_status" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_qq_status -->
+		</td>
+    </tr>
+	<tr>
+      <td width="150" >APP ID：</td>
+      <td class="hl"><input name="qq_id" value="{qq_id}" size="50">
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>APP KEY：</td>
+      <td><input name="qq_key" value="{qq_key}" size="50">
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <thead><th colspan="2">UCenter登陆配置选项：【<a target="_blank" href="http://www.discuz.net?maccms">点击进入discuz论坛</a>】</th></thead>
+    <tr>
+    <td colspan=2><font color=red>免费版本不支持UC整合登录</font></td>
+    </tr>
+    <tr>
+     	<td align=center colspan="2" class="hl">
+      	  &nbsp;&nbsp;&nbsp;&nbsp;<input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+          如出错请手动修改 inc/config/config.php 文件
+    	</td>
+    </tr>
+</table>
+
+
+</form>
+
+
+{foot}
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>专题收录视频管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnSearch").click(function(){
+		location.href='?m=vod-topicdata-tid-{tid}-wd-'+encodeURI($("#wd").val());
+	});
+	topicdata('show',0);
+});
+function topicdata(flag,vid)
+{
+	$.ajax({
+		type: 'get',
+		cache: false,
+		dataType: 'json',
+		url: "admin_data.php?ac=topicdata&tab=vod&tid={tid}&id="+vid+'&flag='+flag,
+		timeout: 3000, 
+		success:function(r){
+			$("#topichtml").html('');
+			$("#count").text('('+r.length+')');
+			if(r.length>0){
+				$.each(r, function(i,row){
+					$("#topichtml").append('<li><span><a href="javascript:void(0);" onclick="topicdata(\'del\','+row.d_id+');$(this).css({color:\'#999\'});">删除</a></span><label>'+row.d_id+'</label><a href="'+row.d_link+'" target="_blank" title="'+row.d_name+' 主演:'+row.d_starring+'">'+row.d_name+'</a></li>');
+			  }); 
+			}
+		}
+	});
+}
+</script>
+<style>
+ul,li {margin:0px;padding:0px;}
+ul{float:left; text-align:left; width:100%; overflow: hidden; position:relative}
+ul li{ float:left;  margin-left:5px; line-height:21px; height:21px; clear:both; color:#999; width:390px; }
+ul li span{ position:absolute; right:5px; width:30px;}
+ul li label{ float:left; margin-right:5px; width:30px;}
+.count{color:#FF0000; padding:0px 2px}
+a.vn{ white-space: nowrap;
+　　overflow: hidden;
+　　text-overflow: ellipsis;
+}
+a.up{color:green;}
+a.down{ color:red; }
+a.adds{ color:blue}
+</style>
+</head>
+<body>
+<table class="tbinfo pleft">
+    <tr>
+    <td align="center">
+	&nbsp;关键字：<input id="wd" size="40" name="wd" onClick="this.select();" value="{wd}">
+	<input class="input" type="button" value="搜索" id="btnSearch">
+	</td>
+	</tr>
+</table>
+<div style=" width:800px; height:350px;">
+<div style="float:left; width:390px">
+<table class="tb">
+    <thead><tr><th>已收录视频列表<em id="count" class="red">(0)</em>部</th></tr></thead>
+    <tr><td class="r" ><ul id="topichtml" style="width:100%;height:336px;overflow-y:auto">loading...</ul></td></tr>
+</table>
+</div>
+<div style="float:right; width:390px">
+	<table class="tb">
+	<thead><tr><th>待收录视频列表</th></tr></thead>
+<!-- IF isnull -->
+<tr><td align="center">未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<tr><td><ul>
+	<!-- BEGIN list_topicdata -->
+	<li><span><a href="javascript:void(0);" onclick="topicdata('add',{d_id});$(this).css({color:'#999'});" class="adds">添加</a></span><label>{d_id}</label><a  class="vn" href="{d_link}" target="_blank" title="{d_name} 主演:{d_starring}">{d_name}</a></li>
+	<!-- END list_topicdata -->
+	</ul>
+<!-- ENDIF isnull -->
+	</table>
+</div>
+<div style="clear:both" class="pages">{pages}</div>
+</div>
+</body>
+</html>

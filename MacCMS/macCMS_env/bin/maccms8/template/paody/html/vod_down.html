@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>《[vod:name]》百度影音电影-[vod:remarks]下载-[vod:from]在线观看 - [vod:typename] - {maccms:name}</title>
+<meta name="keywords" content="《[vod:name]》高清下载,《[vod:name]》在线观看,《[vod:name]》百度影音" />
+<meta name="description" content="[vod:name]剧情:[vod:contenttext len=60]" />
+{maccms:include}
+</head>
+<body>
+<!--/Nav-->
+<div class="wrap" style="display:none">
+  [vod:downinfo]
+  [vod:downer]
+</div>
+<div>
+<script>
+$(document).ready(function(){
+	//alert(MacPlayer.PlayUrl); //弹出提示显示下载地址
+	//location.href = MacPlayer.PlayUrl;  //转向到下载地址
+	//document.write(MacPlayer.PlayUrl); //输出下载地址
+	$("#down").html('<a href="'+MacPlayer.PlayUrl+'">点击下载</a>');
+});
+</script>
+<span id="down"></span>
+</div>
+<!--/Wrap-->
+<!--/Footer-->
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>[vod:name]</title> 
+<link>http://{maccms:url}[vod:link]</link> 
+<description><![CDATA["[vod:contenttext len=200]"]]></description> 
+<language>zh-cn</language> 
+<generator>http://{maccms:url}</generator> 
+<webmaster>{maccms:email}</webmaster> 
+{maccms:play}
+{maccms:url order=desc}
+<item>
+<title>[url:name]</title>
+<link>http://{maccms:url}[url:link]</link>
+<description><![CDATA["[url:name]在线观看地址，http://{maccms:url}[url:link]"]]></description>
+<pubDate>[vod:time style=Y-m-d H:i:s]</pubDate>
+<category>[vod:name]</category> 
+<author>[vod:starring]</author>
+<comments>{maccms:name}</comments>
+</item>
+{/maccms:url}
+{/maccms:play}
+</channel>
+</rss>

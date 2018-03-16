@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{maccms:name}</title>
+<meta name="keywords" content="{maccms:keywords}" />
+<meta name="description" content="{maccms:description}" />
+{maccms:include}
+</head>
+<body>
+{maccms:head}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="box mb">
+    <div class="main l">
+      <div class="commend b">
+        <h4><strong>近期热播电影电视剧</strong><span class="more">今日更新<font class="red">{maccms:count_vod_day}</font>部影片</span></h4>
+        <ul>
+		 {maccms:vod num=12 type=5,6,7,8,9,10,11,12,13,14,15 by=time order=desc}
+          <li><a href="[vod:link]" title="[vod:name]" class="bk"><img class="lazy" data-original="[vod:pic]" src="{maccms:path}images/blank.png" alt="[vod:name]" /></a><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span><strong><a href="[vod:link]">[vod:name]</a></strong></li>{/maccms:vod}
+        </ul>
+      </div>
+      <!--/Commend-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b">
+        <h5>最新更新<div class="more tab"><A href="{maccms:path}new.html" target="_blank">最新100部&gt;&gt;</A></div></h5>
+        <ul>
+         {maccms:vod num=14 type=5,6,7,8,9,10,11,12,13,14,15 order=desc by=time}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+  <div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index902.js"></script></div>
+   
+  <div class="box mb">
+    <div class="main l">
+      <div class="commend b">
+        <h4><strong>最新电视剧</strong><span class="more typelink">
+		{maccms:menu parent=2}
+<a onfocus="this.blur()" href="[menu:link]" target="_blank">[menu:name]</a>|
+{/maccms:menu}</span></h4>
+        <ul>
+          {maccms:vod type=2 num=6 order=desc by=time}
+          <li><a href="[vod:link]" title="[vod:name]" class="bk"><img class="lazy" data-original="[vod:pic]" src="{maccms:path}images/blank.png" alt="[vod:name]" /></a><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span><strong><a href="[vod:link]">[vod:name]</a></strong></li>{/maccms:vod}
+        </ul>
+        <ol>
+       {maccms:vod type=2 num=15 order=desc by=time start=6}
+<li><a href="[vod:link]" target="_blank">[vod:name]</a><span>[vod:typename]/[vod:year]</span></li>
+{/maccms:vod}
+      
+        </ol>
+      </div>
+      <!--/Commend-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b">
+        <h5>热播电视剧<div class="more tab">
+		<span id="tab1" onmousemove="setTab('tab','stab',1,3)">总</span>
+		<span class="current" id="tab2" onmousemove="setTab('tab','stab',2,3)">周</span>
+		<span id="tab3" onmousemove="setTab('tab','stab',3,3)">月</span></div></h5>
+        <ul id="stab1" class="none">
+       {maccms:vod num=12 type=2 by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+        <ul id="stab2">
+           {maccms:vod num=12 type=2 by=weekhits order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+        <ul id="stab3" class="none">
+           {maccms:vod num=12 type=2 by=time day=30 order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+     <div class="box mb">
+    <div class="main l">
+      <div class="commend b">
+        <h4><strong>最新电影</strong><span class="more typelink">
+		{maccms:menu parent=1}
+<a onfocus="this.blur()" href="[menu:link]" target="_blank">[menu:name]</a>|
+{/maccms:menu}</span></h4>
+        <ul>
+          {maccms:vod type=1 num=6 order=desc by=time}
+          <li><a href="[vod:link]" title="[vod:name]" class="bk"><img class="lazy" data-original="[vod:pic]" src="{maccms:path}images/blank.png" alt="[vod:name]" /></a><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span><strong><a href="[vod:link]">[vod:name]</a></strong></li>{/maccms:vod}
+        </ul>
+        <ol>
+       {maccms:vod type=1 num=15 order=desc by=time start=6}
+<li><a href="[vod:link]" target="_blank">[vod:name]</a><span>[vod:typename]/[vod:year]</span></li>
+{/maccms:vod}
+      
+        </ol>
+      </div>
+      <!--/Commend-->
+    </div>
+    <!--/Main-->
+   <div class="side r">
+      <div class="svlist b">
+        <h5>热播电影<div class="more tab">
+		<span id="tab11" onmousemove="setTab('tab1','stab1',1,3)">总</span>
+		<span id="tab12" class="current" onmousemove="setTab('tab1','stab1',2,3)">周</span>
+		<span id="tab13" onmousemove="setTab('tab1','stab1',3,3)">月</span></div></h5>
+        <ul id="stab11" class="none">
+       {maccms:vod num=12 type=1 by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+        <ul id="stab12">
+            {maccms:vod num=12 type=1 by=weekhits order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+        <ul id="stab13" class="none">
+           {maccms:vod num=12 type=1 by=time day=30 order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+	 {maccms:matrix type=3,4}
+  <div class="box mb">
+    <div class="main l">
+      <div class="commend b">
+        <h4><strong>最新[matrix:name]</strong><a href="[matrix:link]" class="more">更多</a></h4>
+        <ul>
+          {maccms:vod type=[matrix:id] num=6 order=desc by=time}
+		   <li><a href="[vod:link]" title="[vod:name]" class="bk"><img class="lazy" data-original="[vod:pic]" src="{maccms:path}images/blank.png" original="[vod:pic]" alt="[vod:name]" /></a><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span><strong><a href="[vod:link]">[vod:name len=12]</a></strong></li>
+{/maccms:vod}
+        </ul>
+        <ol>
+       {maccms:vod type=[matrix:id] num=12 order=desc by=time start=6}
+<li><a href="[vod:link]" target="_blank">[vod:name]</a><span>[vod:typename]/[vod:year]</span></li>
+{/maccms:vod}
+        </ol>
+      </div>
+      <!--/Commend-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b">
+        <h5>热播综艺片<div class="more tab">
+		<span id="tab2_[matrix:num]1" onmousemove="setTab('tab2_[matrix:num]','stab2_[matrix:num]',1,3)">总</span>
+		<span id="tab2_[matrix:num]2" onmousemove="setTab('tab2_[matrix:num]','stab2_[matrix:num]',2,3)" class="current">周</span>
+		<span id="tab2_[matrix:num]3" onmousemove="setTab('tab2_[matrix:num]','stab2_[matrix:num]',3,3)">月</span>
+		</div>
+		</h5>
+        <ul id="stab2_[matrix:num]1" class="none">
+        {maccms:vod num=12 type=[matrix:id] by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+        <ul id="stab2_[matrix:num]2">
+    {maccms:vod num=12 type=[matrix:id] by=weekhits order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+        <ul id="stab2_[matrix:num]3" class="none">
+         {maccms:vod num=12 type=[matrix:id] by=time day=30 order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+ {/maccms:matrix}
+<div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index903.js"></script></div>
+  <div class="box b mb">
+    <div class="news_i">
+      <h4>影视资讯</h4>
+      <ul>{maccms:art num=14 by=all}
+        <li><p><em>{if-A:[art:num]<10}0[art:num].{else-A}[art:num].{endif-A}</em><a href="[art:link]" target="_blank">[art:name]</a></p><span>[art:time style=m-d]</span></li>
+  
+{/maccms:art}	
+      </ul>
+    </div>
+    <!--/News-->
+  </div>
+  <!--/Box-->
+  <div class="b hot_topic topic_list mb">
+    <h4><strong>明星合集总汇</strong><div class="more mqlr"><span id="mq_left"></span><span id="mq_right"></span></div></h4>
+    <div class="mq_box">
+      <div id="mq_box">
+        <ul id="mq">
+        {maccms:topic id=all order=desc by=time}
+<li><a href="[topic:link]" class="l" target="_blank"><img src="[topic:pic]" alt="[topic:name]" /></a><h3><a href="[topic:link]">[topic:name]</a></h3><p>[topic:des len=12]<a href="[topic:link]">[详细]</a></p></li>
+{/maccms:topic}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!--/Hot Topic-->
+  <script type="text/javascript">
+	  var MarqueeDiv3Control=new Marquee("mq",2,0.2,936,154,20,3000,936)
+	  $("mq_left").onclick=function(){MarqueeDiv3Control.Run(2)};	//跳过等待时间向左滚动后保持原向运动
+	  $("mq_right").onclick=function(){MarqueeDiv3Control.Run(3)};	//跳过等待时间向右滚动后保持原向运动
+  </script><div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-bottom.js"></script></div>
+  <div class="flink mb b">
+    <h4>友情链接</h4>
+    <ul>
+    {maccms:link type=font}
+<li><a href="[link:link]" target="_blank">[link:name]</a></li>
+{/maccms:link}
+    </ul>
+  </div>
+  <!--/Flink-->
+  
+</div>
+<!--/Wrap-->
+{maccms:foot}
+<!--/Footer-->
+</body>
+</html>

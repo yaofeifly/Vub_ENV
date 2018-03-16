@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>文章专题管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(checkCount('t_id[]')==0){ alert("请至少选择一个数据");return; }
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=art_topic");
+			$("#form1").submit();
+		}
+	});
+	$("#btnAdd").click(function(){
+		location.href='?m=art-topicinfo';
+	});
+	$("#btnHide").click(function(){
+		ajaxshow('btnHide','hide','art_topic','t_id','t_hide','');
+	});
+	$("#btnMove").click(function(){
+		ajaxshow('btnMove','shift','art_topic','t_id','','');
+	});
+});
+function showwin(tid)
+{
+	$.webox({
+		width:830,
+		height:500,
+		bgvisibel:true,
+		title:'专题收录文章数据',
+		iframe:'?m=art-topicdata-tid-'+tid
+	});
+}
+</script>
+</head>
+<body>
+<form method="POST" name="form1" id="form1">
+<table class="tb">
+	<tr>
+		<th width="50" class="thfirst">编号</th>
+		<th>名称</th>
+		<th width="60">人气</th>
+      	<th width="90">推荐值</th>
+      	<th width="90">收录</th>
+      	<th width="150">更新时间</th>
+		<th width="150">操作</th>
+	</tr>
+<!-- IF isnull -->
+<tr><td colspan="7" align="center">未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_topic -->
+	<tr>
+    	<td><input name="t_id[]" type="checkbox" id="t_id" value="{t_id}" />{t_id}</td>
+      	<td>{t_name}</td>
+      	<td>{t_hits}</td>
+      	<td><img src="../images/icons/ico{t_level}.gif" border="0" style="cursor: pointer;" onClick="setday('tj','{t_id}','arttopic')" /></td>
+      	<td><a href="javascript:void(0)" onclick="showwin('{t_id}');return false;">文章({t_count})部</td>
+      	<td>{t_time}</td>
+      	<td>
+      	<!-- IF ishide -->
+		<a href="admin_data.php?ac=hide&tab=art_topic&colid=t_id&col=t_hide&id={t_id}&val=0"><font color=green>显示</font></a> |
+		<!-- ELSE ishide -->
+		<a href="admin_data.php?ac=hide&tab=art_topic&colid=t_id&col=t_hide&id={t_id}&val=1"><font color=red>隐藏</font></a> |
+		<!-- ENDIF ishide -->
+	    <a href="?m=art-topicinfo-id-{t_id}">修改</a> |
+	    <a href="admin_data.php?ac=del&tab=art_topic&t_id={t_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	    </td>
+	</tr>
+	<!-- END list_topic -->
+	<tr align="center">
+      <td colspan="7"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+	<tr><td colspan="7">
+    <input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('t_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('t_id[]');">
+	<input type="button" value="添加" id="btnAdd" class="input" />
+	<input type="button" value="删除" id="btnDel" class="input" />
+	<input type="button" value="显隐" id="btnHide" class="input" />
+	<input type="button" value="转移" id="btnMove" class="input" />
+    </td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

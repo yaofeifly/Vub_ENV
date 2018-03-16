@@ -1,0 +1,69 @@
+.list2 {
+	padding:5px 0; position:relative;
+}
+.list2 ul {
+	width:300px;height:290px; overflow-x:hidden; overflow-y:scroll; 
+}
+
+.list2 li {
+	line-height:22px;
+	height:22px;
+	overflow:hidden;
+	padding-left:20px;
+}
+
+.list2 li span{
+	float:left; width:90px;overflow:hidden;
+} 
+
+.play_ico{
+position:relative;
+float:left;
+background:url(../images/play_mode2.gif) no-repeat;
+height:18px;
+width:33px;
+overflow:hidden;
+margin-right:3px;
+margin-bottom:2px;
+background-position:-432px -29px;
+}
+
+.play_ico_youku{background-position:-1px -5px;}
+.play_ico_youkuno{cursor:default;background-position:-1px -29px;}
+
+.play_ico_tudou{background-position:-34px -5px;}
+.play_ico_tudouno{cursor:default;background-position:-34px -29px;}
+
+.play_ico_qq{background-position:-67px -5px;}
+.play_ico_qqno{cursor:default;background-position:-67px -29px;}
+
+.play_ico_ku6{background-position:-100px -5px;}
+.play_ico_ku6no{cursor:default;background-position:-100px -29px;}
+
+.play_ico_sohu{background-position:-133px -5px;}
+.play_ico_sohuno{cursor:default;background-position:-133px -29px;}
+
+.play_ico_baidu{width:31px;background-position:-168px -5px;}
+.play_ico_baiduno{cursor:default;width:31px;background-position:-168px -29px;}
+
+.play_ico_qvod{width:31px;background-position:-202px -5px;}
+.play_ico_qvodno{cursor:default;width:31px;background-position:-202px -29px;}
+
+.play_ico_gvod{width:31px;background-position:-235px -5px;}
+.play_ico_gvodno{cursor:default;width:31px;background-position:-235px -29px;}
+
+.play_ico_qiyi{width:31px;background-position:-268px -5px;}
+.play_ico_qiyino{cursor:default;width:31px;background-position:-268px -29px;}
+
+.play_ico_letv{width:31px;background-position:-301px -5px;}
+.play_ico_letvno{cursor:default;width:31px;background-position:-301px -29px;}
+
+.play_ico_funshion{width:31px;background-position:-335px -5px;}
+.play_ico_funshionno{cursor:default;width:31px;background-position:-335px -29px;}
+
+.play_ico_56{width:31px;background-position:-368px -5px;}
+.play_ico_56no{cursor:default;width:31px;background-position:-368px -29px;}
+
+.play_ico_sina{width:31px;background-position:-399px -5px;}
+.play_ico_sinano{cursor:default;width:31px;background-position:-399px -29px;}
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>专辑列表_第{page:now}页_{maccms:name}</title>
+<meta name="keywords" content="明星合集,视频专辑,精彩专题,电影全集" />
+<meta name="description" content="{maccms:name}不定期为影迷们推出新的电影专题及视频专辑,来满足不同爱好的电影者们.这里介绍最经典的电影全集,希望大家喜欢！" />
+{maccms:include}
+</head>
+<body>
+{maccms:load head_topic.html}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="box mb">
+    <div class="main l">
+      <div class="b hot_topic">
+        <h4><strong>近期热门专题</strong></h4>
+        <ul>  {maccms:topic num=3 order=desc by=monthhits}
+          <li><a href="[topic:link]" class="l"><img src="[topic:pic]" alt="[topic:name]" /></a><div class="htr r"><h3><a href="[topic:link]">[topic:name]</a><span>共[topic:count]部</span></h3><p>[topic:des len=14]<a href="[topic:link]">[详细]</a></p></div></li> {/maccms:topic}
+        </ul>
+      </div>
+      <!--/Hot Topic-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b">
+        <h5>最新专题排行榜</h5>
+        <ul>
+          {maccms:topic num=14 order=desc by=weekhits}
+<li><h3><em{if-A:[topic:num]<4} class="n3"{endif-A}>{if-A:[topic:num]<10}0[topic:num]{else-A}[topic:num]{endif-A}</em><a href="[topic:link]" target="_blank">[topic:name]</a></h3><span> </span></li>
+{/maccms:topic}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+<div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index902.js"></script></div>
+  <div class="box mb">
+    <div class="main l">
+      <div class="b hot_topic topic_list">
+        <h4><strong>精彩专题总汇</strong></h4>
+        <ul>
+        {maccms:topic pagesize=10 order=desc by=time}
+          <li><a href="[topic:link]" class="l"><img src="[topic:pic]" alt="[topic:name]" /></a><h3><a href="[topic:link]">[topic:name]</a></h3><p>[topic:count]<a href="[topic:link]">[详细]</a></p></li>
+       {/maccms:topic}
+       </ul>
+        <div class="page">{maccms:pages len=6}</div>
+      </div>
+      <!--/Hot Topic-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b">
+        <h5>热门专题排行榜</h5>
+        <ul>
+          {maccms:topic num=39 order=desc by=hits}
+<li><h3><em{if-A:[topic:num]<4} class="n3"{endif-A}>{if-A:[topic:num]<10}0[topic:num]{else-A}[topic:num]{endif-A}</em><a href="[topic:link]" target="_blank">[topic:name]</a></h3><span> </span></li>
+{/maccms:topic}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index902.js"></script></div>
+</div>
+<!--/Wrap-->
+{maccms:foot}
+</body>
+</html>

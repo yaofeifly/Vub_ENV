@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>欢迎使用 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<form action="?m=admin-quickmenusave" method="post" id="form1" name="form1">
+<table class="tbinfo">
+<thead><th><span class="red">格式要求：1.菜单名称,菜单链接地址；2.每个快捷菜单各占一行；</span> 自定义快捷菜单</th></thead>
+<tr>
+	<td>
+	<textarea id="quickmenu" name="quickmenu" style="width:100%;font-size:14px;" rows="28">{quickmenu}</textarea>
+	</td>
+</tr>
+<tr>
+	<td align="center"> <input type="submit" id="btnSave" name="btnSave" value="保存" class="input" /> </td>
+</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

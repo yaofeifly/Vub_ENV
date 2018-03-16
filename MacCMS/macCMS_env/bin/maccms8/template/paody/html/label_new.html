@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>最近更新的电影-最近更新的电视剧-2013电视剧大全-2013最新电影-{maccms:name}</title>
+<meta name="keywords" content="最近更新的电影,最近更新的电视剧,{maccms:name}">
+<meta name="description" content="最近更新的电影,最近更新的电视剧,{maccms:name}！">
+{maccms:include}
+
+</head>
+<body>
+{maccms:head}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="newbox b mb">
+    <div class="ntitle"><div class="nname">最近100个更新</div><div class="ntype"><strong>类型</strong></div><div class="nnote"><strong>主演</strong></div><div class="ntime"><strong>更新时间</strong></div></div>
+    <ul>{maccms:vod num=100 type=all order=desc by=time}
+      <li><div class="nname"><em>[vod:num]</em><a href="[vod:link]">[vod:name]</a>/<a href="[vod:playlink]">更新至{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}完结{else-A}{endif-A}</a></div><div class="ntype"><a href="[vod:typelink]">[vod:typename]</a></div><div class="nnote">[vod:starring]</div><div class="ntime">[vod:time style=mm-dd]</div></li>{/maccms:vod} 
+    </ul>
+  </div>
+  <!--/Box-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}index902.js"></script></div>
+</div>
+<!--/Wrap-->
+{maccms:foot}
+</body>
+</html>

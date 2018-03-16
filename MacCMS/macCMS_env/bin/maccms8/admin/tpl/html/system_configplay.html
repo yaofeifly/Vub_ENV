@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>播放器参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+function setColor(v)
+{
+	switch(v)
+	{
+		case 2: v="EFF4F7,000000,666666,E4E4E4,000000,FF0000,FF0000,DBEBFE,458CE4,DBEBFE,FFFFFF,458CE4,DBEBFE,DBEBFE,fcfcfc";break;
+		case 3: v="D8CFDF,000000,666666,E4E4E4,000000,FF0000,FF0000,D8CFDF,926C92,BEAFC9,FFFFFF,926C92,BEAFC9,BEAFC9,fcfcfc";break;
+		case 4: v="D7E7B6,000000,666666,E4E4E4,000000,FF0000,FF0000,9EC14C,A3C656,BAD480,FFFFFF,A3C656,BAD480,BAD480,fcfcfc";break;
+		default: v="000000,F6F6F6,F6F6F6,333333,666666,FFFFF,FF0000,2c2c2c,ffffff,a3a3a3,2c2c2c,adadad,adadad,48486c,fcfcfc";break;
+	}
+	$("#mac_colors").val(v);
+}
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configplaysave" id="form1" name="form1">
+  <table class="tbinfo pleft">
+	<thead><th colspan="2">播放器配置</th></thead>
+	<tr>
+      <td width="150" class="hl">播放器宽度：</td>
+      <td class="hl"><input name="mac_width" value="{mac_width}" size="10">
+        <font color="#FF0000">＊</font> 例如: 540</td>
+    </tr>
+    <tr>
+      <td>播放器高度：</td>
+      <td><input name="mac_height" value="{mac_height}" size="10">
+        <font color="#FF0000">＊</font> 例如: 460</td>
+    </tr>
+	<tr>
+      <td>弹窗窗口宽度：</td>
+      <td><input name="mac_widthpop" value="{mac_widthpop}" size="10"> 
+        <font color="#FF0000">＊</font> 例如: 500</td>
+    </tr>
+    <tr>
+      <td>弹窗窗口高度：</td>
+      <td><input name="mac_heightpop" value="{mac_heightpop}" size="10">
+        <font color="#FF0000">＊</font> 例如: 400</td>
+    </tr>
+    <tr>
+    <tr>
+      <td>预加载广告时间：</td>
+      <td>
+          <input name="mac_second" value="{mac_second}" size="10">
+           <font color="#FF0000">＊</font> 秒</td>
+    </tr>
+    <tr>
+      <td>预加载广告地址：</td>
+      <td>
+          <input name="mac_prestrain" value="{mac_prestrain}" size="70">
+           <font color="#FF0000">＊</font>不要出现" ' 等特殊字符号</td>
+    </tr>
+    <tr>
+      <td>缓冲广告地址：</td>
+      <td>
+          <input name="mac_buffer" value="{mac_buffer}" size="70">
+           <font color="#FF0000">＊</font>不要出现" ' 等特殊字符号</td>
+    </tr>
+    <tr>
+      <td>自动全屏播放：</td>
+      <td>
+      	<!-- BEGIN list_mac_autofull -->
+		<input type="radio" name="mac_autofull" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_mac_autofull -->
+        (仅支持部分播放器)</td>
+    </tr>
+    <tr>
+      <td>播放器头部开关：</td>
+      <td>
+      	<!-- BEGIN list_mac_showtop -->
+		<input type="radio" name="mac_showtop" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_mac_showtop --></td>
+    </tr>
+    <tr>
+      <td>播放器列表开关：</td>
+      <td>
+      	<!-- BEGIN list_mac_showlist -->
+		<input type="radio" name="mac_showlist" value="{v}" {c} />{n}&nbsp;
+		<!-- END list_mac_showlist --></td>
+    </tr>
+    <tr>
+      <td>播放器文件：</td>
+      <td id="t1">
+      	<!-- BEGIN list_mac_flag -->
+		<input type="radio" name="mac_flag" value="{v}" {c} />{n}&nbsp;<br>
+		<!-- END list_mac_flag -->
+        </td>
+    </tr>
+    <tr>
+      <td>播放器颜色：</td>
+      <td>
+      	[<a href="javascript:void(0)" onclick="setColor(1);return false;">全黑色</a>] [<a href="javascript:void(0)" onclick="setColor(2);return false;">浅蓝色</a>] [<a href="javascript:void(0)" onclick="setColor(3);return false;">浅紫色</a>] [<a href="javascript:void(0)" onclick="setColor(4);return false;">浅绿色</a>]<br>
+        <input type="text" size="130" id="mac_colors" name="mac_colors" value="{mac_colors}" />
+        <br><font color=red>颜色使用16进制表示法，不带#号，以逗号分割，一共15个可配置颜色!
+        <br>依次是：背景色，文字颜色，链接颜色，分组标题背景色，分组标题颜色，当前分组标题颜色，当前集数颜色，集数列表滚动条凸出部分的颜色，滚动条上下按钮上三角箭头的颜色，滚动条的背景颜色，滚动条空白部分的颜色，滚动条立体滚动条阴影的颜色 ，滚动条亮边的颜色，滚动条强阴影的颜色，滚动条的基本颜色
+        </td>
+    </tr>
+     <tr align="center">
+      <td colspan="2">
+          <input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+          如出错请手动修改 js/playconfig.js 文件     </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>视频信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript" src="tpl/js/jscolor.js"></script>
+<script language="javascript" src="editor/xheditor-zh-cn.min.js"></script>
+<script language="javascript" src="editor/xheditor_lang/zh-cn.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			d_name:{
+				required:true
+			},
+			d_type:{
+				required:true
+			}
+		}
+	});
+	$("#btnRndHits").click(function(){
+		$("#d_hits").val( rndNum(999) );
+		$("#d_monthhits").val( rndNum(300) );
+		$("#d_weekhits").val( rndNum(100) );
+		$("#d_dayhits").val( rndNum(10) );
+		$("#d_up").val( rndNum(100) );
+		$("#d_down").val( rndNum(100) );
+		var scorenum = rndNum(100) 
+		var scoreall = scorenum * rndNum(10);
+		var scorea = scoreall / scorenum ;
+		$("#d_score").val( scorea );
+		$("#d_scoreall").val( scoreall );
+		$("#d_scorenum").val( scorenum );
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+
+var d_class='';
+
+function getClass(id,sclass)
+{
+	if(id!=""){
+		$.ajax({
+			type: 'get',
+			cache: false,
+			dataType: 'json',
+			url: "admin_data.php?ac=getclass&id="+id+'&class='+sclass,
+			timeout: 3000, 
+			success:function(r){
+				$("#div_class").html('');
+				if(r.length>0){
+					$.each(r, function(i,row){
+						chk = row.chk=='true' ? 'checked' : '';
+						$("#div_class").append('<input type="checkbox" name="d_class[]" value="'+row.id+'" '+chk+' />' +row.name);
+				  }); 
+				}
+			}
+		});
+	}
+}
+</script>
+</head>
+<body>
+<div id="showpic" style="display:none;"><img name="showpic_img" id="showpic_img" width="120" height="160"></div>
+<form action="admin_data.php?ac=save&tab=vod" method="post" name="form1" id="form1">
+<input id="d_id" name="d_id" type="hidden" value="{d_id}">
+<input name="d_addtime" type="hidden" value="{d_addtime}">
+<input name="d_time" type="hidden" value="{d_time}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">视频信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">参数：</td>
+	<td class="hl">
+	<select id="d_type" name="d_type"  onchange="getClass(this.options[this.options.selectedIndex].value,'');" >
+	<option value="">请选择分类</option>
+	<!-- BEGIN list_type -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_type -->
+	</select>
+	&nbsp;<select id="d_level" name="d_level" >
+	<option value="">选择推荐值</option>
+	<!-- BEGIN list_level -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_level -->
+	</select>
+	&nbsp;<select id="d_area" name="d_area">
+	<option value="">请选择地区</option>
+	<!-- BEGIN list_area -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_area -->
+    </select>
+	&nbsp;
+    <select id="d_lang" name="d_lang">
+    <option value="">请选择语言</option>
+    <!-- BEGIN list_lang -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_lang -->
+	</select>
+	&nbsp;<select id="d_hide" name="d_hide">
+	<!-- BEGIN list_hide -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_hide -->
+	</select>
+	&nbsp;<input type="checkbox" name="uptime" value="1" class="nst" checked>更新时间
+	&nbsp;<input type="checkbox" name="d_lock" value="1" class="nst" title="锁定后采集不更新" <!-- IF islock --> checked <!-- ENDIF islock -->>锁定
+	</td>
+	</tr>
+	<!-- IF isexpandtype -->
+	<tr> 
+    <td>扩展多分类：</td>
+    <td>
+	<div id="div_expandtype" ></div><script type="text/javascript">getExpandType('{d_type}','{d_type_expand}')</script>
+	</td>
+	</tr>
+	<!-- ENDIF isexpandtype -->
+	<tr> 
+    <td>剧情分类：</td>
+    <td>
+	<div id="div_class" ></div><script type="text/javascript">getClass('{d_type}','{d_class}')</script>
+	</td>
+	</tr>
+	<tr> 
+    <td>名称：</td>
+    <td>
+	<input id="d_name" name="d_name" type="text" size="40" value="{d_name}"><span id="d_name_ok"></span>
+	&nbsp;副标：<input id="d_subname" name="d_subname" type="text" size="40" value="{d_subname}">
+	&nbsp;字母：<input id="d_letter" name="d_letter" type="text" size="5" value="{d_letter}">
+	&nbsp;高亮：<input id="d_color" name="d_color" type="text" size="5" class="color" value="{d_color}" style="background-color:{d_color}">
+	</td>
+	</tr>
+	<tr> 
+	<td>拼音：</td>
+    <td>
+	<input id="d_enname" name="d_enname" type="text" size="40" value="{d_enname}">
+	&nbsp;备注：<input id="d_remarks" name="d_remarks" type="text" size="40" value="{d_remarks}">
+	&nbsp;连载：<input id="d_state" name="d_state" type="text" size="5" value="{d_state}">
+	&nbsp;上映：<input id="d_year" name="d_year" type="text" value="{d_year}" size="5">年
+	</td>
+	</tr>
+	<tr>
+	<td>演员：</td>
+	<td>
+	<input id="d_starring" name="d_starring" type="text" size="40" value="{d_starring}">
+	&nbsp;导演：<input id="d_directed" name="d_directed" type="text" size="40" value="{d_directed}">
+	&nbsp;时长：<input id="d_duration" name="d_duration" type="text" size="5" value="{d_duration}">分
+	</tr>
+	<tr>
+	<td>TAG：</td>
+	<td>
+	<input id="d_tag" name="d_tag" type="text" size="94" value="{d_tag}">
+	&nbsp;<input type="checkbox" name="uptag" value="1" class="nst" checked>自动生成
+	</tr>
+	<tr> 
+    <td>图片：</td>
+    <td>
+    <input id="d_pic" name="d_pic" type="text" size="80" value="{d_pic}" onMouseOver="showpic(event,this.value);" onMouseOut="hiddenpic();"/>&nbsp;<iframe src="editor/uploadshow.php?action=vod&id=d_pic&path=vod" scrolling="no" topmargin="0" width="270" height="26" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe></td>
+	</tr>
+	<tr> 
+    <td>缩略图：</td>
+    <td>
+    <input id="d_picthumb" name="d_picthumb" type="text" size="80" value="{d_picthumb}" onMouseOver="showpic(event,this.value);" onMouseOut="hiddenpic();"/>&nbsp;<iframe src="editor/uploadshow.php?action=vod&id=d_picthumb&path=vod" scrolling="no" topmargin="0" width="270" height="26" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe></td>
+	</tr>
+	<tr> 
+    <td>幻灯图：</td>
+    <td>
+    <input id="d_picslide" name="d_picslide" type="text" size="80" value="{d_picslide}" onMouseOver="showpic(event,this.value);" onMouseOut="hiddenpic();"/>&nbsp;<iframe src="editor/uploadshow.php?action=vod&id=d_picslide&path=vod" scrolling="no" topmargin="0" width="270" height="26" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe></td>
+	</tr>
+	<tr>
+	<td>人气：</td>
+	<td>总：<input id="d_hits" name="d_hits" type="text" size="4" value="{d_hits}">
+	&nbsp;月：<input id="d_monthhits" name="d_monthhits" type="text" size="4" value="{d_monthhits}">
+	&nbsp;周：<input id="d_weekhits" name="d_weekhits" type="text" size="4" value="{d_weekhits}">
+	&nbsp;日：<input id="d_dayhits" name="d_dayhits" type="text" size="4" value="{d_dayhits}">
+	&nbsp;顶：<input id="d_up" name="d_up" type="text" size="4" value="{d_up}">
+	&nbsp;踩：<input id="d_down" name="d_down" type="text" size="4" value="{d_down}">
+	&nbsp;平均评分：<input id="d_score" name="d_score" type="text" size="5" value="{d_score}">
+	&nbsp;总评分：<input id="d_scoreall" name="d_scoreall" type="text" size="5" value="{d_scoreall}">
+	&nbsp;总评次：<input id="d_scorenum" name="d_scorenum" type="text" size="5" value="{d_scorenum}">
+	&nbsp;<input class="input" type="button" id="btnRndHits" value="随机" style="cursor:pointer;" />
+	</td>
+	</tr>
+	<tr>
+	<td>权限：</td>
+	<td>点播每集所需积分：<input id="d_stint" name="d_stint" type="text" size="8" value="{d_stint}">
+	&nbsp;下载每集所需积分：<input id="d_stintdown" name="d_stintdown" type="text" size="8" value="{d_stintdown}">
+	&nbsp;可看会员组:
+	<select id="d_usergroup" name="d_usergroup">
+	<option value="0">请选择会员组</option>
+	<!-- BEGIN list_group -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_group -->
+	</select>
+	</td>
+	</tr>
+	<tbody id="playlist">
+	<!-- BEGIN list_play -->
+	<tr><td>&nbsp;播放地址{n}:</td><td><input id='playurlid{n}' name='playurlid[]' type='hidden' value='0'/>&nbsp;&nbsp;播放器：<select id='playfrom{n}' name='playfrom[]'><option value='no'>暂无数据</option>{select_play_sel}</select>&nbsp;&nbsp;服务器组：<select id='playserver{n}' name='playserver[]'><option value='no'>暂无数据</option>{select_server_sel}</select>&nbsp;&nbsp;备注：<input id='playnote{n}' name='playnote[]' size='50' value='{playnote}'>&nbsp;&nbsp;操作：&nbsp;&nbsp;<a href="javascript:void(0)" onclick="clearSect('playurl{n}')">清空</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="removeSect(this)">删除</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="upSect(this)">上移</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="downSect(this)">下移</a>&nbsp;&nbsp;<br><br><textarea id='playurl{n}' name='playurl[]' style='width:100%;height:150px;'>{playurl}</textarea></td></tr>
+	<!-- END list_play -->
+	</tbody>
+    <tr>
+    <tr>
+    <td colspan="2">
+    <img onClick="appendplay({playcount},escape('{select_play}'),escape('{select_server}'))" src="../images/icons/edit_add.png" style="cursor:pointer" />&nbsp;&nbsp;单击添加一组播放地址
+    </td>
+    </tr>
+    <tbody id="downlist">
+    <!-- BEGIN list_down -->
+    <tr><td>&nbsp;下载地址{n}:</td><td><input id='downurlid{n}' name='downurlid[]' type='hidden' value='0'/>&nbsp;&nbsp;下载类型：<select id='downfrom{n}' name='downfrom[]'><option value='no'>暂无数据</option>{select_down_sel}</select>&nbsp;&nbsp;服务器组：<select id='downserver{n}' name='downserver[]'><option value='no'>暂无数据</option>{select_server_sel}</select>&nbsp;&nbsp;备注：<input id='downnote{n}' name='downnote[]' size='50' value='{downnote}'>&nbsp;&nbsp;操作：&nbsp;&nbsp;<a href="javascript:void(0)" onclick="clearSect('downurl{n}')">清空</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="removeSect(this)">删除</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="upSect(this)">上移</a>&nbsp;&nbsp;<a href="javascript:void(0)" onclick="downSect(this)">下移</a>&nbsp;&nbsp;<br><br><textarea id='downurl{n}' name='downurl[]' style='width:100%;height:150px;'>{downurl}</textarea></td></tr>
+    <!-- END list_down -->
+    </tbody>
+    <tr>
+    <td colspan="2">
+    <img onClick="appenddown({downcount},escape('{select_down}'),escape('{select_server}'))" src="../images/icons/edit_add.png" style="cursor:pointer" />&nbsp;&nbsp;单击添加一组下载地址
+    </td>
+   </tr>
+   <tr>
+    <td>介绍：</td>
+    <td>
+		<textarea name="d_content" id="d_content" class="xheditor {tools:'BtnBr,Cut,Copy,Paste,Pastetext,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,Align,List,Outdent,Indent,Link,Unlink,Img,Flash,Media,Table,Source,Fullscreen',width:'100%',height:'200',upBtnText:'上传',html5Upload:false,upMultiple:1,upLinkUrl:'{editorRoot}upload.php?action=xht&path=vod',upImgUrl:'{editorRoot}upload.php?action=xht&path=vod'}">{d_content}</textarea>
+	</td>
+	</tr>
+    <tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+<script> if($("#playlist").html() ==""){ appendart({playcount}) };</script>
+{foot}
+</body>
+</html>

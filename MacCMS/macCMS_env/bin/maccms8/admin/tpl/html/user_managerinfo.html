@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>管理员信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+});
+</script>
+</head>
+<body>
+<form action="admin_data.php?ac=save&tab=manager" method="post" name="form1" id="form1">
+<input id="m_id" name="m_id" type="hidden" value="{m_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">管理员信息</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">登录名：</td>
+	<td class="hl"><INPUT id="m_name" size="50" value="{m_name}" name="m_name">
+	</td>
+	</tr>
+	<tr>
+	<td>密码：</td>
+	<td><input id="m_password" type="password" size="50" value="" name="m_password">
+	</td>
+	</tr>
+	<tr>
+	<td>状态：</td>
+	<td>
+	<select id="m_status" name="m_status" style="width:100px">
+	<!-- BEGIN list_status -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_status -->
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>权限：</td>
+	<td>
+	<!-- BEGIN list_levels -->
+	<input type="checkbox" name="m_levels[]" value="{v}" class="checkbox" {c}/>{n}
+	<!-- END list_levels -->
+	</td>
+	</tr>
+	<tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>站外入库接口参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configinterfacesave" id="form1" name="form1">
+<table class="tb">
+<tr class="thead"><th colspan="2">此功能主要用于第三方工具（火车头、ET等）入库接口转换。>>> 1.每个各占一行; 2.本地分类在前,采集分类在后(动作片=动作).;3.不要有多余的空行</th></tr>
+<tr><td width="50%">视频分类转换</td>
+<td width="50%">文章分类转换</td>
+</tr>
+<tr>
+    <td>
+    <textarea id="vodtype" name="vodtype" style="width:100%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="25">{vodtype}</textarea>
+    </td>
+    <td>
+    <textarea id="arttype" name="arttype" style="width:100%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="25">{arttype}</textarea>
+    </td>
+    </tr>
+    <tr>
+    <td align="center" colspan="2">入库免登录安全验证密码:<input id="pass" name="pass" size="20" value="{pass}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="btnSave" name="btnSave" value="更新参数" class="input" /> </td>
+</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

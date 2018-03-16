@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<downs>
+	<down status="1" sort="190" from="http" show="HTTP下载" des=""><tip><![CDATA[无需安装任何插件]]></tip></down>
+	<down status="1" sort="180" from="ftp" show="FTP下载" des=""><tip><![CDATA[无需安装任何插件]]></tip></down>
+	<down status="1" sort="90" from="xunlei" show="迅雷下载" des="xunlei.com"><tip><![CDATA[需要安装迅雷下载工具]]></tip></down>
+	<down status="1" sort="80" from="kuaiche" show="快车下载" des="kuaiche.com"><tip><![CDATA[需要安装快车下载功能]]></tip></down>
+	<down status="1" sort="70" from="bt" show="BT下载" des="bt.com"><tip><![CDATA[需要安装BT下载工具]]></tip></down>
+</downs>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>最好看的电影排行榜_最新电视剧排行榜_好莱坞电影排行榜-{maccms:name}</title>
+<meta name="Keywords" content="电影排行榜,电影排行,{maccms:name}" />
+<meta name="Description" content="{maccms:name}提供最新电影排行榜，最新电视剧排行榜。电影排行榜推荐最新动作、喜剧、爱情、搞笑等电影排行，大陆、日本、韩国、欧美大片尽在{maccms:name}。" />
+{maccms:include}
+
+</head>
+<body>
+{maccms:head}
+<div class="wrap">
+  <div class="money_all nmb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="box">
+    <div class="hot_box">{maccms:matrix type=all}
+      <div class="hot_list b">
+        <h6>[matrix:name]<span class="more">评分</span></h6>
+        <ul>{maccms:vod num=10 by=time type=[matrix:id] order=desc}
+         <li><p><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:num]</em><a href="[vod:link]" target="_blank">[vod:name]</a></p><span>[vod:hits]</span></li>
+{/maccms:vod}
+       
+        </ul>
+      </div>
+      <!--/Hot List-->{/maccms:matrix}
+     
+	 
+      <div class="hot_list b">
+        <h6>明星合集<span class="more">影片数量</span></h6>
+        <ul>{maccms:topic id=all num=10 order=hits}
+          <li class="nb"><p><em>[topic:num] </em><a href="[topic:link]">[topic:name len=9]</a></p><span>[topic:count]</span></li>
+       
+        {/maccms:topic}</ul>
+      </div>
+      <!--/Hot List-->
+    </div>
+    <!--/Hot Box-->
+  </div>
+  <!--/Box-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-bottom.js"></script></div>
+</div>
+<!--/Wrap-->
+{maccms:foot}
+</body>
+</html>

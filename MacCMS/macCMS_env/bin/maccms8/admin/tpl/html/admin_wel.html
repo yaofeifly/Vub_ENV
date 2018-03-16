@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>欢迎使用 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<table class="tbinfo pleft">
+	<thead><th colspan="4">站点信息</th></thead>
+	<tr>
+		<td width="150">服务器操作系统：</td><td>{PHP_OS}</td>
+		<td width="150">脚本解释引擎：</td><td>{PHP_SOFTWARE}</td>
+	</tr>
+	<tr>
+		<td>安装目录：</td><td>{PHP_DIR}</td>
+		<td>服务器 (IP/端口)：</td><td>{PHP_SERVERNAME}</td>
+	</tr>
+	<tr>
+		<td>PHP版本：</td><td>{PHP_VERSION}</td>
+		<td>MYSQL版本：</td><td>{PHP_MYSQL}</td>
+	</tr>
+	<tr>
+		<td>CURL支持：</td><td>{PHP_CURL}</td>
+		<td>XML支持：</td><td>{PHP_DOMXML}</td>
+	</tr>
+	<tr>
+		<td>允许上传文件最大值：</td><td>{PHP_UPLOAD_MAX_FILESIZE}</td>
+		<td>GD图形处理扩展库版本：</td><td>{PHP_GDVERSION}</td>
+	</tr>
+	<tr>
+		<td colspan="4">当前版本：<font color='red'>{MAC_VERSION}</font> &nbsp;&nbsp;授权类型：<font color='red'>免费版本</font></td>
+	</tr>
+</table>
+{foot}
+</body>
+</html>

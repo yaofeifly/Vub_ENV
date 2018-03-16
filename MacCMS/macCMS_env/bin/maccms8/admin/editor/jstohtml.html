@@ -1,0 +1,35 @@
+﻿<html>
+<head>
+<title>js转换成html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../tpl/images/style.css" />
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../tpl/js/adm.js"></script>
+<style type="text/css">
+ body{margin:0}
+ textarea{width:760;height:180;font-size:9pt;font-family:Courier New;color:#666666}
+td,body {  font-size: 14pt}
+a:link{ color:#000000; text-decoration:none}
+a:visited{COLOR: #000000; TEXT-DECORATION: none}
+a:active{color:green;text-decoration:none}
+a:hover{color:red;text-decoration:underline}
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div align="center">
+  <a href="htmltojs.html">html转js</a> | <a href="jstohtml.html">js转html</a> | <a href="urlencode.html">url编码</a> | <a href="urldecode.html">url解码</a> <br><br>
+  请将JS源代码拷贝到下面表单中: <br>
+    <textarea id="oResult"  onpropertychange="rechange()" onfocus="rechange()"  onkeyup="rechange()" ondblclick='this.select();oResult.createTextRange().execCommand("Copy")' title="双击复制" cols="99" rows="12"></textarea>  
+    <br><br>
+    下面表单中是相应的HTML代码: <br />
+    <textarea id="Re" ondblclick='this.select();this.createTextRange().execCommand("Copy")' title="双击复制" cols="99" rows="30"></textarea>
+    <script>    
+ function rechange(){
+ Re.value=oResult.value.replace(/document.writeln\("/g,"").replace(/"\);/g,"").replace(/\\\"/g,"\"").replace(/\\\'/g,"\'").replace(/\\\//g,"\/").replace(/\\\\/g,"\\")
+ }
+  </script>
+</div>
+</body>
+</html>

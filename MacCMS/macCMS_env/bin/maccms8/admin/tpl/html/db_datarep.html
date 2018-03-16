@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>数据批量替换 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+function showfields(){
+	$.ajax({
+		type: 'get',
+		cache: false,
+		dataType: 'json',
+		url: 'admin_data.php?ac=getfields&tab='+$('#table').val(),
+		timeout: 3000, 
+		success:function(r){
+			$("#fields").html('');
+			if(r.length>0){
+				$("#fields").append('表('+$('#table').val()+')含有的字段：<br>');
+				$.each(r, function(i,row){
+					$("#fields").append('<a href="javascript:setfield(\''+row+'\')">'+row+'</a>&nbsp;&nbsp;');
+					if(i>0 && i%5==0){
+						$("#fields").append('<br>');
+					}
+			  }); 
+			}
+		}
+	});
+} 
+function setfield(v){
+	$('#field').val(v); 
+}
+</script>
+</head>
+<body>
+<form action="?m=db-datarepexe" method="post" name="form1" id="form1">
+<table class="tbinfo pleft">
+	<thead>
+		<tr><th colspan=2><span style="float:left">数据批量替换</span><span style="float:right">程序用于批量替换数据库中某字段的内容，此操作极为危险，请小心使用。</span></th></tr>
+	</thead>
+	<tr>
+	<td width="150">选择数据表与字段：</td>
+	<td><select id="table" name="table" size="20" style="height:150px;width:500px;" onChange="showfields()">
+	<!-- BEGIN list_table -->
+	<option value="{v}" >{n}</option>
+	<!-- END list_table -->
+	</select>
+	<div id="fields" style="float:left;width: 500px; padding:3px; border-top-color: #ababab; border-right-color: #ababab; border-bottom-color: #ababab; border-left-color: #ababab; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; background-color: rgb(254, 255, 240);"></div>
+	</td>
+	</tr>
+	<tr>
+	<td>要替换的字段：</td>
+	<td><input name="field" type="text" id="field" style="width:500px;"/> </td>
+	</tr>
+	<tr>
+	<td>被替换的内容：</td>
+	<td><textarea name="findstr" id="findstr" style="width:500px;height:80px"></textarea></td>
+	</tr>
+	<tr>
+	<td>替换为的内容：</td>
+	<td><textarea name="tostr" id="tostr" class="alltxt" style="width:500px;height:80px"></textarea></td>
+	</tr>
+	<tr>
+	<td>选择替换条件：</td>
+	<td><input name="where" type="text" id="where" style="width:500px; color:#696969;" title="留空则全部替换,请遵循SQL的条件语句规则 如and id=123 "/></td>
+	</tr>
+	<tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="提交" id="btnSave" onClick="return confirm('一旦执行后将无法恢复，请确定条件语句正确无误，或者备份好数据库以防万一!')"> <input class="input" type="reset" name="btnReset" value="重置" > </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

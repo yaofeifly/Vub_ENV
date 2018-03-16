@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>修改信息 - 会员中心 -{maccms:name}</title>
+<meta name="keywords" content="{maccms:keywords}"/>
+<meta name="description" content="{maccms:description}"/>
+<link href="{maccms:path}template/user/css/base.css" type="text/css" rel="stylesheet"/>
+<link href="{maccms:path}template/user/css/i.css?20120915" type="text/css" rel="stylesheet"/>
+<script>var SitePath='{maccms:path}',SiteAid='{maccms:siteaid}',SiteTid='{maccms:sitetid}',SiteId='{maccms:siteid}';</script>
+<script src="{maccms:path}js/jquery.js"></script>
+<script src="{maccms:path}js/common.js"></script>
+<script src="{maccms:path}template/user/js/formValidator-4.0.1.js" type="text/javascript"></script>
+</head>
+<body>
+{head}
+<div id="content" class="layout">
+	<div class="ui-box ui-qire fn-clear" id="i-box">
+		<div id="i-bar">
+			<h3>会员控制面板</h3>
+			<div id="user-nav">
+				<ul class="user-nav-list fn-clear">  					
+		            <li class="current"><a href="index.php?m=user-index.html"><span class="icon zl-icon">&nbsp;</span>我的资料</a></li>
+					
+					<li><a href="index.php?m=user-fav.html"><span class="icon sc-icon">&nbsp;</span>我的收藏</a></li>
+					<!--<li><a href="#"><span class="icon dy-icon">&nbsp;</span>我的订阅</a></li>-->
+					<li><a href="index.php?m=user-plays.html"><span class="icon pl-icon">&nbsp;</span>我的播放记录</a></li>
+					<li><a href="index.php?m=user-downs.html"><span class="icon bf-icon">&nbsp;</span>我的下载记录</a></li>
+					<li><a href="index.php?m=user-pay.html"><span class="icon dx-icon">&nbsp;</span>充值卡充值</a></li>
+					<li ><a href="index.php?m=user-upgrade.html"><span class="icon gz-icon">&nbsp;</span>升级会员组</a></li>
+					<!--<li><a href="#"><span class="icon fd-icon">&nbsp;</span>我的留言</li>--></a></li>
+				</ul>
+			</div>
+			<!-- 
+			<div class="user-visitors" id="user-visitors">
+				<h3>最近访客</h3>
+				<ul class="visitor-list">
+				</ul>
+			</div>
+		     -->
+		</div>
+		<!-- // i-bar end -->
+		<div class="i-box-cnt" id="i-cnt">
+		
+			<form id="form1" name="form1" method="post" action="index.php?m=user-save.html" >
+				<div id="i-profile">
+					<div class="ui-title i-tab-nav-box">
+						<ul class="i-tab-nav fn-clear">
+							<li ><a href="index.php?m=user-index.html" >基本资料</a></li>
+							<li class="line"></li>
+							<li class="current"><a href="index.php?m=user-info.html" >修改信息</a></li>
+							<li class="line"></li>
+							<li><a href="index.php?m=user-popedom.html" >我的权限</a></li>
+						</ul>
+					</div>
+					<div class="ui-form">
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130">用户名：</label> <p class="ui-label-checkbox">{u_name}</p>
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label for="u_password1" class="ui-label w130">新密码：</label><input type="password" id="u_password1" name="u_password1" maxlength="20" class="ui-input w250" value="">
+		<p class="onShow ui-message" id="u_password1Tip" style="">请输入密码</p>
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label for="u_password2" class="ui-label w130">重复密码：</label><input type="password" id="u_password2" name="u_password2" maxlength="20" class="ui-input w250" value="">
+		<p class="onShow ui-message"  id="u_password2Tip" style="">输再次输入密码</p>
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130">QQ号码：</label><input class="ui-input w250" id="u_qq" size="40" value="{u_qq}" name="u_qq">
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130">邮件地址：</label><input class="ui-input w250" id="u_email" size="40" value="{u_email}" name="u_email">
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130">联系电话：</label><input class="ui-input w250" id="u_phone" size="40" value="{u_phone}" name="u_phone">
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130">找回密码问题：</label><input class="ui-input" width="430" id="u_question" size="40" value="{u_question}" name="u_question">
+	</div>
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130">找回密码答案：</label><input class="ui-input" width="430"  width="430" id="u_answer" size="40" value="{u_answer}" name="u_answer">
+	</div>	
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130"></label><input type="submit" id="btnSave" class="ui-button w150" value="保 存">        <a href="index.php?m=user-findpass.html">忘记密码了？</a>
+	</div>
+</div>
+					<!-- // ui-form End -->
+				</div>
+				<!-- // ui-box End -->
+			</form>
+		</div>
+		<!-- // i-cnt End -->
+	</div>
+	<!-- // maxBox End -->
+</div>
+<!-- // wrap End -->
+<script type="text/javascript">
+			$.formValidator.initConfig({
+				formID:"changepsw",
+				debug:false,
+				submitOnce:false,
+				onSuccess:function(){
+					//alert('dddddddddddddd');
+					$("#changepsw").qiresub({
+						curobj:$("#savebt"),
+						txt:'数据提交中,请稍后...',
+						onsucc:function(result){
+							//$.showfloatdiv({offset:$("#register").offset(),txt:'成功注册'});
+							$.hidediv(result);
+							if(parseInt(result.rcode)>0)
+							{
+								$("#u_oldpass").val('');
+								$("#u_password1").val('');
+								$("#u_password2").val('');
+							}
+							//alert(result.msg);
+						}
+					}).post({url:'/user-Center-changepsw'});
+					return false;
+				},
+				onError:function(msg,obj,errorlist){
+					$("#errorlist").empty();
+					$.map(errorlist,function(msg){
+						$("#errorlist").append("<li>" + msg + "</li>")
+					});
+					//alert(msg);
+				},
+				submitAfterAjaxPrompt : '有数据正在异步验证，请稍等...'
+			});
+			
+			$("#u_oldpass").formValidator({
+				onShow:"请输入密码",
+				onFocus:"至少6个长度",
+				onCorrect:"密码输入正确",
+				onError:'密码不能为空'
+			})
+			.inputValidator({
+				min:6,
+				empty:{
+					leftEmpty:false,
+					rightEmpty:false,
+					emptyError:"密码两边不能有空符号"
+				},onError:"密码在6-16位"
+			});
+			
+			$("#u_password1").formValidator({
+				onShow:"请输入密码",
+				onFocus:"至少6个长度",
+				onCorrect:"密码合法"
+			})
+			.inputValidator({
+				min:6,
+				empty:{
+					leftEmpty:false,
+					rightEmpty:false,
+					emptyError:"密码不能为空"
+				},
+				onError:"密码在6-16位"
+			});
+			
+			// Verifyu_oldpass
+			$("#u_password2").formValidator({
+				onShow:"输再次输入密码",
+				onFocus:"至少6个长度",
+				onCorrect:"密码一致"
+			})
+			.inputValidator({
+				min:6,
+				empty:{
+					leftEmpty:false,
+					rightEmpty:false,
+					emptyError:"重复密码必须和新密码一致"
+				},onError:"重复密码必须和新密码一致"
+			})
+			.compareValidator({
+				desID:"u_password1",
+				operateor:"=",
+				onError:"2次密码不一致,请确认"
+			});
+		</script>
+{foot}
+</body>
+</html>

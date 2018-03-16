@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBliC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>数据报错</title>
+<style>
+	h2,p{padding:0; margin:0;}
+	h2{font-size:14px;height:25px;color:#027DB9;line-height:25px;background:#B4E5FE;text-align:center;margin-bottom:10px;}
+	.err{width:380px;height:185px;background:#F5FBFE;border:1px solid #B0DCF5;margin: 0 auto}
+	.err p{margin-left:10px;} 
+</style>
+<script src="../js/jquery.js"></script>
+<script src="../js/jq/jquery.validate.js"></script>
+<script language="javascript">
+function be(name){
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if (r!=null) return decodeURI(r[2]); return null; 
+}
+$(document).ready(function(){
+	$("#form1").validate({
+		rules:{
+			g_name:{
+				required:true,
+				maxlength:64
+			},
+			g_content:{
+				required:true,
+				maxlength:255
+			}
+		}
+	});
+	
+	var id = be("id");
+	var name = be("name");
+	if(id=="" || name==""){
+		alert("参数不正确");
+		setTimeout("window.close()",1000);
+	}
+	else{
+		$("#g_vid").val(id);
+		$("#g_content").val("[ID:"+id+"-名称:"+name+"]\r\n无法观看请检查修复");
+	}
+});
+
+
+</script>
+</head>
+<body  style="font-size:12px;background-color:#D7EDFA;height:22px;line-height:22px;">
+	<form id="form1" name="form1" action="../inc/ajax.php?ac=reporterr" method="post">
+	<input type="hidden" name="g_vid" id="g_vid"  />
+	<div class="err">
+	<h2>失效数据，我们会在第一时间内修正</h2>
+	<p style="padding-bottom:5px;">&nbsp;报&nbsp;错&nbsp;者:&nbsp;<input type="text" id="g_name" name="g_name"  value="匿名"  size="15"><font color="#FF0000">*必填</font></p>
+	<p>错误提示:<textarea id="g_content"  name="g_content" style="width:260px;height:88px" rows=5 cols=30></textarea>
+	<font color="#FF0000">*必填</font></p>
+	<input type="submit" value="数据报错" style="margin:5px 0 0 130px;">
+	</div>
+	</form>
+</body>
+</html>

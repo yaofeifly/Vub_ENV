@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>登录管理中心 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/login.css" />
+<script language="javascript" src="../js/jquery.js"></script>
+<script language="javascript" src="../js/jq/jquery.pngFix.js"></script>
+<script>
+$(function(){
+	$("img").pngfix();
+	$('#m_name').focus();
+	$("#login").click(function(){
+		if($('#m_name').val() == ""){
+			alert( "请输入用户名" );$('#m_name').focus(); return false;
+		}
+		if($('#m_password').val() == ""){
+			alert( "请输入密码" );$('#m_password').focus(); return false;
+		}
+		if($('#m_check').val() == ""){
+			alert( "请输入安全码" );$('#m_check').focus(); return false;
+		}
+		$("#form1").submit();
+		$("#login").attr("disabled", "disabled");
+	});
+    if(location.href.indexOf("/admin/") >0){alert('请将文件夹admin改名,避免被黑客入侵攻击');}
+});
+</script>
+</head>
+<body>
+<div id="header">
+   <div class="logo"></div>
+</div>
+<div id="wrapper">
+   <div class="console_left">
+	   <div class="title">登录管理中心</div>
+	   <p><span>苹果CMS</span> 是一个采用<span>PHP+MYSQL</span>构建的高效视频电影网站管理系统！</p>
+	   <div class="intro_1">轻松管理和配置各种信息</div>
+	   <div class="intro_2">轻松发布在线视频资源</div>
+	   <div class="intro_3">设置网站安全验证过滤无效信息</div>
+   </div>
+   <div class="console_right">
+	   <div class="title">请您在这里登录</div>
+	   <div class="login">
+		  <form action="?m=admin-check" method="post" name="form1" id="form1" class="s_lo_f" autocomplete="off">
+				<div class="user"><label>用户名:</label><input tabindex="1" type="text" name="m_name" id="m_name" size="20" maxLength="20" value=""></div>
+		   		<div class="pwd"><label>密　码:</label><input tabindex="2" type="password" name="m_password" id="m_password" size="20" maxLength="20" value=""></div>
+		   		<div class="code"><label>安全码:</label><input tabindex="3" type="password" name="m_check" id="m_check" size="20" maxLength="20" value=""></div>
+		   		<div class="btn_login"><input type="submit" name="login" id="login" class="btn" value="登陆" /></div>
+		   </form>
+	   </div>
+   </div>
+   <div class="clear"></div>
+	<div class="reg"> </div>
+	<hr class="hr_solid" /></div>
+</div>
+<div id="footer"><span class="left">&copy;2008-2014 Powered By <a href="http://www.maccms.com/">苹果CMS</a> Inc.
+</span><span class="right"><a href="../" title="返回首页">返回首页</a>&nbsp;|&nbsp;<a href="http://www.maccms.com/">官方网站</a>&nbsp;|&nbsp;<a href="http://bbs.maccms.com/">官方论坛</a></span> 
+</div>
+</body>
+</html>

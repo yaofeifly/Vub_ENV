@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>管理员管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(checkCount('m_id[]')==0){alert("请至少选择一个数据");return;}
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=manager");
+			$("#form1").submit();
+		}
+	});
+	$("#btnAdd").click(function(){
+		location.href='?m=user-managerinfo';
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" name="form1" id="form1">
+<table class="tb">
+	<tr>
+		<th width="50" class="thfirst">编号</th>
+		<th>登录名</th>
+		<th width="100">状态</th>
+      	<th width="150">最后登录</th>
+      	<th width="150">登录IP</th>
+      	<th width="100">登录次数</th>
+		<th width="150">操作</th>
+	</tr>
+<!-- IF isnull -->
+<tr><td colspan="7" align="center">未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_manager -->
+	<tr>
+    	<td><input name="m_id[]" type="checkbox" id="m_id" value="{m_id}" />{m_id}</td>
+      	<td>{m_name}</td>
+		<td>{m_status}</td>
+      	<td>{m_logintime}</td>
+      	<td>{m_loginip}</td>
+      	<td>{m_loginnum}</td>
+      	<td>
+	    <a href="?m=user-managerinfo-id-{m_id}">修改</a> |
+	    <a href="admin_data.php?ac=del&tab=manager&m_id={m_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	    </td>
+	</tr>
+	<!-- END list_manager -->
+	<tr align="center">
+      <td colspan="7"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+	<tr><td colspan="7">
+    <input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('m_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('m_id[]');">
+	<input type="button" value="添加" id="btnAdd" class="input" />
+	<input type="button" value="删除" id="btnDel" class="input" />
+    </td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>API参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	
+});
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configapisave" id="form1" name="form1">
+<table class="tbinfo pleft">
+	<thead><th colspan="2">采集资源开放API配置</th>
+    </thead>
+	<tr>
+	<td width="150" class="hl">接口开关：</td>
+	<td class="hl">
+	<!-- BEGIN list_vod_status -->
+	<input type="radio" name="vod_status" value="{v}" {c} />{n}&nbsp;
+	<!-- END list_vod_status -->
+	如过没有使用请关闭
+	</td>
+	</tr>
+	<tr>
+	<td>列表每页显示数量：</td>
+	<td><input name="vod_pagesize" value="{vod_pagesize}" size="5">
+	<font color="#FF0000">＊</font> 数据每页显示量，不建议超过50 </td>
+	</tr>
+	<tr>
+	<td>图片域名：</td>
+	<td><input name="vod_imgurl" value="{vod_imgurl}" size="50">
+	<font color="#FF0000">＊</font> 显示图片的完整访问路径所需要，以http:开头,/结尾，不包含upload目录。 </td>
+	</tr>
+	<tr>
+	<td>分类过滤参数：</td>	
+	<td><input name="vod_typefilter" value="{vod_typefilter}" size="50">
+	<font color="#FF0000">＊</font> SQL查询条件例如 and t_hide=0 </td>
+	</tr>
+	<tr>
+	<td>数据过滤参数：</td>
+	<td><input name="vod_vodfilter" value="{vod_vodfilter}" size="50"> 
+	<font color="#FF0000">＊</font> SQL查询条件例如 and d_hide=0 </td>
+	</tr>
+	<tr>
+      <td colspan="2"  align=center>
+		&nbsp;&nbsp;&nbsp;&nbsp;<input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+        如出错请手动修改 inc/config/config.php 文件
+	  </td>
+    </tr>
+	<tr>
+	<td>提示信息：</td>
+	<td><font color="#FF0000">此资源API是提供给苹果CMS联盟资源库使用或其他程序采集使用的数据接口。<br> 接口地址为 【http://域名/inc/api.php】 接口各种参数说明请参考说明文档</font></td>
+	</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

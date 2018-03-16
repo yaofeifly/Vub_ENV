@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>模版标签生成向导 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+var mark='link',l_order='',l_by='';
+
+$(function(){
+	labelcreate();
+});
+
+function showex(obj){
+	$("#pars").children().hide();
+	$("#v_"+obj).show();
+	mark=obj;
+	if(obj=='year'){
+		var d = new Date();
+		$("#end_year").val(d.getYear());
+	}
+	
+	labelcreate();
+}
+function labelcreate()
+{
+	var c,p;
+	var s='',par='';
+	var rc=false;
+	
+	switch(mark)
+	{
+		case 'link':
+			p= ['order','by','type'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['id','编号'],['name','名称'],['type','类型'],['pic','图片'],['link','地址'] ];
+			break;
+		case 'gbook':
+			p= ['order','by','num'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['id','编号'],['name','留言昵称'],['content','留言内容'],['ip','留言IP'],['time','留言时间'],['reply','回复内容'],['replytime','回复时间'],['color','随机颜色'] ]
+			break;
+		case 'comment':
+			p= ['order','by','num','vid'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['id','编号'],['name','评论昵称'],['content','评论内容'],['ip','评论IP'],['time','评论时间'],['color','随机颜色'] ]
+			break;
+		case 'letter':
+			p= ['order','by'];
+			c= [ ['num','序号'],['name','名称'],['link','筛选查询链接'] ];
+			break;
+		case 'tag':
+			p= ['order','by','tag','table'];
+			c= [ ['num','序号'],['name','名称'],['link','筛选查询链接'] ];
+			break;
+		case 'area':
+			p= ['order','by'];
+			c= [ ['num','序号'],['name','名称'],['link','筛选查询链接'] ];
+			break;
+		case 'lang':
+			p= ['order','by'];
+			c= [ ['num','序号'],['name','名称'],['link','筛选查询链接'] ];
+			break;
+		case 'year':
+			p= ['order','by','start','end'];
+			c= [ ['num','序号'],['name','名称'],['link','筛选查询链接'] ];
+			break;
+		case 'menu':
+			p= ['order','by','table','type'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['id','编号'],['name','名称'],['enname','拼音'],['pid','父分类ID'],['sort','排序'],['title','seo标题'],['key','seo关键字'],['des','seo描述'],['link','链接'],['count','包含数据量'] ];
+			break;
+		case 'topic':
+			p= ['order','by','table','num','id','pagesize'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['id','编号'],['name','名称'],['enname','拼音'],['sort','排序'],['title','seo标题'],['key','seo关键字'],['des','seo描述'],['link','链接'],['count','包含数据量'],['pic','图片'],['addtime','添加时间'],['time','更新时间'],['level','推荐值'],['hits','总点击量'],['dayhits','日点击量'],['weekhits','周点击量'],['monthhits','月点击量'],['up','顶数'],['down','踩数'],['content','介绍'],['contenttext','过滤html后的介绍'],['remarks','备注'] ];
+			break;
+		case 'art':
+			p= ['order','by','num','pagesize','id','type','topic','level'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['numjoin','从start位开始计数'],['id','编号'],['name','名称'],['enname','拼音'],['colorname','带颜色名称'],['subname','副名称'],['from','来源'],['content','介绍'],['contenttext','过滤html后的介绍'],['remarks','备注'],['author','作者'],['color','颜色'],['hits','总点击量'],['dayhits','日点击量'],['weekhits','周点击量'],['monthhits','月点击量'],['up','顶数'],['down','踩数'],['pic','图片'],['addtime','添加时间'],['time','更新时间'],['level','推荐值'],['type','分类ID'],['typepid','分类父ID'],['typelink','分类链接'],['typename','分类名称'],['typeenname','分类拼音'],['typekey','分类seo关键字'],['typedes','分类seo描述'],['typetitle','分类seo标题'],['topiclink','专题链接'],['link','链接'] ];
+			break;
+		case 'vod':
+			p= ['order','by','num','pagesize','id','type','topic','level'];
+			c= [ ['num','序号'],['numfill','双位数序，个位数自动补0'],['numjoin','从start位开始计数'],['id','编号'],['name','名称'],['enname','拼音'],['colorname','带颜色名称'],['subname','副名称'],['content','介绍'],['contenttext','过滤html后的介绍'],['remarks','备注'],['color','颜色'],['hits','总点击量'],['dayhits','日点击量'],['weekhits','周点击量'],['monthhits','月点击量'],['up','顶数'],['down','踩数'],['addtime','添加时间'],['time','更新时间'],['level','推荐值'],['type','分类ID'],['typepid','分类父ID'],['typelink','分类链接'],['typename','分类名称'],['typeenname','分类拼音'],['typekey','分类seo关键字'],['typedes','分类seo描述'],['typetitle','分类seo标题'],['topiclink','专题链接'],['state','连载数'],['pic','图片'],['picthumb','缩略图'],['picslide','幻灯图'],['tag','tag关键字'],['taglink','tag筛选链接'],['starring','主演'],['starringlink','主演链接'],['directed','导演'],['directedlink','导演链接'],['area','地区'],['arealink','地区链接'],['year','上映年份'],['yearlink','上映年份链接'],['stint','点播每集所需积分'],['stintdown','下载每集所需积分'],['score','评分'],['scoreall','总评分'],['scorenum','总评次'],['duration','时长'],['from','播放器类型'],['fromdown','下载器类型'],['link','链接'],['playlink','播放链接'],['downlink','下载链接'],['typeexpandlink','扩展分类链接'],['userfav','会员收藏'] ];
+			break;
+	}
+	
+	for(i=0;i<p.length;i++){
+		if($("#"+p[i]+'_'+mark).val() != undefined && $("#"+p[i]+'_'+mark).val() !=''){
+			if(rc)par+=' ';
+			par+= p[i]+ '=' +$("#"+p[i]+'_'+mark).val();
+			rc=true;
+		}
+	}
+	
+	if($('#page_'+mark).val() != undefined){
+		if($('#page_'+mark).attr("checked")) par= par.replace('num=','pagesize=');
+	}
+	s='{maccms:'+mark+' '+par+'}' + '\n';
+	for(i=0;i<c.length;i++){
+		s+= '\t['+mark+':'+c[i][0]+']' + '  ' + c[i][1] + '\n';
+	}
+	s+='{/maccms:'+mark+'}';
+	$("#labels").val(s);
+}
+
+
+</script>
+</head>
+<body>
+<form method="post" action="" name="form1" id="form1">
+<div class="toptit">模版标签向导 - 部分标签参数可能不全面,请阅读标签说明文档</div>
+<table class="tbinfo pleft">
+	<tr>
+	<td width="150" class="hl" >标签类别：</td>
+	<td class="hl">
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="link(友情链接)" onclick="showex('link')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="gbook(留言本)" onclick="showex('gbook')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="comment(评论)" onclick="showex('comment')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="tag(Tag关键字)" onclick="showex('tag')"/>
+	
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="area(视频地区)" onclick="showex('area')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="lang(视频语言)" onclick="showex('lang')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="year(视频年代)" onclick="showex('year')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="letter(视频首字母)" onclick="showex('letter')"/>
+	
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="menu(分类)" onclick="showex('menu')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="topic(专题)" onclick="showex('topic')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="art(文章)" onclick="showex('art')"/>
+	&nbsp;<input type="button" class="input2" style="width:150px;" value="vod(视频)" onclick="showex('vod')"/>
+	</td>
+	</tr>
+	<tr>
+	<td>标签参数：</td>
+	<td id="pars" onClick="labelcreate()">
+		<div id="v_link">
+			顺序：<select id="order_link" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			排序：<select id="by_link" onchange="labelcreate()"><option value="sort">排序号</option><option value="id">ID</option></select>
+			链接类型：<select id="type_link" onchange="labelcreate()"><option value="all">全部</option><option value="font">文字链接</option><option value="pic">图片链接</option></select>
+		</div>
+		
+		<div id="v_gbook" style="display:none;">
+			顺序：<select id="order_gbook" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			排序：<select id="by_gbook" onchange="labelcreate()"><option value="time">时间</option><option value="id">ID</option></select>
+			数量：<input id="num_gbook" type="text" size="8" value="10">
+			分页：<input id="page_gbook" type="checkbox" value="1" onclick="labelcreate()">
+		</div>
+		
+		<div id="v_comment" style="display:none;">
+			顺序：<select id="order_comment" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			排序：<select id="by_comment" onchange="labelcreate()"><option value="time">时间</option><option value="id">ID</option></select>
+			数量：<input id="num_comment" type="text" size="8" value="10">
+			数据：<select id="vid_comment" onchange="labelcreate()"><option value="all">所有</option><option value="current">当前数据</option></select>
+			分页：<input id="page_comment" type="checkbox" value="1" onclick="labelcreate()">
+		</div>
+		
+		<div id="v_tag" style="display:none;">
+			顺序：<select id="order_tag" onchange="labelcreate()"><option value="asc">正序</option><option value="desc">倒序</option></select>
+			tag：<input id="tag_tag" type="text" size="80" value="冒险,搞笑,伦理">
+			模块：<select id="table_tag" onchange="labelcreate()"><option value="vod">视频</option><option value="art">文章</option></select>
+		</div>
+		
+		<div id="v_area" style="display:none;">
+			顺序：<select id="order_area" onchange="labelcreate()"><option value="asc">正序</option><option value="desc">倒序</option></select>
+		</div>
+		
+		<div id="v_lang" style="display:none;">
+			顺序：<select id="order_lang" onchange="labelcreate()"><option value="asc">正序</option><option value="desc">倒序</option></select>
+		</div>
+		
+		<div id="v_year" style="display:none;">
+			顺序：<select id="order_year" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			起始年份：<input id="start_year" type="text" size="8" value="2000">
+			终止年份：<input id="end_year" type="text" size="8" value="">
+		</div>
+		
+		<div id="v_letter" style="display:none;">
+			顺序：<select id="order_letter" onchange="labelcreate()"><option value="asc">正序</option><option value="desc">倒序</option></select>
+		</div>
+		
+		<div id="v_menu" style="display:none;">
+			顺序：<select id="order_menu" onchange="labelcreate()"><option value="asc">正序</option><option value="desc">倒序</option></select>
+			排序：<select id="by_menu" onchange="labelcreate()"><option value="sort">排序号</option><option value="id">ID</option></select>
+			模块：<select id="table_menu" onchange="labelcreate()"><option value="vod">视频</option><option value="art">文章</option></select>
+			数据：<select id="type_menu" onchange="labelcreate()"><option value="all">全部</option><option value="parent">一级分类</option><option value="child">二级分类</option><option value="1,2,3">自定义ID</option></select>
+		</div>
+		
+		<div id="v_topic" style="display:none;">
+			顺序：<select id="order_topic" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			排序：<select id="by_topic" onchange="labelcreate()"><option value="time">更新时间</option><option value="addtime">添加时间</option><option value="id">ID</option><option value="hits">总点击量</option><option value="dayhits">日点击量</option><option value="weekhits">周点击量</option><option value="monthhits">月点击量</option><option value="up">顶数</option><option value="down">踩数</option><option value="level">推荐值</option></select>
+			模块：<select id="table_topic" onchange="labelcreate()"><option value="vod">视频</option><option value="art">文章</option></select>
+			数量：<input id="num_topic" type="text" size="8" value="10">
+			数据：<select id="id_topic" onchange="labelcreate()"><option value="all">全部</option><option value="1,2,3">自定义ID</option></select>
+			分页：<input id="page_topic" type="checkbox" value="1" onclick="labelcreate()">
+		</div>
+		
+		<div id="v_art" style="display:none;">
+			顺序：<select id="order_art" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			排序：<select id="by_art" onchange="labelcreate()"><option value="time">更新时间</option><option value="addtime">添加时间</option><option value="id">ID</option><option value="hits">总点击量</option><option value="dayhits">日点击量</option><option value="weekhits">周点击量</option><option value="monthhits">月点击量</option><option value="up">顶数</option><option value="down">踩数</option><option value="level">推荐值</option><option value="rnd">随机数据</option></select>
+			推荐值：<select id="level_art" onchange="labelcreate()"><option value="all">所有</option><option value="1">推荐1</option><option value="2">推荐2</option><option value="3">推荐3</option><option value="4">推荐4</option><option value="5">推荐5</option></select>
+			分类：<select id="type_art" onchange="labelcreate()"><option value="all">所有</option><option value="1,2">自定义ID</option></select>
+			专题：<select id="topic_art" onchange="labelcreate()"><option value="all">所有</option><option value="1,2">自定义ID</option></select>
+			数量：<input id="num_art" type="text" size="8" value="10">
+			数据：<select id="id_art" onchange="labelcreate()"><option value="all">全部</option><option value="1,2,3">自定义ID</option></select>
+			分页：<input id="page_art" type="checkbox" value="1" onclick="labelcreate()">
+		</div>
+		
+		<div id="v_vod" style="display:none;">
+			顺序：<select id="order_vod" onchange="labelcreate()"><option value="desc">倒序</option><option value="asc">正序</option></select>
+			排序：<select id="by_vod" onchange="labelcreate()"><option value="time">更新时间</option><option value="addtime">添加时间</option><option value="id">ID</option><option value="hits">总点击量</option><option value="dayhits">日点击量</option><option value="weekhits">周点击量</option><option value="monthhits">月点击量</option><option value="up">顶数</option><option value="down">踩数</option><option value="level">推荐值</option><option value="rnd">随机数据</option></select>
+			推荐值：<select id="level_vod" onchange="labelcreate()"><option value="all">所有</option><option value="1">推荐1</option><option value="2">推荐2</option><option value="3">推荐3</option><option value="4">推荐4</option><option value="5">推荐5</option></select>
+			分类：<select id="type_vod" onchange="labelcreate()"><option value="all">所有</option><option value="1,2">自定义ID</option></select>
+			专题：<select id="topic_vod" onchange="labelcreate()"><option value="all">所有</option><option value="1,2">自定义ID</option></select>
+			数量：<input id="num_vod" type="text" size="8" value="10">
+			数据：<select id="id_vod" onchange="labelcreate()"><option value="all">全部</option><option value="1,2,3">自定义ID</option></select>
+			分页：<input id="page_vod" type="checkbox" value="1" onclick="labelcreate()">
+			
+		</div>
+		
+	</td>
+	</tr>
+	<tr>
+	<td>标签代码：</td>
+	<td><textarea id="labels" name="labels" style="width:99%;" rows="25"></textarea></td>
+	</tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

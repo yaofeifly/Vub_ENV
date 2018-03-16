@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>生成选项 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+});
+function post(p)
+{
+	$("#form1").attr("action","?m=make-"+p);
+	$("#form1").submit();
+}
+</script>
+</head>
+<body>
+<table class="tb" id="tab0" style="display:block">
+<form id="form1" name="form1" method="post">
+<tr>
+<td width="150">视频栏目列表：<br>
+&nbsp;<select name="vodtype[]" multiple style="width:150px;height:150px;">
+<!-- BEGIN list_vodtype -->
+<option value="{v}" {c}>{n}</option>
+<!-- END list_vodtype -->
+</select>
+</td>
+<td>
+&nbsp;<input type="button" value="选择栏目" class="input2" onclick="post('type-tab-vod');"/>
+&nbsp;<input type="button" value="全部栏目" class="input2" onclick="post('type-tab-vod-ids-{vodtypeids}');"/>
+&nbsp;<input type="button" value="当天栏目" class="input2" onclick="post('type-tab-vod-ids-{vodtypenow}-ac2-day');"/><br><br>
+&nbsp;<input type="button" value="选择内容" class="input2" onclick="post('info-tab-vod');"/>
+&nbsp;<input type="button" value="全部内容" class="input2" onclick="post('info-tab-vod-ids-{vodtypeids}');"/>
+&nbsp;<input type="button" value="当天内容" class="input2" onclick="post('info-tab-vod-ids-{vodtypenow}-ac2-day');"/><br><br>
+&nbsp;<input type="button" value="未生成的" class="input2" onclick="post('info-tab-vod-ac2-nomake');"/>
+&nbsp;<input type="button" value="一键当天" class="input2" onclick="post('info-tab-vod-ids-{vodtypenow}-ac2-day-jump-1');"/>
+</td>
+<td width="150">
+&nbsp;&nbsp;视频专题列表：<br>
+&nbsp;<select name="vodtopic[]" multiple style="width:150px;height:150px;">
+<!-- BEGIN list_vodtopic -->
+<option value="{v}" {c}>{n}</option>
+<!-- END list_vodtopic -->
+</select>
+</td>
+<td>
+&nbsp;<input type="button" value="选择专题" class="input2" onclick="post('topic-tab-vod');"/>
+&nbsp;<input type="button" value="全部专题" class="input2" onclick="post('topic-tab-vod-ids-{vodtopicids}');"/> <br><br>
+&nbsp;<input type="button" value="专题首页" class="input2" onclick="post('topicindex-tab-vod');" />
+</td>
+</tr>
+</table>
+
+<table class="tb" id="tab1" style="display:block">
+<tr>
+<td width="150">文章栏目列表：<br>
+&nbsp;<select name="arttype[]" multiple style="width:150px;height:150px;">
+<!-- BEGIN list_arttype -->
+<option value="{v}" {c}>{n}</option>
+<!-- END list_arttype -->
+</select>
+</td>
+<td>
+&nbsp;<input type="button" value="选择栏目" class="input2" onclick="post('type-tab-art');"/>
+&nbsp;<input type="button" value="全部栏目" class="input2" onclick="post('type-tab-art-ids-{arttypeids}');"/>
+&nbsp;<input type="button" value="当天栏目" class="input2" onclick="post('type-tab-art-ids-{arttypenow}-ac2-day');"/><br><br>
+&nbsp;<input type="button" value="选择内容" class="input2" onclick="post('info-tab-art');"/>
+&nbsp;<input type="button" value="全部内容" class="input2" onclick="post('info-tab-art-ids-{arttypeids}');"/>
+&nbsp;<input type="button" value="当天内容" class="input2" onclick="post('info-tab-art-ids-{arttypenow}-ac2-day');"/><br><br>
+&nbsp;<input type="button" value="未生成的" class="input2" onclick="post('info-tab-art-ac2-nomake');"/>
+&nbsp;<input type="button" value="一键当天" class="input2" onclick="post('info-tab-art-ids-{arttypenow}-ac2-day-jump-1');"/>
+</td>
+<td width="150">
+文章专题列表：<br>
+&nbsp;<select name="arttopic[]" multiple style="width:150px;height:150px;">
+<!-- BEGIN list_arttopic -->
+<option value="{v}" {c}>{n}</option>
+<!-- END list_arttopic -->
+</select>
+</td>
+<td>
+&nbsp;<input type="button" value="选择专题" class="input2" />
+&nbsp;<input type="button" value="全部专题" class="input2" /><br><br>
+&nbsp;<input type="button" value="专题首页" class="input2" onclick="post('topicindex-tab-art');"/>
+&nbsp;
+</td>
+</tr>
+</table>
+
+<table class="tb" id="tab2" style="display:block">
+<tr>
+<td width="150">生成自定义页面：<br>
+&nbsp;<select name="label[]" multiple style="width:150px;height:150px;">
+<!-- BEGIN list_label -->
+<option value="{v}" {c}>{n}</option>
+<!-- END list_label -->
+</select>
+</td>
+<td>
+<input type="button" value="生成页面" class="input2" onclick="post('label-ids-');">
+<input type="button" value="生成全部" class="input2" onclick="post('label-ids-{labelall}');">
+</td>
+<td width="50%">
+谷歌SiteMap： 总输出 <input id="google" name="googleall" type="text" size="5" value="5000" maxlength="5" class="ct"> 条 
+每页输出 <input id="google" name="google" type="text" size="5" maxlength="5" value="1000" class="ct"> 条 
+<input type="button" value="生成" class="input2" onclick="post('rss-ac2-google');">
+<br>
+百度SiteMap： 总输出 <input id="baidu" name="baiduall" type="text" size="5" maxlength="5" value="5000" class="ct"> 条 
+每页输出 <input id="baidu" name="baidu" type="text" size="5" maxlength="5" value="1000" class="ct"> 条 
+<input type="button" value="生成" class="input2" onclick="post('rss-ac2-baidu');">
+<br>
+RSS订阅文件： 总输出 <input type="text" name="rss" id="rss" size="5" maxlength="5" value="50" class="ct"> 条 
+<input type="button" value="生成" class="input2" onclick="post('rss-ac2-rss');">
+</td>
+</tr>
+</table>
+</form>
+
+{foot}
+</body>
+</html>

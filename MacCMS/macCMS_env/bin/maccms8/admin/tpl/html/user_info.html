@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>会员信息 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.datepicker.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.datepicker.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			u_name:{
+				required:true,
+				stringCheck:true,
+				maxlength:32
+			},
+			u_password:{
+				maxlength:32
+			},
+			u_flag:{
+				required:true
+			},
+			u_group:{
+				required:true
+			},
+			u_qq:{
+				number:true,
+				maxlength:16
+			},
+			u_email:{
+				email:true,
+				maxlength:32
+			},
+			u_phone:{
+				number:true,
+				maxlength:16
+			},
+			u_points:{
+				number:true
+			},
+			u_status:{
+				required:true
+			}
+		}
+	});
+	$("#btnCancel").click(function(){
+		location.href=$("#backurl").val();
+	});
+	var d = new Date();
+	var today = d.getFullYear()+"-";
+	today += d.getMonth()<10 ? "0"+d.getMonth()+"-" : d.getMonth()+"-";
+	today += d.getDate()<10 ? "0"+d.getDate()+"-" : d.getDate();
+	
+	if($("#flag").val()=='add'){
+		$("#u_starttime").val(today);
+		$("#u_endtime").val(today);
+	}
+	
+	$('#u_starttime').DatePicker({
+		format:'Y-m-d',
+		date: $('#u_starttime').val(),
+		current: $('#u_starttime').val(),
+		starts: 1,
+		position: 'right',
+		onBeforeShow: function(){
+			if($('#u_starttime').val()!=""){ $('#u_starttime').DatePickerSetDate($('#u_starttime').val(), true); }
+		},
+		onChange: function(formated, dates){
+			$('#u_starttime').val(formated);
+			$('#u_starttime').DatePickerHide();
+		}
+	});
+	$('#u_endtime').DatePicker({
+		format:'Y-m-d',
+		date: $('#u_endtime').val(),
+		current: $('#u_endtime').val(),
+		starts: 1,
+		position: 'right',
+		onBeforeShow: function(){
+			if($('#u_endtime').val()!=""){ $('#u_starttime').DatePickerSetDate($('#u_endtime').val(), true); }
+		},
+		onChange: function(formated, dates){
+			$('#u_endtime').val(formated);
+			$('#u_endtime').DatePickerHide();
+		}
+	});
+	
+	if($("#u_flag").val()==1){
+		$("#flag1").show();
+	}
+	else if($("#u_flag").val()==2){
+		$("#flag2").show();
+	}
+});
+function showflag(flag){
+	if (flag==2){
+		$("#flag2").show();
+		$("#flag1").hide();
+	}
+	else if (flag==1){
+		$("#flag2").hide();
+		$("#flag1").show();
+	}
+	else{
+		$("#flag2").hide();
+		$("#flag1").hide();
+	}
+}
+</script>
+</head>
+<body>
+<form action="admin_data.php?ac=save&tab=user" method="post" name="form1" id="form1">
+<input id="u_id" name="u_id" type="hidden" value="{u_id}">
+<input id="flag" name="flag" type="hidden" value="{flag}">
+<input id="backurl" name="backurl" type="hidden" value="{backurl}">
+<div class="toptit">会员信息</div>
+<table class="tbinfo pleft">
+    <tr>
+	<td width="100" class="hl">名称：</td>
+	<td class="hl"><INPUT type="text" id="u_name" size="40" value="{u_name}" name="u_name">
+	</td>
+    </tr>
+    <tr>
+	<td>密码：</td>
+	<td><INPUT id="u_password" type="password" size="40" value="" name="u_password">
+	</td>
+    </tr>
+    <tr>
+	<td>状态：</td>
+	<td>
+	<select id="u_status" name="u_status" style="width:100px;">
+	<!-- BEGIN list_status -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_status -->
+	</select>
+	</td>
+    </tr>
+    <tr>
+	<td>会员组：</td>
+	<td>
+	<select id="u_group" name="u_group" style="width:100px;">
+	<option value="">请选择会员组</option>
+	<!-- BEGIN list_group -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_group -->
+	</select>
+	</td>
+    </tr>
+    <tr>
+	<td>计费类型：</td>
+	<td>
+	<select name="u_flag" id="u_flag" style="width:100px;" onChange="showflag(this.options[this.selectedIndex].value)">
+	<!-- BEGIN list_flag -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_flag -->
+	</select> 
+	</td>
+    </tr>
+	<tr id="flag1" style="display:none">
+	<td>设置时间：</td>
+	<td>
+	起始时间:<INPUT type="text" id="u_starttime" size="20" value="{u_starttime}" name="u_starttime"><br>
+	截止时间:<INPUT type="text" id="u_endtime" size="20" value="{u_endtime}" name="u_endtime" >
+	</td>
+	</tr>
+	<tr id="flag2" style="display:none">
+	<td>设置IP段：</td>
+	<td>
+	起始IP:<INPUT type="text" id="u_startip" size="20" value="{u_startip}" name="u_startip"><br>
+	截止IP:<INPUT type="text" id="u_endip" size="20" value="{u_endip}" name="u_endip">
+	</td>
+    </tr>
+	<tr>
+	<td>积分：</td>
+	<td><INPUT id="u_points" type="text" size="40" value="{u_points}" name="u_points">
+	</td>
+    </tr>
+	<tr>
+	<td>QQ：</td>
+	<td><INPUT id="u_qq" type="text" size="40" value="{u_qq}" name="u_qq">
+	</td>
+    </tr>
+    <tr>
+	<td>电话：</td>
+	<td><INPUT id="u_phone" type="text" size="40" value="{u_phone}" name="u_phone">
+	</td>
+    </tr>
+	<tr>
+	<td>email：</td>
+	<td><INPUT id="u_email" type="text" size="40" value="{u_email}" name="u_email">
+	</td>
+    </tr>
+	<tr>
+	<td>提示问题：</td>
+	<td><INPUT type="text" id="u_question" size="40" value="{u_question}" name="u_question">
+	</td>
+    </tr>
+    <tr>
+	<td>提示回答：</td>
+	<td><INPUT type="text" id="u_answer" size="40" value="{u_answer}" name="u_answer">
+	</td>
+    </tr>
+	<tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="保存" id="btnSave"> <input class="input" type="button" value="返回" id="btnCancel"> </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

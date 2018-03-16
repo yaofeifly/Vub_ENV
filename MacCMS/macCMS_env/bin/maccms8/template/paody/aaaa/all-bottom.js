@@ -1,0 +1,1 @@
+﻿MAC.AdsWrap(960,90,'all-bottom广告位');

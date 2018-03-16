@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>支付宝在线购卡 - 会员中心 -{maccms:name}</title>
+<meta name="keywords" content="{maccms:keywords}"/>
+<meta name="description" content="{maccms:description}"/>
+<link href="{maccms:path}template/user/css/base.css" type="text/css" rel="stylesheet"/>
+<link href="{maccms:path}template/user/css/i.css?20120915" type="text/css" rel="stylesheet"/>
+<script>var SitePath='{maccms:path}',SiteAid='{maccms:siteaid}',SiteTid='{maccms:sitetid}',SiteId='{maccms:siteid}';</script>
+<script src="{maccms:path}js/jquery.js"></script>
+<script src="{maccms:path}js/common.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form5").validate({
+		rules:{
+			OrdAmt:{
+				required:true,
+				number:true,
+				min:{pay_min}?>
+			}
+		}
+	});
+});
+</script>
+</head>
+<body>
+{head}
+<div id="content" class="layout">
+	<div class="ui-box ui-qire fn-clear" id="i-box">
+		<div id="i-bar">
+			<h3>会员控制面板</h3>
+			<div id="user-nav">
+				<ul class="user-nav-list fn-clear">  					
+		            <li ><a href="index.php?m=user-index.html"><span class="icon zl-icon">&nbsp;</span>我的资料</a></li>
+					
+					<li><a href="index.php?m=user-fav.html"><span class="icon sc-icon">&nbsp;</span>我的收藏</a></li>
+					<!--<li><a href="#"><span class="icon dy-icon">&nbsp;</span>我的订阅</a></li>-->
+					<li><a href="index.php?m=user-plays.html"><span class="icon pl-icon">&nbsp;</span>我的播放记录</a></li>
+					<li><a href="index.php?m=user-downs.html"><span class="icon bf-icon">&nbsp;</span>我的下载记录</a></li>
+					<li class="current"><a href="index.php?m=user-pay.html"><span class="icon dx-icon">&nbsp;</span>充值卡充值</a></li>
+					<li ><a href="index.php?m=user-upgrade.html"><span class="icon gz-icon">&nbsp;</span>升级会员组</a></li>
+					<!--<li><a href="#"><span class="icon fd-icon">&nbsp;</span>我的留言</li>--></a></li>
+				</ul>
+			</div>
+			<!-- 
+			<div class="user-visitors" id="user-visitors">
+				<h3>最近访客</h3>
+				<ul class="visitor-list">
+				</ul>
+			</div>
+		     -->
+		</div>
+		<!-- // i-bar end -->
+		<div class="i-box-cnt" id="i-cnt">
+			<form action="{maccms:path}inc/user/alipay/alipayapi.php" method="post" name="form5" id="form5">
+				<div id="i-profile">
+					<div class="ui-title i-tab-nav-box">
+						<ul class="i-tab-nav fn-clear">
+							<li ><a href="index.php?m=user-pay.html">充值卡充值</a></li>
+							<li class="line"></li>
+							<li class="current"><a href="index.php?m=user-pay2.html">在线购卡</a></li>							
+						</ul>
+					</div>
+					<div class="ui-form">
+			<div class="ui-form-item fn-clear">
+		<label for="newpass" class="ui-label w130">充值卡号码：</label>
+		<input type="text" name="WIDprice" value="{pay_min}" size="22" maxlength="12" class="ui-input w100">
+		<label for="newpass" class="ui-label" style="width: 310px;">*（最小充值金额为{pay_min}元，1元可以兑换{pay_exc}个积分）</label>
+	           </div>
+
+			
+	<div class="ui-form-item fn-clear">
+		<label class="ui-label w130"></label><input class="ui-button w150" type="submit" value="确认" id="btnSave">
+	</div>					
+					</div>
+					<!-- // ui-form End -->
+				</div>
+				<!-- // ui-box End -->
+		<input type="hidden" name="WIDout_trade_no" value="{pay_order}" >
+		<input type="hidden" name="WIDsubject" value="在线充值" >
+		<input type="hidden" name="RetUrl" value="http://{maccms:url}{maccms:path}inc/user/alipay/return_url.php" >
+		<input type="hidden" name="BgRetUrl" value="http://{maccms:url}{maccms:path}inc/user/alipay/notify_url.php" >
+		
+	</form>
+		</div>
+		<!-- // i-cnt End -->
+	</div>
+	<!-- // maxBox End -->
+</div>
+<!-- // wrap End -->
+{foot}
+</body>
+</html>

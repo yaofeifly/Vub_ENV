@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>下载记录 - 会员中心 -{maccms:name}</title>
+<meta name="keywords" content="{maccms:keywords}"/>
+<meta name="description" content="{maccms:description}"/>
+<link href="{maccms:path}template/user/css/base.css" type="text/css" rel="stylesheet"/>
+<link href="{maccms:path}template/user/css/i.css?20120915" type="text/css" rel="stylesheet"/>
+<script>var SitePath='{maccms:path}',SiteAid='{maccms:siteaid}',SiteTid='{maccms:sitetid}',SiteId='{maccms:siteid}';</script>
+<script src="{maccms:path}js/jquery.js"></script>
+<script src="{maccms:path}js/common.js"></script>
+<script>
+$(function(){
+	$("#btnClear").click(function(){
+		if(confirm('确定要清空记录吗')){
+			$("#form1").attr("action","index.php?m=user-del-flag-downs-clear-1.html");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#btnDel").click(function(){
+		if(checkCount('d_id[]')==0){
+			alert("请至少选择一个数据");
+			return;
+		}
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","index.php?m=user-del-flag-downs.html");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+});
+</script>
+</head>
+<body>
+{head}
+<div id="content" class="layout">
+	<div class="ui-box ui-qire fn-clear" id="i-box">
+		<div id="i-bar">
+			<h3>会员控制面板</h3>
+			<div id="user-nav">
+				<ul class="user-nav-list fn-clear">  					
+		            <li><a href="index.php?m=user-index.html"><span class="icon zl-icon">&nbsp;</span>我的资料</a></li>
+					
+					<li><a href="index.php?m=user-fav.html"><span class="icon sc-icon">&nbsp;</span>我的收藏</a></li>
+					<!--<li><a href="#"><span class="icon dy-icon">&nbsp;</span>我的订阅</a></li>-->
+					<li ><a href="index.php?m=user-plays.html"><span class="icon pl-icon">&nbsp;</span>我的播放记录</a></li>
+					<li class="current"><a href="index.php?m=user-downs.html"><span class="icon bf-icon">&nbsp;</span>我的下载记录</a></li>
+					<li><a href="index.php?m=user-pay.html"><span class="icon dx-icon">&nbsp;</span>充值卡充值</a></li>
+					<li ><a href="index.php?m=user-upgrade.html"><span class="icon gz-icon">&nbsp;</span>升级会员组</a></li>
+					<!--<li><a href="#"><span class="icon fd-icon">&nbsp;</span>我的留言</li>--></a></li>
+				</ul>
+			</div>
+			<!-- 
+			<div class="user-visitors" id="user-visitors">
+				<h3>最近访客</h3>
+				<ul class="visitor-list">
+				</ul>
+			</div>
+		     -->
+		</div>
+		<!-- // i-bar end -->
+		<div class="i-box-cnt" id="i-cnt">
+		
+				<div id="i-history">
+	<div class="ui-title i-tab-nav-box fn-clear">
+		<ul class="i-tab-nav">
+			<li class="current">下载记录</li>
+		</ul>
+	</div>
+	<div class="ui-cnt">
+		<ul class="user-txt-list his-list fn-clear" id="xlist">
+		<form id="form1" name="form1" method="post">
+	<!-- BEGIN row -->
+			<li class="">
+			<p class="title"><input name="d_id[]" type="checkbox" value="{d_id}">
+				<a target="_blank" href="{d_link}">{d_name}</a>/{t_name}
+			</p>
+			<p class="morelook">
+				<a target="_blank" href="{d_link}">重新下载</a>
+			</p>
+			<p class="time">
+				消费积分:{d_stint}
+			</p>			
+			</li>
+		<!-- END row -->
+		</ul>		
+		<!-- // i-intro End -->
+		<div class="check-del fn-left">
+		<input class="ui-edit ui-edit-short" type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('d_id[]');">
+        <input class="ui-edit ui-edit-short"  type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('d_id[]');">
+	    <input class="ui-edit ui-edit-short"  type="button" id="btnDel" value="删除" class="input" />
+         <input class="ui-edit1 ui-edit-short cleanup" type="button" id="btnClear" value="清空" class="input">
+		</form>
+		</div>
+		<!-- // list-page End -->
+	</div>
+</div>
+				<!-- // ui-box End -->
+	
+		</div>
+		<!-- // i-cnt End -->
+	</div>
+	<!-- // maxBox End -->
+</div>
+<!-- // wrap End -->
+{foot}
+</body>
+</html>

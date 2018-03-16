@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>视频管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<link rel="stylesheet" type="text/css" href="../images/jq/jquery.webox.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.webox.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<style>select{width:110px; }</style>
+<script language="javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=vod");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+	$("#btnHide").click(function(){
+		ajaxshow('btnHide','hide','vod','d_id','d_hide','');
+	});
+	$("#btnLevel").click(function(){
+		ajaxshow('btnLevel','level','vod','d_id','d_level','');
+	});
+	$("#btnType").click(function(){
+		ajaxshow('btnType','type','vod','d_id','d_type','');
+	});
+	$("#btnHits").click(function(){
+		ajaxshow('btnHits','hits','vod','d_id','d_hits','');
+	});
+	$("#btnMake").click(function(){
+		if(checkCount('d_id[]')==0){ alert("请至少选择一个数据");return }
+		var item = "",rc=false;
+		$("input[name='d_id[]']").each(function(){
+			if(this.checked){
+				if(rc)item += ',';
+				item += this.value;
+				rc=true;
+			}
+		});
+        location.href='?m=make-info-tab-vod-no-'+item;
+	});
+	$("#btnRepeat").click(function(){
+		var repeatlen = $("#repeatlen").val();
+		var reg = /^\d+$/;
+		var re = repeatlen.match(reg);
+		if (!re){ alert("请输入数字");$("#repeatlen").focus();return;}
+		if (repeatlen >50){ alert("长度最大50");$("#repeatlen").focus();return;}
+		location.href='?m=vod-list-repeat-ok-repeatlen-'+repeatlen;;
+	});
+	$("#btnSearch").click(function(){
+		location.href=getPar().replace('{ac}','list');
+	});
+	$("#btnBatch").click(function(){
+		$.webox({
+			width:400,
+			height:350,
+			bgvisibel:true,
+			title:'批量操作  筛选参数请在背后的视频管理界面选择...',
+			html:$("#win2").html()
+		});
+	});
+	$("#syncpic").click(function(){
+		$.webox({
+			width:400,
+			height:200,
+			bgvisibel:true,
+			title:'同步远程图片',
+			html:$("#win1").html()
+		});
+	});
+	var d = new Date();
+	var today = d.getFullYear()+"-";
+	today += (d.getMonth()+1)<10 ? "0"+(d.getMonth()+1)+"-" : (d.getMonth()+1)+"-";
+	today += d.getDate()<10 ? "0"+d.getDate() : d.getDate();
+	$("#pic_fwdate").val(today);
+});
+function getPar(){
+	return '?m=vod-{ac}-type-'+$("#type").val()+'-topic-'+$("#topic").val()+'-level-'+$("#level").val()+'-hide-'+$("#hide").val()+'-lock-'+$("#lock").val()+'-by-'+$("#by").val()+'-wd-'+encodeURI($("#wd").val())+'-state-'+$("#state").val()+'-pic-'+$("#pic").val()+'-play-'+$("#play").val()+'-down-'+$("#down").val()+'-server-'+$("#server").val()+'-area-'+encodeURI($("#area").val())+'-lang-'+encodeURI($("#lang").val());
+}
+function batchDel(){
+	if(confirm("此操作不可逆，确认执行吗？")){
+		var ckd =  $('input[name="batch_ckdel"]:checked').val();
+		if(ckd==2 && $("#play").val()==''){
+			alert("请选择播放器类型");return;
+		}
+		location.href=getPar().replace('{ac}','batch') + '-ckdel-'+ckd;
+	}
+}
+function batchSet(){
+	var ckrq = $('input[name="batch_ckrq"]')[1].checked==true ? '1' : '0';
+	var cktj = $('input[name="batch_cktj"]')[1].checked==true ? '1' : '0';
+	var cklock = $('input[name="batch_cklock"]')[1].checked==true ? '1' : '0';
+	var ckhide = $('input[name="batch_ckhide"]')[1].checked==true ? '1' : '0';
+	
+	location.href=getPar().replace('{ac}','batch') + '-ckrq-'+ckrq+'-batch_hits1-'+$('input[name="batch_hits1"]')[1].value+'-batch_hits2-'+$('input[name="batch_hits2"]')[1].value+'-cktj-'+cktj+'-batch_level-'+$('select[name="batch_level"]')[1].value +'-cklock-'+cklock+'-batch_lock-'+$('select[name="batch_lock"]')[1].value+'-ckhide-'+ckhide+'-batch_hide-'+$('select[name="batch_hide"]')[1].value;
+}
+</script>
+</head>
+<body>
+<table class="tbinfo pleft">
+	<thead>
+		<tr><th><span style="float:left">视频管理</span><span style="float:right;">【<a id="syncpic" href="###"><font color="red"><strong>同步下载远程图片</strong></font></a>】</span> </th></tr>
+	</thead>
+	<!-- IF isrepeat -->
+	<tr>
+	<td>
+		&nbsp; 检测名称长度：<input id="repeatlen" size="4" name="repeatlen" value="{repeatlen}"> 
+		&nbsp;<input class="input" type="button" value="检测重复数据" id="btnRepeat" name="btnRepeat">
+		&nbsp; 长度为0时检测全字匹配
+			  <input type="hidden" id="repeatok" name="repeatok" value="{repeatok}" />
+	</td>
+	</tr>
+	<!-- ELSE isrepeat -->
+	    <tr>
+	<td class="hl" colspan="2">
+	过滤条件：<select id="type" name="stype">
+	<option value="">视频分类</option>
+	<!-- BEGIN list_type -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_type -->
+	</select>
+	&nbsp;
+	<select id="topic" name="topic">
+	<option value="">视频专题</option>
+	<!-- BEGIN list_topic -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_topic -->
+	</select>
+	&nbsp;
+	<select id="state" name="state">
+	<option value="">视频连载</option>
+	<!-- BEGIN list_state -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_state -->
+	</select>
+	&nbsp;
+	<select id="area" name="area">
+	<option value="">视频地区</option>
+	<!-- BEGIN list_area -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_area -->
+    </select>
+	&nbsp;
+    <select id="lang" name="lang">
+    <option value="">视频语言</option>
+    <!-- BEGIN list_lang -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_lang -->
+	</select>
+	&nbsp;
+	<select id="server" name="server">
+	<option value="">视频服务器组</option>
+	<!-- BEGIN list_server -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_server -->
+	</select>
+	&nbsp;
+	<select id="play" name="play">
+	<option value="">视频播放器</option>
+	<!-- BEGIN list_play -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_play -->
+	</select>
+	&nbsp;
+	<select id="down" name="down">
+	<option value="">视频下载器</option>
+	<!-- BEGIN list_down -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_down -->
+	</select><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<select id="pic" name="pic">
+	<option value="">视频图片</option>
+	<!-- BEGIN list_pic -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_pic -->
+	</select>
+	&nbsp;
+	<select id="by" name="by">
+	<option value="">视频排序</option>
+	<!-- BEGIN list_by -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_by -->
+	</select>
+	&nbsp;
+	<select id="level" name="level">
+	<option value="">视频推荐</option>
+	<!-- BEGIN list_level -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_level -->
+	</select>
+	&nbsp;
+	<select id="hide" name="hide">
+	<option value="">视频显隐</option>
+	<!-- BEGIN list_hide -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_hide -->
+	</select>
+	&nbsp;
+	<select id="lock" name="lock">
+	<option value="">视频锁定</option>
+	<!-- BEGIN list_lock -->
+	<option value="{v}" {c}>{n}</option>
+	<!-- END list_lock -->
+	</select>
+	&nbsp;关键字：<input id="wd" size="40" name="wd" value="{wd}" onClick="this.select();">
+	<input class="input" type="button" value="搜索" id="btnSearch">
+	<input class="input" type="button" value="批量操作" id="btnBatch">
+	</td>
+	</tr>
+	<!-- ENDIF isrepeat -->
+</table>
+
+<form method="post" action="" name="form1" id="form1">
+<table class="tb">
+	<tr>
+	<th width="60" class="thfirst">编号</th>
+	<th>名称</th>
+	<th width="80">分类</th>
+	<th width="80">人气</th>
+	<th width="80">来源</th>
+	<th width="60">推荐</th>
+	<th width="60">浏览</th>
+	<th width="150">更新时间</th>
+	<th width="100">操作</th>
+	</tr>
+	<!-- IF isnull -->
+	<tr><td colspan="9" align="center">未查询到任何数据</td></tr>
+	<!-- ELSE isnull -->
+	<!-- BEGIN list_vod -->
+	<tr>
+	<td><input name="d_id[]" type="checkbox" id="d_id" value="{d_id}" />{d_id}</td>
+	<td><a target="_blank" href="{d_link}">{d_name}</a> {d_hide} {d_lock}&nbsp;&nbsp; {d_state}&nbsp;&nbsp;{d_remarks}</td>
+	<td>{d_type}</td>
+	<td>{d_hits}</td>
+	<td title="{d_playfrom}" style= "white-space:nowrap;overflow:hidden;">{d_playfrom}</td>
+	<td id="level_{d_id}">&nbsp;<img src="../images/icons/ico{d_level}.gif" border="0" style="cursor: pointer;" onclick="ajaxshow('level_{d_id}','level','vod','d_id','d_level','{d_id}')" /></td>
+	<td><!-- IF ismake --><a href="?m=make-info-tab-vod-no-{d_id}"><img src="../images/icons/html_no.gif"></a><!-- ELSE ismake --><a target="_blank" href="{d_link}"><img src="../images/icons/html_ok.gif"></a><!-- ENDIF ismake --></td>
+	<td>{d_time}</td>
+	<td>
+	<a href="?m=vod-info-id-{d_id}">修改</a> |
+	<a href="admin_data.php?ac=del&tab=vod&d_id={d_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	</td>
+	</tr>
+	<!-- END list_vod -->
+	<tr>
+	<td colspan="9" class="pleft">
+	<input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('d_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('d_id[]');">
+	<input type="button" id="btnDel" value="删除" class="input" />
+	<input type="button" id="btnHide" value="显隐" class="input"/>
+	<input type="button" id="btnLevel" value="推荐" class="input">
+	<input type="button" id="btnType" value="分类" class="input">
+	<input type="button" id="btnHits" value="人气" class="input">
+	<input type="button" id="btnMake" value="生成" class="input">
+	</td></tr>
+    <tr align="center">
+      <td colspan="9"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+</table>
+</form>
+<div id="win1" style="display:none">
+<form action="?m=extend-picsyncvod" method="post" name="form2" id="form2">
+<table class="tbinfo pleft">
+	<tr>
+	<td width="100" class="hl">同步范围：</td>
+	<td class="hl"> 全部<input type="radio" id="pic_fw1" name="pic_fw" value="1" checked> 视频日期<input type="radio" id="pic_fw2" name="pic_fw" value="2" > <input id="pic_fwdate" name="pic_fwdate" class="datepicker"/> 
+	</td>
+	</tr>
+	<tr>
+	<td>同步选项：</td>
+	<td> 全部<input type="radio" id="pic_xx1" name="pic_xx" value="0" > 非出错图<input type="radio" id="pic_xx2" name="pic_xx" value="1" checked> 非当天错图<input type="radio" id="pic_xx2" name="pic_xx" value="2" > 出错图<input type="radio" id="pic_xx3" name="pic_xx" value="3" >
+	</td>
+	</tr>
+    <tr align="center">
+      <td colspan="2"><input class="input" type="submit" value="确认同步" id="btnSyncPic"> </td>
+    </tr>
+</table>
+</form>
+</div>
+
+<div id="win2" style="display:none">
+<table class="tbinfo pleft">
+	<tr>
+	<td style="line-height:25px;"><br>批量操作选项1：<br>
+		<input type="radio" name="batch_ckdel" value="1" checked/> 删除数据
+		<input type="radio" name="batch_ckdel" value="2" /> 删除播放组
+		<br>
+		<input class="input" type="button" value="批量删除" id="btnBatchDel" onclick="batchDel();">
+		
+		<br><br>批量操作选项2：<br>
+		<input type="checkbox" value="1" name="batch_ckrq"/> 人气 ->
+		<input name="batch_hits1" type="text" size="4" value="0">
+		到 &nbsp;
+		<input name="batch_hits2" type="text" size="4" value="0">之间
+		<br>
+		<input type="checkbox" value="1" name="batch_cktj"/> 推荐 ->
+		<select name="batch_level">
+            <option value="0" >取消推荐</option>
+            <option value="1" >推荐1</option>
+            <option value="2" >推荐2</option>
+            <option value="3" >推荐3</option>
+            <option value="4" >推荐4</option>
+            <option value="5" >推荐5</option>
+		</select>
+		<br>
+		<input type="checkbox" value="1" name="batch_cklock"/> 锁定 ->
+		<select name="batch_lock">
+            <option value="0" >解锁</option>
+            <option value="1" >锁定</option>
+		</select>
+		<br>
+		<input type="checkbox" value="1" name="batch_ckhide"/> 隐藏 ->
+		<select name="batch_hide">
+            <option value="0" >显示</option>
+            <option value="1" >隐藏</option>
+		</select>
+		<br>
+		<input class="input" type="button" value="批量设置" id="btnBatchSet" onclick="batchSet();">
+	</td>
+	</tr>
+</table>
+</div>
+{foot}
+</body>
+</html>

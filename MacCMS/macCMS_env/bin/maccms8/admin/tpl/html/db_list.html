@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>数据库管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnDel").click(function(){
+		if(checkCount('file[]')==0){ alert("请至少选择一个数据");return; }
+		if(confirm('确定要删除吗')){ $("#form1").attr("action","?m=db-del"); $("#form1").submit(); }
+	});
+	$("#btnCompress").click(function(){
+		$("#form1").attr("action","?m=db-compress"); $("#form1").submit();
+	}); 
+	$("#btnBak").click(function(){
+		$("#msg").html("<font color=red>正在备份数据，请稍后...</font>");
+		$("#form1").attr("action","?m=db-bak"); $("#form1").submit();
+	});
+	$("#btnRepair").click(function(){
+		$("#form1").attr("action","?m=db-repair"); $("#form1").submit();
+	});
+});
+function getSize(i,n){ $.ajax({cache:false,dataType:'html',type:'GET',url:'?m=db-getsize-file-'+n,success:function(obj){ $("#s"+i).html(obj)}})}
+</script>
+</head>
+<body>
+<form method="POST" action="" name="form1" id="form1">
+<table class="tb">
+	<table class="tb"><tr><td width="30">&nbsp;</td><td>备份名称</td><td width="10%">分卷大小</td><td width="15%">备份时间</td><td width="100">操作</td></tr>
+<!-- IF isnull -->
+<tr><td colspan=5 align=center>未查询到任何数据</td></tr>
+<!-- ELSE isnull -->
+	<!-- BEGIN list_db -->
+	<tr>
+		<td><input name="file[]" type="checkbox" value="{name}" /></td>
+		<td>{name}</td>
+		<td><em id="s{num}">加载中...</em><script>getSize({num},"{name}")</script>KB</td>
+		<td>{time}</td>
+		<td><A href="?m=db-reduction-file-{name}">还原</a> | <A href="?m=db-del-file-{name}" onClick="return confirm('确定要删除吗?');">删除</a></td>
+	</tr>
+	<!-- END list_db -->
+<!-- ENDIF isnull -->
+	<tr><td colspan="5"><input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('file[]');">&nbsp;<input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('file[]');">&nbsp;<input type="button" id="btnDel" value="删除" class="input">&nbsp;<input type="button" id="btnCompress" value="压缩" class="input">&nbsp;<input type="button" id="btnBak" value="备份" class="input">&nbsp;<input type="button" id="btnRepair" value="修复" class="input"><span id="msg"></span></td></tr>
+
+</table>
+</form>
+{foot}
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>联盟资源库 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#xmllist").html( $("#xml").html());
+	$("#xml").html("");
+});
+</script>
+</head>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+<!-- IF isbreak -->
+<tr><td align=right><a href="?m=collect-break"><font color="red" style="font-size:16px;">【继续上次断点采集】</font></a></td></tr>
+<!-- ENDIF isbreak -->
+<tr>
+<td><span id="xmllist">资源列表载入中……</span></td>
+</tr>
+</table>
+<span id="xml"><script src="http://www.maccms.com/union/xmlutf_2014.js" charset="utf-8"></script></span>
+{foot}
+</body>
+</html>

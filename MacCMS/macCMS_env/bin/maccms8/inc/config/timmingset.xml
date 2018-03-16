@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<timmings>
+	
+<timming><name>makeothers</name><des>定时生成首页-地图-xml文件</des><status>0</status><file>make.php</file><paramets>make-others</paramets><weeks>1,2,3,4,5,6,0</weeks><hours>0,1,2,3,5,6,7,9,12,15,17,20,23</hours><runtime>1387456818</runtime></timming>
+
+
+
+
+
+
+
+
+
+</timmings>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[art:name] [art:subname] - {maccms:name}</title>
+<meta name="keywords" content="[art:name],{maccms:name}" />
+<meta name="description" content="[art:name],{maccms:name}" />
+{maccms:include}
+</head>
+<body>
+{maccms:load head_news.html}
+<div class="wrap">
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-top.js"></script></div>
+  <div class="box mb">
+    <div class="main l">
+      <div class="box b mb">
+        <h4>[art:textlink]</h4>
+        <div class="newscontent">
+          <h1>[art:colorname]</h1>
+          <p class="intro"><strong>添加：[art:addtime]</strong><strong>来源：[art:from]</strong><strong>人气：[art:hits]</strong></p>
+          <div class="subtitle">[art:remarks]</div>
+          <div class="news" style="min-height:400px;height:100%;_height:500px;">
+          	<div style="float:right;"><script type="text/javascript" language="javascript" src="{maccms:path_ads}xinwenneirong301.js"></script></div>
+          [art:content] <br><br>
+ 		  </div>
+ 		  <div class="digg">[art:digg]</div>
+ 		  {if-A:{page:datacount}>1}
+          <div class="page" style="width:100%">{maccms:pages len=6}</div>
+          {endif-A}
+          <div class="pn_news"><span>[art:prelink]</span> <span>[art:nextlink]</span> </div>
+        </div>
+        <!--/NewsContent-->
+      </div>
+      <!--/Box-->
+      <div class="box b mb">
+        <h4>相关资讯</h4>
+        <div class="newsbox newspb">
+         {maccms:art num=6 type=current by=all}
+<p><em>[art:num]</em><a href="[art:link]" target="_blank">[art:name]</a><span>[art:time style=m-d]</span></p>
+{/maccms:art}
+          
+        </div>
+      </div>
+      <!--/Box-->
+      <!--/Box-->
+    </div>
+    <!--/Main-->
+    <div class="side r">
+      <div class="svlist b mb">
+        <h5>热映电影</h5>
+        <ul>
+         {maccms:vod num=15 type=1 by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+<div class="box mb"><script type="text/javascript" language="javascript" src="{maccms:path_ads}list250x250.js"></script></div>
+      <div class="svlist b">
+        <h5>热播电视剧</h5>
+        <ul>
+         {maccms:vod num=15 type=2 by=time order=desc}
+<li><h3><em{if-A:[vod:num]<4} class="n3"{endif-A}>[vod:numfill]</em><a href="[vod:link]" target="_blank">[vod:name]</a></h3><span>{if-A:[vod:state]<1}[vod:remarks]{elseif-A:[vod:state]<1000 and [vod:state]>0}第[vod:state]集{elseif-A:[vod:state]>1000}[vod:state]期{elseif-A:[vod:state]=0 and "[vod:remarks]"=""}大结局{else-A}{endif-A}</span></li>
+{/maccms:vod}
+        </ul>
+      </div>
+      <!--/SVList-->
+    </div>
+    <!--/Side-->
+  </div>
+  <!--/Box-->
+  <div class="money_all"><script type="text/javascript" language="javascript" src="{maccms:path_ads}all-bottom.js"></script></div>
+</div>
+<!--/Wrap-->
+{maccms:foot}
+</body>
+</html>

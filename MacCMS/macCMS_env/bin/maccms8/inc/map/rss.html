@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+<title>{maccms:name}</title>
+<description>{maccms:name}</description>
+<link>{maccms:url}</link>
+<language>zh-cn</language>
+<docs>{maccms:name}</docs>
+<generator>Rss Powered By {maccms:url}</generator>
+<image>
+<url>http://{maccms:url}/images/logo.gif</url>
+</image>
+{maccms:vod num=30 page=true order=desc by=time}
+<item>
+<title>[vod:name][vod:remarks]</title>
+<link>http://{maccms:url}[vod:link]</link>
+<author>[vod:starring]</author>
+<pubDate>[vod:time style=Y-m-d H:i:s]</pubDate>
+<description><![CDATA["[vod:contenttext len=200]"]]></description>
+</item>
+{/maccms:vod}
+</channel>
+</rss>

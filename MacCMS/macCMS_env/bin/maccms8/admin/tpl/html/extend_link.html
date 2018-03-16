@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>友情链接管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#btnAdd").click(function(){
+		location.href='?m=extend-linkinfo';
+	});
+	$("#btnEdit").click(function(){
+		if(checkCount('l_id[]')==0){ alert("请至少选择一个数据");return; }
+		$("#form1").attr("action","?m=extend-linkinfo-ac2-all");
+		$("#form1").submit();
+	});
+	$("#btnDel").click(function(){
+		if(checkCount('l_id[]')==0){ alert("请至少选择一个数据");return; }
+		if(confirm('确定要删除吗')){
+			$("#form1").attr("action","admin_data.php?ac=del&flag=batch&tab=link");
+			$("#form1").submit();
+		}
+		else{return false}
+	});
+});
+</script>
+</head>
+<body>
+<form method="post" action="" name="form1" id="form1">
+<table class="tb">
+	<tr>
+	<th width="100" class="thfirst">编号</th>
+	<th width="100">排序</th>
+	<th width="140">类型</th>
+	<th>名称</th>
+	<th>地址</th>
+	<th>logo</th>
+	<th width="100">操作</th>
+	</tr>
+	<!-- IF isnull -->
+	<tr><td colspan="7" align="center">未查询到任何数据</td></tr>
+	<!-- ELSE isnull -->
+	<!-- BEGIN list_link -->
+	<tr>
+	<td><input name="l_id[]" type="checkbox" id="l_id" value="{l_id}" />{l_id}</td>
+	<td><input name="l_sort{l_id}" type="text" value="{l_sort}"  size="5"/></td>
+	<td><select name="l_type{l_id}" style="width:100px;">
+	<option value="0" {l_type_c0}>文字链接</option>
+	<option value="1" {l_type_c1}>图片链接</option>
+	</select>
+	</td>
+	<td><input type="text" name="l_name{l_id}" value="{l_name}" size="30"/></td>
+	<td><input type="text" name="l_url{l_id}" value="{l_url}"  size="30"/></td>
+	<td><input type="text" name="l_logo{l_id}" value="{l_logo}"  size="30"/></td>
+	<td>
+	<a href="?m=extend-linkinfo-id-{l_id}">修改</a> |
+	<a href="admin_data.php?ac=del&flag=batch&tab=link&l_id={l_id}" onClick="return confirm('确定要删除吗?');">删除</a>
+	</td>
+	</tr>
+	<!-- END list_link -->
+    <tr align="center">
+      <td colspan="7"><div class="pages">{pages}</div></td>
+    </tr>
+<!-- ENDIF isnull -->
+<tr>
+	<td colspan="7" class="pleft">
+	<input type="button" id="btnChkAll" value="全选" class="input" onClick="checkAll('l_id[]');">
+    <input type="button" id="btnChkOther" value="反选" class="input" onClick="checkOther('l_id[]');">
+	<input type="button" id="btnDel" value="删除" class="input" />
+	<input type="button" id="btnEdit" value="修改" class="input"/>
+	<input type="button" id="btnAdd" value="添加"  class="input"/>
+	</td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

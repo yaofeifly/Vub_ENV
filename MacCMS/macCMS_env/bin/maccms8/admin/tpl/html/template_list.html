@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>模版管理 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnAdd").click(function(){
+		location.href='?m=template-info-path-{curpath}';
+	});
+});
+</script>
+</head>
+<body>
+<form action="?action=del" method="post" id="form1" name="form1">
+<table class="tb">
+<tr>
+<th class="thfirst">文件名</th>
+<th width="100">文件类型</th>
+<th width="100">文件大小</th>
+<th width="150">修改时间</th>
+<th width="130">操作</th>
+</tr>
+<!-- IF ischild -->
+<tr><td colspan="5"><img src="../images/icons/dir.gif"><a href="?m=template-list-path-{uppath}">上级目录</a>&nbsp;<a href="?m=make-templateinfo-path-{curpath}">(添加新页面)</a></td></tr>
+<!-- ENDIF ischild -->
+<!-- BEGIN list_templatepath -->
+<tr><td colspan="5"><img src="../images/icons/dir.gif"><a href="?m=template-list-path-{path}">{name}</a></td></tr>
+<!-- END list_templatepath -->
+<!-- BEGIN list_templatefile -->
+<tr>
+<td><img src="../images/icons/asp.gif"><a href="{path}" target="_blank">{name}</a> {mark}</td>
+<td>{flag}</td>
+<td>{size}KB</td>
+<td>{time}</td>
+<td>
+<!-- IF islabel -->
+<a target="_blank" href="../index.php?m={name2}">预览</a>&nbsp;
+<a href="?m=make-label-ids-{name}">生成</a>&nbsp;
+<!-- ENDIF islabel -->
+<!-- IF isedit -->
+<a href="?m=template-info-file-{path}">编辑</a>&nbsp;
+<!-- ENDIF isedit -->
+<a href="?m=template-del-file-{path}" onClick="return confirm('确定要删除吗?');">删除</a>
+</td>
+</tr>
+<!-- END list_templatefile -->
+<tr><td colspan=5><input type="button" id="btnAdd" value="添加"  class="input"/> &nbsp;本目录下共有<font color=red><b>{pathcount}</b></font>个目录,<font color=red><b>{filecount}</b></font>个文件,占用<font color=red><b>{sumsize}</b></font>空间</td></tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

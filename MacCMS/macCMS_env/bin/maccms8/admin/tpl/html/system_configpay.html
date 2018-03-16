@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>在线支付参数配置 - 苹果CMS</title>
+<link rel="stylesheet" type="text/css" href="tpl/images/style.css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.cookie.js"></script>
+<script type="text/javascript" src="../js/jq/jquery.validate.js"></script>
+<script type="text/javascript" src="tpl/js/adm.js"></script>
+<script language="javascript">
+$(function(){
+	$("#form1").validate({
+		rules:{
+			app_min:{
+				required:true,
+				number:true
+			},
+			app_exc:{
+				required:true,
+				number:true
+			}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<form method="POST" action="?m=system-configpaysave" id="form1" name="form1">
+  <table class="tbinfo pleft">
+    <thead><th colspan="2">参数配置：</th></thead>
+    <tr>
+      <td width="150">最小充值金额：</td>
+      <td class="hl"><input name="app_min" type="text" id="app_min" value="{app_min}" size="50"> 
+        <font color="#FF0000">＊</font> 单位RMB元</td>
+    </tr>
+    <tr>
+      <td>兑换比例：</td>
+      <td><input name="app_exc" type="text" id="app_exc" value="{app_exc}" size="50">
+        <font color="#FF0000">＊</font> 1元RMB兑换多少个积分 </td>
+    </tr>
+    <thead><th colspan="2">支付宝在线支付接口注册：【<a target="_blank" href="https://b.alipay.com/">点击进入注册</a>】</th></thead>
+    <tr>
+      <td>帐号：</td>
+      <td><input name="alipay_no" type="text" id="alipay_no" value="{alipay_no}" size="50"> 
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>商户ID：</td>
+      <td><input name="alipay_id" type="text" id="alipay_id" value="{alipay_id}" size="50"> 
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>密钥KEY：</td>
+      <td><input name="alipay_key" type="text" id="alipay_key" value="{alipay_key}" size="50">
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <thead><th colspan="2">银圣在线支付接口注册：【<a target="_blank" href="http://pay.yinshengvip.com/mobile_reg.php?merchant=ksyitnnoudo6oght">点击进入注册</a>】</th></thead>
+    <tr>
+      <td>商户ID：</td>
+      <td><input name="ys_id" type="text" id="ys_id" value="{ys_id}" size="50"> 
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td>密钥KEY：</td>
+      <td><input name="ys_key" type="text" id="ys_key" value="{ys_key}" size="50">
+        <font color="#FF0000">＊</font> </td>
+    </tr>
+    <tr>
+      <td colspan="2"  align=center>
+		&nbsp;&nbsp;&nbsp;&nbsp;<input name="btnSave" type="submit" id="btnSave" class="input" value="更新参数">
+        如出错请手动修改 inc/config/config.php 文件
+	  </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+		<font color=red>提示信息：本接口支持信用卡支付、提现等功能，严禁用于违法操作，如有问题本程序概不负责！！</font>
+	  </td>
+    </tr>
+</table>
+</form>
+{foot}
+</body>
+</html>

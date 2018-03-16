@@ -1,0 +1,54 @@
+
+1，定时联盟资源库采集脚本  inc/timming/collect.php
+执行文件：collect.php
+执行参数请自行在联盟资源库列表中右键链接获取
+例如：http://localhost/admin/?m=collect-cj-ac2-day-hour-24-xt-1-ct--group--flag-110_-apiurl-http://www.bdzy.cc/xml/caiji.asp
+
+例子：
+任务名称：collect_bdzy_day
+任务描述：采集bdzy当天数据
+执行参数：collect-cj-ac2-day-hour-24-xt-1-ct--group--flag-110_-apiurl-http://www.bdzy.cc/xml/caiji.asp
+
+
+2，定时生成静态文件脚本   inc/timming/make.php
+执行文件：make.php
+例子：
+任务名称：make_index
+任务描述：生成首页
+执行参数：make-index
+
+
+执行参数介绍：
+生成视频首页  make-index
+生成文章首页  make-index-tab-art
+
+生成视频地图  make-map
+生成文章地图  make-map-tab-art
+
+生成视频专题首页  make-topicindex-tab-vod
+生成文章专题首页  make-topicindex-tab-art
+
+生成谷歌xml   make-rss-ac2-google-googleall-5000-google-1000      【googleall总输出数，google每页数量】
+生成百度xml   make-rss-ac2-baidu-baiduall-5000-baidu-1000      【baiduall总输出数，baidu每页数量】
+生成rss       make-rss-ac2-rss-rss-1000      【rss每页数量】
+
+生成自定义页面  make-label-ids-label_js.html     【ids为自定义页面文件名称】
+
+
+===================以下任务每次执行每个分类最多生成10页条数据，避免长期占用系统资源=================
+生成当天有数据更新的视频分类    make-type-tab-vod         【id为视频分类的id】
+生成当天有数据更新的文章分页    make-type-tab-art         【id为文章分类的id】
+
+
+===================以下任务每次执行每个专题最多生成10页条数据，避免长期占用系统资源=================
+生成视频专题列表   make-topic-tab-vod-ids-13   【id为视频分类的id】
+生成文章专题列表   make-topic-tab-art-ids-13   【id为文章分类的id】
+
+
+===================以下任务每次执行最多生成100条数据，避免长期占用系统资源=================
+生成未生成视频数据     make-info-tab-vod-ac2-nomake
+生成未生成文章数据     make-info-tab-art-ac2-nomake
+
+
+生成当天更新视频数据   make-info-tab-vod-ac2-day
+生成当天更新文章数据   make-info-tab-art-ac2-day
