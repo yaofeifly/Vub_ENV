@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	
+	<definition name="enterBookingDetails" extends="standardLayout" templateType="thymeleaf">
+		<put-attribute name="body" value="/hotels/booking/enterBookingDetails.html :: content" type="thymeleaf"/>
+	</definition>
+
+	<definition name="reviewBooking" extends="standardLayout" templateType="thymeleaf">
+		<put-attribute name="body" value="/hotels/booking/reviewBooking.html :: content" type="thymeleaf"/>
+	</definition>
+	
+</tiles-definitions>

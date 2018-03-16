@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	
+	<definition name="hotels/search" extends="standardLayout">
+		<put-attribute name="body">
+			<definition template="hotels/search.html :: content" templateType="thymeleaf">
+				<put-attribute name="searchForm" value="/hotels/searchForm.html :: content" type="thymeleaf"/>
+				<put-attribute name="bookingsTable" value="/hotels/bookingsTable.html :: content" type="thymeleaf"/>
+			</definition>
+		</put-attribute>
+	</definition>
+
+	<definition name="hotels/*" extends="standardLayout" templateType="thymeleaf">
+		<put-attribute name="body" value="/hotels/{1}.html :: content" type="thymeleaf"/>
+	</definition>
+
+</tiles-definitions>
