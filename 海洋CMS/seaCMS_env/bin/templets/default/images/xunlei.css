@@ -1,0 +1,123 @@
+
+/* download-focus */
+.download-focus{
+	width: 680px;
+	overflow: hidden;
+}
+.download-focus .ui-title{
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+	padding: 0 19px;
+	color: #666;
+	font-size: 14px;
+	border-bottom: 1px solid #eee;
+
+}	
+	.download-focus .ui-title strong{ color: #f60;}	
+	.download-focus .ui-title span{ color: #080; float: right; font-size: 12px;}	
+	
+/* download-group */
+.download-group{
+	width: 680px;
+	margin: 10px 0 10px 1px;
+	overflow: hidden;
+	clear: both;
+	max-height: 200px;
+	_height:expression(this.scrollHeight > 200 ? "200px" : "auto");
+	overflow: auto;
+	overflow-x: hidden;		
+}
+	.download-group li{
+		width: 100%;
+		height: 45px;
+		line-height: 35px;
+		overflow: hidden;
+		float: left;
+		clear: both;
+		padding: 3px 0;
+	}
+		.download-group .info-group{width: 420px;float: left;overflow: hidden;}
+		.download-group .btn-group{width: 160px;float: left;overflow: hidden;}
+		.download-group table{ width: 100%;}
+		.download-group table td{
+			vertical-align: middle;
+			text-align: left;
+			height: 35px;
+			line-height: 35px;
+			white-space:nowrap; 
+			padding: 0 5px;
+		}
+		.download-group .ckb{width: 10px;}
+		.download-group .tit{width: 10px;color: #080; _width: !important;}
+		.download-group .tit label{
+			display: block;
+			height: 25px;
+			line-height: 25px;
+			overflow: hidden;
+			vertical-align: middle;
+		}
+		.download-group .btn{width: 70px; text-align: center;}
+		.download-group .btn .ui-button{
+			display: block;
+			font-size: 12px;
+			font-weight: normal;
+			height: 25px;
+			line-height: 25px;
+			width: 66px;
+			border-radius: 3px 3px 3px 3px / 3px 3px 3px 3px;
+		}
+		.download-group .btn .ui-button-red{ background-color: #B22222; color:#FFF}
+		.download-group .btn .ui-button-red:hover{ background-color: #B22222;color:#FFF}
+		.download-group .btn .ui-button-green{ background-color: #080;color:#FFF}
+		.download-group .btn .ui-button-green:hover{ background-color: #222;color:#FFF}
+		.download-group .cpy{ width: 400px;}
+		.download-group .cpy .code{overflow: hidden; padding-right: 2px; _display: inline-block;}
+		.download-group .cpy .ui-input{
+			width: 99%;
+			height: 25px;
+			line-height: 25px;
+			font-size: 12px;
+			color: #666;
+			border-radius: 3px 3px 3px 3px / 3px 3px 3px 3px;
+		}
+
+/* download-footer */
+.download-footer{border-top: 1px solid #eee;}		
+.download-footer-group{margin: 10px 5px 10px 15px;overflow: hidden;}
+.download-footer table{ width: 100%;}
+.download-footer table td{
+	vertical-align: middle;
+	text-align: left;
+	height: 35px;
+	line-height: 35px;
+	white-space:nowrap; 
+	padding: 0 5px;
+}
+.download-footer .ckb{width: 10px;}
+.download-footer .tit2{width: 40px;}
+.download-footer .tit2 label{
+	display: block;
+	height: 25px;
+	line-height: 25px;
+	overflow: hidden;
+	vertical-align: middle;
+}
+.download-footer .sms{ text-align: right;}
+.download-footer .sms a{ color: #06c;}
+.download-footer .xlx .ui-button{
+	display: inline-block;
+	font-size: 12px;
+	font-weight: normal;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+	vertical-align: middle;
+	background-color: #FFF;
+}
+.download-footer .xlx .ui-button{ background-color: #FFF;}
+.download-footer .xlx .ui-button:hover{ background-color: #FFF;}
+
+
+
+

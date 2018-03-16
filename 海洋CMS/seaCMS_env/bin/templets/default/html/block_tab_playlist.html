@@ -1,0 +1,33 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" id="sea-tab">
+  {playpage:playlist}
+    {if:[playlist:i]==1}
+      <li class="active"><a href="#[playlist:ename]" data-toggle="tab"><span class="glyphicon glyphicon-film"></span> [playlist:from]</a></li>
+    {else}
+      <li><a href="#[playlist:ename]" data-toggle="tab"><span class="glyphicon glyphicon-film"></span> [playlist:from]</a></li>
+    {end if}
+  {/playpage:playlist}
+</ul>
+
+
+<!-- Tab panes -->
+<div class="tab-content" id="sea-tab-content">
+  {playpage:playlist}
+    {if:[playlist:i]==1}
+      <div class="tab-pane fade in active" id="[playlist:ename]">
+        <ul class="list-unstyled text-center play-list">
+         [playlist:link target=_self]
+        </ul>
+      </div>
+    {else}
+      <div class="tab-pane fade" id="[playlist:ename]">
+        <ul class="list-unstyled text-center play-list">
+          [playlist:link target=_self]
+        </ul>
+      </div>
+    {end if}
+  {/playpage:playlist}
+</div>
+<script>
+$('#sea-tab a[href="#[playlist:ename]"]').tab('show');
+</script>

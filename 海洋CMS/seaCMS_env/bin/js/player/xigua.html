@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./video.css" rel="stylesheet">
+<SCRIPT LANGUAGE="JavaScript1.2">
+adTime=parent.adsTime; 
+
+chanceAd=1;
+var ns=(document.layers);
+var ie=(document.all);
+var w3=(document.getElementById  &&  !ie);
+adCount=0;
+function initAd(){
+        if(!ns  &&  !ie  &&  !w3) return;
+        if(ie)             adDiv=eval('document.all.sponsorAdDiv.style');
+        else if(ns)        adDiv=eval('document.layers["sponsorAdDiv"]');
+        else if(w3)        adDiv=eval('document.getElementById("sponsorAdDiv").style');
+        randAd=Math.ceil(Math.random()*chanceAd);
+        if (ie||w3)
+        adDiv.visibility="visible";
+        else
+        adDiv.visibility ="show";
+        if(randAd==1) showAd();
+		document.getElementById("zzzif").src=parent.adsPage; 
+		document.getElementById("zzzif").height=parent.playerh + 10;
+		document.getElementById("zzzif").width=parent.playerw; 		
+}
+function showAd(){
+if(adCount<adTime*10){adCount+=1;
+        if (ie){documentWidth  =document.body.offsetWidth/2+document.body.scrollLeft-20;
+        documentHeight =document.body.offsetHeight/2+document.body.scrollTop-20;}
+        else if (ns){documentWidth=window.innerWidth/2+window.pageXOffset-20;
+        documentHeight=window.innerHeight/2+window.pageYOffset-20;}
+        else if (w3){documentWidth=self.innerWidth/2+window.pageXOffset-20;
+        documentHeight=self.innerHeight/2+window.pageYOffset-20;}
+        adDiv.left=documentWidth-200;adDiv.top =documentHeight-200;
+        setTimeout("showAd()",100);}else closeAd();
+}
+function closeAd(){
+if (ie||w3)
+adDiv.display="none";
+else
+adDiv.visibility ="hide";
+}
+onload=initAd;
+</script>
+</head>
+<body style="margin:0px;padding:0px;">
+<div id="sponsorAdDiv" style="visibility:hidden; z-index:999; height:105%; width:100%;">
+<iframe id="zzzif" name="zzzif" src="" scrolling="no" frameborder="0"></iframe>
+</div>
+<div id="play_header">
+    <div id="header3"></div>
+	<div id="header1"></div>
+    <div id="header2"></div>
+</div>
+
+<div id="play_box">
+	<div id="player"></div>
+    <div id="video_menu"></div>
+</div>
+<script>
+
+var now = parent.now;  //本集播放地址，需更改
+var next = parent.next;  //缓冲下一集，需更改
+var nextPage =  parent.nextPage;  //下一集播放页面地址，需更改
+var adsPage = parent.adsPage;  // 播缓冲AD，需更改
+var adsPage =  parent.adsPage;  // 暂停AD，需更改
+var playerw =  parent.playerw;   // 播放器显示宽度
+var playerh = parent.playerh;  // 播放器显示高度
+var adsTime =  parent.adsTime;  // 缓冲时间
+
+
+
+parent.video_diy();
+var playerh=parent.playerh-33;
+document.getElementById('player').innerHTML = '<iframe border="0" src="xigua2.html" width="100%" height="'+ playerh +'" marginWidth="0" frameSpacing="0" marginHeight="0" frameBorder="0" scrolling="no" vspale="0" noResize></iframe>';      
+</script>  
+</body>
+</html>

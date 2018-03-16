@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<playerkinds>
+<player open="1" sort="0" postfix="youku" flag="优酷视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="tudou" flag="土豆视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="sohu" flag="搜狐视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="qiyi" flag="奇艺视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="letv" flag="乐视视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="pptv" flag="PPTV视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="qq" flag="腾讯视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="sina" flag="新浪视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="funshion" flag="风行影音" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="xigua" flag="西瓜影音" des=""><intro>需安装西瓜影音播放器</intro></player>
+<player open="1" sort="0" postfix="ffhd" flag="非凡影音" des=""><intro>需安装非凡影音播放器</intro></player>
+<player open="1" sort="0" postfix="jjvod" flag="吉吉影音" des=""><intro>需安装吉吉影音播放器</intro></player>
+<player open="1" sort="0" postfix="cntv" flag="央视视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="mgtv" flag="芒果视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="m1905" flag="m1905视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="56" flag="我乐视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="kankan" flag="迅雷看看" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="swf" flag="swf在线" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="pps" flag="pps视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="ku6" flag="ku6视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="acfun" flag="ACfun视频" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+<player open="1" sort="0" postfix="bili" flag="哔哩哔哩" des=""><intro>无需安装任何插件，即可快速播放</intro></player>
+</playerkinds>

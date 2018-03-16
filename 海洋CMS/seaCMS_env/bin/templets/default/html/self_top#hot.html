@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>热门排行 - {seacms:sitename}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="clearfix sea-clearfix"></div>
+<div class="container sea-bg vod-type">
+<div class="row">
+  <!-- -->
+  <div class="clearfix"></div>
+  <ul class="list-unstyled">
+      {seacms:customvideolist size=24 order=hot maxpage=5}
+      <li class="col-md-2 col-sm-2 col-xs-4 text-center sea-vod-img-new sea-col">
+        <a href="[customvideolist:link]">
+        <img class="img-responsive img-thumbnail sea-img" data-original="[customvideolist:pic]" alt="[customvideolist:name]" src="[customvideolist:pic]">
+        </a>
+        <h4 class="sea-text-hidden text-left">
+          <a href="[customvideolist:link]" title="[customvideolist:name]">[customvideolist:name]</a>
+        </h4>
+        <h6 class="sea-text-hidden text-left">
+          [customvideolist:actor]
+        </h6>
+      </li>
+      {/seacms:customvideolist}
+    </ul>
+  <!-- -->
+  <div class="clearfix"></div>
+  <div class="col-xs-12 sea-col text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [customvideolist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+            <li><a href="{customvideolist:backlink}">上一页</a></li>
+
+            <li><a href="{customvideolist:nextlink}">下一页</a></li>
+
+         </ul> 
+      </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

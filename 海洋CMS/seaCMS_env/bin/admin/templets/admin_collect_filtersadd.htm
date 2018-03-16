@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--2010-06-17 12:36-->
+<title>seacms智能采集工具</title>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script>if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;视频采集工具';</script>
+<style type="text/css">
+input{height:12px;}
+.txt{width:250px;}
+.tb2 td{padding:2px 5px 2px 5px;height:25px}
+.tb2 .thc{text-align:center;line-height:30px; background-color: #F5F7F8;font-size:18px;font-weight:bold;color:#000}
+.tb2 .thr{text-align:center;height:20px}
+.label{padding:0;width:150px;text-align:right;border-right:1px solid #DEEFFA;}
+.btn{height:22px}
+.red{color:red}
+.blue{color:blue}
+.gray{color:gray}
+</style>
+
+<script type="text/javascript">
+function show(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="";
+	}
+}
+
+function hide(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="none";
+	}
+}
+function checkForm(){
+	if($('name').value=='')
+	{
+		alert("请填写过滤器名称！");
+		$('name').focus();
+		return false;
+	}
+}
+</script>
+</head>
+<!--当前导航-->
+<body bgcolor="#F7FBFF">
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="container" id="cpcontainer">
+
+<table class="tb">
+	<tr class="thead"><th colspan="2">过滤字典: <a href="?action=filters">字典列表</a> | <a href="">添加过滤</a></th></tr>
+	<form action="?action=filterssave" method="post" name="form1">
+	<input type="hidden" name="id" value="<?php echo $id; ?>" />
+
+	<tr>
+		<td class="label">过滤器名称</td>
+		<td><input type="text" class="txt" id="name" name="name" value="" /></td>
+	</tr>
+	<tr>
+		<td class="label">过滤字段</td>
+		<td><select name="rColumn"><option value="0" selected>数据名称</option><option value="1">数据简介</option></select></td>
+
+	</tr>
+	<tr>
+		<td class="label">过滤模式</td>
+		<td><input type="radio" class="radio" name="uesMode" value="0" onclick="hide('sStartBody','sEndBody');show('sFindBody');"checked/>简单替换 <input type="radio" class="radio" name="uesMode" value="1" onclick="hide('sFindBody');show('sStartBody','sEndBody');"/>高级替换</td>
+	</tr>
+	<tr id="sFindBody" style="">
+		<td class="label">查找</td>
+
+		<td><textarea name="sFind" rows="4" cols="80"></textarea></td>
+	</tr>
+	<tr id="sStartBody" style="display:none">
+		<td class="label">开始标记</td>
+		<td><textarea name="sStart" rows="4" cols="80"></textarea></td>
+	</tr>
+	<tr id="sEndBody" style="display:none">
+
+		<td class="label">结束标记</td>
+		<td><textarea name="sEnd" rows="4" cols="80"></textarea></td>
+	</tr>
+	<tr>
+		<td class="label">替换</td>
+		<td><textarea name="sReplace" rows="4" cols="80"></textarea></td>
+	</tr>
+
+	<tr>
+		<td class="label">启用</td>
+		<td><input type="radio" class="radio" name="Flag" value="1" checked/>启用 <input type="radio" class="radio" name="Flag" value="0"/>禁用</td>
+	</tr>
+	<tr>
+		<td colspan=2><input  type="submit" class="btn" name="Submit" onclick="return checkForm();" value="确&nbsp;&nbsp;定" >&nbsp;&nbsp;&nbsp;&nbsp;<input name="Cancel" class="btn" type="button" id="Cancel" value="取&nbsp;&nbsp;消" onClick="window.location.href='?action=filters'"></td>
+	</tr>
+
+	</form>
+</table>
+</div>
+
+<?php 
+viewFoot();
+?>
+</body>
+<iframe frameborder="0" scrolling="no" height="0" width="0" name="hiddensubmit" id="hiddensubmit" src="about:blank"></iframe>
+</html>

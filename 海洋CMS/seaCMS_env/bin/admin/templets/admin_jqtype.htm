@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="img/alerts.css" rel="stylesheet" media="screen">
+<title>剧情分类</title>
+<script type="text/javascript" language="javascript">var tentpath='/';</script>
+<script language="javascript" src="js/jquery.js"></script>
+<script language="javascript" src="js/alerts.js"></script>
+
+<script language="javascript">
+ $(document).ready(function(){
+	$("#ChkAll").click(function(){
+		if($(this).attr("checked")==true){
+			$("input[id='E_ID']").each(function(){
+				$(this).attr("checked",true);									 
+			})							
+		}else{
+			$("input[id='E_ID']").each(function(){
+				$(this).attr("checked",false);									 
+			})							
+		}
+	})	
+
+$("#btn_editall").click(function(){
+				if(confirm('您确定要修改选中的剧情分类吗?'))
+				{
+					document.formclass.action='?action=edit';
+					document.formclass.submit();
+				}
+	 })
+	
+$("#btn_delall").click(function(){
+				if(confirm('您确定要删除选中的剧情分类吗?'))
+				{
+					document.formclass.action='?action=delall';
+					document.formclass.submit();
+				}
+	 })
+
+	
+})
+
+function del(id){
+	if(confirm('您确定要删除选中的剧情分类吗?'))
+			{
+			window.location='?action=del&id='+id;
+			}
+		
+		}	
+</script>
+</head><body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;剧情分类管理 ';</script>
+<div class="r_main">
+			<div class="r_content">
+			  <div class="r_content_1">
+                <table width="300" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+					 <form method="post" name="formclass" action=""> 
+                     <tr>
+                      <td colspan="10" class="td_title" align="left">&nbsp;剧情分类管理(<font color='red'>＊</font>为必填,其它选填)</td>
+                     </tr>
+                      <tr>
+                      	
+						<td width="100"   height="30" bgcolor="#FFFFFF" class="td_border">&nbsp;ID.分类名称(视频数量)</td>
+						<td width="100"   bgcolor="#FFFFFF" class="td_border">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 中文名称</td>
+						<td width="100"    align="center" bgcolor="#FFFFFF" class="td_border">操作</td>
+					  </tr>
+					  
+<?php typeList(0,"&nbsp;&nbsp;&nbsp;&nbsp;");?>
+	
+					  
+					<tr>
+<td height="30" colspan="6" align="left" bgcolor="#FFFFFF" class="td_border"><input type="checkbox" name="ChkAll" id="ChkAll" ids="S_ID"  class="checkbox"/>全选&nbsp;&nbsp;
+						  &nbsp;&nbsp;&nbsp;&nbsp; <input type="button" name="editall" value="修改所选分类" class="rb1"  id="btn_editall"/>
+				      &nbsp;&nbsp;<input type="button" name="delall"  value="删除所选分类" class="rb1"  id="btn_delall"/></td>
+					  </tr>
+                  </form>
+			    </table>   
+				
+	
+		
+			  <form id="form1" name="form1" method="post" action="?action=add">
+					<table width="200" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+                    <tr>
+                      <td colspan="10" class="td_title">&nbsp;剧情分类添加&nbsp;&nbsp;<label id="tishi"></label></td>
+                     </tr>
+<tr>
+<td  width="100" bgcolor="#FFFFFF" class="td_border">中文名
+<input size="13" type="text" name="tname"><font color='red'>＊</font> 
+<input type="submit" value="添 加" name="Submit" class="rb1" /></td>
+</tr>
+				   
+
+				</table>   
+				  
+				</form>
+                <form action="?action=movevideo" name="movevideo" id="movevideo" method="post">
+
+              </form>
+			  </div>
+			</div>
+		</div>
+	<?php
+viewFoot();
+?>
+
+</body>
+</html>

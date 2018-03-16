@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>自定义快捷菜单-生成-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+
+<div id="append_parent"></div>
+<div class="container" id="cpcontainer">
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;生成&nbsp;&raquo;&nbsp;自定义快捷菜单 ';</script>
+ <table class="tb">
+<tr class="thead"><th colspan="2">自定义快捷菜单</th></tr>
+<tr><td width="25%">1.格式：菜单名称,菜单链接地址</td>
+<td width="75%">2.每个快捷菜单各占一行</td>
+</tr>
+  <form action="?dopost=edit" method="post"  >
+
+   
+    <tr>
+      <td colspan="2"><textarea  name="menu" style="width:100%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="20" dataType="Require" msg="请填写内容"><?php echo $oldct; ?></textarea></td>
+    </tr>
+    <tr>
+      <td> <input type="submit" name="Submit" value="修  改" class="btn" /> <input type="button" value="返   回"  class="btn" onClick="javascript:history.go(-1)" /></td><td ></td>
+    </tr>
+  </form>
+
+</table>
+<?php
+viewFoot();
+?>
+</body>
+</html>

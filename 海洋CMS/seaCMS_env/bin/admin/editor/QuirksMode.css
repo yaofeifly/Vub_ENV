@@ -1,0 +1,19 @@
+.eButton {border:1px solid transparent; width:20px;height:20px; }
+.eButtonUp, a.eButton:hover { margin:1px; }
+.eButtonDown, a.eButton:active, .eButtonDropDown:active { margin:1px; }
+.eButtonDropDown {  margin:1px; }
+
+#eBTNtoolbarmode {border:1px solid transparent;}
+#eBTNtoolbarmode:hover {border:1px solid transparent;}
+
+.eLargeIcons {line-height:1px; font-size:0px;}
+
+.eLargeIcons .eToolBarGroup,.eLargeIcons .eToolBarGroupRight{height:45px;}
+.eLargeIcons #eBTNgroup{height:44px;}
+.eLargeIcons #eBTNfontname{border:1px solid transparent;}
+.eLargeIcons #eBTNfontsize{border:1px solid transparent;}
+.eLargeIcons #eBTNparagraph:hover{border:1px solid transparent;}
+.eLargeIcons #eBTNfontname:hover{border:1px solid transparent;}
+.eLargeIcons #eBTNfontsize:hover{border:1px solid transparent;}
+
+

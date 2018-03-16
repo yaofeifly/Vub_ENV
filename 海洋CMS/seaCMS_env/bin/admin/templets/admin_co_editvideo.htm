@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="img/style.css" rel="stylesheet" type="text/css" />
+<title>添加采集项目</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<!--当前导航-->
+<body bgcolor="#F7FBFF">
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1" >
+      <form action="?action=saveVideo&acttype=edit" method="post" name="editform" id="editform">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+          <tr class="thead">
+            <th colspan="2" class="td_title">修改数据(<font color='red'>＊</font>为必填,其它选填)</th>
+          </tr>
+          <tr>
+            <td width="70"  height="30" class="td_border" align="right">来源：</td>
+            <td class="td_border"><a href="javascript:void(0);" onclick="window.open('<?php echo $vrow['v_from']?>','_blank');"><?php echo $vrow['v_from']?></a></td>
+          </tr>
+          <tr>
+            <td align="right" height="30" class="td_border">名称：</td>
+            <td class="td_border"><input id="v_name" name="v_name" size="23" autocomplete="off" value="<?php echo $vrow['v_name']?>"/>
+              &nbsp;<font color='red'>＊</font>
+              <label>连载？
+                <input type="checkbox" onclick="isViewState()" class="checkbox"  id="v_statebox" <?php if($vrow['v_state']!=0) echo " checked";?>/>
+              </label>
+              <span id="v_statespan"<?php if($vrow['v_state']==0) echo " style=\"display:none\"";?>>到第
+              <input name="v_state" id="v_state" value="<?php echo $vrow['v_state'];?>" type="text" size="5" />
+              集</span> <span id="v_name_ok"></span>类 型：
+              <select name="v_type" id="v_type"  >
+                <option value="">请选择数据分类</option>
+                <?php makeTypeOptionSelected(0,"&nbsp;|&nbsp;&nbsp;","",$vtype);?>
+              </select>
+              &nbsp;&nbsp;<font color='red'>＊</font></td>
+          </tr>
+          <tr>
+            <td class="td_border" height="30" align="right">图片地址：</td>
+            <td class="td_border"><input name="v_pic" id="v_pic" type="text" size="40" value="<?php echo $vrow['v_pic']?>">
+              &nbsp;←
+              <input size="10" value="清除" type="button" onClick="javascript:document.editform.v_pic.value=''" class="rb1" />
+              &nbsp;</td>
+          </tr>
+          <tr>
+            <td class="td_border" align="right" height="30">主 演：</td>
+            <td class="td_border"><input size="30" name="v_actor" value="<?php echo $vrow['v_actor']?>"  />
+            &nbsp;导&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;演：
+              <input name="v_director"  size="10" value="<?php echo $vrow['v_director'] ?>" />
+              <input type="checkbox" name="isupdatetime" value="1" checked class="checkbox" />
+              更新时间  &nbsp;&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="td_border" align="right" height="30">影片备注：</td>
+            <td class="td_border"><input name="v_note"  size="30" value="<?php echo $vrow['v_note']?>">&nbsp;
+               视频标签：
+              <input type="text" id="v_tags" name="v_tags" size="30" value="<?php echo $vrow['v_tags']?>" />
+              <input type="hidden" name="v_oldtags" value="<?php echo $vrow['v_tags']?>" />
+              备注如：高清,无水印 (配合标题一起显示)</td>
+          </tr>
+          <tr>
+            <td class="td_border" align="right" height="30">发行年份：</td>
+            <td class="td_border"><?php echo getYearSelect("v_publishyear","选择年份",$vrow["v_publishyear"]);?>&nbsp;语言： <?php echo getYuyanSelect("v_lang","选择语言",$vrow["v_lang"]);?> &nbsp;地区：<?php echo getAreaSelect("v_publisharea","选择地区",$vrow["v_publisharea"]);?>&nbsp;点击率：
+              <input type="text" name="v_hit" id="v_hit" maxlength="9" value="<?php echo $vrow['v_hit']?>" size="10" /></td>
+          </tr>
+          <tr>
+            <td class="td_border" colspan="2" style="padding:0"><div style="" id="v_playarea">
+                <?php
+$playArray=explode("$$$",$v_playdata);
+$k=count($playArray);
+$j=1;
+if($v_playdata!=""){
+for($j=1;$j<=$k;$j++){
+
+$playArray2=explode("$$",$playArray[$j-1]);
+$pstr=$playArray2[0];
+$purlstr=str_replace(chr(10),"",$playArray2[1]);
+$purlstr=str_replace("#",chr(13),$purlstr);
+?>
+                <table width='100%' id='playfb<?php echo $j;?>' border='0' cellpadding='0' cellspacing='0'>
+                  <tr>
+                    <td height='30' class='td_border'>播放来源<?php echo $j;?>：</td>
+                    <td class='td_border'><select id='v_playfrom<?php echo $j;?>' name='v_playfrom[<?php echo $j;?>]'>
+                        <option value=''>暂没有数据<?php echo $j;?></option>
+                        <?php echo makePlayerSelect($pstr);?>
+                      </select>
+                      <input type='button' class='rb1' value='WEB采集' onclick='viewGatherWin(<?php echo $j;?>);selectTogg();'/>
+                      &nbsp;&nbsp;<img onclick="var tb=$('playfb<?php echo $j;?>');tb.parentNode.removeChild(tb);" src='img/btn_dec.gif' class='pointer' alt="删除播放来源<?php echo $j;?>" align="absmiddle"/>&nbsp;&nbsp;<font color='red'>＊</font></td>
+                  </tr>
+                  <tr>
+                    <td width='70' class='td_border'>数据地址<?php echo $j;?>：<br/>
+                      <input type='button' value='校正' title='校正右侧文本框中的数据格式' class='rb1' onclick='repairUrl(<?php echo $j;?>)' /></td>
+                    <td align='left' class='td_border'><textarea id='v_playurl<?php echo $j;?>' name='v_playurl[<?php echo $j;?>]' rows='8' cols='85'><?php echo $purlstr;?></textarea>
+                      &nbsp;&nbsp;<font color='red'>＊</font></td>
+                  </tr>
+                </table>
+                <?php
+}
+}
+?>
+              </div></td>
+          </tr>
+          <tr>
+            <td colspan='2' height="30" class="td_border">&nbsp;<img onclick="expendPlayArea(<?php echo $j;?>,escape('<?php echo $makePlayerSelectStr;?>'),0)"  src='img/btn_add.gif' class='pointer' align='absmiddle'/>&nbsp;&nbsp;<font color="red">您可以单击前面的按钮添加一组播放来源</font></td>
+          </tr>
+          <tr>
+            <td class="td_border" align="right" height="30">相关介绍：</td>
+            <td class="td_border"><?php
+        GetEditor('v_content',$v_content);
+	?></td>
+          </tr>
+          <tr>
+            <input type="hidden" name="v_id" value="<?php echo $id;?>">
+            <input type="hidden" name="v_back" value="<?php echo $Pirurl;?>" />
+            <td class="td_border"></td>
+            <td class="td_border"><input type=Submit class="rb1" value="确认保存" name=Submit onClick="if($('v_name').value.length==0){alert('请填写名称');return false;};if($('v_type').value.length==0){alert('请选择分类');return false;}">
+              &nbsp;
+              <input type=reset name=Submit2 class="rb1" value="清 除">
+              &nbsp;
+              <input type=button class="rb1" value="返　回" onClick="javascript:history.go(-1);"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="bottom">
+  <table width="100%" cellspacing="5">
+    <tr>
+      <td align="center"><?php echo $cfg_powerby?></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div class="container sea-nav visible-xs visible-sm">
+	<div class="row">
+    <ul class="list-inline">
+      <li class="col-xs-3 text-left">
+        <h4><a href="javascript:;" id="sea-goback"><span class="glyphicon glyphicon-chevron-left"></span></a></h4>
+      </li>
+      <li class="col-xs-6 text-center">
+        <h4>{seacms:sitename}</h4>
+      </li>
+      <li class="col-xs-3 text-right"><h4>
+        <a href="http://{seacms:siteurl}"><span class="glyphicon glyphicon-home"></span></a>
+        <a href="/search.php?searchword=请输入关键词"><span class="glyphicon glyphicon-search"></span></a></h4>
+      </li>
+    </ul>
+  </div>
+</div>
+<switch name="list_id" >
+<case value="1"><script>seacms.cms.nav('dianying');</script></case>
+<case value="2"><script>seacms.cms.nav('tv');</script></case>
+<case value="3"><script>seacms.cms.nav('dongman');</script></case>
+<case value="4"><script>seacms.cms.nav('zongyi');</script></case>
+<case value="5"><script>seacms.cms.nav('gaoxiao');</script></case>
+<default /><script>seacms.cms.nav('{$model}');</script>
+</switch>

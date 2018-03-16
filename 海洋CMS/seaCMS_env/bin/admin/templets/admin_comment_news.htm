@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>影片管理</title>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;扩展&nbsp;&raquo;&nbsp;评论管理 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+<?php
+if($action=='viewcomment'){
+$row=$dsql->GetOne("select msg from sea_comment where id='$id'");
+?>
+<tr class="thead"><th colspan="2">评论详情查看</th></tr>
+<tr><td class="td_border">
+<?php echo showFace($row['msg']);?>
+</td></tr>
+<tr><td class="td_border"><input type="button" value="返    回" onClick="self.location.href='<?php echo $Pirurl;?>'" class="rb1" /></td></tr>
+<?php
+}elseif($action=='viewreporterror'){
+$row=$dsql->GetOne("select errtxt from sea_erradd where id='$id'");
+?>
+<tr class="thead"><th colspan="2">报错详情查看</th></tr>
+<tr><td class="td_border">
+<?php echo $row['errtxt'];?>
+</td></tr>
+<tr><td class="td_border"><input type="button" value="返    回" onClick="self.location.href='<?php echo $Pirurl;?>'" class="rb1" /></td></tr>
+<?php 
+}elseif($action=='editcomment'){
+$row=$dsql->GetOne("select * from sea_comment where id='$id'");
+?>
+<form name="newslistform" method="post" action="?action=editcomsave">
+	<tr class="thead"><th colspan="2">编辑评论</th></tr>
+	<tr>
+	  <td width="11%" height="30" class="td_border" align="left">&nbsp;评论人：</td>
+	  <td height="30" class="td_border" align="left"><input name="username" type="text" id="username" size="20" value="<?php echo empty($row['username'])?'匿名用户':$row['username'];?>" /></td>
+	</tr>
+	<tr>
+	  <td width="11%" height="30" class="td_border" align="left">&nbsp;评论时间：</td>
+	  <td height="30" class="td_border" align="left"><?php echo GetDateTimeMK($row['dtime']); ?></td>
+	</tr>
+	<tr>
+	  <td width="11%" height="30" class="td_border" align="left">&nbsp;IP地址：</td>
+	  <td height="30" class="td_border" align="left"><?php echo $row['ip']; ?></td>
+	</tr>
+	<tr>
+	  <td width="11%" height="30" class="td_border" align="left">&nbsp;评论内容：</td>
+	  <td height="30" class="td_border" align="left"><textarea name="msg" cols="60" rows="5" ><?php echo jstrim($row['msg'],500); ?></textarea>&nbsp;更改的评论内容HTML代码不会被屏蔽，可用HTML语法编辑。</td>
+	</tr>
+	<tr>
+	  <td width="11%" height="30" class="td_border" align="left">&nbsp;管理员回复：</td>
+	  <td height="30" class="td_border" align="left"><textarea name="adminmsg" cols="60" rows="5" id="adminmsg"></textarea>&nbsp;回复内容的HTML代码会被屏蔽。</td>
+	</tr>
+	<tr><input type="hidden" name="id" value="<?php echo $id;?>"><input type="hidden" name="v_back" value="<?php echo $Pirurl;?>" />
+	<td height="40" colspan="2" align="left" class="td_border"> &nbsp;<input type="submit" name="Submit" value="确认保存" class="rb1"/>&nbsp;&nbsp;<input type="button" value="返    回" onClick="self.location.href='<?php echo $Pirurl;?>'" class="rb1" />&nbsp;&nbsp; <input type="reset" name="reset" value="清除重置" class="rb1"/></td>
+	</tr>
+</form>
+<?php
+}elseif($action=="reporterror"){
+$numPerPage=30;
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$csqlStr="select count(*) as dd from `sea_erradd`";
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+$sqlStr="select e.id,e.vid,e.author,e.ip,e.errtxt,e.sendtime,d.v_name,d.tid from `sea_erradd` e left join sea_data d on d.v_id=e.vid order by e.sendtime desc limit $limitstart,$numPerPage";
+?>
+<form name="newslistform" method="post">
+<tr class="thead"><th colspan="15">报错管理</th></tr>
+<?php
+if($TotalResult==0){
+echo "<tr align='center'><td colspan=\"15\">   没有记录</td></tr>";
+}else{
+?>
+
+<tr>
+<td width="10%" height="30" class="td_btop3">ID </td>
+<td class="td_btop3">报错内容 </td>
+<td class="td_btop3">报错影片名称(ID)</td>
+<td class="td_btop3">报错者IP </td>
+<td class="td_btop3">时间 </td>
+<td width="10%" class="td_btop3">报错人</td>
+<td class="td_btop3">操作</td>
+</tr>
+<?php
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('comment_list');
+while($row=$dsql->GetObject('comment_list'))
+{
+$v_id=$row->vid;
+$v_name=$row->v_name;
+?>		
+<tr bgcolor="#ffffff" >
+<td height="30" class="td_border"><input type="checkbox" value="<?php echo $row->id;?>" name="e_id[]"  class="checkbox" /><?php echo $row->id;?> </td>
+<td class="td_border"><?php echo encodeHtml(cn_substr($row->errtxt,40));?>  <a href="?action=viewreporterror&id=<?php echo $row->id;?>">查看详情</a></td>
+<td class="td_border"><?php if(empty($v_name)) echo "该数据已删除"; else echo "<a href='".getContentLink($row->tid,$v_id,"")."' target='_blank' >{$v_name}({$v_id})</a>";?><a href='admin_video.php?action=edit&id=<?php echo $v_id;?>'> <font color="#FF0000">处理</font></a></td>
+<td class="td_border"><?php echo $row->ip;?></td>
+<td class="td_border"><?php echo isCurrentDay($row->sendtime);?></td>
+<td class="td_border"><?php echo $row->author;?></td>
+<td class="td_border"><a onClick="if(confirm('确定要删除吗')){return true;}else{return false;}" href="?action=delreporterror&id=<?php echo $row->id;?>" >删除</a></td>
+</tr>
+<?php }?>	
+    <tr>
+    <td colspan="5"><div class="cuspages"><div class="pages">全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onClick="checkAll(this.checked,'input','e_id[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onClick="checkOthers('input','e_id[]')" /><input type="submit" value="批量删除" onClick="if(confirm('确定要删除吗')){newslistform.action='?action=delallreporterror';}else{return false}" class="rb1"  />
+    &nbsp;&nbsp;页次<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?>总收录数据条<?php echo $TotalResult;?> <a href="?page=1&action=reporterror">首页</a> <a href="?page=<?php echo ($page-1);?>&action=reporterror">上一页</a> <a href="?page=<?php echo ($page+1);?>&action=reporterror">下一页</a> <a href="?page=<?php echo $TotalPage;?>&action=reporterror">尾页</a></div></div>
+    </td></tr>
+<?php }?>
+</form>
+<?php
+}else{
+$numPerPage=30;
+if(!empty($keyword)) $whereStr=" and c.msg like '%".$keyword."%' ";
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$csqlStr="select count(*) as dd from `sea_comment` c where 0=0 $whereStr and m_type=1 ";
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+$sqlStr="select c.id,c.v_id,c.username,c.ip,c.ischeck,c.dtime,c.msg,d.v_name,d.tid from `sea_comment` c left join sea_data d on d.v_id=c.v_id where 0=0 ". $whereStr ."and m_type=1 order by c.dtime desc limit $limitstart,$numPerPage";
+?>
+<form name="newslistform" method="post">
+<tr class="thead"><th colspan="15"><em style="font-weight:bold">评论管理</em><em style="color:#000;">&nbsp;&nbsp;&nbsp;关键字：<input name="keyword" type="text" id="keyword" size="20" value="" > <input type="submit" name="selectBtn" value="查 询..." class="btn" onclick="location.href='?keyword='+escape($('keyword').value);" />
+&nbsp;&nbsp;</em></th></tr>
+<?php
+if($TotalResult==0){
+if(!empty($keyword))
+echo "<tr align='center'><td>关键字  <font color=red>\"".$keyword."\"</font>   没有记录</td></tr>";
+else 
+echo "<tr align='center'><td colspan=\"15\">   没有记录</td></tr>";
+}else{
+?>
+
+<tr>
+<td width="10%" height="30" class="td_btop3">ID </td>
+<td class="td_btop3">评论内容 </td>
+<td class="td_btop3">评论影片名称(ID)</td>
+<td class="td_btop3">评论者IP </td>
+<td class="td_btop3">时间 </td>
+<td width="10%" class="td_btop3">评论人</td>
+<td class="td_btop3">操作</td>
+</tr>
+<?php
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('comment_list');
+while($row=$dsql->GetObject('comment_list'))
+{
+$v_id=$row->v_id;
+$v_name=$row->v_name;
+?>		
+<tr bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor='#E6F2FB'" onmouseout="style.backgroundColor='#FBFEFF'">
+<td height="30" class="td_border"><input type="checkbox" value="<?php echo $row->id;?>" name="e_id[]"  class="checkbox" /><?php echo $row->id.".".IsCheck($row->ischeck);?> </td>
+<td class="td_border"><?php echo showFace(encodeHtml(cn_substr($row->msg,40)));?>  <a href="?action=viewcomment&id=<?php echo $row->id;?>">查看详情</a></td>
+<td class="td_border"><?php if(empty($v_name)) echo "该数据已删除"; else echo "<a href='".getContentLink($row->tid,$v_id,"")."' target='_blank' >{$v_name}({$v_id})</a>";?></td>
+<td class="td_border"><?php echo $row->ip;?></td>
+<td class="td_border"><?php echo isCurrentDay($row->dtime);?></td>
+<td class="td_border"><?php echo empty($row->username)?'匿名用户':$row->username;?></td>
+<td class="td_border"><a href="?action=editcomment&id=<?php echo $row->id;?>" >编辑</a> <a onClick="if(confirm('确定要删除吗')){return true;}else{return false;}" href="?action=delcomment&id=<?php echo $row->id;?>" >删除</a></td>
+</tr>
+<?php }?>	
+    <tr>
+    <td colspan="5"><div class="cuspages"><div class="pages">全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onClick="checkAll(this.checked,'input','e_id[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onClick="checkOthers('input','e_id[]')" /><input type="submit" value="批量删除" onClick="if(confirm('确定要删除吗')){newslistform.action='?action=delallcomment';}else{return false}" class="rb1"  />
+    
+	<input type="submit" value="全部删除" onClick="if(confirm('确定要删除全部吗')){newslistform.action='?action=deltotalcomment'}" class="rb1"/>
+	<input type="submit" value="审核评论" onClick="if(confirm('确定要审核评论吗')){newslistform.action='?action=checkcomment'}" class="rb1"/>
+    &nbsp;&nbsp;页次<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?>总收录数据条<?php echo $TotalResult;?> <a href="?page=1&action=comment">首页</a> <a href="?page=<?php echo ($page-1);?>&action=comment">上一页</a> <a href="?page=<?php echo ($page+1);?>&action=comment">下一页</a> <a href="?page=<?php echo $TotalPage;?>&action=comment">尾页</a></div></div>
+    </td></tr>
+<?php }?>
+</form>
+<?php }?>
+</table>
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+</body>
+</html>

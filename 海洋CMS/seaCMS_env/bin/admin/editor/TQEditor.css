@@ -1,0 +1,147 @@
+.eEditor { border:1px solid #718da6; background:#fff; display:block; overflow:hidden; }
+.eEditorClient { margin:0; clear:both; border:none; border-top:1px solid #718da6; background:#fff; display:block; padding:0; resize:none; }
+.eEditorClient iframe { display:block; border:0px none #fff; margin:0; padding:0;  width:100%; /**/}
+.eEditorClient textarea { display:block; border:0px none #fff; padding:2px 0; font-size:14px; line-height:18px; overflow:auto; width: 100%; resize: none; outline:none; margin: 0; }
+.eEditorClient table,.eEditorClient td{ background-color:#FFFFFF; padding:0; border:none; margin:0;}
+.eToolBar { overflow:visible; vertical-align:bottom; padding:2px 0 0 0!important; padding:3px 0 0 0; min-height:22px; _height:20px; margin:0; border:none; background:#f3f8fb; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#f3f8fb, gradientType=0);background:linear-gradient(180deg, #ffffff, #f3f8fb); background-repeat:repeat-y; user-select:none; -moz-user-select:none; -webkit-user-select:none; }
+.eToolBarGroup { white-space:nowrap; float:left; height:24px; margin:0; padding:0; clear:none; }
+.eToolBarGroupRight { white-space:nowrap; float:right; height:24px; margin:0; padding:0 2px 0 0; }
+/*
+.eToolBarGroup a { white-space:nowrap; float:left; }
+.eToolBarGroupRight a { white-space:nowrap; float:left; }
+*/
+.eClear{clear:both}
+.eButton, .eButtonUp, .eButtonDown, .eButtonDropDown { display:block; width:20px; float:left; height:20px; background-image:url(icon.gif); -moz-user-select:none; text-indent:-10000px; font-size:0px; }
+/*.eButton { border:none; margin:1px; }*/
+.eButton { border:1px ridge transparent;margin:0; _border:0 none #fff;_margin:1px;  }
+.eButtonUp, a.eButton:hover { border:1px ridge #ccc; margin:0; }
+.eButtonDown, .eButton:active, .eButtonDropDown:active { border-color:#ccc; margin:0; }
+.eButtonDropDown { border:1px solid #666; margin:0;  }
+.eBtn { display:inline-block; border:none; background-color:#fff; height:25px; width:45px; background-image:url(btnBg.gif); cursor:default; -moz-user-select:none; }
+.eBtn:hover { background-position:0 25px; }
+.eBtn:active { background-position:0 50px; }
+.eMenuItem, .eMenuItemUp { display:block; clear:both; padding:2px; min-height:20px; _height:20px; line-height:24px; font-size:12px; width:120px; border:none; white-space:nowrap; cursor:default; color: #000; }
+.eMenuItemUp, .eMenuItem:hover { background-color:#F9FCFD; border:1px solid #ccc; padding:1px; }
+.ePopPanel { position:absolute; z-index:10002; background-color:#F3F3F3; border:1px solid #808080; padding:1px; overflow:visible; font-size:12px; line-height:24px; min-width:120px; cursor:default; color: #000; box-shadow:3px 3px 3px #999; -webkit-box-shadow:3px 3px 3px #999; -moz-box-shadow:3px 3px 3px #999 ; -moz-user-select:-moz-none; -webkit-user-select:-webkit-none; }
+.ePopPanel .eBar { text-align:right; padding:3px 5px; }
+.ePopPanel .ePopForm { padding:3px; margin:0px; }
+.ePopPanel .ePopForm input{ height:14px; line-height:14px; border:1px solid #cecece; font-size:12px; padding:2px; }
+.ePopPanel a { color: #00F; text-decoration: none; }
+.ePopPanel a:hover { color: #009; text-decoration: none; }
+.eTabBar { padding-left: 10px; clear:both; background:#F3F3F3; margin-bottom: 5px; min-width:350px; border-bottom: 1px solid #999; }
+.eTabBar a { display:inline-block; height:26px; padding:5px 10px 0; margin:0 5px; border: none; cursor:default; text-decoration: none; position:relative; top:1px; font-size: 12px; color: #000; font-weight: bold; }
+.eTabBar a.active { padding:5px 9px 0; border-top: 1px solid #999; border-right: 1px solid #999; border-left: 1px solid #CCC; background: #F3F3F3; }
+.eFace { width:260px; cursor:default; }
+.eFace img { margin:1px; cursor:pointer; }
+.eFace img:hover, .eFace img.imgHover { margin:0px; border:1px solid #ccc; background-color:#fff; }
+.eDragMaskDiv { position:absolute; left:0; top:0; right:0; bottom:0; /* background-color:#f5f5f5; */ z-index:1;  -moz-user-select:none; -webkit-user-select:none;}
+.eButtonAddRow, .eButtonAddCol, .eButtonDeleteRC, .eButtonTableContext { position:absolute; z-index:10001; overflow:hidden; display:block; background-image:url(icon.gif); }
+.eStatusBar{text-align:center; overflow:hidden; padding:0; background-color:#f6f6f6;/* #f6f6f6 #f3f8fb */ border-top:1px solid #718da6; height:10px; line-height:10px; cursor:s-resize; -moz-user-select:none; -webkit-user-select:none;}
+.eResizeH { display:inline-block; overflow:hidden; background-image:url(icon.gif); border:none; /*1px solid #718da6;*/ }
+.eResizeWH { display:inline-block; float:right; overflow:hidden; background:url(icon.gif) no-repeat -146px -153px; border:none; /*1px solid #718da6;*/ width:10px; height:10px; cursor:se-resize;/* */ }
+.eResizeH { height:10px; width:24px; background-position:-120px -153px; }
+.eButtonAddRow { height:9px; width:12px; background-position:-105px -131px; }
+.eButtonAddRow:hover { background-position:-122px -131px; }
+.eButtonAddCol { height:12px; width:9px; background-position:-77px -129px; }
+.eButtonAddCol:hover { background-position:-91px -129px; }
+.eButtonDeleteRC { height:12px; width:12px; background-position:-77px -150px; }
+.eButtonDeleteRC:hover { background-position:-93px -150px; }
+.eButtonTableContext {  width:20px; height:20px;background-position:-676px 0; border:1px solid #ccc; background-color:#ebebeb; }
+.eTableContextPanel {/* min */ position:absolute; z-index:10001; background-color:#F3F3F3; border:none; padding:1px; overflow:hidden; font-size:12px; line-height:24px; width:20px; height:20px; cursor:default; color: #000; -moz-user-select:-moz-none; -webkit-user-select:-webkit-none; }
+.eTableContextPanel:hover, .eTableContextPanelHover { border:1px solid #808080; overflow:visible; width:120px; height:80px; box-shadow:3px 3px 3px #999; -webkit-box-shadow:3px 3px 3px #999; -moz-box-shadow:3px 3px 3px #999; }
+.eTableInserUI{border:none;border-collapse:collapse;}
+.eTableInserUI td{border:1px solid #666;}
+.eQQ { background-position:-46px -23px; }
+/******************* toolbar button style eBTNXXX ***************************/
+#eBTNparagraph { background-position:-87px 0; }
+#eBTNfontsize { background-position:-65px 0; }
+#eBTNfontname { background-position:-40px 0; }
+#eBTNforecolor { background-position:-86px -77px; }
+#eBTNbackcolor { background-position:-108px -77px; }
+#eBTNbold { background-position:-3px -77px; }
+#eBTNitalic { background-position:-24px -77px; }
+#eBTNunderline { background-position:-46px -77px; }
+#eBTNstrikethrough { background-position:-66px -77px; }
+#eBTNremoveformat { background-position:-129px -77px; }
+/*#eBTNmoreformat { width:10px; background-position:-933px 0; }*/
+#eBTNsubmenu { width:10px; background-position:-357px -64px; }
+#eBTNsubscript { background-position:-337px 0; }
+#eBTNsuperscript { background-position:-315px 0; }
+#eBTNalign { background-position:-113px 0; }
+#eBTNjustifyleft { background-position:-184px -52px; }
+#eBTNjustifycenter { background-position:-205px -52px; }
+#eBTNjustifyright { background-position:-226px -52px; }
+#eBTNjustifynone{background-position:-247px -52px;}
+#eBTNjustifyfull{ background-position:-247px -52px; }
+#eBTNlist { width:22px; background-position:-138px 0; }
+#eBTNunorderedlist { background-position:-205px -77px; }
+#eBTNorderedlist { background-position:-184px -77px; }
+#eBTNiodent { width:22px; background-position:-160px 0; }
+#eBTNoutdent { background-position:-226px -77px; }
+#eBTNindent { background-position:-247px -77px; }
+#eBTNinserthorizontalrule { background-position:-66px -23px; }
+#eBTNcreatelink { background-position:-271px -54px; }
+#eBTNunlink { background-position:-292px -54px; }
+#eBTNinserttable { background-position:-334px -77px; }
+#eBTNinsertimage { background-position:-333px -54px; }
+#eBTNinsertface { background-position:-271px -77px; }
+#eBTNinsertflash { background-position:-317px -23px;; }
+#eBTNinsertmusic { background-position:-292px -77px; }
+#eBTNinsertvideo { background-position:-296px -23px; }
+#eBTNcleanword { background-position:-401px -23px; }
+#eBTNtypeset { background-position:-151px -77px; }
+#eBTNmode { background-position:-212px 0; }
+#eBTNmode-reset { background-position:-191px 0; }
+#eBTNsplitpage { background-position:-233px -23px; }
+#eBTNgroup { width:7px; background-position:-21px 0; }
+/*#eBTNgroup.eFirstToolBarGroup{width:0;}*/
+#eBTNseparator { width:5px; background-position:-31px 0; }
+#eBTNgroup , #eBTNseparator  {border:1px ridge transparent;margin:0; _border:0 none #fff;_margin:1px; }
+#eBTNfullscreen { background-position:-233px 0; }
+#eBTNfullscreen-reset { background-position:-254px 0; }
+#eBTNhelp { background-position:-87px -23px; }
+#eBTNtoolbarmode {  background-position:-221px -137px; width:44px; border-radius:0; }
+#eBTNtoolbarmode:hover {background-position:-268px -137px;border-color: transparent!important;}
+/* large icons */
+.eLargeIcons br{line-height:22px;}/**/
+.eLargeIcons {line-height:18px; font-size:0px;}
+.eLargeIcons .eToolBarGroup,.eLargeIcons .eToolBarGroupRight{height:46px; *height:44px;}
+.eLargeIcons #eBTNgroup{height:42px;background-position:-368px -54px;}
+.eLargeIcons #eBTNgroup.eFirstToolBarGroup{width:0;}
+.eLargeIcons #eBTNseparatorlarge{width:5px; height:42px; background-position:-276px -54px;}
+
+.eLargeIcons #eBTNparagraph{width:52px;background-position:-2px -53px; border-radius:0px; margin-right:5px !important;}
+.eLargeIcons #eBTNparagraph:hover{background-position:-221px -107px;border-color: transparent!important;}
+.eLargeIcons #eBTNparagraph.eButtonDropDown{background-position:-397px -107px;}
+.eLargeIcons #eBTNfontname{width:56px;background-position:-58px -53px; border-radius:0px; margin-right:5px !important;}
+.eLargeIcons #eBTNfontname:hover{background-position:-277px -107px;border-color: transparent!important;}
+.eLargeIcons #eBTNfontname.eButtonDropDown{background-position:-453px -107px;}
+.eLargeIcons #eBTNfontsize{width:52px;background-position:-119px -53px;border-radius:0px;}
+.eLargeIcons #eBTNfontsize:hover{background-position:-338px -107px;border-color: transparent!important;}
+.eLargeIcons #eBTNfontsize.eButtonDropDown{background-position:-514px -107px;}
+.eLargeIcons #eBTNinsertface{width:35px; height:42px; background-position:-376px -55px;}
+.eLargeIcons #eBTNinsertimage{width:35px; height:42px; background-position:-412px -55px;}
+.eLargeIcons #eBTNinsertflash{width:35px; height:42px; background-position:-560px -55px;}
+.eLargeIcons #eBTNinsertmusic{width:35px; height:42px; background-position:-598px -55px;}
+.eLargeIcons #eBTNinsertvideo{width:35px; height:42px; background-position:-486px -55px;}
+.eLargeIcons #eBTNtoolbarmode{background-position:-314px -137px; width:44px; }
+.eLargeIcons #eBTNtoolbarmode:hover{background-position:-360px -137px;}
+
+/* IE6 */
+a#eBTNtoolbarmode:hover,.eLargeIcons #eBTNparagraph:hover,.eLargeIcons #eBTNfontname:hover,.eLargeIcons #eBTNfontsize:hover{_border:none;_margin:1px;}
+
+/* table */
+#eMergeCells{background-position:-76px -104px;}
+#eSplitCells{background-position:-98px -104px;}
+.eButton.eCellAlign{width:19px; height:19px;}
+.eButton.eCellAlign:hover{ border:1px ridge #ccc; margin:0; }
+#eCellAlignLT{background-position:-1px -105px; }
+#eCellAlignCT{background-position:-24px -105px; }
+#eCellAlignRT{background-position:-47px -105px; }
+#eCellAlignLC{background-position:-1px -126px; }
+#eCellAlignCC{background-position:-24px -126px; }
+#eCellAlignRC{background-position:-47px -126px; }
+#eCellAlignLB{background-position:-1px -147px; }
+#eCellAlignCB{background-position:-24px -147px; }
+#eCellAlignRB{background-position:-47px -147px; }
+#eTableAlign { background-position:-451px 0; }

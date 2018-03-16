@@ -1,0 +1,12 @@
+@import url("../../TQEditor.css");
+.eEditor {border-radius:5px 5px 0px 0px; }
+.eToolBar {border-radius:5px 5px 0px 0px; }
+.eButton, .eButtonUp, .eButtonDown, .eButtonDropDown {border-radius:5px;}
+.eButtonDropDown {border-radius:5px 5px 0 0; }
+.eTabBar a.active {border-radius: 5px 5px 0px 0px; }
+.eButtonTableContext {border-radius:0 0 5px 5px;  }
+/******************* toolbar button style eBTNXXX ***************************/
+#eBTNtoolbarmode { border-radius:0; }
+.eLargeIcons #eBTNparagraph{border-radius:0px;}
+.eLargeIcons #eBTNfontname{border-radius:0px;}
+.eLargeIcons #eBTNfontsize{border-radius:0px;}	  

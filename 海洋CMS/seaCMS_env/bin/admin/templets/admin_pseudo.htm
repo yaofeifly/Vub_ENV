@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据管理-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;伪原创 ';</script>
+<div class="container" id="cpcontainer">
+<form  method="post" action="?action=saverepword">
+<table class="tb">
+	<tr class="thead"><td colspan="2">伪原创-同义词批量替换(本功能只替换数据介绍)</td></tr>
+	<tr><td width="12%">替换字符设置：</td>
+	<td width="88%"><textarea name="txt" style="width:500px;height:100px;">
+<?php
+if(file_exists($RepWordFile))
+{
+	$txt = loadFile($RepWordFile);
+	echo $txt;
+}
+else
+{
+	echo "逮捕=拘捕
+恶毒=狠毒
+暗算=暗害
+";
+}
+?></textarea></td></tr>
+	<tr><td width="12%">数据起始ID：</td><td width="88%"><input type="text" name="iStart" value="不限" /> 到 <input type="text" name="iEnd" value="不限" /> <input type="submit" class="btn" value="执行字词替换" /></td></tr>
+
+	<tr><td colspan="2">功能说明：<br />&nbsp;&nbsp;1.每个要替换的字词占一行&nbsp;&nbsp;2.格式：<font color="blue">要替换=替换后</font>,&nbsp;&nbsp;<font color="red">以上文本区域内的替换字符为范例,请删除并根据需要自行设置</font><br />&nbsp;&nbsp;2.采集来的内容雷同太多，不易被搜索引擎收录。可以用本功能把一些特定的词替换成自己的词，如替换成自己的方言或同义词 <br />
+	&nbsp;&nbsp;3.举个例子：<font color="blue">广东话(为什么=点解)</font>&nbsp;&nbsp;<font color="blue">广东台山话(为什么=几解)</font>,经过替换，就让你的站拥有独特的风格。<br />注意事项:<br>&nbsp;&nbsp;<font color=red>程序遇到待替换的字符就会立即替换且不可恢复，请小心处理。</font></td></tr>
+
+</table>
+</form>
+<br />
+
+<table class="tb">
+	<tr class="thead"><td colspan="2">伪原创-随机内容<a name="texts" /></td></tr>
+	<?php 
+    $xml = simplexml_load_file($textsegment);
+    $i = 0;
+    foreach($xml as $item){
+    $i++;
+    ?>
+    <tr><td width="90%"><?php  echo htmlspecialchars(stripslashes($item));?></td><td><a href="?action=read&id=<?php echo $i; ?>" target="hiddensubmit">修改</a> <a href="?action=del&id=<?php echo $i; ?>">删除</a></td></tr>
+    <?php 
+    }
+    ?>
+<form method="post" action="?action=save" target="hiddensubmit">
+<input type="hidden" name="id" value="" />
+	<tr class="thead"><td colspan="2" id="newhit">添加</td></tr>
+	<tr><td colspan="2"><textarea name="newtxt" style="width:100%;height:100px;" ></textarea><br /><input type="submit" class="btn" value="确定"  /> <input type="reset" class="btn" value="取消" onclick="$('newhit').innerHTML='添加';" /></td></tr>
+
+	<tr><td colspan="2"><p>注意：</p>
+	  <p>1.如果收录已经非常良好，无需使用本功能<br>
+	    2.请一次性添加20条以上伪原创文本段,可以是20段笑话。别写得太长，建议不超过300字，注意是一次性添加相应数目、之后不要再新增、修改、删除文本段<br>
+	      <font color="red">3</font><font color="red">.最好别经常改动文本段设置(添加、修改或删除)。搜索引擎对这个非常敏感。如果它发现每次来收录的内容都不一样，会影响收录或降权<br />
+	        4.每段内容由系统随机抽出并随机插入到简介的首部、尾部、或中间，而且并不改动数据库，也不会每次都随机改变</font></p></td></tr>
+</form>
+
+</table>
+</div>
+<iframe frameborder="0" scrolling="no" height="0" width="0" name="hiddensubmit" id="hiddensubmit" src="about:blank"></iframe>
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;伪原创工具';</script>
+<?php 
+ viewFoot();
+ ?>
+</body>
+</html>

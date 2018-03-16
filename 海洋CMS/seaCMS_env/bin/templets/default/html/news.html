@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{news:title} {news:subtitle}- {seacms:sitename}</title>
+<meta name="keywords" content="{news:title}{news:subtitle},{seacms:sitename}" />
+<meta name="description" content="{news:title}{news:subtitle},{seacms:sitename}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg sea-news news-detail">
+<div class="row">
+	<div class="col-md-8 col-xs-12 sea-col">
+  	<div class="page-header">
+      <h3 class="text-center">{news:title}</h3>
+      <h5 class="text-muted text-center visible-md visible-lg">来源：{news:from}  人气：{news:hit}  更新：{news:time} </h5>         
+    </div>
+    <p class="lead">{news:outline len=99} </p> 
+    <div class="content">
+	{news:content} 
+<div class="text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          {news:subpagenumber len=3}
+        </ul>
+        <ul class="pagination visible-xs page">
+         {news:subpagenumber len=3}
+         </ul>
+      </div>
+	</div> 
+{news:mark len=10}
+<br>
+{news:comment}
+  </div>
+
+
+  <div class="col-md-4 sea-col visible-md visible-lg">
+    <div class="page-header sea-border-none">
+      <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热点资讯</h4>
+    </div>
+    <ol class="news-item-hot">
+    {seacms:videolist num=15 order=hit}
+<li><a href="[videolist:link]">[videolist:name]</a></li>{/seacms:videolist}
+    </ol>
+  </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

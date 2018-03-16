@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn {
+	border:1px solid;
+	border-color:#fff #999 #999 #fff;
+}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;权限检测 ';</script>
+<div class="container" id="cpcontainer">
+  <?php 
+	if($action=="checkfileperms")
+    {
+?>
+  <table class="tb">
+    <tr class="thead">
+      <td colspan="3" class="td_title">目录权限检测</td>
+    </tr>
+    <tr>
+      <td >系统要求必须满足下列所有的目录权限全部可读写的需求才能使用</td>
+    </tr>
+    <tr>
+      <td><table class="tb">
+          <tr class="thead">
+            <td>目录名</td>
+            <td>读取权限</td>
+            <td>写入权限</td>
+          </tr>
+          <?php
+			foreach($sp_testdirs as $d)
+			{
+			?>
+			<tr>
+					<td><?php echo $d; ?></td>
+					<?php
+                    $fulld = sea_ROOT.str_replace('/*','',$d);
+                    $rsta = (is_readable($fulld) ? '<font color=green>[√]读</font>' : '<font color=red>[×]读</font>');
+                    $wsta = (TestWrite($fulld) ? '<font color=green>[√]写</font>' : '<font color=red>[×]写</font>');
+                    echo "<td>$rsta</td><td>$wsta</td>\r\n";
+     		 ?>
+			</tr>
+			<?php
+			}
+			?>
+        </table></td>
+    </tr>
+  </table>
+  <?php
+	}else
+    {
+?>
+  <form  method="post" action="?action=checkfileperms">
+    <table class="tb">
+      <tr class="thead">
+        <td class="td_title">文件权限检查</td>
+      </tr>
+      <tr>
+        <td align='center'><input type="submit" name="submit" class="btn"  value="开始"></td>
+      </tr>
+    </table>
+  </form>
+  <?php
+	}
+?>
+</div>
+<?php
+	viewFoot();
+?>
+</body>
+</html>

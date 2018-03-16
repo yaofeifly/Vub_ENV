@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--2010-06-17 12:36-->
+<title>seacms智能采集工具</title>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script>if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;视频采集工具';</script>
+<style type="text/css">
+input{height:12px;}
+.txt{width:250px;}
+.tb2 td{padding:2px 5px 2px 5px;height:25px}
+.tb2 .thc{text-align:center;line-height:30px; background-color: #F5F7F8;font-size:18px;font-weight:bold;color:#000}
+.tb2 .thr{text-align:center;height:20px}
+.label{padding:0;width:150px;text-align:right;border-right:1px solid #DEEFFA;}
+.btn{height:22px}
+.red{color:red}
+.blue{color:blue}
+.gray{color:gray}
+</style>
+
+<script type="text/javascript">
+function show(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="";
+	}
+}
+
+function hide(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="none";
+	}
+}
+</script>
+</head>
+<!--当前导航-->
+<body bgcolor="#F7FBFF">
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<?php
+	$numPerPage=30;
+	$page = isset($page) ? intval($page) : 1;
+	if($page==0) $page=1;
+    if($cofrom==1)
+    $csqlStr = "select count(*) as dd from sea_co_filters where cotype=1 ";
+    else
+    $csqlStr = "select count(*) as dd from sea_co_filters where cotype=0 ";
+    $row = $dsql->GetOne($csqlStr);
+	if(is_array($row)){
+	$TotalResult = $row['dd'];
+	}else{
+	$TotalResult = 0;
+	}
+	$TotalPage = ceil($TotalResult/$numPerPage);
+	if ($page>$TotalPage) $page=$TotalPage;
+	$limitstart = ($page-1) * $numPerPage;
+	if($limitstart<0) $limitstart=0;
+    if($cofrom==1)
+    $sql = "select ID,Name,rColumn,uesMode,Flag from sea_co_filters where cotype=1 limit $limitstart,$numPerPage";
+    else
+    $sql = "select ID,Name,rColumn,uesMode,Flag from sea_co_filters where cotype=0 limit $limitstart,$numPerPage";
+	$dsql->SetQuery($sql);
+	$dsql->Execute('filters');
+?>
+<div class="container" id="cpcontainer">
+
+<table class="tb">
+	<tr class="thead"><th colspan="6">过滤字典: <a href="?action=filters">字典列表</a> | <a href="?action=filtersadd">添加过滤</a></th></tr>
+	<tr>
+		<td>ID</td>
+
+		<td>过滤名称</td>
+		<td>过滤字段</td>
+		<td>过滤模式</td>
+		<td>状态</td>
+		<td>操作</td>
+	</tr>
+
+<form action="" method="post" name="form1">
+<?php 
+	while($row = $dsql->GetArray('filters'))
+    {
+?>
+	<tr>
+		<td><input type="checkbox" value="<?php echo $row['ID'] ; ?>" name="id[]" class="checkbox"/><?php echo $row['ID'] ; ?></td>
+		<td><?php echo $row['Name'] ; ?></td>
+		<td><?php if($row['rColumn']) echo '剧情替换'; else echo '标题替换';?></td>
+		<td><?php if($row['uesMode']) echo '高级过滤'; else echo '简单过滤';?></td>
+
+		<td><?php if($row['Flag']) echo '√'; else echo '×';?></td>
+		<td><a href="?action=filtersedit&id=<?php echo $row['ID']; ?>">编缉</a> <a href="?action=filtersdel&id=<?php echo $row['ID']; ?>">删除</a></td>
+	</tr>
+<?php
+	}
+?>
+	<tr>
+		<td colspan="6"><div class="cuspages"><div class="pages"><label>全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','id[]')" /></label><label>反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','id[]')" /></label><input type="submit" value="批量删除" onclick="if(confirm('确定要删除吗')){this.form.action='?action=filtersdelall';}else{return false}" class="btn"/>
+&nbsp;页次：<?php echo $page;?>/<?php echo $TotalPage;?>  每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?action=filters&page=1">首页</a> <a href="?action=filters&page=<?php echo ($page-1);?>">上一页</a> 
+<?php echo makePageNumber($page, 10, $TotalPage, "collectfilters");?>
+<a href="?action=filters&page=<?php echo ($page+1);?>">下一页</a> <a href="?action=filters&page=<?php echo $TotalPage;?>">尾页</a>&nbsp;&nbsp;跳转<input type="text" id="skip" value="" onkeyup="this.value=this.value.replace(/[^\d]+/,'')" style="width:40px"/>&nbsp;&nbsp;<input type="button" value="确定" class="btn" onclick="location.href='?action=filters&page='+document.getElementById('skip').value+'';"/></div></div></td>
+
+	</tr>
+</form>
+
+</table>
+</div>
+<?php 
+viewFoot();
+?>	
+
+<iframe frameborder="0" scrolling="no" height="0" width="0" name="hiddensubmit" id="hiddensubmit" src="about:blank"></iframe>
+
+</html>

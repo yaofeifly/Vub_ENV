@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据库修复 ';</script>
+<div class="container" id="cpcontainer">
+<form method="post" action="?action=repairplaydata">
+<input type="hidden" name="do" value="true" />
+<table class="tb">
+    <tr class="thead"><td>修复数据数据</td></tr>
+    <tr><td><input type="submit" class="btn"  value="修复数据数据"></td></tr>
+	<tr><td>注意：为了防止意外、请操作前务必先备份数据库。<br>此操作直接删除不合法的播放地址，请谨慎使用，强烈建议不要使用该功能。</td></tr>
+</table>
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;修复数据数据';</script>
+<?php
+	viewFoot();
+?>
+</body>
+</html>

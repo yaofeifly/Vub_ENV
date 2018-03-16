@@ -1,0 +1,3 @@
+添加影片,admin_video.php?action=add
+管理影片,admin_video.php?action=else
+快捷菜单设置,admin_menu.php

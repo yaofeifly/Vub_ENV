@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>安装程序 - 海洋CMS</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div class="top">
+  <div class="top-logo">
+		<h1>海洋CMS<?php echo $verMsg; ?> 安装程序</h1>
+	</div>
+	<div class="top-link">
+		<ul>
+			<li><a href="http://www.seacms.net" target="_blank">官方网站</a></li>
+			<li><a href="http://www.seacms.net" target="_blank">技术论坛</a></li>
+			<li><a href="http://www.seacms.net" target="_blank">帮助</a></li>
+		</ul>
+	</div>
+	<div class="top-version">
+		<!-- 版本信息 -->
+<div style="display:none;">
+<!----安装统计，请勿删除！---->
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/17754207.js"></script>
+<noscript><a href="http://www.51.la/?17754207" target="_blank"><img 
+
+alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/17754207.asp" 
+
+style="border:none" /></a></noscript>
+</div>		
+		<h2>seacms<?php echo $verMsg; ?></h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="pleft">
+		<dl class="setpbox t1">
+			<dt>安装步骤</dt>
+			<dd>
+				<ul>
+					<li class="now">许可协议</li>
+					<li>环境检测</li>
+					<li>参数配置</li>
+					<li>正在安装</li>
+					<li>安装完成</li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+	<div class="pright">
+		<div class="pr-title"><h3>阅读许可协议</h3></div>
+<div class="pr-agreement">
+				<p> 在您使用本软件前，请仔细阅读以下信息。除本协议中明确赋予用户的权利、其它权利均保留。如果您不同意以下软件使用许可协议，您不应注册/下载本软件，请停止使用，并将其从您的电脑中删除。</p>
+				
+<p> 作者开发seacms初衷是用于学习和交流之用，完全免费开源，大家可以使用本系统制作任何商业、非商业、个人网站。</p>
+<p> 经过大量的测试和修复，尚未发现重大bug，但个人能力、精力有限，不可避免的会出现各种bug，请大家积极反馈。</p>
+<p> 开发者不提供任何形式的商业付费服务，包括但不限于：技术支持，二次开发，模板设计，插件开发等。</p>
+<p> 您出于自愿而使用seacms，您必须了解使用风险，开发者不提供任何形式的使用担保，也不承担任何的相关责任。</p>
+<p> 开发者不对使用本系统构建的网站的任何信息内容以及导致的任何版权纠纷和法律争议及后果承担责任。</p>
+<p> 您一旦下载、使用并安装seacms建立或发布网站，即被视为完全理解并接受上述声明。</p>
+				
+				<p> 
+				官网：www.seacms.net
+		  </p>
+      </div>
+		<div class="btn-box">
+			<input name="readpact" type="checkbox" id="readpact" value="" /><label for="readpact"><strong class="fc-690 fs-14">我已经阅读并同意此协议</strong></label>
+			<input type="button" class="btn-next" value="继续" onclick="document.getElementById('readpact').checked ?window.location.href='index.php?step=2' : alert('您必须同意软件许可协议才能安装！');" />
+		</div>
+	</div>
+</div>
+
+<div class="foot">
+
+</div>
+
+</body>
+</html>

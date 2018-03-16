@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>添加广告</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;广告&nbsp;&raquo;&nbsp;广告添加 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<form action="?action=addsave" method="post" >
+<table class="tb nobdt" border="0" cellpadding="0" cellspacing="0" align="center" class="tb_style">
+<tr class="thead" class="td_title"><th colspan="2">添加广告</th></tr>
+    <TR>
+      <TD vAlign=center width="11%" >广告名称：</TD>
+      <TD width="89%" ><input type="text" size="50" name="adname" /><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >广告标识：</TD>
+      <TD ><input type="text" size="50" name="adenname" /><font color="red">＊</font></TD>
+    </TR>
+<!--    <TR>
+      <TD >广告描述：</TD>
+      <TD ><input type="text" size="100" name="intro" /></TD>
+    </TR>-->
+    <TR>
+       <TD >广告内容：<br />(<font color="red">填写js代码</font>)<br /><input type="button" value="HTML转JS"  onclick="openHtmlToJsWin('htmltojs')" class="rb1"/><br/><input type="button" value="JS转HTML"  onclick="openHtmlToJsWin('jstohtml')" class="rb1"/></TD>
+      <TD ><textarea name="adsbody" id="adsbody"  style="width:98%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="20"  ></textarea><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <td></td><TD ><input type="submit" value="添 加 广 告" class="rb1" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR>
+</td></tr></table>
+</form>
+	</div>
+</div>
+</div>
+<?php
+viewFoot();
+?>
+<div id="htmltojs" style="top:100px; display:none;" class="popdiv">
+	<div class="poptitie"><img src="img/btn_close.gif" alt="关闭" onClick="$('htmltojs').style.display='none'" />HTML转JS </div>
+    <div class="popbody"><div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td  width="60" valign="top">HTML代码</td>
+          <td><textarea cols="70" rows="8" id="htmlstr" onkeyup="htmlToJs('htmlstr','jsstr')" onfocus="htmlToJs('htmlstr','jsstr')"></textarea></td>
+        </tr>
+         <tr>
+          <td  width="60" valign="top">JS代码</td>
+          <td><textarea cols="70" rows="8" id="jsstr" ></textarea></td>
+        </tr>
+       <tr><td align="center" colspan="2"><input type="button" value="插  入"  class="rb1" onclick="insertHtmlToJsWin('htmltojs','adsbody','jsstr')" /></td></tr>
+        </table>
+    </div></div>
+</div>
+<div id="jstohtml" style="top:100px; display:none;" class="popdiv">
+	<div class="poptitie"><img src="img/btn_close.gif" alt="关闭" onClick="$('jstohtml').style.display='none'" />JS转HTML</div>
+    <div class="popbody"><div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td  width="60" valign="top">JS代码</td>
+          <td><textarea cols="70" rows="8" id="jsstr2" onkeyup="jstohtml('jsstr2','htmlstr2')" onfocus="jstohtml('jsstr2','htmlstr2')"></textarea></td>
+        </tr>
+         <tr>
+          <td  width="60" valign="top">HTML代码</td>
+          <td><textarea cols="70" rows="8" id="htmlstr2" ></textarea></td>
+        </tr>
+       <tr><td align="center" colspan="2"><input type="button" value="插  入"  class="rb1" onclick="insertHtmlToJsWin('jstohtml','adsbody','jsstr2')" /></td></tr>
+        </table>
+    </div></div>
+</div>
+<script type="text/javascript" src="js/drag.js"></script>
+</body>
+</html>

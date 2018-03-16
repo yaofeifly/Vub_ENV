@@ -1,0 +1,27 @@
+<html>
+    <head>
+    	<title>影片报错</title>
+        <script>
+			function checkReportErr(){if (document.getElementById('author').value.length<1){alert('请填写报错者');return false;}; if (document.getElementById('errtxt').value.length<1){alert('请填写报错内容');return false;}}
+        </script>
+		<style>
+		h2,p{padding:0; margin:0;}
+		h2{font-size:14px;height:25px;color:#027DB9;line-height:25px;background:#B4E5FE;text-align:center;margin-bottom:10px;}
+		.err{width:380px;height:185px;background:#F5FBFE;border:1px solid #B0DCF5;margin: 0 auto}
+		.err p{margin-left:10px;} 
+		</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body  style="font-size:12px;background-color:#D7EDFA;height:22px;line-height:22px;">
+        <form id="reporterr" action="../include/erraddsave.php?action=reporterr" method="post" onSubmit="return checkReportErr()">
+            <div class="err">
+			<h2>失效影片，我们会在第一时间内修正</h2>
+               <p style="padding-bottom:5px;">报&nbsp;错&nbsp;者:<input type="text" id="author" name="author"  value="匿名"  size="15"><font color="#FF0000">*必填</font></p>
+			
+                <p>错误提示:<textarea id="errtxt"  name="errtxt" style="width:270px;height:88px" rows=5 cols=30></textarea>
+                <font color="#FF0000">*必填</font></p>
+                <input type="submit" value="影片报错" style="margin:5px 0 0 130px;">
+            </div>
+        </form>
+    </body>
+</html>

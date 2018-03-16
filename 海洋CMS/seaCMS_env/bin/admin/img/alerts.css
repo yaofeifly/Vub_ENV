@@ -1,0 +1,31 @@
+@charset "utf-8";
+#popup_container {
+	border:1px solid #1F385D;  FONT-SIZE: 12px; BACKGROUND: #fff; font-family:"Microsoft YaHei",微软雅黑,"SimSun",宋体; width:340px; height:165px;
+}
+#popup_title {
+	 FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND: url(alert_title.jpg);  MARGIN:0 auto;  CURSOR: default; COLOR: #FFFFFF;  TEXT-ALIGN: left; line-height:30px; height:30px;
+}
+#popup_content {
+	 BACKGROUND: url(alert_mainbg.jpg); MARGIN:0 auto;   height:104px; margin-top:-1px;
+}
+.alert#popup_content {
+	BACKGROUND-IMAGE: url(alert_mainbg.jpg)
+}
+.confirm#popup_content {
+	BACKGROUND-IMAGE: url(alert_mainbg.jpg); 
+}
+.prompt#popup_content {
+	BACKGROUND-IMAGE: url(alert_mainbg.jpg); 
+}
+#popup_message {
+	  width:256px; float:left; height:60px; margin-top:35px; line-height:20px;
+}
+#popup_infopic{
+	 width:80px; height:100%; float:left; text-align:center; 
+	}
+#popup_panel {
+	 text-align:right; background:url(alert_bottom.jpg); height:31px; 
+}
+#popup_prompt {
+	
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="img/alerts.css" rel="stylesheet" media="screen">
+<title>视频分类</title>
+<script type="text/javascript" language="javascript">var tentpath='/';</script>
+<script language="javascript" src="js/jquery.js"></script>
+<script language="javascript" src="js/alerts.js"></script>
+
+<script language="javascript">
+ $(document).ready(function(){
+	$("#ChkAll").click(function(){
+		if($(this).attr("checked")==true){
+			$("input[id='E_ID']").each(function(){
+				$(this).attr("checked",true);									 
+			})							
+		}else{
+			$("input[id='E_ID']").each(function(){
+				$(this).attr("checked",false);									 
+			})							
+		}
+	})	
+
+$("#btn_editall").click(function(){
+				if(confirm('您确定要修改选中的分类吗?'))
+				{
+					document.formclass.action='?action=edit';
+					document.formclass.submit();
+				}
+	 })
+	
+$("#btn_delall").click(function(){
+				if(confirm('您确定要删除选中的分类吗?'))
+				{
+					document.formclass.action='?action=delall';
+					document.formclass.submit();
+				}
+	 })
+
+	
+})
+
+function del(id){
+	if(confirm('您确定要删除选中的分类吗?'))
+			{
+			window.location='?action=del&id='+id;
+			}
+		
+		}	
+</script>
+</head><body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;视频分类管理 ';</script>
+<div class="r_main">
+			<div class="r_content">
+			  <div class="r_content_1">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+					 <form method="post" name="formclass" action=""> 
+                     <tr>
+                      <td colspan="10" class="td_title" align="left">&nbsp;视频分类管理(<font color='red'>＊</font>为必填,其它选填)</td>
+                     </tr>
+                      <tr>
+                      	
+						<td width="16%"   height="30" bgcolor="#FFFFFF" class="td_border">&nbsp;ID.分类名称(视频数量)</td>
+						<td width="9%"   bgcolor="#FFFFFF" class="td_border">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 中文名称</td>
+                        <td width="9%"   align="center" bgcolor="#FFFFFF" class="td_border">英文别名</td>
+						<td width="9%"   align="center" bgcolor="#FFFFFF" class="td_border">频道模板</td>
+						<td width="9%"   align="center" bgcolor="#FFFFFF" class="td_border">内容模板</td>
+                            <td width="9%" align="center" bgcolor="#FFFFFF" class="td_border">标题</td>
+                            <td width="9%" align="center" bgcolor="#FFFFFF" class="td_border">关键词</td>
+                            <td width="10%" align="center" bgcolor="#FFFFFF" class="td_border" >描述</td>
+                        
+						<td width="10%"    align="center" bgcolor="#FFFFFF" class="td_border">排序</td>
+						<td width="10%"    align="center" bgcolor="#FFFFFF" class="td_border">操作</td>
+					  </tr>
+					  
+<?php typeList(0,"&nbsp;&nbsp;&nbsp;&nbsp;");?>
+	
+					  
+					<tr>
+<td height="30" colspan="6" align="left" bgcolor="#FFFFFF" class="td_border"><input type="checkbox" name="ChkAll" id="ChkAll" ids="S_ID"  class="checkbox"/>全选&nbsp;&nbsp;
+						  &nbsp;&nbsp;&nbsp;&nbsp; <input type="button" name="editall" value="修改所选分类" class="rb1"  id="btn_editall"/>
+				      &nbsp;&nbsp;<input type="button" name="delall"  value="删除所选分类" class="rb1"  id="btn_delall"/>&nbsp;&nbsp;&nbsp;移动到
+      <select name="upid_to"><option value="0">顶级分类</option>
+    <?php makeTypeOption(0,"&nbsp;|&nbsp;",0);?>
+	</select>&nbsp;<input type="submit" value="批量移动分类" name="Submit" class="rb1" onclick="formclass.action='?action=move';"/></td>
+					  </tr>
+                  </form>
+			    </table>   
+				
+	
+		
+			  <form id="form1" name="form1" method="post" action="?action=add">
+					<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+                    <tr>
+                      <td colspan="10" class="td_title">&nbsp;视频分类添加&nbsp;&nbsp;<label id="tishi"></label></td>
+                     </tr>
+<tr>
+    <td width="15%" align=left bgcolor="#FFFFFF" class="td_border">
+    &nbsp;选择层级<select name="upid"><option value="0">顶级分类</option>
+    <?php makeTypeOption(0,"&nbsp;|&nbsp;",0);?></select><font color='red'>＊</font>
+    </td>
+    <td  width="10%" bgcolor="#FFFFFF" class="td_border">中文名
+      <input size="12" type="text" name="tname"><font color='red'>＊</font></td>
+    <td  width="10%" bgcolor="#FFFFFF" class="td_border">英文名
+      <input size="12" type="text" name="tenname"></td>
+    <td  width="9%" bgcolor="#FFFFFF" class="td_border">频道模板
+      <input size="12" type="text" name="templist"></td>
+    <td  width="9%" bgcolor="#FFFFFF" class="td_border">内容模板
+      <input size="12" type="text" name="templist_1"></td>
+</tr>
+<tr>
+    <td  width="10%" bgcolor="#FFFFFF" class="td_border">&nbsp;优化标题
+      <input size="12" type="text" name="title"></td>
+    <td  width="10%" bgcolor="#FFFFFF" class="td_border">关键字
+      <input size="12" type="text" name="keyword"></td>
+    <td  width="10%" bgcolor="#FFFFFF" class="td_border">描述词
+      <input size="12" type="text" name="description"></td>
+
+    <td width="10%" bgcolor="#FFFFFF" class="td_border">分类排序
+      <input size="12" type="text" name="torder"></td>
+    <td width="10%" bgcolor="#FFFFFF" class="td_border">
+<input type="submit" value="添 加" name="Submit" class="rb1" /></td>
+</tr>
+				   
+
+				</table>   
+				  
+				</form>
+                <form action="?action=movevideo" name="movevideo" id="movevideo" method="post">
+              <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+                <tr>
+                  <td class="td_title">&nbsp;合并分类</td>
+                </tr>
+                <tr>
+                  <td height="30" bgcolor="#FFFFFF" class="td_border">&nbsp;将分类：<select name='leftSelect'><option value=''>请选择视频分类</option><?php makeTypeOption(0,"&nbsp;|&nbsp;",0);?></select>的数据合并到：<select name='rightSelect'><option value=''>请选择视频分类</option><?php makeTypeOption(0,"&nbsp;|&nbsp;",0);?></select>&nbsp;<input type="submit" value="确认合并" class="rb1" /></td>
+                </tr>
+                <tr>
+                  <td height="30"   class="td_border">&nbsp;<strong><font color="#FF0000">注意，程序将前面的分类数据合并到后面分类后会删除之前分类生成的HTML,但不会删除该分类。</font></strong></td>
+                </tr>
+              </table>
+              </form>
+			  </div>
+			</div>
+		</div>
+	<?php
+viewFoot();
+?>
+
+</body>
+</html>

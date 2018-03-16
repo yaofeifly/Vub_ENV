@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>安装程序 - 海洋CMS</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<div class="top">
+  <div class="top-logo">
+		<h1>海洋CMS<?php echo $verMsg; ?> 安装程序</h1>
+  </div>
+	<div class="top-link">
+		<ul>
+			<li><a href="http://www.seacms.net" target="_blank">官方网站</a></li>
+			<li><a href="http://www.seacms.net" target="_blank">技术论坛</a></li>
+			<li><a href="http://www.seacms.net" target="_blank">帮助</a></li>
+		</ul>
+	</div>
+	<div class="top-version">
+		<!-- 版本信息 -->
+<div style="display:none;">
+<!----安装统计，请勿删除！---->
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/17754207.js"></script>
+<noscript><a href="http://www.51.la/?17754207" target="_blank"><img 
+
+alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/17754207.asp" 
+
+style="border:none" /></a></noscript>
+</div>		
+		<h2>seacms<?php echo $verMsg; ?></h2>
+	</div>
+</div>
+
+<div class="main">
+	<div class="pleft">
+		<dl class="setpbox t1">
+			<dt>安装步骤</dt>
+			<dd>
+				<ul>
+					<li class="succeed">许可协议</li>
+					<li class="now">环境检测</li>
+					<li>参数配置</li>
+					<li>正在安装</li>
+					<li>安装完成</li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+	<div class="pright">
+		<div class="pr-title"><h3>服务器信息</h3></div>
+		<table width="726" border="0" align="center" cellpadding="0" cellspacing="0" class="twbox">
+			<tr>
+				<th width="300" align="center"><strong>参数</strong></th>
+				<th width="424"><strong>值</strong></th>
+			</tr>
+			<tr>
+					<td><strong>域名</strong></td>
+					<td><?php echo $sp_name; ?></td>
+			</tr>
+			<tr>
+					<td><strong>操作系统</strong></td>
+					<td><?php echo $sp_os; ?></td>
+			</tr>
+			<tr>
+					<td><strong>web引擎</strong></td>
+					<td><?php echo $sp_server; ?></td>
+			</tr>
+			<tr>
+					<td><strong>PHP版本</strong></td>
+					<td><?php echo $phpv; ?></td>
+			</tr>
+			<tr>
+					<td><strong>系统安装目录</strong></td>
+					<td><?php echo sea_ROOT; ?></td>
+			</tr>
+		</table>
+		<div class="pr-title"><h3>系统环境检测</h3></div>
+		<div style="padding:2px 8px 0px; line-height:33px; height:23px; overflow:hidden; color:#666;">
+			系统环境要求必须满足下列所有条件，否则系统或系统部份功能将无法使用。
+		</div>
+		<table width="726" border="0" align="center" cellpadding="0" cellspacing="0" class="twbox">
+			<tr>
+				<th width="200" align="center"><strong>需开启的变量或函数</strong></th>
+				<th width="80"><strong>要求</strong></th>
+				<th width="400"><strong>实际状态及建议</strong></th>
+			</tr>
+			<tr>
+					<td>fsockopen</td>
+					<td align="center">On </td>
+					<td><?php echo $sp_fsockopen; ?> <small>(不符合要求将导致采集、远程资料本地化等功能无法应用)</small></td>
+			</tr>
+			<tr>
+					<td>iconv</td>
+					<td align="center">On </td>
+					<td><?php echo $sp_iconv; ?> <small>(不符合要求将导致部分编码问题)</small></td>
+			</tr>
+			<tr>
+					<td>allow_url_fopen</td>
+					<td align="center">On </td>
+					<td><?php echo $sp_allow_url_fopen; ?> <small>(不符合要求将导致采集、远程资料本地化等功能无法应用)</small></td>
+			</tr>
+			<tr>
+					<td>safe_mode</td>
+					<td align="center">Off</td>
+					<td><?php echo $sp_safe_mode; ?> <small>(本系统不支持在<span class="STYLE2">非win主机的安全模式</span>下运行)</small></td>
+			</tr>
+			
+			<tr>
+					<td>GD 支持 </td>
+					<td align="center">On</td>
+					<td><?php echo $sp_gd; ?> <small>(不支持将导致与图片相关的大多数功能无法使用或引发警告)</small></td>
+			</tr>
+
+			<tr>
+					<td>Curl 支持 </td>
+					<td align="center">On</td>
+					<td><?php echo $sp_curl; ?> <small>(不支持将无法进行百度推送)</small></td>
+			</tr>
+
+			<tr>
+					<td>MySQL 支持</td>
+					<td align="center">On</td>
+					<td><?php echo $sp_mysql; ?> <small>(不支持无法使用本系统)</small></td>
+			</tr>
+		</table>
+		
+		
+		<div class="pr-title"><h3>目录权限检测</h3></div>
+		<div style="padding:2px 8px 0px; line-height:33px; height:23px; overflow:hidden; color:#666;">
+			系统要求必须满足下列所有的目录权限全部可读写的需求才能使用，其它应用目录可安装后在管理后台检测。
+		</div>
+		<table width="726" border="0" align="center" cellpadding="0" cellspacing="0" class="twbox">
+			<tr>
+				<th width="300" align="center"><strong>目录名</strong></th>
+				<th width="212"><strong>读取权限</strong></th>
+				<th width="212"><strong>写入权限</strong></th>
+			</tr>
+			<?php
+			foreach($sp_testdirs as $d)
+			{
+			?>
+			<tr>
+					<td><?php echo $d; ?></td>
+					<?php
+      		$fulld = sea_ROOT.str_replace('/*','',$d);
+      		$rsta = (is_readable($fulld) ? '<font color=green>[√]读</font>' : '<font color=red>[×]读</font>');
+	    		$wsta = (TestWrite($fulld) ? '<font color=green>[√]写</font>' : '<font color=red>[×]写</font>');
+	    		echo "<td>$rsta</td><td>$wsta</td>\r\n";
+                if(!TestWrite($fulld)||!is_readable($fulld)) $nondirect=1;
+      ?>
+			</tr>
+			<?php
+			}
+			?>
+		</table>
+		
+		<div class="btn-box">
+			<input type="button" class="btn-back" value="后退" onclick="window.location.href='index.php';" />
+			<input type="button" class="btn-next" value="继续" <?php if($nondirect==1) echo 'disabled'?> onclick="window.location.href='index.php?step=3';" />
+		</div>
+	</div>
+</div>
+
+<div class="foot">
+
+</div>
+
+</body>
+</html>

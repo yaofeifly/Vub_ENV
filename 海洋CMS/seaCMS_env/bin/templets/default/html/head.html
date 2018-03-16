@@ -1,0 +1,53 @@
+<div class="sea-header hidden-xs">
+<div class="container">
+	<div class="row">
+  	<div class="col-xs-3">
+    	<a href="http://{seacms:siteurl}" class="sea-logo"></a>
+    </div>
+  	<div class="col-xs-7">
+    	<form class="form-horizontal sea-search" id="sea-search" role="search" action="" method="post">
+        <div class="form-group">
+        	<div class="col-sm-9">
+          <input type="text" class="form-control" id="searchword" name="searchword" placeholder="Search">
+          </div>
+          <div class="col-sm-3 sea-col-0">    
+				<button type="submit" class="btn btn-default" data-module="vod" data-action="/{seacms:sitepath}search.php">搜视频</button>		  
+        		<button type="submit" class="btn btn-default btn-success" data-module="news" data-action="/{seacms:sitepath}so.php">搜资讯</button>
+				
+          </div>
+        </div>
+      </form>
+    </div><!-- /.col-xs-5 -->
+  </div><!-- /.row -->
+</div>
+</div>
+<nav class="navbar navbar-inverse visible-lg visible-md" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-left">
+<li class=""><a href="http://{seacms:siteurl}" class="dropdown-toggle" data-toggle="">首页</a></li>
+{seacms:menulist type=1,2}
+        <li class="dropdown">
+          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">[menulist:typename]<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            {seacms:smallmenulist type=[menulist:typeid]}
+			<li><a href="[smallmenulist:link]">[smallmenulist:typename]</a></li>
+			{/seacms:smallmenulist}
+          </ul>
+        </li>
+{/seacms:menulist}	
+
+{seacms:menulist type=3,4}
+        <li class="">
+          <a href="[menulist:link]" class="dropdown-toggle" data-toggle="">[menulist:typename]</a>
+        </li>
+{/seacms:menulist}	
+<li class=""><a href="{seacms:topiclink}" class="dropdown-toggle" data-toggle="">专辑</a></li>
+<li class=""><a href="{seacms:newslink}" class="dropdown-toggle" data-toggle="">文章</a></li>		
+<li class=""><a href="/{seacms:sitepath}gbook.php"  class="dropdown-toggle" data-toggle="">留言求片</a></li>
+<li class=""><a href="/{seacms:sitepath}member.php" class="dropdown-toggle" data-toggle="">会员中心</a></li>
+<li class=""><a href="/{seacms:sitepath}new.html" class="dropdown-toggle" data-toggle="">最近更新</a></li>
+<li class=""><a href="/{seacms:sitepath}top/hot.html" class="dropdown-toggle" data-toggle="">热门排行</a></li>
+
+    </ul>
+  </div><!-- /.container -->
+</nav><!-- /.navbar -->

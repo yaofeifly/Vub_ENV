@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>友情链接管理</title>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;广告&nbsp;&raquo;&nbsp;友情链接 ';</script>
+<div class="container" id="cpcontainer">
+<?php
+$numPerPage=30;
+$whereStr='';
+if(!empty($keyword)) $whereStr=" where url like '%".$keyword."%' or webname like '%".$keyword."%' or msg like '%".$keyword."%' ";
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$csqlStr="select count(*) as dd from `sea_flink`$whereStr";
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+$sqlStr="select id,sortrank,url,webname,logo from `sea_flink`$whereStr order by sortrank asc limit $limitstart,$numPerPage";
+?>
+<form action="" method="post" name="linkform">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+<tr class="thead"><th colspan="7"><em style="font-weight:bold">友情链接管理</em>&nbsp;&nbsp;<em style="color:#000;">关键字：<input name="keyword" type="text" id="keyword" size="20" value=""> <input type="submit" name="selectBtn" value="查 询..." class="btn" onclick="location.href='?keyword='+escape($('keyword').value);" /></th></tr>
+    <TR align="center">
+	  <TD>&nbsp;</TD>
+      <TD width="6%" align="left">ID</TD>
+      <TD>名称</TD>
+      <TD>网址</TD>
+      <TD>类型</TD>
+      <TD>排序</TD>
+      <TD>操作</TD>
+    </TR>
+<?php
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('flink_list');
+while($row=$dsql->GetObject('flink_list'))
+{
+$aid=$row->id;
+?>
+     <TR align="center" <?php if($id==$aid) echo " class=\"editlast\"";?>  bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor='#E6F2FB'" onmouseout="style.backgroundColor='#FBFEFF'">
+	  <TD style="background:transparent">&nbsp;</TD>
+      <TD  style="background:transparent" align="left"><input type="checkbox" value="<?php echo $aid;?>" name="e_id[]"  class="checkbox" /><?php echo $aid;?></TD>
+      <TD style="background:transparent"><input type="text" name="webname<?php echo $aid;?>" value="<?php echo $row->webname;?>" size="20"/></TD>
+      <TD style="background:transparent"><input name="url<?php echo $aid;?>" type="text" value="<?php echo $row->url;?>"  size="30"/></TD>
+      <td style="background:transparent"><?php if(empty($row->logo)) echo "文字链接"; else echo "图片链接";?></td>
+      <TD style="background:transparent"><input name="sortrank<?php echo $aid;?>" type="text" value="<?php echo $row->sortrank;?>"  size="10"/></TD>
+      <TD style="background:transparent"><a  href="?action=last&id=<?php echo $aid;?>">上移</a> <a href="?action=next&id=<?php echo $aid;?>">下移</a> <a href="?action=edit&id=<?php echo $aid;?>">编辑</a> <a  onclick="if(confirm('确定要删除吗')){return true;}else{return false;}" href="?action=del&id=<?php echo $aid;?>">删除</a></TD>
+    </TR>
+<?php
+}
+?>
+    <tr><td  colspan="6"><label>全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" /></label><label>反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" /></label><input type="submit" value="批量删除" onclick="if(confirm('确定要删除吗')){linkform.action='?action=delall';}else{return false}" class="rb1"  />&nbsp;&nbsp;<input type="submit" value="批量修改选中友情链接" name="Submit"  class="rb1"  onclick="linkform.action='?action=editall';"/>&nbsp;&nbsp; 页次<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1">首页</a> <a href="?page=1">首页</a> <a href="?page=<?php echo ($page-1);?>">上一页</a> <?php echo makePageNumber($page, 8, $TotalPage, "adslist");?> <a href="?page=<?php echo ($page+1);?>">下一页</a> <a href="?page=<?php echo $TotalPage;?>">尾页</a></td></tr>
+</TABLE>
+</form> 
+<?php
+if($action=="edit"){
+$row = $dsql->GetOne("Select webname,url,sortrank,msg,logo From `sea_flink` where id='$id'");
+?>
+<form action="?action=save&id=<?php echo $id;?>" method="post" name="editlink" >
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb mt20">
+<tr class="thead"><th colspan="2">编辑友情链接</th></tr>
+    <TR>
+      <TD vAlign=left width="20%" >网站名称：</TD>
+      <TD ><input type="text" size="50" name="webname" value="<?php echo $row['webname'];?>"/><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >网站地址：</TD>
+      <TD ><input type="text" size="50" name="url" value="<?php echo $row['url'];?>"/><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >链接类型：</TD>
+      <TD ><select name="v_type"  style=" width:100px"  onChange="selectPicLink(this,'pic');">
+        <option value="font"<?php if(empty($row['logo'])) echo " selected";?>>文字链接</option>
+        <option value="pic"<?php if(!empty($row['logo'])) echo " selected";?>>图片链接</option>
+      </select><font color="red">＊</font></TD>
+    </TR>
+    <TR id="tr_v_pic"<?php if(empty($row['logo'])) echo " style=\"display:none\"";?>>
+      <TD >LOGO地址：</TD>
+      <TD ><input type="text" size="50" name="logo" value="<?php echo $row['logo'];?>"/></TD>
+    </TR>
+    <TR>
+      <TD >排序：</TD>
+      <TD ><input type="text" size="20" name="sortrank" value="<?php echo $row['sortrank'];?>"/></TD>
+    </TR>
+    <TR>
+      <TD >网站介绍：</TD>
+      <TD ><textarea name="msg" cols="50" rows="4" ><?php echo $row['msg'];?></textarea></TD>
+    </TR>
+    <TR >
+      <td></td><TD><input type="submit" value="修改友情链接" class="rb1" name="m_eidtlinksubmit" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR>
+</td></tr></table>
+</form>
+<script>editlink.m_eidtlinksubmit.focus()</script>
+<?php
+}else{
+?>
+<form action="?action=add" method="post" >
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb mt20">
+<tr class="thead"><th colspan="2">添加友情链接</th></tr>
+    <TR>
+      <TD vAlign=left width="20%" >网站名称：</TD>
+      <TD ><input type="text" size="50" name="webname" /><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >网站地址：</TD>
+      <TD ><input type="text" size="50" name="url" /><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >链接类型：</TD>
+      <TD ><select name="v_type"  style=" width:100px"  onChange="selectPicLink(this,'pic');">
+        <option value="font">文字链接</option>
+        <option value="pic">图片链接</option>
+      </select><font color="red">＊</font></TD>
+    </TR>
+    <TR id="tr_v_pic" style="display:none">
+      <TD >LOGO地址：</TD>
+      <TD ><input type="text" size="50" name="logo" /></TD>
+    </TR>
+    <TR>
+      <TD >排序：</TD>
+      <TD ><input type="text" size="20" name="sortrank"/></TD>
+    </TR>
+    <TR>
+      <TD >网站介绍：</TD>
+      <TD ><textarea name="msg" cols="50" rows="4" ></textarea></TD>
+    </TR>
+    <TR  >
+      <TD></TD> <TD><input type="submit" value="添加友情链接" class="rb1" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR>
+</td></tr></table>
+</form>
+<?php
+}
+?>
+</div>
+
+<?php
+viewFoot();
+?>
+</body>
+</html>

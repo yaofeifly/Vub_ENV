@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>用户登录-{seacms:sitename}</title>
+<meta name="keywords" content="用户登录-{seacms:sitename}" />
+<meta name="description" content="用户登录-{seacms:sitename}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+p,img,ul,li{list-style:none;}
+.red{color:#F00;}
+	.wrap{margin:0 auto;width:100%;overflow:visible;}
+	#leaveword{width:100%;border:#ccc solid 1px; margin:2px 0px; background-color:#EF1F5F9}
+	#leavewordlist{width:100%;}
+		#leavewordlist ul{width:100%;overflow:hidden;background-color:#FCFCFC;margin-bottom:5px;padding:2px;text-align:left;border:1px solid #ccc;}
+		#leavewordlist li{word-wrap:break-word;word-break:normal;overflow:hidden;}
+		#leavewordlist li span{float:left}
+		#leavewordlist li strong{font-weight:600;color:#BC2D09;padding:0 5px}
+		#leavewordlist li.topwords{background:url(../images/menubg.gif) 0 -105px;line-height:25px;text-align:right;padding:0 5px 0 30px;color:#333;font-size:14px}
+		#leavewordlist li em{color:#FF6C94;font-weight:600;font-style:normal;}
+		#leavewordlist li.words{color:#333;padding:8px;line-height:120%;font-size:14px; text-indent:24px}
+		#leavewordlist li.rewords{margin:.5em 2em;padding:8px;line-height:150%;background-color:#fff;color:#FF6C94;border:1px solid #ccc;border-width:1px ;padding-left:72px;text-indent:-55px}
+		.leaveNav{text-align:right;margin:0 8px 8px;}
+		.leaveNav #adminleaveword{margin-right:5px;}
+		.leaveNavInfo{text-align:left;height:26px;line-height:265px;padding:2px 2px 0px;border:1px solid #ccc;background:url(../images/menubg.gif) 0 -100px;border-bottom:3px solid #ccc}
+		.leaveNav span{color:#0066cc}
+		.leaveNavInfo h3{height:25px;line-height:25px;font-size:12px;margin:0px;text-align:center;color:#000;}
+		.leaveNavInfo p{color:#333;line-height:180%;padding:20px 0px 0px 150px;}
+		textarea{width:300px; height:100px;overflow:auto}
+		input.searchword{width:200px}
+		input.btn{width:80px;padding:0 5px;}
+		#adminleaveword{float:right;font-weight:400;padding:2px 4px;height:20px;line-height:20px;font-weight:bold;}
+		#adminleaveword span{cursor:pointer;text-decoration:underline;color:#000;margin-right:20px;}
+		.page{text-align:left;width:100%;overflow:hidden;padding:0 5px;}		
+		#bg{position:absolute;left:0px;background-color:#000000;}
+#msg{position: absolute;background-color:white;border:1px solid #1B76B7;}
+#msg .msgtitle{padding:3px 3px;color:#0099CC;font-weight:700;line-height:21px;height:25px;font-size:12px;border-bottom:1px solid #1B76B7; text-indent:3px; background-color:#1B76B7;text-align:right}
+#msg .msgtitle img{cursor:pointer;margin:4px 5px 0 0}
+#msgbody{padding:8px;line-height:25px; overflow:hidden;}
+#msgbottom{text-align:center;height:20px;line-height:20px;font-size:12px;background-color:#1b76b7;color:#FFFFFF}
+#msgtitle{float:left;color:white}
+#m_username,#m_pwd{border-bottom:1px solid #333;}
+</style>
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg sea-news news-detail">
+<div class="row">
+{login:main}
+{login:viewLogin}
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

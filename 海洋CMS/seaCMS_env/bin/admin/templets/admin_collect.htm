@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>采集项目管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+input {
+	height:12px;
+}
+.txt {
+	width:250px;
+}
+.tb2 td {
+	padding:2px 5px 2px 5px;
+	height:25px
+}
+.tb2 .thc {
+	text-align:center;
+	line-height:30px;
+	background-color: #F5F7F8;
+	font-size:18px;
+	font-weight:bold;
+	color:#000
+}
+.tb2 .thr {
+	text-align:center;
+	height:20px
+}
+.label {
+	padding:0;
+	width:150px;
+	text-align:right;
+	border-right:1px solid #DEEFFA;
+}
+.rb1 {
+	height:26px
+}
+.red {
+	color:red
+}
+.blue {
+	color:blue
+}
+.thead img {
+	CURSOR: hand;
+}
+</style>
+<script type="text/javascript">
+function show(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="";
+	}
+}
+
+function hide(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="none";
+	}
+}
+
+function ShowHide(objname){
+	var obj = $(objname);
+	if(obj.style.display != "none" ) obj.style.display = "none";
+	else obj.style.display = "block";
+}
+</script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <form name="forms" action="admin_collect.php?action=delall" method="post">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb"  align="center">
+          <tbody>
+            <tr class="thead">
+              <th  colspan="7" style="font-weight:bold">
+                <font color="green">
+			===本采集仅提供基本信息采集，高级信息采集推荐使用火车头采集软件===<br />
+			===火车头采集接口和模块请到官方网站下载：www.seacms.net===<br />
+			</font>
+			<br />自定义采集项目管理<br /><a href="?action=add">添加采集项目</a> <a href="?action=importrule">导入采集项目</a> <a href="admin_config.php#rule">智能采集设置</a></th>
+            </tr>
+            <tr>
+              <td colspan="7">提示1：首次采集在批量分页里填写完整的页码，以后采集再更改为前几页，<font color="red" style="font-weight:500">可以大大提高采集效率！</font><br />提示2：新导入的规则请<font color="red" style="font-weight:500">检查入库分类后再进行采集</font>,因为你自己的分类ID可能和规则库中的分类ID不一致。
+              </td>
+            </tr>
+            <?php
+$numPerPage=6;
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$cofrom=isset($cofrom) ? $cofrom : 0;
+if($cofrom==1)
+$csqlStr="select count(*) as dd from `sea_co_config` where cotype=1";
+else
+$csqlStr="select count(*) as dd from `sea_co_config` where cotype=0";
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+if($cofrom==1)
+$sql="select cid,cname from `sea_co_config` where cotype=1 order by cid asc limit $limitstart,$numPerPage";
+else
+$sql="select cid,cname from `sea_co_config` where cotype=0 order by cid asc limit $limitstart,$numPerPage";
+$dsql->SetQuery($sql);
+$dsql->Execute('collect_list');
+while($row=$dsql->GetObject('collect_list'))
+{
+$cid=$row->cid;
+$cname=$row->cname;
+?>
+            <tr class="thead">
+              <th colspan="7"><font style="font-weight:700;">ID:<?php echo $cid.' '?><?php echo ' 采集项目名称：'.$cname;?></font><br /><A href="?action=list&id=<?php echo $cid;?>">查看状态</A>｜<A href="?action=getlistall&id=<?php echo $cid;?>">采集列表</A>｜<A href="?action=getconall&id=<?php echo $cid;?>">采集内容</A>｜<A href="?action=addrule&id=<?php echo $cid;?>">添加规则</A>｜<A href="?action=resetlist&id=<?php echo $cid;?>">复位列表</A>｜<A href="?action=reseterr&id=<?php echo $cid;?>">复位错误</A>｜<A href="?action=clearlist&id=<?php echo $cid;?>" onClick="return confirm('确定要清空列表吗')">清空列表</A>｜<A href="?action=editrule&id=<?php echo $cid;?>">编辑</A>｜<A href="?action=delrule&id=<?php echo $cid;?>" onClick="return confirm('确定要删除吗')" style="color:red">删除</A>｜<A href="?action=exportrule&id=<?php echo $cid;?>">导出</A></th>
+            </tr>
+          <tbody id="rule<?php echo $cid;?>" style="display:">
+            <tr>
+              <td width="10%" align="left" >　</td>
+              <td width="12%">规则名称</td>
+              <td width="13%">采集站点链接</td>
+              <td width="13%">播放类型</td>
+              <td width="12%">入库分类</td>
+              <td width="13%">最后采集时间</td>
+              <td width="27%">操 作</td>
+            </tr>
+            <?php
+ if($cofrom==1)
+ $sqlstr="select tid,tname,siteurl,playfrom,classid,cjtime,autocls from `sea_co_type` where cid='$cid' and cotype=1 order by tid asc";
+ else
+ $sqlstr="select tid,tname,siteurl,playfrom,classid,cjtime,autocls from `sea_co_type` where cid='$cid' and cotype=0 order by tid asc";
+ $dsql->SetQuery($sqlstr);
+ $dsql->Execute('collect_type_list');
+ while($rowt=$dsql->GetObject('collect_type_list'))
+ {
+ $tid=$rowt->tid;
+ ?>
+            <tr>
+              <td height="30"><input name="e_id[]" type="checkbox" id="e_id[]" value="<?php echo $tid;?>" class="checkbox">
+                <?php echo $tid;?></td>
+              <td><img width="16" height="16" src="img/icon01.gif" align="absmiddle"/> <A href="?action=editrulesingle&id=<?php echo $tid;?>"><?php echo $rowt->tname;?></A></td>
+              <td>&nbsp;<A href="<?php echo $rowt->siteurl;?>" target="_blank" ><?php echo cn_substr($rowt->siteurl,25);?></A></td>
+              <td><?php if(empty($rowt->playfrom)) echo "没有指定播放器"; else echo $rowt->playfrom;?></td>
+              <td><?php if($rowt->autocls){echo "<font color=\"red\">自动转换分类</font>";}else{if($rowt->classid) echo getTypeName($rowt->classid); else echo "<font color=\"red\">没有分类，请修改</font>";}?></td>
+              <?php if($rowt->cjtime==0){echo " <td>从未采集过"; }else {?>
+              <td title="<?php echo MyDate('Y-m-d H:i:s',$rowt->cjtime);?>"><span style='font-size:9px'><?php echo MyDate('Y-m-d',$rowt->cjtime);?></span>
+                <?php }?></td>
+              <td><A href="?action=getlistsingle&id=<?php echo $tid;?>">采集本规则</A><!--｜<A href="?action=getconsingle&id=<?php echo $tid;?>">采内容</A>-->｜<A href="?action=getcontestsingle&id=<?php echo $tid;?>">预览</A>｜<A href="?action=editrulesingle&id=<?php echo $tid;?>">编辑</A>｜<A href="?action=copyrulesingle&id=<?php echo $tid;?>">复制</A>｜<A href="?action=delrulesingle&id=<?php echo $tid;?>" onClick="return confirm('确定要删除吗')">删除</A></td>
+            </tr>
+            <?php
+}
+?>
+          </tbody>
+          <?php
+}
+?>
+          <tr>
+            <td height=27 colspan="7">全选
+              <input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />
+              反选
+              <input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" />
+              &nbsp;&nbsp;&nbsp;
+              <input type="submit" class="rb1" name="Submit" value="批量删除"  onClick="return confirm('确定删除您所选择的影片吗？');"></td>
+          </tr>
+          <tr>
+            <td height=27 colspan="7" align="center"  ><div class="cuspages">
+                <div class="pages"><a href="?page=1">首页</a>&nbsp;<a href="?page=<?php echo $page-1;?>">上一页</a>&nbsp;<?php echo makePageNumber($page,8,$TotalPage,'adslist');?>&nbsp;<a href="?page=<?php echo $page+1;?>">下一页</a>&nbsp;<a href="?page=<?php echo $TotalPage;?>">尾页</a>&nbsp;
+                  
+                  &nbsp;每页<b><?php echo $numPerPage;?></b>个记录，现在是:<b><span class="tx"><?php echo $page;?></span>/<?php echo $TotalPage;?></b>页，共<b><span id='recordcount'><?php echo $TotalResult;?></span></b>个记录。</div>
+              </div></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<?php
+viewFoot();
+?>
+</body>
+</html>

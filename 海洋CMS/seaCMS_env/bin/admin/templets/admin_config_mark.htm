@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>系统设置</title>
+<script language="javascript" src="js/jquery.js"></script>
+</head><body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;设置&nbsp;&raquo;&nbsp;水印设置 ';</script>
+<div class="r_main">
+  <div class="r_content">
+		<div class="r_content_1">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style" >
+  <form action="?dopost=save" method="post"  name="form1" id="form1" enctype="multipart/form-data">
+  <input type="hidden" name="photo_markimg" value="<?php echo $photo_markimg?>">
+    <tr>
+      <td height="30" colspan="2" class="td_title">&nbsp;图片水印设置</td>
+    </tr>
+
+  <tr> 
+    <td width="20%" height="24" align="left" class="td_border">&nbsp;上传的图片是否使用图片水印功能：<br> </td>
+    <td width="80%" align="left" class="td_border"> <input class="radio" type="radio" value="1" name="photo_markup"<?php if($photo_markup==1) echo ' checked';?>>
+      开启 
+      <input class="radio" type="radio" value="0" name="photo_markup"<?php if($photo_markup==0) echo ' checked';?>>
+      关闭 </td>
+  </tr>
+  <!--<tr> 
+    <td height="24" align="left" class="td_border">&nbsp;采集的图片是否使用图片水印功能：</td>
+    <td align="left" class="td_border"> <input class="radio" type="radio" value="1" name="photo_markdown"<?php if($photo_markdown==1) echo ' checked';?>>
+      开启 
+        <input class="radio" type="radio" value="0" name="photo_markdown"<?php if($photo_markdown==0) echo ' checked';?>>
+      关闭&nbsp;&nbsp;（部分服务器环境可能不兼容此项，强烈建议使用图片批处理软件进行水印） </td>
+  </tr>-->
+  <tr>
+    <td height="24" align="left" class="td_border">&nbsp;选择水印的文件类型：</td>
+    <td align="left" class="td_border">
+    	<input name="photo_marktype" type="radio" class="radio" value="0" <?php if($photo_marktype == 0) echo 'checked'?>>
+    	图片
+<input type="radio" class="radio" name="photo_marktype" value="1" <?php if($photo_marktype == 1) echo 'checked'?>>  文字
+       
+   </td>
+  </tr>
+  <tr> 
+    <td height="24" align="left" class="td_border">&nbsp;添加水印的图片大小控制：</td>
+    <td align="left" class="td_border"> 宽： 
+      <input name="photo_wwidth" type=text id="photo_wwidth"   value="<?php echo $photo_wwidth?>" size="5">
+      高： 
+      <input name="photo_wheight" type=text id="photo_wheight"  value="<?php echo $photo_wheight?>" size="5"></td>
+  </tr>
+  
+  <tr> 
+    <td height="24" align="left" class="td_border">&nbsp;水印图片文件名：</td>
+    <td align="left" class="td_border"><img width='136' height='34' src="../data/mark/<?php echo $photo_markimg; ?>" alt="seacms">&nbsp;&nbsp;如果不存在，则使用文字水印</td>
+  </tr>
+  <tr>
+    <td height="24" align="left" class="td_border">&nbsp;上传新图片：</td>
+    <td align="left" class="td_border">
+	<input name="newimg" type="file" id="newimg" style="width:300">
+    <br>
+	<?php echo "你的系统支持的图片格式：".$cfg_photo_support; ?>建议图片大小136*34	</td>
+  </tr>
+  <tr> 
+    <td height="24" align="left" class="td_border">&nbsp;水印图片文字：</td>
+    <td align="left" class="td_border"> <input type="text" name="photo_watertext"  value="<?php echo $photo_watertext?>">&nbsp;&nbsp;请查看data\mark\simhei.ttf字体库是否存在</td>
+  </tr>
+  <tr> 
+    <td height="24" align="left" class="td_border">&nbsp;水印图片文字字体大小：</td>
+    <td align="left" class="td_border"> <input name="photo_fontsize" type=text id="photo_fontsize"  value="<?php echo $photo_fontsize?>"></td>
+  </tr>
+  <tr> 
+    <td height="24" align="left" class="td_border">&nbsp;水印图片文字颜色：</td>
+    <td align="left" class="td_border"> <input name="photo_fontcolor" type=text id="photo_fontcolor"  value="<?php echo $photo_fontcolor?>">&nbsp;&nbsp;格式为#XXXXXX;默认#FF0000为红色</td>
+  </tr>
+  <tr>
+    <td height="24" align="left" class="td_border">&nbsp;图片附件添加水印后质量参数：</td>
+    <td align="left" class="td_border">
+      <input type="text" name="photo_marktrans" id="photo_marktrans" value="<?php echo $photo_marktrans?>">&nbsp;&nbsp;范围为 0～100 的整数，数值越大结果图片效果越好，但尺寸也越大</td>
+  </tr>
+  <tr>
+    <td height="24" align="left" class="td_border">&nbsp;设置 GIF 类型水印图片水印透明度：</td>
+    <td align="left" class="td_border"><input name="photo_diaphaneity" type=text id="photo_diaphaneity"  value="<?php echo $photo_diaphaneity?>">&nbsp;&nbsp;0—100，值越小越透明</td>
+  </tr>
+  <tr>
+    <td height="24" align="left" class="td_border">&nbsp;水印位置：</td>
+    <td align="left" class="td_border">
+	<input class="radio" type="radio" name="photo_waterpos"  value="0"<?php if($photo_waterpos==0) echo ' checked';?>>
+          随机位置
+	<table width="300" border="1" cellspacing="0" cellpadding="0">
+      <tr>
+        <td ><input class="radio" type="radio" name="photo_waterpos"  value="1"<?php if($photo_waterpos==1) echo ' checked';?>>
+          顶部居左</td>
+        <td><input class="radio" type="radio" name="photo_waterpos"  value="2"<?php if($photo_waterpos==2) echo ' checked';?>>
+          顶部居右</td>
+      </tr>
+      <tr>
+        <td><input class="radio" type="radio" name="photo_waterpos"  value="3"<?php if($photo_waterpos==3) echo ' checked';?>>
+          底部居左</td>
+        <td><input name="photo_waterpos" type="radio" class="radio"  value="4"<?php if($photo_waterpos==4) echo ' checked';?>>
+          底部居右</td>
+      </tr>
+    </table></td>
+  </tr>
+    <tr>
+      <td height="30" align="right" class="td_border">&nbsp;</td>
+      <td class="td_border"><input type="submit" name="Submit" id="Submit" value="确定提交" class="rb1" />
+        &nbsp;&nbsp;
+      <input type="reset" name="Submit2" value="清除重置"  class="rb1"/></td>
+    </tr>
+  </form>
+</table>
+
+		</div>
+	</div>
+</div>
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

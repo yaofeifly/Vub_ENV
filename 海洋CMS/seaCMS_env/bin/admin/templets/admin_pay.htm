@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>充值卡管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn {
+	border:1px solid;
+	border-color:#fff #999 #999 #fff;
+	background:#DDDDDD
+}
+select {
+	font-size:12px;
+}
+form{float:left;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;用户&nbsp;&raquo;&nbsp;充值卡管理';</script>
+<?php
+	$sqlt="SELECT SUM( climit ) AS cckt FROM sea_cck";
+	$rowt = $dsql->GetOne($sqlt);
+    if($rowt['cckt']>0){
+        $cckt = $rowt['cckt'];
+    }else{
+        $cckt = 0;
+    }
+	$sqlyes="SELECT SUM( climit ) AS cckyes FROM sea_cck where status=1";
+	$rowyes = $dsql->GetOne($sqlyes);
+    if($rowyes['cckyes']>0){
+        $cckyes = $rowyes['cckyes'];
+    }else{
+        $cckyes = 0;
+    }
+	
+	$sqlno="SELECT SUM( climit ) AS cckno FROM sea_cck  where status=0";
+	$rowno = $dsql->GetOne($sqlno);
+    if($rowno['cckno']>0){
+        $cckno = $rowno['cckno'];
+    }else{
+        $cckno = 0;
+    }
+	
+	$w=" where ckey <> '' ";
+    $numPerPage=30;
+    $page = isset($page) ? intval($page) : 1;
+    if($page==0) $page=1;
+    
+    if ($cstatus=="1") 
+	{$w.=" and status=1";}
+	elseif($cstatus=="0")
+	{$w.=" and status=0";}
+	else
+	{$w.='';}
+	
+	if (!empty($climit) AND $climit != "all") 
+	{$w.=" and climit=$climit";}
+	else
+	{$w.='';}
+	
+	if($action=="search")
+	{
+		$ckey=$_POST['ckey'];
+		if (!empty($ckey)) $w =" where ckey='$ckey'";
+	}
+	
+	//计算有多少条数据
+    $csqlStr="select count(*) as dd from sea_cck ".$w;
+	$rowTotal = $dsql->GetOne($csqlStr);
+    if(is_array($rowTotal)){
+        $TotalResult = $rowTotal['dd'];
+    }else{
+        $TotalResult = 0;
+    }
+    $TotalPage = ceil($TotalResult/$numPerPage);
+    if ($page>$TotalPage) $page=$TotalPage;
+    $limitstart = ($page-1) * $numPerPage;
+    if($limitstart<0) $limitstart=0;
+    
+   $sqlStr="select * from sea_cck ".$w." ORDER BY  `id` DESC limit $limitstart,$numPerPage";
+
+?>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <table class="tb_style" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td colspan="15" class="td_title">&nbsp;充值卡管理&nbsp;&nbsp;【当前总金额<font color=red><?php echo $cckt ?></font>元&nbsp;已充值<font color=red><?php echo $cckyes ?></font>元&nbsp;未使用<font color=red><?php echo $cckno ?></font>元】
+            </td>
+        </tr>
+        <tr>
+          
+            <td height="40" align="left" colspan="10">
+			<form action="?action=add" method="post" >
+              &nbsp;生成充值卡：数量&nbsp;<input  name="num" type="text" id="num" size="5" value="10">
+              张&nbsp;
+              <select name="limit" id="limit">
+                <option value="1">1元</option>
+				<option value="5">5元</option>
+				<option value="10">10元</option>
+				<option value="50">50元</option>
+				<option value="100">100元</option>
+				<option value="500">500元</option>
+				<option value="1000">1000元</option>
+              </select>
+			  <input type="submit" name="selectBtn" value="生成" class="btn"  />
+			  </form>
+             
+			 <form action="" method="post" >
+              &nbsp;&nbsp;&nbsp;检索：
+			  <select id='climit' name='climit' style="width:80px" onChange="self.location.href='?cstatus=<?php echo $cstatus ?>&climit='+this.options[this.selectedIndex].value">
+			    <option value=''>选择金额</option>
+				<option value='all'>全部金额</option>
+                <option value="1">1元</option>
+				<option value="5">5元</option>
+				<option value="10">10元</option>
+				<option value="50">50元</option>
+				<option value="100">100元</option>
+				<option value="500">500元</option>
+				<option value="1000">1000元</option>
+				</select>
+				&nbsp;
+				<select id='cstatus' name='cstatus' style="width:80px" onChange="self.location.href='?climit=<?php echo $climit ?>&cstatus='+this.options[this.selectedIndex].value">
+			    <option value=''>选择状态</option>
+				<option value='all'>全部状态</option>
+                <option value="1">已充值</option>
+				<option value="0">未使用</option>
+				</select>
+          </form> 
+		   <form action="?action=search" method="post" >
+              &nbsp;&nbsp;&nbsp;卡号搜索：<input  name="ckey" type="text" id="ckey" size="25">
+			  <input type="submit" name="selectBtn" value="搜索" class="btn"  />
+		   </form>
+         </td>
+		</tr>
+        <?php
+if($TotalResult==0){
+    echo "<tr><td colspan='10'><br>&nbsp;<font color=red>无充值卡信息</font><br><br></td></tr>";}
+?>
+        <tr bgcolor="#f5fafe">
+          <td width="5%" height="30" align="center" bgcolor="#FFFFFF" class="td_btop3" >&nbsp;ID</td>
+          <td width="30%" bgcolor="#FFFFFF" class="td_btop3">卡号</td>
+          <td width="5%" bgcolor="#FFFFFF" class="td_btop3">额度</td>
+          <td width="15%" bgcolor="#FFFFFF" class="td_btop3">生成时间</td>
+          <td width="15%" bgcolor="#FFFFFF" class="td_btop3">充值时间</td>
+		  <td width="15%" bgcolor="#FFFFFF" class="td_btop3">用户</td>
+          <td width="10%" bgcolor="#FFFFFF" class="td_btop3">状态</td>
+          <td width="5%" align="center" bgcolor="#FFFFFF" class="td_btop3">操作</td>
+        </tr>
+        <form method="post" name="videolistform">
+          <?php
+
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('key_list');
+while($row=$dsql->GetObject('key_list'))
+{
+$id=$row->id;
+$copy.=$row->ckey."<br>"
+?>
+
+
+          <tr bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor='#E6F2FB'" onmouseout="style.backgroundColor='#FBFEFF'">
+            <td height="30" class="td_border" style="text-align:center"><input type="checkbox" value="<?php echo $id;?>" name="e_id[]" class="checkbox" />
+            <?php echo $id;?></td>
+            <td class="td_border"><?php echo $row->ckey;?></td>
+			<td class="td_border"><?php echo $row->climit;?></td>
+			<td class="td_border"><?php echo $row->maketime;?></td>
+            <td class="td_border"><?php echo $row->usetime;?></td>
+            <td class="td_border"><?php echo $row->uname;?></td>
+			<td class="td_border"><?php if($row->status=="0") echo "未使用"; else echo "已使用";?></td>
+            <td class="td_border" align="center"><a href="?action=del&id=<?php echo $id;?>" onClick="return confirm('确定要删除吗')">删除</a></td>
+          </tr>
+          <?php }?>
+          <tr>
+            <td height="30" colspan="11" class="td_border">&nbsp;全选
+              <input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />
+              反选
+              <input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" />
+              <input type="submit" value="批量删除" onclick="if(confirm('确定要批量删除吗')){videolistform.action='?action=delall';}else{return false}" class="rb1"  />
+			  &nbsp;&nbsp;
+			  <input type="button" value="显示复制面板" class="rb1" onclick="document.getElementById('copy').style.display = 'block'";>
+			  &nbsp;
+			  <input type="button" value="关闭复制面板" class="rb1" onclick="document.getElementById('copy').style.display = 'none'";>
+			  * 如果需要复制充值卡卡号，请点击显示复制面板
+			</td>
+          </tr>
+        </form>
+		
+        <tr>
+          <td height="30" colspan="11" class="td_border">
+            <div class="cuspages">
+              <div class="pages"> &nbsp;页次：<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1&cstatus=<?php echo $cstatus ?>&climit=<?php echo $climit;?>">首页</a> <a href="?page=<?php echo ($page-1);?>&cstatus=<?php echo $cstatus ?>&climit=<?php echo $climit;?>">上一页</a> <a href="?page=<?php echo ($page+1);?>&cstatus=<?php echo $cstatus ?>&climit=<?php echo $climit;?>">下一页</a> <a href="?page=<?php echo $TotalPage;?>&cstatus=<?php echo $cstatus ?>&climit=<?php echo $climit;?>">尾页</a>&nbsp;&nbsp;跳转
+                <input type="text" id="skip" value="" onkeyup="this.value=this.value.replace(/[^\d]+/,'')" style="width:40px"/>
+                &nbsp;&nbsp;
+                <input type="button" value="确定" class="btn" onclick="location.href='?page='+ document.getElementById('skip').value +'&cstatus=<?php echo $cstatus ?>&climit=<?php echo $climit;?>';"/>
+              </div>
+            </div>
+ </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="copy" name="copy" style="display:none;"><?php echo $copy; ?></div>
+<?php
+viewFoot();
+?>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="img/style.css" rel="stylesheet" type="text/css" />
+<title>采集地址列表</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+input{height:12px;}
+.txt{width:250px;}
+.tb2 td{padding:2px 5px 2px 5px;height:25px;text-align:left;}
+.tb2 .thc{text-align:center;line-height:30px; background-color: #F5F7F8;font-size:18px;font-weight:bold;color:#000}
+.tb2 .thr{text-align:center;height:20px}
+.label{padding:0;text-align:right;border-right:1px solid #DEEFFA;}
+.rb1{height:22px}
+.red{color:red}
+.blue{color:blue}
+form, fieldset {margin:0;padding:0}
+.tb td{text-align:left;}
+</style>
+<script type="text/javascript">
+function show(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="";
+	}
+}
+
+function hide(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="none";
+	}
+}
+</script>
+</head>
+<!--当前导航-->
+<body bgcolor="#F7FBFF">
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1" align=center>
+<table class="tb2">
+	<thead>
+		<tr>
+			<th colspan="2" class="thc">本类下采集地址列表</th>
+		</tr>
+	</thead>
+</table>
+
+<table class="tb2">
+	<tbody>
+		<tr>
+			<td class="label" width="10%">ID</td>
+			<td class="label">地址</td>
+			<td class="label" width="10%">是否已采集</td>
+			<td width="10%">错误数</td>
+		</tr>
+<?php
+$numPerPage=30;
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$wheresql=" where cid='$id'";
+$csqlStr="select count(*) as dd from `sea_co_url` ".$wheresql;
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+
+$sqlStr="select uid,url,succ,err from `sea_co_url` ".$wheresql." order by uid desc limit $limitstart,$numPerPage";
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('video_list');
+while($row=$dsql->GetObject('video_list'))
+{
+?>
+		<tr>
+			<td class="label"><?php echo $row->uid;?></td>
+			<td class="label"><?php echo $row->url;?></td>
+			<td class="label"><?php if($row->succ) echo "<font color=\"#0000ff\">√</font>"; else echo "<font color=\"#ff0000\">×</font>";?></td>
+			<td><?php echo $row->err;?></td>
+		</tr>
+<?php
+}
+?>
+  <tr>
+   <td height=27 colspan="4" align="center"><a href="?action=list&id=<?php echo $id;?>&page=1">首页</a>&nbsp;<a href="?action=list&id=<?php echo $id;?>&page=<?php echo $page-1;?>">上一页</a>&nbsp;<a href="?action=list&id=<?php echo $id;?>&page=<?php echo $page+1;?>">下一页</a>&nbsp;<a href="?action=list&id=<?php echo $id;?>&page=<?php echo $TotalPage;?>">尾页</a>&nbsp;每页<b><?php echo $numPerPage;?></b>个记录，现在是:<b><span class="tx"><?php echo $page;?></span>/<?php echo $TotalPage;?></b>页，共<b><span id='recordcount'><?php echo $TotalResult;?></span></b>个记录。</td>
+  </tr>
+	</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+<div class="bottom">
+<table width="100%" cellspacing="5">
+<tr>
+ <td align="center"><?php echo $cfg_powerby?></td>
+</tr>
+</table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>站点配置-系统-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn {
+	border:1px solid;
+	border-color:#fff #999 #999 #fff;
+}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;设置&nbsp;&raquo;&nbsp;站点配置 ';</script>
+<div class="container" id="cpcontainer"> 
+  <!--当前导航-->
+  <form method="post" action="?dopost=save">
+    <input type="hidden" name="isalertwin_old" value="0"/>
+    <table class="tb">
+      <tr class="thead">
+        <td colspan="2">站点配置</td>
+      </tr>
+      <tr class="thead2">
+        <td colspan="2"><strong>网站基本设置</strong></td>
+      </tr>
+      <tr>
+        <td width="10%">网站模式：</td>
+        <td valign="top"><ul id="makeHtmlTab" style="padding:0">
+            <li id="li.v" class="hover"  style="cursor:pointer">视频</li>
+          </ul>
+          <table class="tb">
+            <tbody id="video">
+              <tr>
+                <td><select name="edit___cfg_runmode" id="runmode" onChange="selecRunMode(this.options[this.selectedIndex].value)">
+                    <option value="1" <?php if ($cfg_runmode==1) echo "selected";?>>动态模式</option>
+                    <option value="0" <?php if ($cfg_runmode==0) echo "selected";?>>静态模式</option>
+                    <option value="2" <?php if ($cfg_runmode==2) echo "selected";?>>伪静态模式</option>
+                  </select>
+                  </td>
+              </tr>
+              <tr id="static" <?php if($cfg_runmode!=0){ ?>style="display:none"<?php }?>>
+                <td>生成时间间隔：
+                  <input type="text" name="edit___cfg_stoptime" size="15" value="<?php echo $cfg_stoptime;?>">
+                  &nbsp;&nbsp;秒&nbsp;&nbsp;
+                  目录选择：
+                  <select name="edit___cfg_makemode" onchange="selecMakeMode(this.options[this.selectedIndex].value)" id="makemode">
+                    <option value="dir1" <?php if ($cfg_makemode=='dir1') echo "selected";?>>目录1：/typeEnname/id/</option>
+                    <option value="dir3" <?php if ($cfg_makemode=='dir3') echo "selected";?>>目录3：/typeEnname/date/id</option>
+                    <option value="dir5" <?php if ($cfg_makemode=='dir5') echo "selected";?>>目录5：/typeEnname/EnName/</option>
+                    <option value="dir9" <?php if ($cfg_makemode=='dir9') echo "selected";?>>目录9：/subtypeEnname/EnName</option>
+                    <option value="dir7" <?php if ($cfg_makemode=='dir7') echo "selected";?>>目录7：/typeEnname/date/EnName</option>
+                    <option value="dir2" <?php if ($cfg_makemode=='dir2') echo "selected";?>>目录2：/{dir}/{page}id</option>
+                    <option value="dir4" <?php if ($cfg_makemode=='dir4') echo "selected";?>>目录4：/[dir]/date/[page]id</option>
+                    <option value="dir6" <?php if ($cfg_makemode=='dir6') echo "selected";?>>目录6：/[dir]/[page]EnName</option>
+                    <option value="dir8" <?php if ($cfg_makemode=='dir8') echo "selected";?>>目录8：/[dir]/date/[page]EnName</option>
+                  </select>
+                  &nbsp;&nbsp;md5加密id：开启
+                  <input type="radio" name="edit___cfg_createid" value="md5" <?php if ($cfg_createid=='md5') echo "checked";?> class="radio">
+                  关闭
+                  <input type="radio" name="edit___cfg_createid" value="0"<?php if ($cfg_createid=="0") echo "checked";?> class="radio"></td>
+              </tr>
+              <tr>
+                <td height="25">文件的后缀名：
+                  <select name="edit___cfg_filesuffix2" style="width:110px">
+                    <option value=".html" <?php if ($cfg_filesuffix2=='.html') echo "selected=\"selected\"";?>>.html</option>
+                    <option value=".htm" <?php if ($cfg_filesuffix2=='.htm') echo "selected=\"selected\"";?>>.htm</option>
+                    <option value=".shtm" <?php if ($cfg_filesuffix2=='.shtm') echo "selected=\"selected\"";?>>.shtm</option>
+                    <option value=".shtml" <?php if ($cfg_filesuffix2=='.shtml') echo "selected=\"selected\"";?>>.shtml</option>
+                  </select>
+                  &nbsp;&nbsp;URL传参方式：
+                  <input type="radio" class="radio" id="paramset1" name="edit___cfg_paramset" onclick="hide('urlparamset');view('paramsetbdy');" value="0" <?php if($cfg_paramset==0) echo 'checked'; ?> >
+                  1-0-0.html&nbsp;&nbsp;
+                  <input type="radio" class="radio" id="paramset2" name="edit___cfg_paramset" onclick="hide('paramsetbdy');view('urlparamset')" value="1" <?php if($cfg_paramset==1) echo 'checked'; ?> >
+                  <span id="paramsetbdy" <?php if($cfg_paramset==1) { ?>style="display:none"<?php }; ?>><?php echo $cfg_paramid;?>=1&amp;<?php echo $cfg_parampage;?>=2&amp;<?php echo $cfg_paramindex;?>=3</span><span id="urlparamset" <?php if($cfg_paramset==0) { ?>style="display:none"<?php }; ?>>
+                  <input type="text" style="height:12px" size="5" name="edit___cfg_paramid" onchange="onTxtChange(this)" value="<?php echo $cfg_paramid; ?>">
+                  =1&amp;
+                  <input type="text" style="height:12px" size="5" name="edit___cfg_parampage" onchange="onTxtChange(this)" value="<?php echo $cfg_parampage; ?>">
+                  =2&amp;
+                  <input type="text" style="height:12px" size="5" name="edit___cfg_paramindex" onchange="onTxtChange(this)" value="<?php echo $cfg_paramindex; ?>">
+                  =3</span><font color="red">传参方式仅限高级用户二次开发使用，否则无法播放</font></td>
+              </tr>
+              <tr id="dynamic"  <?php if($cfg_runmode!=1){ ?>style="display:none"<?php }?>>
+                <td> 栏目页目录名：
+                  <input type="text" name="edit___cfg_channel_name" size="15" value="<?php echo $cfg_channel_name;?>"/>
+                  &nbsp;&nbsp;内容页目录名：
+                  <input type="text" size="15" name="edit___cfg_content_name" value="<?php echo $cfg_content_name;?>"/>
+                  &nbsp;&nbsp;播放页目录名：
+                  <input type="text" size="15" name="edit___cfg_play_name" value="<?php echo $cfg_play_name;?>"/></td>
+              </tr>
+              <tr id="forgedStatic" <?php if($cfg_runmode!=2){ ?>style="display:none"<?php }?>>
+                <td> 栏目页目录名：
+                  <input type="text" name="edit___cfg_channel_name3" size="15" value="<?php echo $cfg_channel_name3;?>"/>
+                  &nbsp;&nbsp;内容页目录名：
+                  <input type="text" size="15" name="edit___cfg_content_name3" value="<?php echo $cfg_content_name3;?>"/>
+                  &nbsp;&nbsp;播放页目录名：
+                  <input type="text" size="15" name="edit___cfg_play_name3" value="<?php echo $cfg_play_name3;?>"/>
+                  <br/>
+                  栏目页文件名：
+                  <input type="text" name="edit___cfg_channelpage_name3" value="<?php echo $cfg_channelpage_name3;?>" size="15">
+                  &nbsp;&nbsp;内容页文件名：
+                  <input type="text" name="edit___cfg_contentpage_name3" value="<?php echo $cfg_contentpage_name3;?>" size="15">
+                  &nbsp;&nbsp;播放页文件名：
+                  <input type="text" name="edit___cfg_playpage_name3" value="<?php echo $cfg_playpage_name3;?>" size="15">
+                  <br><font color="red">停用伪静态请务必删除根目录下的伪静态配置文件，伪静态出错请检查设置的目录名是否和系统目录冲突，如播放页目录名不能为player</font></td>
+              </tr>
+              <tr>
+                <td>生成配置文件：
+                  <input type="radio" name="edit___cfg_automake" value="1" <?php if ($cfg_automake=='1') echo "checked";?> class="radio" />
+                  开启
+                  <input type="radio" name="edit___cfg_automake" value="0" <?php if ($cfg_automake=='0') echo "checked";?> class="radio" />
+                  关闭</td>
+              </tr>
+              <tr id="dir1" <?php if($cfg_runmode!=0||($cfg_makemode!='dir1' && $cfg_makemode!='dir3' && $cfg_makemode!='dir5' && $cfg_makemode!='dir7'&& $cfg_makemode!='dir9')){?>style="display:none" <?php } ?>>
+                <td><span style="display:none;"> 栏目页文件名：
+                  <input type="text" size="15" name="edit___cfg_channelpage_name2" value="<?php echo $cfg_channelpage_name2;?>">
+                  &nbsp;&nbsp;
+                  内容页文件名：
+                  <input type="text" size="15" name="edit___cfg_contentpage_name2" value="<?php echo $cfg_contentpage_name2;?>">
+                  &nbsp;&nbsp;</span> 播放页文件名：
+                  <input type="text" size="15" name="edit___cfg_playpage_name2a" onkeyup="this.value=this.value.replace(/[^\d|\w]/g,'');" onchange="this.onkeyup();" value="<?php echo $cfg_playpage_name2a;?>"></td>
+              </tr>
+              <tr id="dir2" <?php if($cfg_runmode!=0 ||( $cfg_makemode!='dir2' && $cfg_makemode!='dir4' && $cfg_makemode!='dir6' && $cfg_makemode!='dir8')){?>style="display:none" <?php } ?>>
+                <td> 栏目页目录名：
+                  <input type="text" name="edit___cfg_channel_name2" value="<?php echo $cfg_channel_name2;?>" size="15">
+                  &nbsp;&nbsp;内容页目录名：
+                  <input type="text" name="edit___cfg_content_name2" value="<?php echo $cfg_content_name2;?>" size="15">
+                  &nbsp;&nbsp;播放页目录名：
+                  <input type="text" name="edit___cfg_play_name2"  onkeyup="this.value=this.value.replace(/[^\d|\w]/g,'');" onchange="this.onkeyup();"  value="<?php echo $cfg_play_name2;?>" size="15"/>
+                  &nbsp;&nbsp;<br/>
+                  栏目页文件名：
+                  <input type="text" name="edit___cfg_channelpage_name2" value="<?php echo $cfg_channelpage_name2;?>" size="15">
+                  &nbsp;&nbsp;内容页文件名：
+                  <input type="text" name="edit___cfg_contentpage_name2" value="<?php echo $cfg_contentpage_name2;?>" size="15">
+                  &nbsp;&nbsp;播放页文件名：
+                  <input type="text" name="edit___cfg_playpage_name2"  onkeyup="this.value=this.value.replace(/[^\d|\w]/g,'');" onchange="this.onkeyup();"  value="<?php echo $cfg_playpage_name2;?>" size="15"/></td>
+              </tr>
+              <tr>
+                <td id="zt">专题主目录名：
+                  <input type="text" size="15" name="edit___cfg_album_name" value="<?php echo $cfg_album_name;?>">
+                  &nbsp;&nbsp;专题页目录名：
+                  <input type="text" size="15" name="edit___cfg_filesuffix" value="<?php echo $cfg_filesuffix;?>"></td>
+              </tr>
+              <tr id="ismakeplaytr" <?php if($cfg_runmode!=0){ ?>style="display:none;" <?php } ?> >
+                <td>生成播放网页：
+                  <select name="edit___cfg_ismakeplay" id="ismakeplay" style="width:100px;" onchange="selectMakeplay(this.options[this.selectedIndex].value)" >
+                    <option value="0" <?php if ($cfg_ismakeplay=='0') echo "selected";?>>动态不生成</option>
+                    <option value="1" <?php if ($cfg_ismakeplay=='1') echo "selected";?>>生成静态</option>
+                  </select>
+                  播放页生成静态会大幅增加生成时间和磁盘占用，除非访问量过大的站点、否则不建议开启</td>
+              </tr>
+			  
+              <tr>
+                <td style="display:none"> 
+                  <input type="hidden" name="edit___cfg_isalertwin" onClick="selectAlertWin(this.value)" value="1" <?php if ($cfg_isalertwin=='1') echo "checked";?> class="radio">
+                  
+                  <div id="alertwinset" style="display:none">宽：
+                    <input type="text" name="edit___cfg_alertwinw" size="5" value="1">
+                    px    &nbsp;&nbsp;高
+                    <input type="text" name="edit___cfg_alertwinh" size="5" value="1"/>
+                    px</div>
+                  <input type="hidden" name="edit___cfg_isalertwin" onclick="selectAlertWin(this.value)" value="0" <?php if ($cfg_isalertwin=='0') echo "checked";?> class="radio">
+                   </td>
+              </tr>
+              <tr>
+              <td>播放地址加密：
+                <input type="radio" name="edit___cfg_playaddr_enc" value="escape" <?php if ($cfg_playaddr_enc=='escape') echo "checked";?> class="radio">
+                加密
+				<!--
+                <input type="radio" name="edit___cfg_playaddr_enc" value="base64" <?php if ($cfg_playaddr_enc=='base64') echo "checked";?> class="radio">
+                base64加密
+				--->
+                <input type="radio" name="edit___cfg_playaddr_enc" value="no" <?php if ($cfg_playaddr_enc=='no') echo "checked";?> class="radio">
+                不加密 &nbsp;&nbsp;&nbsp;&nbsp;对播放地址进行加密 </td>
+            </tr>
+            </tbody>
+          </table>
+          <ul id="makeHtmlTab" style="padding-top:5px">
+            <li id="li.n" class="hover" style="cursor:pointer">新闻</li>
+          </ul>
+          <table class="tb">
+            <tbody id="news">
+              <tr>
+                <td><select name="edit___cfg_runmode2" id="runmode" onChange="selecNewsRunMode(this.options[this.selectedIndex].value)">
+                    <option value="1" <?php if ($cfg_runmode2==1) echo "selected=\"selected\"";?>>动态模式</option>
+                    <option value="0" <?php if ($cfg_runmode2==0) echo "selected=\"selected\"";?>>静态模式</option>
+                    <option value="2" <?php if ($cfg_runmode2==2) echo "selected=\"selected\"";?>>伪静态模式</option>
+                  </select>
+                  </td>
+              </tr>
+              <tr id="newsstatic" <?php if($cfg_runmode2!=0){ ?>style="display:none"<?php }?>>
+                <td>生成时间间隔：
+                  <input type="text" name="edit___cfg_newsstoptime" size="15" value="<?php echo $cfg_newsstoptime;?>">
+                  &nbsp;&nbsp;秒&nbsp;&nbsp;
+                  目录选择：
+                  <select name="edit___cfg_makemode2" onchange="selecNewsMakeMode(this.options[this.selectedIndex].value)" id="newsmakemode">
+                    <option value="dir1" <?php if ($cfg_makemode2=='dir1') echo "selected";?>>目录1：/typeEnname/id/</option>
+                    <option value="dir3" <?php if ($cfg_makemode2=='dir3') echo "selected";?>>目录3：/typeEnname/date/id</option>
+                    <option value="dir5" <?php if ($cfg_makemode2=='dir5') echo "selected";?>>目录5：/typeEnname/EnName/</option>
+                    <option value="dir7" <?php if ($cfg_makemode2=='dir7') echo "selected";?>>目录7：/typeEnname/date/EnName</option>
+                    <option value="dir2" <?php if ($cfg_makemode2=='dir2') echo "selected";?>>目录2：/{dir}/{page}id</option>
+                    <option value="dir4" <?php if ($cfg_makemode2=='dir4') echo "selected";?>>目录4：/[dir]/date/[page]id</option>
+                    <option value="dir6" <?php if ($cfg_makemode2=='dir6') echo "selected";?>>目录6：/[dir]/[page]EnName</option>
+                    <option value="dir8" <?php if ($cfg_makemode2=='dir8') echo "selected";?>>目录8：/[dir]/date/[page]EnName</option>
+                  </select>
+                  &nbsp;&nbsp;md5加密id：开启
+                  <input type="radio" name="edit___cfg_newscreateid" value="md5"  <?php if($cfg_newscreateid=='md5') echo 'checked';?> class="radio">
+                  关闭
+                  <input type="radio" name="edit___cfg_newscreateid" value="0" <?php if($cfg_newscreateid=="0") echo 'checked';?> class="radio"></td>
+              </tr>
+              <tr>
+                <td height="25">文件的后缀名：
+                  <select name="edit___cfg_filesuffix3" style="width:110px">
+                    <option value=".html" <?php if ($cfg_filesuffix3=='.html') echo 'selected';?>>.html</option>
+                    <option value=".htm" <?php if ($cfg_filesuffix3=='.htm') echo 'selected';?>>.htm</option>
+                    <option value=".php" <?php if ($cfg_filesuffix3=='.php') echo 'selected';?>>.php</option>
+                    <option value=".shtm" <?php if ($cfg_filesuffix3=='.shtm') echo 'selected';?>>.shtm</option>
+                    <option value=".shtml" <?php if ($cfg_filesuffix3=='.shtml') echo 'selected';?>>.shtml</option>
+                  </select>
+                  &nbsp;&nbsp;URL传参方式：
+                  <input type="radio" class="radio" id="newsparamset1" name="edit___cfg_newsparamset" onclick="hide('newsurlparamset');view('newsparamsetbdy');" value="0" <?php if($cfg_newsparamset==0) echo 'checked'; ?> >
+                  1-0-0.html&nbsp;&nbsp;
+                  </td>
+              </tr>
+              <tr id="newsdynamic" <?php if($cfg_runmode2!=1){ ?>style="display:none"<?php }?>>
+                <td>新闻主目录名：
+                  <input type="text" size="15" name="edit___cfg_news_name" value="<?php echo $cfg_news_name;?>"/>
+                  &nbsp;&nbsp;栏目页目录名：
+                  <input type="text" name="edit___cfg_newspart_name" size="15" value="<?php echo $cfg_newspart_name;?>"/>
+                  &nbsp;&nbsp;文章页目录名：
+                  <input type="text" size="15" name="edit___cfg_article_name" value="<?php echo $cfg_article_name;?>"/></td>
+              </tr>
+              <tr id="newsforgedStatic" <?php if($cfg_runmode2!=2){ ?>style="display:none"<?php }?>>
+                <td>新闻主目录名：
+                  <input type="text" size="15" name="edit___cfg_news_name3" value="<?php echo $cfg_news_name3;?>"/>
+                  &nbsp;&nbsp;栏目页目录名：
+                  <input type="text" name="edit___cfg_newspart_name3" size="15" value="<?php echo $cfg_newspart_name3;?>"/>
+                  &nbsp;&nbsp;内容页目录名：
+                  <input type="text" size="15" name="edit___cfg_article_name3" value="<?php echo $cfg_article_name3;?>"/>
+                  <br/>
+                  新闻页文件名：
+                  <input type="text" size="15" name="edit___cfg_newspage_name3" value="<?php echo $cfg_newspage_name3;?>"/>
+                  &nbsp;&nbsp;栏目页文件名：
+                  <input type="text" name="edit___cfg_newspartpage_name3" value="<?php echo $cfg_newspartpage_name3;?>" size="15">
+                  &nbsp;&nbsp;内容页文件名：
+                  <input type="text" name="edit___cfg_articlepage_name3" value="<?php echo $cfg_articlepage_name3;?>" size="15">
+				  <br><font color="red">停用伪静态请务必删除根目录下的伪静态配置文件，伪静态出错请检查设置的目录名是否和系统目录冲突</font></td>
+              </tr>
+              <tr id="newsdir1" <?php if($cfg_runmode2!=0||($cfg_makemode2!='dir1' && $cfg_makemode2!='dir3' && $cfg_makemode2!='dir5' && $cfg_makemode2!='dir7')){ ?>style="display:none"<?php }?>>
+                <td>新闻主目录名：
+                  <input type="text" size="15" name="edit___cfg_news_name2" value="<?php echo $cfg_news_name2;?>"/>
+                  &nbsp;&nbsp;新闻页文件名：
+                  <input type="text" size="15" name="edit___cfg_newspage_name2" value="<?php echo $cfg_newspage_name2;?>"/></td>
+              </tr>
+              <tr id="newsdir2" <?php if($cfg_runmode2!=0||($cfg_makemode2!='dir2' && $cfg_makemode2!='dir4' && $cfg_makemode2!='dir6' && $cfg_makemode2!='dir8')){?>style="display:none" <?php } ?>>
+                <td>新闻主目录名：
+                  <input type="text" size="15" name="edit___cfg_news_name2a" value="<?php echo $cfg_news_name2a;?>"/>
+                  &nbsp;&nbsp;栏目页目录名：
+                  <input type="text" name="edit___cfg_newspart_name2" value="<?php echo $cfg_newspart_name2;?>" size="15">
+                  &nbsp;&nbsp;文章页目录名：
+                  <input type="text" name="edit___cfg_article_name2" value="<?php echo $cfg_article_name2;?>" size="15">
+                  <br/>
+                  新闻页文件名：
+                  <input type="text" size="15" name="edit___cfg_newspage_name2a" value="<?php echo $cfg_newspage_name2a;?>"/>
+                  &nbsp;&nbsp;栏目页文件名：
+                  <input type="text" name="edit___cfg_newspartpage_name2" value="<?php echo $cfg_newspartpage_name2;?>" size="15">
+                  &nbsp;&nbsp;文章页文件名：
+                  <input type="text" name="edit___cfg_articlepage_name2" value="<?php echo $cfg_articlepage_name2;?>" size="15"></td>
+              </tr>
+            </tbody>
+          </table></td>
+      </tr>
+      <tr>
+        <td>网站名称：</td>
+        <td width="661"><input type="text" name="edit___cfg_webname" size="30" value="<?php echo $cfg_webname;?>">
+          请尽快修改网站名称</td>
+      </tr>
+      <tr>
+        <td>网站地址：</td>
+        <td ><input type="text" name="edit___cfg_basehost" size="30" value="<?php echo $cfg_basehost;?>">
+          如填写:http://www.seacms.net,注意地址最后不要加'/'</td>
+      </tr>
+      <tr>
+        <td>网站路径：</td>
+        <td ><input type="text" name="edit___cfg_cmspath" size="30" value="<?php echo $cfg_cmspath;?>">
+          1.安装在根目录下这里设置为空 2.安装二级目录填写为:二级目录名/</td>
+      </tr>
+      <tr>
+        <td>cookie加密码：</td>
+        <td ><input type="text" name="edit___cfg_cookie_encode" size="30" value="<?php echo $cfg_cookie_encode;?>">
+          保存cookie时候加密所用，可加强网站的安全性</td>
+      </tr>
+      <tr class="thead2">
+        <td colspan="2"><strong>采集工具设置<a name="rule" id="rule"></a></strong></td>
+      </tr>
+      <tr>
+        <td >智能采集设置：</td>
+        <td ><label>
+            <input type="checkbox" name="edit___cfg_gatherset[]" value="0" id="gatherset1" <?php if(strpos($cfg_gatherset,'0')!==false)echo 'checked'?> />
+            分类识别</label>
+          <label>
+            <input type="checkbox" name="edit___cfg_gatherset[]" value="1" id="gatherset2" <?php if(strpos($cfg_gatherset,'1')!==false)echo 'checked'?>/>
+            不添加新影片</label>
+          <label>
+            <input type="checkbox" name="edit___cfg_gatherset[]" value="2" id="gatherset3" <?php if(strpos($cfg_gatherset,'2')!==false)echo 'checked'?>/>
+            只更新地址和状态 </label>
+          <label>
+            <input type="checkbox" name="edit___cfg_gatherset[]" value="3" id="gatherset4" <?php if(strpos($cfg_gatherset,'3')!==false)echo 'checked'?>/>
+            按地址判断是否更新 </label>
+			<label>
+            <input type="checkbox" name="edit___cfg_gatherset[]" value="4" id="gatherset4" <?php if(strpos($cfg_gatherset,'4')!==false)echo 'checked'?>/>
+            强制更新图片 </label>
+			</td>
+      </tr>
+
+      <tr>
+        <td >采集中下载图片：</td>
+        <td >开启：
+          <input type="radio" name="edit___cfg_gatherpicset" value="1" <?php if ($cfg_gatherpicset=='1') echo "checked";?> class="radio" />
+          关闭：
+          <input type="radio" name="edit___cfg_gatherpicset" value="0" <?php if ($cfg_gatherpicset=='0') echo "checked";?> class="radio" />
+          &nbsp;开启该功能比较消耗系统资源</td>
+      </tr>
+      <tr class="thead2">
+        <td colspan="2"><strong>模板与路径设置</strong></td>
+      </tr>
+      <tr>
+        <td>模板选择：</td>
+        <td><select name="edit___cfg_df_style" style="width:150 ">
+            <?php
+            $dh = dir($cfg_basedir.$cfg_templets_dir);
+            while($dirname=$dh->read())
+            {
+            if(!m_ereg("\.",$dirname)){
+            ?>
+            <option value='<?php echo $dirname;?>' <?php if ($dirname==$cfg_df_style) echo "selected";?>><?php echo $dirname;?></option>
+            <?php
+            }
+            }
+            ?>
+          </select> 将模板文件放入templets文件夹下</td>
+      </tr>
+      <tr>
+        <td>模板文件所在文件夹：</td>
+        <td><input type="text" name="edit___cfg_df_html" size="15" value="<?php echo $cfg_df_html;?>">
+          防止模板被盗</td>
+      </tr>
+      <tr>
+        <td>图片文件夹：</td>
+        <td width="661"><input type="text" name="edit___cfg_upload_dir" size="15" value="<?php echo $cfg_upload_dir;?>"/>
+          位于根目录下</td>
+      </tr>
+      <tr>
+        <td>JS广告文件夹：</td>
+        <td width="661"><input type="text" name="edit___cfg_ads_dir" size="15" value="<?php echo $cfg_ads_dir;?>"/>
+          位于根目录的js文件夹下</td>
+      </tr>
+      <tr>
+        <td width="103" height="30" align="left" class="td_border">数据备份目录：</td>
+        <td ><input type="text" name="edit___cfg_backup_dir" size="15" value="<?php echo $cfg_backup_dir;?>"/>
+          位于根目录的data文件夹下</td>
+      </tr>
+      <tr class="thead2">
+        <td colspan="2"><strong>插件设置<a name="chajian" id="chajian"></a></strong></td>
+      </tr>
+      <tr>
+        <td>会员系统开关：</td>
+        <td>开启：
+          <input type="radio" name="edit___cfg_user" value="1" <?php if ($cfg_user=='1') echo "checked";?> class="radio" />
+          关闭：
+          <input type="radio" name="edit___cfg_user" value="0" <?php if ($cfg_user=='0') echo "checked";?> class="radio" />&nbsp;&nbsp;如不需要会员功能请选择关闭，加快系统运行速度
+      </tr>
+      <tr>
+        <td>留言开关：</td>
+        <td>开启：
+          <input type="radio" name="edit___cfg_feedbackstart" value="1" <?php if ($cfg_feedbackstart=='1') echo "checked";?> class="radio" onclick="getElementById('gbookfont').style.display=''"/>
+          关闭：
+          <input type="radio" name="edit___cfg_feedbackstart" value="0" <?php if ($cfg_feedbackstart=='0') echo "checked";?> class="radio" onclick="getElementById('gbookfont').style.display='none'"/>
+          <font  id="gbookfont"  <?php if ($cfg_feedbackstart=='0') echo "style='display:none'";?>> &nbsp;留言时间间隔
+          <input type="text" name="edit___cfg_feedback_times" size="4" value="<?php echo $cfg_feedback_times; ?>"/>
+          秒 </font>
+      </tr>
+      <tr>
+        <td>评论开关：</td>
+        <td>开启：
+          <input type="radio" name="edit___cfg_gbookstart" value="1" <?php if ($cfg_gbookstart=='1') echo "checked";?> class="radio" onclick="getElementById('commentfont').style.display=''"/>
+          关闭：
+          <input type="radio" name="edit___cfg_gbookstart" value="0"  <?php if ($cfg_gbookstart=='0') echo "checked";?> class="radio" onclick="getElementById('commentfont').style.display='none'"/>
+          <font id="commentfont" <?php if ($cfg_gbookstart=='0') echo "style='display:none'";?>> &nbsp;评论时间间隔
+          <input type="text" name="edit___cfg_comment_times" size="4" value="<?php echo $cfg_comment_times; ?>" />
+          秒&nbsp;&nbsp;在数据库负载过重情况下，可以关闭评论功能 </font></td>
+      </tr>
+      <tr>
+        <td width="103" height="30" align="left" class="td_border">留言审核：</td>
+        <td class="td_border">开启：
+          <input type="radio" name="edit___cfg_feedbackcheck"  value="1" <?php if ($cfg_feedbackcheck=='1') echo "checked";?> class="radio"/>
+          关闭：
+          <input type="radio" name="edit___cfg_feedbackcheck"  value="0" <?php if ($cfg_feedbackcheck=='0') echo "checked";?> class="radio"/></td>
+      </tr>
+      <tr>
+      <tr>
+        <td width="103" height="30" align="left" class="td_border">加验证码：</td>
+        <td class="td_border">开启：
+          <input type="radio" name="edit___cfg_feedback_ck"  value="1" <?php if ($cfg_feedback_ck=='1') echo "checked";?> class="radio"/>
+          关闭：
+          <input type="radio" name="edit___cfg_feedback_ck"  value="0" <?php if ($cfg_feedback_ck=='0') echo "checked";?> class="radio"/></td>
+      </tr>
+      <tr>
+        <td >来源排序：</td>
+        <td width="661">开启：
+          <input type="radio" name="edit___cfg_isfromsort" value="1" <?php if ($cfg_isfromsort=='1') echo "checked";?> class="radio" >
+          关闭：
+          <input type="radio" name="edit___cfg_isfromsort" value="0" <?php if ($cfg_isfromsort=='0') echo "checked";?> class="radio" >
+          &nbsp;&nbsp;如开启、将对播放来源按设置进行排序；如关闭、将节省部分性能</td>
+      </tr>
+      <tr>
+        <td width="661">搜索间隔时间：</td>
+        <td class="td_border"><input type="text" name="edit___cfg_search_time" id="edit___cfg_search_time" value="<?php echo $cfg_search_time;?>" size="3" />
+          秒</td>
+      </tr>
+      <tr class="thead2">
+        <td colspan="2"><strong>搜索/动态/缓存设置</strong></td>
+      </tr>
+      <tr>
+        <td>缓存开关：</td>
+        <td><table class="tdk">
+            <tr>
+              <td>开启：
+                <input type="radio" name="edit___cfg_iscache" onClick="selectCache(this.value)" value="1" <?php if ($cfg_iscache=='1') echo "checked";?> class="radio"></td>
+              <td id="cacheset" <?php if ($cfg_iscache=='0') echo "style='display:none'";?>>缓存过期时间：
+                <input type="text" name="edit___cfg_cachetime"  size="5" value="<?php echo $cfg_cachetime;?>">
+                分钟
+                &nbsp;&nbsp;&nbsp; 缓存标识：
+                <input name="edit___cfg_cachemark" type="text" id="edit___cfg_cachemark" value="<?php echo "E".MyDate('YmdHis',time());?>" size="13" />
+                &nbsp;&nbsp;</td>
+              <td>关闭：
+                <input type="radio" name="edit___cfg_iscache" onclick="selectCache(this.value)" value="0" <?php if ($cfg_iscache=='0') echo "checked";?> class="radio"></td>
+            </tr>
+          </table></td>
+      </tr>
+      <tr id="sqlcache">
+        <td width="103" height="30" align="left" class="td_border">数据库缓存：</td>
+        <td class="td_border"><input type="radio" name="edit___cfg_issqlcache" value="1" <?php if ($cfg_issqlcache=='1') echo "checked";?> class="radio"/>
+          开启
+          <input type="radio" name="edit___cfg_issqlcache"  value="0" <?php if ($cfg_issqlcache=='0') echo "checked";?> class="radio"/>
+          关闭&nbsp;&nbsp;&nbsp;当开启缓存时有效，节约系统资源，提高效率。<font color="red">如感觉数据缓存周期过长请关闭此项</font></td>
+      </tr>
+      <tr>
+        <td class="td_border" width="103" height="30" align="left">缩略图默认宽度：</td>
+        <td class="td_border"><input name="edit___cfg_ddimg_width" type="text" id="edit___cfg_ddimg_width" value="<?php echo $cfg_ddimg_width;?>" size="10" />
+          px</td>
+      </tr>
+      <tr>
+        <td class="td_border" width="103" height="30" align="left">缩略图默认高度：</td>
+        <td class="td_border"><input name="edit___cfg_ddimg_height" type="text" id="edit___cfg_ddimg_height" value="<?php echo $cfg_ddimg_height;?>" size="10" />
+          px</td>
+      </tr>
+      <tr>
+        <td class="td_border" width="103" height="30" align="left">允许附件类型：</td>
+        <td class="td_border"><input name="edit___cfg_imgtype" type="text" id="edit___cfg_imgtype" value="<?php echo $cfg_imgtype;?>" size="13" />
+          &nbsp;用|分开，但不要在结尾加|</td>
+      </tr>
+      <tr style="display:none;">
+        <td colspan="2"><strong>IP访问设置</strong></td>
+      </tr>
+      <tr style="display:none;">
+        <td>访问设置：</td>
+        <td><span class="td_border"> 黑名单
+          <input type="radio" name="edit___cfg_banIPS" value="1" <?php if ($cfg_banIPS=='1') echo "checked";?> class="radio" onclick="getElementById('iplist').style.display=''"/>
+          白名单
+          <input type="radio" name="edit___cfg_banIPS" value="2" <?php if ($cfg_banIPS=='2') echo "checked";?> class="radio" onclick="getElementById('iplist').style.display=''"/>
+          关闭
+          <input type="radio" name="edit___cfg_banIPS"  value="0" <?php if ($cfg_banIPS=='0') echo "checked";?> class="radio" onclick="getElementById('iplist').style.display='none'"/>
+          &nbsp;&nbsp;</span>请以'|'分离，为提高程序效率，此功能已不再使用！<br />
+          <textarea cols="90" rows="5" id="iplist" name="iplist" <?php if ($cfg_banIPS=='0') echo "style=\"display:none\"";?>><?php $fp = @fopen($iplisttxt,'r');
+	$iplist = @fread($fp,filesize($iplisttxt));
+	@fclose($fp);echo $iplist;?>
+</textarea></td>
+      </tr>
+      <tr class="thead2">
+        <td colspan="2"><strong>其它设置</strong></td>
+      </tr>
+      <tr>
+        <td>过滤留言：</td>
+        <td><input type="text" name="edit___cfg_notallowstr" size="80" value="<?php echo $cfg_notallowstr;?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+        <td>禁止留言：</td>
+        <td><input type="text" name="edit___cfg_banwords" size="80" value="<?php echo $cfg_banwords ;?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+        <td>热门关键字</td>
+        <td><input type="text" name="edit___cfg_sitekeywords" size="80" value="<?php echo $cfg_sitekeywords;?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+        <td>影片地区</td>
+        <td><input type="text" name="publisharea" size="80" value="<?php 
+	$publisharea = array();
+	if(filesize($publishareatxt)>0)
+	{
+		$publisharea = file($publishareatxt);
+	}
+    $publisharea = implode('|',$publisharea);
+    echo $publisharea;
+    ?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+        <td>影片年份</td>
+        <td><input type="text" name="publishyear" size="80" value="<?php 
+	$publishyear = array();
+	if(filesize($publishyeartxt)>0)
+	{
+		$publishyear = file($publishyeartxt);
+	}
+    $publishyear = implode('|',$publishyear);
+    echo $publishyear;
+    ?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+        <td>影片语言</td>
+        <td><input type="text" name="publishyuyan" size="80" value="<?php 
+	$publishyuyan = array();
+	if(filesize($publishyuyantxt)>0)
+	{
+		$publishyuyan = file($publishyuyantxt);
+	}
+    $publishyuyan = implode('|',$publishyuyan);
+    echo $publishyuyan;
+    ?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+
+      <tr>
+        <td>视频版本</td>
+        <td><input type="text" name="ver" size="80" value="<?php 
+	$ver = array();
+	if(filesize($vertxt)>0)
+	{
+		$ver = file($vertxt);
+	}
+    $ver = implode('|',$ver);
+    echo $ver;
+    ?>">
+          请以'|'分离</td>
+      </tr>
+      <tr>
+	  
+        <td width="103"  height="30" align="left" class="td_border">服务器所在时区：</td>
+        <td class="td_border"><select name="edit___cfg_cli_time">
+            <option value="-12" <?php if ($cfg_cli_time=='-12') echo "selected";?>>(标准时-12:00) 日界线西</option>
+            <option value="-11" <?php if ($cfg_cli_time=='-11') echo "selected";?>>(标准时-11:00) 中途岛、萨摩亚群岛</option>
+            <option value="-10" <?php if ($cfg_cli_time=='-10') echo "selected";?>>(标准时-10:00) 夏威夷</option>
+            <option value="-9" <?php if ($cfg_cli_time=='-9') echo "selected";?>>(标准时-9:00) 阿拉斯加</option>
+            <option value="-8" <?php if ($cfg_cli_time=='-8') echo "selected";?>>(标准时-8:00) 太平洋时间(美国和加拿大)</option>
+            <option value="-7" <?php if ($cfg_cli_time=='-7') echo "selected";?>>(标准时-7:00) 山地时间(美国和加拿大)</option>
+            <option value="-6" <?php if ($cfg_cli_time=='-6') echo "selected";?>>(标准时-6:00) 中部时间(美国和加拿大)、墨西哥城</option>
+            <option value="-5" <?php if ($cfg_cli_time=='-5') echo "selected";?>>(标准时-5:00) 东部时间(美国和加拿大)、波哥大</option>
+            <option value="-4" <?php if ($cfg_cli_time=='-4') echo "selected";?>>(标准时-4:00) 大西洋时间(加拿大)、加拉加斯</option>
+            <option value="-3.5" <?php if ($cfg_cli_time=='-3.5') echo "selected";?>>(标准时-3:30) 纽芬兰</option>
+            <option value="-3" <?php if ($cfg_cli_time=='-3') echo "selected";?>>(标准时-3:00) 巴西、布宜诺斯艾利斯、乔治敦</option>
+            <option value="-2" <?php if ($cfg_cli_time=='-2') echo "selected";?>>(标准时-2:00) 中大西洋</option>
+            <option value="-1" <?php if ($cfg_cli_time=='-1') echo "selected";?>>(标准时-1:00) 亚速尔群岛、佛得角群岛</option>
+            <option value="111" <?php if ($cfg_cli_time=='111') echo "selected";?>>(格林尼治标准时) 西欧时间、伦敦、卡萨布兰卡</option>
+            <option value="1" <?php if ($cfg_cli_time=='`') echo "selected";?>>(标准时+1:00) 中欧时间、安哥拉、利比亚</option>
+            <option value="2" <?php if ($cfg_cli_time=='2') echo "selected";?>>(标准时+2:00) 东欧时间、开罗,雅典</option>
+            <option value="3" <?php if ($cfg_cli_time=='3') echo "selected";?>>(标准时+3:00) 巴格达、科威特、莫斯科</option>
+            <option value="3.5" <?php if ($cfg_cli_time=='3.5') echo "selected";?>>(标准时+3:30) 德黑兰</option>
+            <option value="4" <?php if ($cfg_cli_time=='4') echo "selected";?>>(标准时+4:00) 阿布扎比、马斯喀特、巴库</option>
+            <option value="4.5" <?php if ($cfg_cli_time=='4.5') echo "selected";?>>(标准时+4:30) 喀布尔</option>
+            <option value="5" <?php if ($cfg_cli_time=='5') echo "selected";?>>(标准时+5:00) 叶卡捷琳堡、伊斯兰堡、卡拉奇</option>
+            <option value="5.5" <?php if ($cfg_cli_time=='5.5') echo "selected";?>>(标准时+5:30) 孟买、加尔各答、新德里</option>
+            <option value="6" <?php if ($cfg_cli_time=='6') echo "selected";?>>(标准时+6:00) 阿拉木图、 达卡、新亚伯利亚</option>
+            <option value="7" <?php if ($cfg_cli_time=='7') echo "selected";?>>(标准时+7:00) 曼谷、河内、雅加达</option>
+            <option value="8" <?php if ($cfg_cli_time=='8') echo "selected";?>>(北京时间) 北京、重庆、香港、新加坡</option>
+            <option value="9" <?php if ($cfg_cli_time=='9') echo "selected";?>>(标准时+9:00) 东京、汉城、大阪、雅库茨克</option>
+            <option value="9.5" <?php if ($cfg_cli_time=='9.5') echo "selected";?>>(标准时+9:30) 阿德莱德、达尔文</option>
+            <option value="10" <?php if ($cfg_cli_time=='10') echo "selected";?>>(标准时+10:00) 悉尼、关岛</option>
+            <option value="11" <?php if ($cfg_cli_time=='11') echo "selected";?>>(标准时+11:00) 马加丹、索罗门群岛</option>
+            <option value="12" <?php if ($cfg_cli_time=='12') echo "selected";?>>(标准时+12:00) 奥克兰、惠灵顿、堪察加半岛</option>
+          </select></td>
+      </tr>
+      <tr>
+        <td>统计代码：</td>
+        <td><textarea cols="90" rows="3" name="edit___cfg_sitevisitejs"><?php echo $cfg_sitevisitejs;?></textarea></td>
+      </tr>
+      <tr>
+        <td>站点描述：</td>
+        <td width="661"><textarea cols="90" rows="3" name="edit___cfg_description"><?php echo $cfg_description;?></textarea></td>
+      </tr>
+      <tr>
+        <td   width="79">关键词：</td>
+        <td><textarea cols="90" rows="3" name="edit___cfg_site_notice"><?php echo $cfg_site_notice;?></textarea></td>
+      </tr>
+      <tr>
+        <td>网站版权信息</td>
+        <td><textarea cols="90" rows="3" name="edit___cfg_powerby"><?php echo $cfg_powerby;?></textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="确认更新" class="btn"></td>
+      </tr>
+    </table>
+  </form>
+  <?php
+viewFoot();
+?>
+</div>
+</body>
+</html>

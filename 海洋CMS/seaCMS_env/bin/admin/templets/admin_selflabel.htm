@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>影片管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;模板&nbsp;&raquo;&nbsp;自定义标签 ';</script>
+<div class="r_main">
+	
+<div class="r_content">
+	<div class="r_content_1">
+<?php
+if($action=="edit"){
+?>
+<form action="?action=editsave&id=<?php echo $id;?>&page=<?php echo $page;?>" method="post" >
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+	<tr class="thead"><th colspan="2">编辑自定义标签</th></tr>
+	<tr>
+      <TD height="30" width="15%" class="td_border">自定义标签名称：</TD>
+      <TD class="td_border"><input type="text" size="50" name="tagname" value="<?php echo $row['tagname'];?>" /><font color="red">＊</font></TD>
+    </TR>
+
+    <TR>
+      <TD height="30" class="td_border">自定义标签描述：</TD>
+      <TD class="td_border"><input type="text" size="100" name="tagdes" value="<?php echo $row['tagdes'];?>" /></TD>
+    </TR>
+    <TR>
+      <TD class="td_border">自定义标签内容：</TD>
+      <TD class="td_border"><textarea name="tagcontent"  cols="100" rows="20" ><?php echo $row['tagcontent'];?></textarea><font color="red">＊</font><br />
+      如果希望同时多个内容随机显示，请使用$$$隔开 </TD>
+    </TR>
+    <TR >
+    <td class="td_border" height="30">&nbsp; </td> <TD class="td_border"><input type="submit" value="修改自定义标签" class="rb1" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR></table>
+</form>
+<?php
+}elseif($action=="add"){
+?>
+<form action="?action=addsave" method="post" >
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+	<tr class="thead"><th colspan="2">添加自定义标签</th></tr>
+	<tr>
+      <TD height="30" width="15%" class="td_border">自定义标签名称：</TD>
+      <TD class="td_border"><input type="text" size="50" name="tagname" value="" /><font color="red">＊</font></TD>
+    </TR>
+
+    <TR>
+      <TD height="30" class="td_border">自定义标签描述：</TD>
+      <TD class="td_border"><input type="text" size="100" name="tagdes" value="" /></TD>
+    </TR>
+    <TR>
+      <TD class="td_border">自定义标签内容：</TD>
+      <TD class="td_border"><textarea name="tagcontent"  cols="100" rows="20" ></textarea><font color="red">＊</font><br />
+      如果希望同时多个内容随机显示，请使用$$$隔开 </TD>
+    </TR>
+    <TR >
+    <td class="td_border" height="30">&nbsp; </td> <TD class="td_border"><input type="submit" value="添加自定义标签" class="rb1" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR></table>
+</form>
+<?php
+}else{
+$numPerPage=30;
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$csqlStr="select count(*) as dd from `sea_mytag`";
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+$sqlStr="select aid,tagname,tagdes,addtime from `sea_mytag` order by aid desc limit $limitstart,$numPerPage";
+?>
+
+<form name="selflabelform" method="post">
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>&nbsp;&nbsp;<input type="button" value="添加自定义标签" onClick="location.href='?action=add'" class="rb1" /></td></tr></table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+<tr class="thead"><th colspan="6">自定义标签管理</th></tr>
+    <TR align="center">
+      <TD height="30" class="td_btop3">ID</TD>
+      <TD class="td_btop3">名称</TD>
+       <TD class="td_btop3">标签代码</TD>
+       <TD class="td_btop3">描述</TD>
+       <TD class="td_btop3">添加时间</TD>
+      <TD class="td_btop3">操作</TD>
+    </TR>
+<?php
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('mytag_list');
+while($row=$dsql->GetObject('mytag_list'))
+{
+$aid=$row->aid;
+?>
+    <TR id="adtr<?php echo $aid;?>" name="adtr"  align="center">
+      <TD height="30" class="td_border"><input type="checkbox" value="<?php echo $aid;?>" name="e_id[]"  class="checkbox" /><?php echo $aid;?></TD>
+      <TD class="td_border"><?php echo $row->tagname;?></TD>
+      <TD class="td_border">{self:<?php echo $row->tagname;?>}</TD>
+      <TD class="td_border"><?php echo $row->tagdes;?></TD>
+      <TD class="td_border"><?php echo isCurrentDay($row->addtime);?></TD>
+      <TD class="td_border"><a href="#" onclick="viewCurrentAdTr('<?php echo $aid;?>');copyToClipboard('{self:nav_bottom_banner}');">调用标签</a> <a href="#" onClick="viewCurrentAdTr('<?php echo $aid;?>');openSelfLabelWin('selflabel','<?php echo $aid;?>')">查看内容</a>&nbsp;&nbsp;<a href="?action=edit&page=<?php echo $page;?>&id=<?php echo $aid;?>">编辑</a>&nbsp;&nbsp;<a  onclick="if(confirm('确定要删除吗')){return true;}else{return false;}" href="?action=del&id=<?php echo $aid;?>">删除</a></TD>
+    </TR>
+<?php
+}
+?>
+    <tr bgcolor="#FFFFFF"align="center">
+    <td class="td_border" colspan="6"><div class="cuspages center"><div class="pages">全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" /><input type="submit" value="批量删除" onclick="if(confirm('确定要删除吗')){selflabelform.action='?action=delall';}else{return false}" class="rb1"  />&nbsp;&nbsp;页次<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1">首页</a> <a href="?page=<?php echo ($page-1);?>">上一页</a> <span><?php echo makePageNumber($page, 10, $TotalPage, "selflabellist");?></span><a href="?page=<?php echo ($page+1);?>">下一页</a> <a href="?page=<?php echo $TotalPage;?>">尾页</a></div></div></td></tr>
+</TABLE>
+</form>
+<?php
+}
+?>
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+
+<div id="selflabel" style="top:100px; display:none;" class="popdiv">
+	<div class="poptitie"><img src="img/btn_close.gif" alt="关闭" onClick="$('selflabel').style.display='none'" />自定义标签路径 </div>
+    <div class="popbody"><div><textarea cols="80" rows="14" id="labelcontent" style="width:516px"></textarea></div></div>
+</div>
+<script type="text/javascript" src="js/drag.js"></script>
+</body>
+</html>

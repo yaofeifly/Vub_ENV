@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>高级工具</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;计划任务 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <?php
+if($action=="edit")
+{
+?>
+      <form name="form1" method="post" action="?action=editsave&id=<?php echo $id;?>">
+        <table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+          <tr class="thead">
+            <th colspan="15">编辑计划任务 - <?php echo $cron['name'];?></th>
+          </tr>
+          <tr>
+            <td colspan="2">每周:</td>
+          </tr>
+          <tr>
+            <td><select name="weekdaynew">
+                <option value="-1">*</option>
+                <?php echo $weekdayselect;?>
+              </select></td>
+            <td>设置星期几执行本任务，"*"为不限制，本设置会覆盖下面的"日"设定</td>
+          </tr>
+          <tr>
+            <td colspan="2">每月:</td>
+          </tr>
+          <tr>
+            <td><select name="daynew">
+                <option value="-1">*</option>
+                <?php echo $dayselect;?>
+              </select></td>
+            <td>设置哪一日执行本任务，"*"为不限制</td>
+          </tr>
+          <tr>
+            <td colspan="2">小时:</td>
+          </tr>
+          <tr>
+            <td><select name="hournew">
+                <option value="-1">*</option>
+                <?php echo $hourselect;?>
+              </select></td>
+            <td>设置哪一小时执行本任务，"*"为不限制</td>
+          </tr>
+          <tr>
+            <td colspan="2">分钟:</td>
+          </tr>
+          <tr>
+            <td><input name="minutenew" value="<?php echo $cronminute;?>" type="text" class="txt"   /></td>
+            <td>设置哪些分钟执行本任务，至多可以设置 12 个分钟值，多个值之间用半角逗号","隔开，留空为不限制</td>
+          </tr>
+          <?php if(strpos($cron['filename'],'$')>0){       
+           	    $filename = $cron['filename'];
+                $filenameArr=explode("$",$filename);
+                $rid=$filenameArr[1];   ?>
+          <tr>
+            <td colspan="2">资源来源:</td>
+          </tr>
+          <tr>
+            <td><select name="resourcefrom" id="resourcefrom" style="width:220px;">
+                <script language="JavaScript" type="text/javascript" src="http://api.seacms.net/pisea_reslib_utf8.js?2012330"></script>
+                <script>makeColOption(<?php echo $rid;?>)</script>
+              </select></td>
+            <td>选择资源库来源(请选择已经绑定好分类的来源，这样可以做到自动入库)</td>
+          </tr>
+          <?php }elseif(strpos($cron['filename'],'#')>0){
+           	    $filename = $cron['filename'];
+                $filenameArr=explode("#",$filename);
+                $collectID=$filenameArr[1];
+                $collectPageNum=$filenameArr[2];
+                $autogetconnum=$filenameArr[3];
+          ?>
+          <tr>
+            <td colspan="2">采集ID:</td>
+          </tr>
+          <tr>
+            <td><select name="collectIDa">
+                <?php 
+                $sql="select tid,tname from sea_co_type where cotype=0";
+                $rs=$dsql->getOne($sql);
+                if(!is_array($rs))
+                {
+                	echo "<option value='0'>无自定义采集项目，请先添加</option>";
+                }
+                else
+                {
+                    $dsql->SetQuery($sql);
+                    $dsql->Execute('getCollectID');
+                    while($row=$dsql->GetArray('getCollectID'))
+                    {
+                    echo "<option value=\"".$row[tid]."\" ".($collectID==$row['tid']?'selected':'').">".$row[tid].".".$row[tname]."</option>";
+                    }
+				}
+                ?>
+                </select></td>
+            <td>自动采集的ID,不能为空</td>
+          </tr>
+          <tr>
+            <td colspan="2">采集页数:</td>
+          </tr>
+          <tr>
+            <td><input name="collectPageNum" value="<?php echo $collectPageNum;?>" type="text" class="txt" /></td>
+            <td>每次自动采集多少列表页,0为不采集,不能为空</td>
+          </tr>
+          <tr>
+            <td colspan="2">采集条数:</td>
+          </tr>
+          <tr>
+            <td><input name="autogetconnum" value="<?php echo $autogetconnum;?>" type="text" class="txt" /></td>
+            <td>每次自动采集多少条最新数据,0为不采集,不能为空</td>
+          </tr>
+          <?php }else{
+           ?>
+          <tr>
+            <td colspan="2">任务脚本:</td>
+          </tr>
+          <tr>
+            <td><input name="filenamenew" value="<?php echo $cron['filename'];?>" type="text" class="txt"   /></td>
+            <td>设置本任务的执行程序文件名，请勿包含路径，程序脚本统一存放于 ./include/crons/ 目录中</td>
+          </tr>
+          <?php } ?>
+          <tr>
+            <td colspan="15"><div class="fixsel">
+                <input type="submit" class="rb1" name="editsubmit" value="提交"  />
+              </div></td>
+          </tr>
+        </table>
+      </form>
+      <?php
+}else{
+?>
+      <form name="form1" method="post" action="?action=update">
+        <table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+          <tr class="thead">
+            <th colspan="15">计划任务</th>
+          </tr>
+          <tr class="header">
+            <td>&nbsp;删除</td>
+            <td>可用</td>
+            <td>名称</td>
+            <td>类型</td>
+            <td>时间</td>
+            <td>上次执行时间</td>
+            <td>下次执行时间</td>
+            <td></td>
+          </tr>
+          <?php
+if(is_array($showtablerow)){
+foreach($showtablerow as $t)
+{
+echo "<tr><td>".$t[0]."</td><td>".$t[2]."</td><td>".$t[1]."</td><td>".$t[3]."</td><td>".$t[4]."</td><td>".$t[5]."</td><td>".$t[6]."</td><td>".$t[7]."</td></tr>\n";
+}
+}
+?>
+          <tr>
+            <td ><input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','delete[]')" /></td>
+            <td><label for="chkall"><span class="fixsel">
+                <input type="submit" class="rb1" name="cronssubmit2" value="提交"  />
+                </span></label></td>
+            <td colspan="6"></td>
+          </tr>
+        </table>
+      </form>
+      <br />
+      <form name="form2" id="form2" action="?action=addCron" method="post" >
+        <div style="margin:0 18px 18px;border:4px #DEEFFA solid"> <div style="margin:8px">
+          新增计划任务
+          </div>
+          <select style="margin:8px 8px 0px 8px;" on onchange="selecPlan(this.options[this.selectedIndex].value)" name="PlanMode">
+            <option value="1">定时生成</option>
+            <option value="3">定时备份</option>
+            <!-- <option value="0">定时采集</option> -->
+            <option value="2">定时自定义采集</option>
+          </select>
+          <div style="margin:8px">
+            <input type="text" class="txt" name="newname" value="" size="20"  onchange="this.onkeyup();" onkeyup="this.value=this.value.replace(/$/g,'');"/>
+            &nbsp;计划任务名称(<span style="color:#F00">*</span>)</div>
+            
+          <div style="margin:0 8px;display:none;" id="collectItem">
+		  <ul>
+            <font color="red" size="3"><strong>
+				<br>
+				&nbsp;海洋cms官方不提供任何视频资源。
+				<br>
+				&nbsp;此处选项已禁止使用。
+				<br><br>
+				</strong>
+			</font>
+              <li>
+                <select name="resourcefrom" id="resourcefrom" style="width:220px;">
+                
+                </select></li>
+           	
+            </ul>
+			
+		    
+          </div>
+           
+          <div style="margin:0 8px;display:none;" id="autocollectItem">
+                <select name="collectID">
+                <?php 
+                $sql="select tid,tname from sea_co_type where cotype=0";
+                $rs=$dsql->getOne($sql);
+                if(!is_array($rs))
+                {
+                	echo "<option value='0'>无自定义采集项目，请先添加</option>";
+                }
+                else
+                {
+                    $dsql->SetQuery($sql);
+                    $dsql->Execute('getCollectID');
+                    while($row=$dsql->GetArray('getCollectID'))
+                    {
+                    echo "<option value=\"".$row[tid]."\">".$row[tid].".".$row[tname]."</option>";
+                    }
+				}
+                ?>
+                </select>
+                &nbsp;自动采集的ID,不能为空<br />
+                <input name="collectPageNum" value="1" type="text" class="txt"   />
+                &nbsp;每次自动采集多少列表页,0为不采集,不能为空<br />
+   	            <input name="autogetconnum" value="10" type="text" class="txt"   />
+                &nbsp;每次自动采集最新的多少条数据,0为不采集,不能为空
+          </div>
+          
+          <div  style="margin:0 8px">
+            <ul>
+              <li>
+                <select name="weekdaynew">
+                  <option value="-1">*</option>
+                  <?php echo $weekdayselect;?>
+                </select>
+                &nbsp;设置星期几执行本任务，"*"为不限制，本设置会覆盖下面的"日"设定</li>
+              <li>
+                <select name="daynew">
+                  <option value="-1">*</option>
+                  <?php echo $dayselect;?>
+                </select>
+                &nbsp;设置哪一日执行本任务，"*"为不限制</li>
+              <li>
+                <select name="hournew">
+                  <option value="-1">*</option>
+                  <?php echo $hourselect;?>
+                </select>
+                &nbsp;设置哪一小时执行本任务，"*"为不限制</li>
+            </ul>
+          </div>
+          <div style="margin:8px">
+            <input name="minutenew" value="" type="text" class="txt"   />
+            &nbsp; 设置哪些分钟执行本任务，至多可以设置 12 个分钟值，多个值之间用半角逗号","隔开，留空为不限制</div>
+          <div style="margin:8px">
+            <input type="button" class="rb1" name="cronssubmit" value="新增计划任务" onclick="document.getElementById('form2').submit();" />
+          </div>
+        </div>
+      </form>
+      <form name="form3" id="form3" action="?action=addCustomCron" method="post" >
+        <div style="margin:0 18px 18px;border:4px #DEEFFA solid">
+          <div style="margin:8px">新增自定义计划任务 </div>
+          <div style="margin:8px"> 新增:
+            <input type="text" class="txt" name="newname" value="" size="20"  onchange="this.onkeyup();" onkeyup="this.value=this.value.replace(/$/g,'');" />
+          </div>
+          <div style="margin:8px">
+            <input type="button" class="rb1" name="cronssubmit" value="新增自定义计划任务" onclick="document.getElementById('form3').submit();" />
+          </div>
+        </div>
+      </form>
+      <table border="0" cellpadding="0" cellspacing="0" align="center" class="tb" id="tips">
+        <tr class="thead">
+          <th>重要提示</th>
+        </tr>
+        <tr>
+          <td class="tipsblock">
+		  <b><font color="#990000" size="3">必读：定时生成参数及配置说明：<a href="http://www.seacms.net/forum.php?mod=viewthread&amp;tid=138" target="_blank">http://www.seacms.net/forum.php?mod=viewthread&amp;tid=138</a></font></b>
+		  <br><br>
+		  计划任务是海洋cms 提供的一项使系统在规定时间自动执行某些特定任务的功能，在需要的情况下，您也可以方便的将其用于程序功能的扩展。<br>
+            <br>
+            计划任务是与系统核心紧密关联的功能特性，不当的设置可能造成程序功能的隐患，严重时可能导致网站无法正常运行，因此请务必仅在您对计划任务特性十分了解，并明确知道正在做什么、有什么样后果的时候才自行添加或修改任务项目。<br>
+            <br>
+            此处和其他功能不同，本功能中完全按照程序系统默认时差对时间进行设定和显示，而不会依据某一用户或管理员的时差设定而改变显示或设置的时间值。</td>
+        </tr>
+      </table>
+      <?php
+}
+?>
+    </div>
+  </div>
+</div>
+<?php
+viewFoot();
+?>
+</body>
+</html>

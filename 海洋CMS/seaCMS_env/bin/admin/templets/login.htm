@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>管理中心 - 海洋CMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta name="robots" content="noindex,nofollow" />
+<style>
+html,body,div,form,fieldset,input{margin:0;padding:0;font-family: "Microsoft YaHei" ! important;}
+body{background-color:#E5F2FB;text-align:center}
+a:link {color:#666;text-decoration:none;}
+a:hover,a:visited {color:#666;text-decoration:none;}
+.wrap{width:380px; margin:auto;margin-top:60px;  }
+.c2{width:380px; border: 1px solid #CCC;border-radius:5px; background-color:#FFF;}
+.c1{width:380px;}
+#c1lt{width:380px;height:50px;float:left;}
+#c1rt{width:300px;height:50px;float:right;font-size:12px;}
+img,fieldset	{border:none}
+#lay04{color: #000;}
+#layform{width:280px;color:#333333;text-align:left;}
+#row{margin-bottom:8px;}
+#lis{width:76px;float:left;line-height:24px;}
+input {
+	margin:10 25 10 25px;
+	height:40px;
+	color: #069;
+	font-size:14px;
+	line-height:40px;
+	padding-left:15px;
+	border-radius:5px;
+	border:1px #CCCCCC solid;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<img src="img/logo.jpg">
+<div class="c2" id="lay04">
+<div style="height:40px; background-color:#F5F5F5;border-radius:5px;border: 1px solid #F5F5F5; text-align:left; font-size:14px; font-weight:bold; line-height:40px; color: #666; padding-left:8px;">欢迎登录海洋CMS后台管理</div>
+	<div id="layform" style="border-top:1px solid #ccc; width:380px; padding-top:15px; ">
+		<form method="post" action="login.php" name="formsearch">
+        <input type="hidden" name="gotopage" value="<?php if(!empty($gotopage)) echo $gotopage;?>" />
+      	<input type="hidden" name="dopost" value="login" />
+		<fieldset>
+       	<input name="userid" type="text" id="input_name" tabindex="1" placeholder="管理员账户" style="width:330px; background-image:url(img/u.png); background-repeat:no-repeat;"/>
+       	<input name="pwd" type="password" id="input_pwd" tabindex="2" placeholder="管理员密码" style="width:330px;background-image:url(img/p.png); background-repeat:no-repeat;"/>
+       	<?php $v=file_get_contents("../data/admin/adminvcode.txt"); ?>
+		<div id="row" style="<?php if($v==0) echo 'display:none;' ?>"><input name="validate" type="text" id="vdcode" placeholder="输入右侧验证码" tabindex="3" style='width:230px;text-transform:uppercase;'/> <img id="vdimgck" src="../include/vdimgck.php" alt="看不清？点击更换" align="absmiddle" style="cursor:pointer; height:40px; width:95px; margin-left:-23px;" onClick="this.src=this.src+'?get=' + new Date()"/></div>  
+		
+		<div id="row" style="margin-top:10px;"><input name="input_sub" type="submit" id="input_sub" style='background-image:url(img/login_bt.jpg);width:84px;height:28px; border:none' value="" tabindex="4" /></div>
+		</fieldset>
+	  </form>
+  </div>
+
+</div>
+<div style="color:#999; text-align:right; width:380px; font-size:12px; margin-top:5px;">Power By Seacms</div>
+</div>
+<script src="img/admin.js" type="text/javascript"></script>
+<script type="text/javascript">
+function focusLogin(){
+	formsearch.input_name.focus();	
+}
+</script>
+</body>
+</html>

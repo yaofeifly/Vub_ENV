@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>专辑列表_第{topicindexlist:page}页_{seacms:sitename}</title>
+<meta name="keywords" content="{seacms:sitename}" />
+<meta name="description" content="{seacms:sitename}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg sea-special special-list">
+<div class="row">
+	<div class="col-xs-12 sea-col">
+  	<div class="page-header">
+      <h4>
+        <span class="sea-text">影视专题</span>
+      </h4>
+    </div>
+  </div>
+  <!-- -->
+  <ul class="list-unstyled">
+   {seacms:topicindexlist size=12 order=time}
+    <li class="col-xs-6 col-md-3">
+      <a href="[topicindexlist:link]" class="thumbnail">
+        <img src="[topicindexlist:pic]" alt="[topicindexlist:name]" class="img-responsive">
+      </a>
+      <h3 class="text-center sea-text-hidden">
+        <a href="[topicindexlist:link]" title="[topicindexlist:name]">[topicindexlist:name]</a>
+      </h3>
+    </li>
+    {/seacms:topicindexlist}
+  </ul>
+  <!-- -->
+  <gt name="totalpages" value="1">
+    <div class="clearfix sea-clearfix"></div>
+   <div class="col-xs-12 sea-col text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [topicindexlist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+         {if:{topicindexlist:page}>1}
+            <li><a href="{topicindexlist:backlink}">上一页</a></li>
+         {else}{end if}
+         {if:{topicindexlist:page}<{topicindexlist:pagecount}}
+            <li><a href="{topicindexlist:nextlink}">下一页</a></li>
+         {else}{end if}
+         </ul> 
+      </div>
+  </gt>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

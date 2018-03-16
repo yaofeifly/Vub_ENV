@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn {
+	border:1px solid;
+	border-color:#fff #999 #999 #fff;
+}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;同名影片检测 ';</script>
+<div class="container" id="cpcontainer">
+  <table class="tb">
+    <tr class="thead">
+      <td>同名数据检测</td>
+    </tr>
+    <tr>
+      <td>检测长度：
+        <input type="text" name="rlen" id="rlen" size="5" value="2" maxlength="2" onkeyup="this.value=this.value.replace(/\D/g,'')">
+        <input type="button" class="btn" onclick="location.href='admin_video.php?repeat=ok&order=v_name&rlen='+document.getElementById('rlen').value;" value="查询">
+        <input type="button" class="btn" onclick="location.href='admin_video.php?repeat=ok&order=v_name&allrepeat=ok'" value="全名重复数据检测"></td>
+    </tr>
+    <tr class="thead">
+      <td>其他</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="button" class="btn" onclick="location.href='admin_video.php?empty=p'" value="无播放地址数据检测">
+		<input type="button" class="btn" onclick="location.href='admin_video.php?empty=d'" value="无下载地址数据检测">
+		<input type="button" class="btn" onclick="location.href='admin_video.php?empty=pd'" value="播放下载地址全无检测">
+		</td>
+    </tr>
+  </table>
+</div>
+<?php 
+	viewFoot();
+?>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>模板管理-模板-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;模板&nbsp;&raquo;&nbsp;模板管理 ';</script>
+
+<div class="container" id="cpcontainer">
+<!--当前导航-->
+<?php
+if($action=='edit')
+{
+?>
+  <form action="?action=save" method="post"  >
+    <tr>
+      <td width="8%" class="td_border">文件名称：</td>
+      <td width="92%" class="td_border"><input name="name" type="text"  disabled="disabled" size="40" value="<?php echo $filename;?>" /> 注意：文件名无法修改
+    </tr>
+    <tr>
+      <td colspan="2" class="td_border"><textarea  name="content" style="width:99%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="25" dataType="Require" msg="请填写模版内容"><?php echo $content;?></textarea></td>
+    </tr>
+    <tr>
+      <td class="td_border"></td><td class="td_border"><input name="filedir" type="hidden" value="<?php echo $filedir;?>"><input type="submit" name="Submit" value="修改模板" class="btn" /> <input type="button" name="back" value="返  回"  class="btn" onClick="javascript:history.go(-1);" /></td>
+    </tr>
+  </form>
+<?php
+}elseif($action=='editCus'){
+?>
+    <form action="?action=saveCus" method="post"  >
+    <tr>
+      <td width="8%" class="td_border">文件名称：</td>
+      <td width="92%" class="td_border"><input name="name" type="text"  disabled="disabled" size="40" value="<?php echo $filename;?>" /> 注意：文件名无法修改
+    </tr>
+    <tr>
+      <td colspan="2" class="td_border"><textarea  name="content" style="width:99%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="25" dataType="Require" msg="请填写模版内容"><?php echo $content;?></textarea></td>
+    </tr>
+    <tr>
+      <td class="td_border"></td><td class="td_border"><input name="filedir" type="hidden" value="<?php echo $filedir;?>"><input type="submit" name="Submit" value="修改模板" class="btn" /> <input type="button" name="back" value="返  回"  class="btn" onClick="javascript:history.go(-1);" /></td>
+    </tr>
+  </form>
+<?php
+}elseif($action=='add'){
+?>
+  <form action="?action=savenew" method="post"  >
+    <tr>
+      <td width="8%" class="td_border">文件名称：</td>
+      <td class="td_border">self_<input name="name" type="text" size="40" />
+      .html  <span style="margin-left:80px;">注意：左侧文本框内容为前台生成的文件名</span>
+    </tr>
+    <tr>
+      <td colspan="2" class="td_border"><textarea  name="content" style="width:99%;font-family: Arial, Helvetica, sans-serif;font-size: 14px;" rows="25" dataType="Require" msg="请填写模版内容"></textarea></td>
+    </tr>
+    <tr>
+      <td class="td_border"></td><td class="td_border"><input name="filedir" type="hidden" value="<?php echo $filedir;?>"><input type="submit" name="Submit" value="添  加" class="btn" /> <input type="button" name="back" value="返  回"  class="btn" onClick="javascript:location.href='admin_template.php?path=<?php echo $filedir;?>'" /></td>
+    </tr>
+  </form>
+
+<?php
+}else if($action=='custom'){
+?>
+<table class="tb" id="templatefilelist">
+<tr class="thead"><th colspan="5"><div style="float:left">自定义模板管理：&nbsp;&nbsp;</div><a href="?action=add&filedir=../templets/<?php echo $cfg_df_style.'/'.$cfg_df_html; ?>"><div class="btn" style="float:left;width:95px;text-align:center;font-weight:normal;padding:0; margin:0">添加自定义模板</div></a></th></tr>
+  <tr>
+    <td width="22%"><strong>文件名</strong></td>
+	<td width="20%"><strong>模板类型</strong></td>
+    <td width="19%"><strong>文件大小</strong></td>
+    <td width="17%"><strong>修改时间</strong></td>
+    <td width="22%"><strong>操作</strong></td>
+  </tr>
+  
+<form action="" method="post" id="makehtml" target="proxy">
+<?php
+  $flist1 = getFolderList('../templets/'.$cfg_df_style.'/'.$cfg_df_html.'/');
+  foreach($flist1 as $finfo)
+  {
+  	if(substr($finfo['filename'],0,5)=='self_'){
+    $folder = '../templets/'.$cfg_df_style.'/'.$cfg_df_html.'/'.$finfo['filename'];
+  ?>
+  <tr>
+  	<td><input type="checkbox" class="checkbox" name="custom[]" value="<?php echo $finfo['filename'];?>" />
+		<a href="<?php echo "?action=edit&filedir=".$folder; ?>"><img border=0 src='img/<?php echo $finfo['fileicon'];?>.gif'><?php echo $finfo['filename'];?></a></td>
+    <td><?php echo $finfo['fileinfo'];?></td>
+    <td><?php echo $finfo['filesize'];?></td>
+    <td><span style='font-size:10px'><?php echo $finfo['filetime'];?></span></td>
+    <td><span class="td_border">
+      <?php if($finfo['filetype']=='folder'){echo "<a href=\"?path=".$folder."\"><img border=0 src='img/next.gif' />下一级目录</a>";}elseif($finfo['filetype']=='txt'){echo "<a href='?action=editCus&filedir=".$folder."' >编辑</a>&nbsp;&nbsp;&nbsp;<a href='?action=del&filedir=".$folder."' onClick=\"return confirm('确定要删除吗')\">删除</a>";}else{echo "<a href='".$folder."' target=_blank >浏览</a>&nbsp;&nbsp;&nbsp;<a href='?action=del&filedir=".$folder."' onClick=\"return confirm('确定要删除吗')\">删除</a>";}?>
+    </span></td>
+  </tr>
+  <?php
+  }
+  }
+  
+  ?>
+<tr align="left">
+
+	<td colspan="5"><div class="cuspages"><div class="pages">全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','custom[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','custom[]')" /><input type="submit" value="批量生成" class="btn" onclick="getElementById('makehtml').action='admin_makehtml.php?action=customs'" /></div></div></td>
+</tr>
+</form>
+</table>
+<?php
+}else{
+?>
+<table class="tb">
+<tr class="thead"><th colspan="6">模板管理</th></tr>
+  <tr>
+    <td width="22%" height="30" class="td_btop3"><strong>文件名</strong></td>
+	<td width="20%" class="td_btop3"><strong>模板类型</strong></td>
+    <td width="19%" class="td_btop3"><strong>文件大小</strong></td>
+    <td width="17%" class="td_btop3"><strong>修改时间</strong></td>
+    <td width="22%" class="td_btop3"><strong>操作</strong></td>
+  </tr>
+  <tr>
+<?php
+if(substr($path,strlen($path)-1)=='/') $path=substr($path,0,strlen($path)-1);
+$lastLevelPath=substr($path,0,strrpos($path,'/'));
+if($path!='../templets'){
+?>
+    <td height="30" class="td_border" colspan="5">当前目录：<?php echo $path;?></td>
+   </tr> 
+  <tr align="left" > <td height="30" class="td_border" colspan="4"><a  href="?path=<?php echo $lastLevelPath;?>"><img border=0 src='img/last.gif' />上一级目录</a></td>
+  <td class="td_border" colspan="1">&nbsp;
+	  <?php if($path == "../templets/".$cfg_df_style."/".$cfg_df_html){?>
+        <a href="?action=add&filedir=<?php echo $path;?>"><div class="btn" style="width:95px;text-align:center;">添加自定义模板</div></a>
+      <?php }?>
+	</td>
+  </tr>
+<?php
+}
+
+foreach($flist as $finfo)
+{
+$folder=$path."/".$finfo['filename'];
+?>
+	<tr align="left" ><td height="30" class="td_border"><a href="<?php if($finfo['filetype']=='folder'){echo "?path=".$folder;}elseif($finfo['filetype']=='txt'){echo "?action=edit&filedir=".$folder;}else{echo $folder;}?>"><img border=0 src='img/<?php echo $finfo['fileicon'];?>.gif'><?php echo $finfo['filename'];?></a></td><td class="td_border"><?php echo $finfo['fileinfo'];?></td><td class="td_border"><?php echo $finfo['filesize'];?></td><td class="td_border"><span style='font-size:10px'><?php echo $finfo['filetime'];?></span></td> <td class="td_border"><?php if($finfo['filetype']=='folder'){echo "<a href=\"?path=".$folder."\"><img border=0 src='img/next.gif' />下一级目录</a>";}elseif($finfo['filetype']=='txt'){echo "<a href='?action=edit&filedir=".$folder."' >编辑</a>&nbsp;&nbsp;&nbsp;<a href='?action=del&filedir=".$folder."' onClick=\"return confirm('确定要删除吗')\">删除</a>";}else{echo "<a href='".$folder."' target=_blank >浏览</a>&nbsp;&nbsp;&nbsp;<a href='?action=del&filedir=".$folder."' onClick=\"return confirm('确定要删除吗')\">删除</a>";}?></td></tr>
+<?php
+}
+}
+?>
+</table>
+
+</div>
+<iframe width="100%" height="0" frameborder="0" scrolling="auto" src="about:blank" align="middle" name="proxy" onload="var _1=this.contentWindow;if(_1.document.URL!='about:blank'){this.style.height=_1.document.body.scrollHeight+'px';}"></iframe>
+<?php
+viewFoot();
+?>
+</body></html>

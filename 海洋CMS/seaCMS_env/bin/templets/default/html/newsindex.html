@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>新闻中心首页_{seacms:sitename}</title>
+<meta name="keywords" content="新闻,时事,时政,国际,国内,社会,法治,聚焦,评论,文化,教育,新视点,深度,网评,专题,环球,传播,论坛,图片,军事,焦点,排行,环保,校园,法治,奇闻,真情" />
+<meta name="description" content="新闻中心是{seacms:sitename}最重要的频道之一,24小时滚动报道国内、国际及社会新闻。每日编发新闻数以万计。包括即日的国内外不同类型的新闻与评论,人物专题,图库。" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg sea-news news-list">
+<div class="row">
+<div class="col-md-8 col-xs-12 sea-col">
+{seacms:newsarealist areatype=all}
+	
+  	<div class="page-header">
+      <h4><span class="glyphicon glyphicon-pencil sea-text"></span> <a href="[arealist:link]">[arealist:typename]</a>
+	  <small>共有<span class="sea-text">[arealist:count]</span>篇内容</small>
+      </h4>
+    </div>
+    {seacms:newslist num=5 order=time type=areatype}
+    <div class="row item">
+      <div class="col-xs-8 col-sm-9">
+        <h4>
+          <a href="[newslist:link]">
+          [newslist:title]
+          </a>
+        </h4>
+        <p class="text-muted hidden-xs">
+          [newslist:outline len=99]
+        </p>
+        <h6 class="visible-xs">
+          <span class="glyphicon glyphicon-eye-open"></span> [newslist:hit]
+          <span class="glyphicon glyphicon-time"></span> [newslist:time]
+        </h6>
+      </div>
+      <div class="col-xs-4 col-sm-3 text-center">
+        <a href="[newslist:link]">
+        <img src="[newslist:pic]" class="img-responsive img-thumbnail" title="[newslist:title]" onerror="javascript:this.src='/pic/nopic.gif';">
+        </a>
+      </div>
+    </div>
+    <div class="news-hr"></div>
+    {/seacms:newslist}
+ 
+{/seacms:newsarealist}
+  </div><!-- --> 
+  
+  <div class="col-md-4 sea-col visible-md visible-lg">
+  	 <div class="page-header sea-border-none">
+      <h4><span class="glyphicon glyphicon-th-list sea-text"></span> 相关分类</h4>
+    </div>
+    <ul class="row list-unstyled text-center news-item-type">
+     {seacms:menulist by=news type=top}
+      <li class="col-xs-4">
+        <a href="[menulist:link]" class="btn btn-sm btn-default btn-block">[menulist:typename]</a>
+      </li>
+      {/seacms:menulist}
+    </ul>
+    <div class="clearfix sea-clearfix"></div>
+    <div class="page-header sea-border-none">
+      <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热点资讯</h4>
+    </div>
+    <ol class="news-item-hot">
+       {seacms:newslist num=15 order=hit type=all}
+      <li><a href="[newslist:link]">[newslist:title]</a></li>
+	  {/seacms:newslist}
+    </ol>
+  </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>高级工具</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script language='javascript'>
+function LoadCtTest()
+{
+
+		view("loading")
+		ajax.get(
+			"admin_filecheck.php?action=test", 
+			function(obj) {
+				if(obj.responseText == "err"){
+					set($("messagetd"),"发生错误");	
+				}else{
+					set($("messagetd"),obj.responseText);
+				}
+				hide("loading")
+			}
+		);
+}
+</script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;高级工具 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb" style="background:#E2F5BC;">
+  <tr class="thead">
+    <td width="100%" height="24" colspan="2">
+      <b>木马自检程序</b>
+    </td>
+  </tr>
+  <tr>
+    <td height="73" colspan="2">
+     <strong>安全建议：</strong>
+    	<br />
+      1、有条件的用户把seacms中 data、templets、uploads、images、install目录设置为不允许执行脚本，其它目录禁止写入，系统将更安全；<br />
+      2、本检测程以seacms开发模式为标准，如果您的网站目录包含其它系统，此检测程序可能会产生错误判断；<br />
+    </td>
+  </tr>
+  <tr>
+    <td height="50" colspan="2">
+    <input type="button" name="bt1" value="开始检测" class="rb1" onclick="LoadCtTest();" />
+ </td>
+  </tr>
+  <tr>
+    <td height="30" colspan="2">检测结果：(结果仅供参考，请务必查看源码后才删除非法文件)</td>
+  </tr>
+  <tr>
+    <td height="300" colspan="2" id="messagetd" valign="top">
+<span id="loading" style="display:none"><img src="img/loading2.gif" width="16" height="16"><font color="#FF0000">检测中，请稍后。。。</font></span>
+    </td>
+  </tr>
+</table>
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

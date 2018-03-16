@@ -1,0 +1,163 @@
+@charset "utf-8";
+input{
+	vertical-align:middle;
+	margin-right:3px;
+	font-size:12px;
+}
+textarea{
+	vertical-align:top;
+	font-size:12px;
+	line-height:156%;
+	border:1px solid #AAA;
+	padding:3px;
+	letter-spacing:1px;
+	word-break:break-all; 
+	overflow-y:auto;
+}
+.input-txt{
+	padding:4px 8px 4px 6px;
+	border:1px solid #AAA;
+	font-size:12px;
+	color:#000;
+	width:200px;
+}
+
+.textipt_on{
+	border:1px solid #F90;
+}
+
+
+hr{
+	height:1px;
+	line-height:1px;
+	overflow:hidden;
+	border-width:1px 0px 0px 0px ;
+	border-top:1px solid #E6E6E6;/*兼容Opera*/
+ }
+hr:empty {
+	margin:8px 0px 7px 0px !important;
+	margin:0px;
+}
+
+small{
+	font-size:12px;
+}
+
+.moncolor td{
+	background:#FFC;
+}
+
+.twbox{
+	width:706px;
+	border:1px solid #e9f3f9;
+	font-size:12px;
+	overflow:hidden;
+	margin:8px auto;
+
+}
+
+
+.twbox thead tr td{
+	background:url(body_title_bg.gif) -1px -1px repeat-x;
+	height:31px;
+	line-height:31px;
+	text-indent:10px;
+}
+
+.twbox thead tr td strong{
+	letter-spacing:2px;
+	margin-right:14px;
+	color:#FFF;
+	font-size:14px;
+}
+
+
+.twbox thead tr td span{
+	color:#CDA;
+}
+
+
+.twbox thead tr td  p{
+	height:31px;
+	display:inline;
+	float:right;
+	margin:-31px 10px 0 0;
+	overflow:hidden;
+}
+.twbox thead tr td  p *{
+	float:right;
+}
+.twbox thead tr td a.thlink{
+	color:#FFF;
+}
+.twbox thead tr td a.thlink:hover{
+	color:#FFFF00;
+	text-decoration:none;
+}
+
+
+.twbox tbody {
+	overflow:hidden;
+	text-align:left;
+}
+
+.twbox tbody tr th{
+	background:#f1f8fe;
+	color:#125c87;
+	line-height:21px;
+	height:21px;
+	text-indent:30px;
+	font-weight:normal;
+	border-bottom:1px solid #EFF7D8;
+	letter-spacing:2px;
+}
+
+.twbox tbody tr td{
+	padding:7px;
+	border-bottom:1px solid #F2F2F2;
+	color:#333;
+	vertical-align:top;
+}
+
+.twbox tbody tr td p{
+	line-height:21px;
+}
+.twbox tbody tr td p strong img{
+	vertical-align:middle;
+}
+.twbox tbody tr td img{ 
+	vertical-align:top;
+	margin:0px 10px 5px 0px;
+
+}
+.twbox tbody tr td small{ 
+	color:#888;
+}
+
+.twbox tfoot tr td{
+	padding:10px;
+	line-height:25px;
+	text-align:center;
+}
+.twbox tfoot tr td p{
+	line-height:21px;
+	margin-bottom:10px;
+}
+
+input.but{
+	height:26px;
+	padding-left:6px;
+	padding-right:6px;
+	line-height:26px;
+	font-weight:bold;
+	letter-spacing:1px;
+	color:#FFF;
+	background-color:#FC3;
+}
+
+.onetd{
+	width:150px;
+	text-align:right;
+	line-height:25px;
+}
+

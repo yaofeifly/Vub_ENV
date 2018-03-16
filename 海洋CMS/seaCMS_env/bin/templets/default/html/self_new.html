@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>最近更新 - {seacms:sitename}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="clearfix sea-clearfix"></div>
+<div class="container sea-bg vod-type">
+<div class="row">
+  <!-- -->
+  <div class="clearfix"></div>
+  <ul class="list-unstyled">
+      {seacms:videolist num=30 order=time}
+      <li class="col-md-2 col-sm-2 col-xs-4 text-center sea-vod-img-new sea-col">
+        <a href="[videolist:link]">
+        <img class="img-responsive img-thumbnail sea-img" data-original="[videolist:pic]" alt="[videolist:name]" src="[videolist:pic]">
+        </a>
+        <h4 class="sea-text-hidden text-left">
+          <a href="[videolist:link]" title="[videolist:name]">[videolist:name]</a>
+        </h4>
+        <h6 class="sea-text-hidden text-left">
+          [videolist:time]
+        </h6>
+      </li>
+      {/seacms:videolist}
+    </ul>
+  <!-- -->
+  <div class="clearfix"></div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

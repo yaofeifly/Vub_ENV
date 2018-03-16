@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn {
+	border:1px solid;
+	border-color:#fff #999 #999 #fff;
+}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据高级工具 ';</script>
+<div class="container" id="cpcontainer">
+  <form  method="post" action="">
+    <table class="tb">
+      <tr class="thead">
+        <td>SQL高级助手</td>
+      </tr>
+      <tr>
+        <td><textarea name="sql" rows="3" cols="110" value=""></textarea><br /> <input type="submit" class="btn"  value="执行SQL语句">  <input type="reset" value="清除" class="btn"></td>
+      </tr>
+      <tr>
+        <td>
+	1: 列出所有数据  select * from sea_data<br/>
+	2: 删除所有数据（id不还原为0）  delete  from sea_data/sea_playdata/sea_content 三个表各执行一次<br/>
+	3: 列出某一栏目数据  select  *  from sea_data where tid =(select tid from sea_type where tname = '频道1') <br/>
+	4: 删除某一栏目数据  delete  from sea_data where tid =(select tid from sea_type where tname = '频道1') <br/>
+	5: 清空所有数据（id还原为从0开始） TRUNCATE sea_data/sea_playdata/sea_content 三个表各执行一次<br/>
+    <span style="color:#F00">(请谨慎操作，以免造成数据错误！<a target="_blank" href="http://www.seacms.net">[?]</a>)</span><br/>
+		</td>
+      </tr>
+    </table>
+    <table class="tb">
+      <tr>
+        <?php  
+    $pagesize=30;
+    if($page){
+  		$pageval=$page;
+  		$pagenum=($pageval-1)*$pagesize; //计算分页的公式=（当前页数-1*每页条数，每页条数)
+  		$pagenum.=',';
+    }
+    if($pageval<=1){
+         $pageval=1;
+         }
+	$sql = stripslashes($sql);
+    if(strtolower(substr(trim($sql),0,6))!='select')
+    {
+    	$sqlArr = explode(';',rtrim(trim($sql),';'));
+        //var_dump($sqlArr);
+        foreach($sqlArr as $sql)
+        {
+    		$num=$dsql->ExecuteNoneQuery2($sql);
+            if($num==-1)
+            {
+                echo '<div style="color:#F00;text-align:center">'.$dsql->GetError().'<br />SQL执行失败，请检查SQL语句是否正确<a href="http://www.seacms.net">[?]</a></div></tr></table>';
+                viewFoot();
+                exit();
+			}
+        }
+        echo '<div style="color:#F00;text-align:center">SQL执行成功，'.$num.'条数据受影响</div></tr></table>';
+        viewFoot();
+        exit();
+    }
+    $dsql->SetQuery($sql);
+	$dsql->Execute('sqlhelper');
+    $num = $dsql->GetTotalRow('sqlhelper');
+    if($num==0){
+    	echo '<div style="color:#F00;text-align:center">查询不到数据</div></tr></table>';
+        viewFoot();
+        exit();
+	}if ($num%$pagesize) {
+     	$zongye=ceil($num/$pagesize);
+    }elseif(
+     	$num%$pagesize==0){
+     	$zongye=$num/$pagesize;
+    }
+    $moye=$zongye;
+    $n = count($dsql->GetArray('sqlhelper'));
+    $n = $n/2;
+    $sql1 = $sql." limit $pagenum $pagesize";
+    $dsql->SetQuery($sql1);
+    $dsql->Execute('sqlhelper2');
+    $row1=$dsql->GetOne();
+    foreach($row1 as $key=>$value){
+    if(is_string($key)){
+?>
+        <td><?php
+    echo $key; ?></td>
+        <?php 
+    }}
+    ?>
+      </tr>
+      <?php
+    while($row=$dsql->GetArray('sqlhelper2')){
+?>
+      <tr>
+        <?php
+    for($i=0;$i<$n;$i++){
+    ?>
+        <td nowrap><?php echo showFace(encodeHtml(cn_substr($row[$i],40)));?></td>
+        <?php } ?>
+      </tr>
+      <?php } ?>
+      <tr>
+    </table>
+    <td height="30" colspan="11" class="td_border"><div class="cuspages">
+        <div class="pages"> &nbsp;页次：<?php echo $pageval;?>/<?php echo $zongye;?> 每页<?php echo $pagesize;?> 总收录数据<?php echo $num;?>条
+        <?php 
+    if($pageval<=1){
+?>
+           <a href="javascript:">首页</a>
+           <a href="javascript:"> 上一页</a>
+<?php	
+	}else{
+?>
+         <a href="?action=result&sql=<?php echo $sql ?>&page=1">首页</a> <a href="?action=result&sql=<?php echo $sql ?>&page=<?php echo ($pageval-1);?>">上一页</a>
+         <?php
+	}
+?>
+          <?php 
+    if($pageval>=$zongye){
+?>
+           <a href="javascript:">下一页</a>
+           <a href="javascript:"> 尾页</a>
+          <?php	
+	}else{
+?>
+          <a href="?action=result&sql=<?php echo $sql ?>&page=<?php echo ($pageval+1) ?>">下一页</a>
+          <a href="?action=result&sql=<?php echo $sql ?>&page=<?php echo ($moye=$zongye);?>">尾页</a>
+          <?php
+	}
+?>
+          </div>
+      </div></td>
+    <tr>
+      </table>
+  </form>
+</div>
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;SQL高级助手';</script>
+<?php viewFoot(); ?>
+</body>
+</html>

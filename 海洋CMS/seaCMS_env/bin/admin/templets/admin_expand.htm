@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<TITLE>扩展模块-扩展-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;广告&nbsp;&raquo;&nbsp;幻灯片管理 ';</script>
+<script type="text/javascript">
+function upformone(i){
+	document.getElementById('id').value=i,document.getElementById('item_url').value=document.getElementById('item_url'+i).value,document.getElementById('link').value=document.getElementById('link'+i).value,document.getElementById('title').value=document.getElementById('title'+i).value,document.getElementById('desc').value=document.getElementById('desc'+i).value;
+	document.getElementById('form1').submit();
+}
+var _1;
+function onUpClick(tg,el,id){
+	_1=el;openWindow2(12,320,25,0);
+	var msgDiv=document.getElementById("msg");
+	var _t = tg.offsetTop;
+    var _l = tg.offsetLeft;
+    while (tg = tg.offsetParent){_t+=tg.offsetTop; _l+=tg.offsetLeft;}
+    msgDiv.style.cssText+="border:1px solid #55BBFF;background: #C1E7FF;padding:3px 0px 3px 4px;"
+	msgDiv.style.top = (_t-1)+"px";
+    msgDiv.style.left = (_l-1)+"px";
+	msgDiv.innerHTML='<button type="button" class="btn" style="margin:0 6px 0 0;height:23px;float:right;padding:0;" onclick="closeWin()">关闭</button><iframe src="upload.htm?isslide=1&id='+id+'" scrolling="no" topmargin="0" width="280" height="50" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe>';
+}
+
+function onUploadBack(fn){
+	if(!!_1) _1.value=fn;
+	closeWin();
+}
+</script>
+<div class="container" id="cpcontainer">
+<table class="tb">
+	<tr class="thead"><td colspan="6">幻灯片管理(<em style="color:red">幻灯图片请放在pic/slide目录下，只需将图片名填进来,不需要再填路径</em>)</td></tr>
+	<tr>
+		<td width="5%">ID</td>
+		<td width="30%">图片</td>
+
+		<td width="20%">链接</td>
+		<td width="20%">标题</td>
+		<td width="20%">说明</td>
+		<td width="5%">操作</td>
+	</tr>
+<form id="form1" name="form1" method="post" action="?action=modifyside" target="hiddensubmit">
+<input type="hidden" name="id" id="id" value="" />
+<input type="hidden" name="item_url" id="item_url" value="" />
+
+<input type="hidden" name="link" id="link" value="" />
+<input type="hidden" name="title" id="title" value="" />
+<input type="hidden" name="desc" id="desc" value="" />
+</form>
+<form id="form2" name="form2" method="post" action="?action=modifyallside">
+    <?php
+    $xml = simplexml_load_file($m_file);
+    $id = 0;
+  	foreach ($xml as $item){
+    $id++;
+    ?>
+	<tr>
+		<td><input type="checkbox" value="<?php echo $id; ?>" name="e_id[]" class="checkbox" /><?php echo $id; ?></td>
+		<td><input type="text" name="item_url<?php echo $id; ?>" id="item_url<?php echo $id; ?>" value="<?php
+        echo $item['item_url']; ?>" />&nbsp;<button type="button" class="btn" style="width:60px;height:22px;" onClick="onUpClick(this,this.form.elements['item_url0'],<?php echo $id; ?>)">浏览...</button></td>
+		<td><input type="text" name="link<?php echo $id; ?>" id="link<?php echo $id; ?>" value="<?php
+        echo $item['link']; ?>" /></td>
+		<td><input type="text" name="title<?php echo $id; ?>" id="title<?php echo $id; ?>" value="<?php
+        echo $item['title']; ?>" style="width:100px"/></td>
+		<td><input type="text" name="desc<?php echo $id; ?>" id="desc<?php echo $id; ?>" value="<?php
+        echo $item['desc']; ?>" style="width:200px"/></td>
+		<td><!--<a href="?action=sidemoveup&id=<?php echo $id; ?>" target="hiddensubmit">上移</a> <a href="?action=sidemovedown&id=<?php echo $id; ?>" target="hiddensubmit">下移</a> --><a href="javascript://" onClick="upformone(<?php echo $id; ?>)">修改</a> <a href="?action=delside&id=<?php echo $id; ?>" onClick="return confirm('确定要删除吗')">删除</a></td>
+	</tr>
+    <?php
+    }
+    ?>
+	
+	<tr class="thead"><td><input type="checkbox" class="checkbox" id="chkall" onClick="checkAll(this.checked,'input','e_id[]')"/>全选</td><td colspan="5"><input type="submit" name="submit" value="修改选中项" class="btn" /></td></tr>
+</form>
+<form id="form3" name="form3" method="post" action="?action=addside">
+	<tr>
+		<td>新增</td>
+		<td><input type="text" name="item_url" value="" />&nbsp;<!--<button type="button" class="btn" style="width:60px;height:22px;" onClick="onUpClick(this,this.form.elements['item_url'])">浏览...</button>--></td>
+		<td><input type="text" name="link" value="" /></td>
+
+		<td><input type="text" name="title" value="" style="width:100px"/></td>
+		<td><input type="text" name="desc" value="" style="width:200px"/></td>
+		<td><input type="submit" name="submit" value="确定" class="btn" /></td>
+	</tr>
+</form>
+</table>
+</div>
+<iframe frameborder="0" scrolling="no" height="0" width="0" name="hiddensubmit" id="hiddensubmit" src="about:blank"></iframe>
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;扩展&nbsp;&raquo;&nbsp;扩展模块';</script>
+<?php
+viewFoot();
+?>
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Iva html5播放器</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<style type="text/css">
+@media (max-width: 420px) {
+	#playerCnt {
+		height: 240px !important;
+	}
+}
+</style>
+<body>
+	<iframe id="playerBox" width="100%" frameborder="0" allowfullscreen src="" ></iframe>
+<script type="text/javascript">
+	function parseVideo(type,vid)
+	{
+		//去除地址中的“$”并重新进行拼接地址
+		while(vid.indexOf("$") > -1) {
+			var string_index = vid.indexOf("$");
+			if(string_index == 0) {
+				vid = vid.replace("$", "");
+			} else {
+				vid = vid.substring(string_index, "");
+			}
+		}
+
+		// 判断视频地址变量是否是id
+		if(vid.indexOf("http://") === -1 && vid.indexOf("https://") === -1) {
+			if (type == 'youku') {
+				vid = "http://v.youku.com/v_show/id_" + vid + ".html";
+			} else if (type == 'qq'){
+				vid = 'http://v.qq.com/x/cover/' + vid + '.html';
+			}else if(type=='ykyun'){
+				vid = 'http://www.xiguaso.com/api/index.php?url='+vid+'==~ykyun';
+			}
+		}
+
+		try{
+			document.getElementById('playerBox').style.height = parent.playerh + 'px';
+			if(type=='ykyun'){document.getElementById('playerBox').src =  vid;}
+			else{
+			document.getElementById('playerBox').src = "http://cytron.cdn.videojj.com/latest/player.iframe.html?appkey=S1Q2Of8Vg&video=" + vid;
+			}
+		}
+		catch(e){}
+	}
+	var playData = parent.handleParas(parent.paras[2],parent.paras[1]);
+	parseVideo(playData[2],playData[1]);
+	parent.video_diy();
+</script>
+</body>
+</html>

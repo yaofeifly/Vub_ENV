@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css"> 
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据高级工具 ';</script>
+<div class="container" id="cpcontainer">
+<form  method="post" action="?action=dorandomset">
+<table class="tb">
+    <tr class="thead"><td colspan="2">随机设置数据点击量</td></tr>
+	<tr><td width="12%">点击量区间：<span>0 到 <input type="text" name="maxHit" value="1000" maxlength="4"></span></td></tr>
+    <tr><td>修改等待时间：<input type="text" name="time" value="1000"  maxlength="4">
+    毫秒&nbsp;&nbsp;<input type="submit" name="submit" class="btn"  value="执行"></td></tr>
+</table>
+</form>
+</div>
+<?php
+	viewFoot();
+?>
+</body>
+</html>

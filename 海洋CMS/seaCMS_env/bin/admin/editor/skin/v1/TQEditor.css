@@ -1,0 +1,105 @@
+.eEditor { border:1px solid #718da6; border-radius:5px 5px 0px 0px; background:#fff; display:block; overflow:hidden; }
+.eEditorClient { margin:0; clear:both; border:none; border-top:1px solid #718da6; background:#fff; display:block; padding:0; resize:none; }
+.eEditorClient iframe { display:block; border:none; margin:0; padding:0;  width:100%; /**/}
+.eEditorClient textarea { display:block; border:none; padding:2px 0; font-size:14px; line-height:18px; overflow:auto; width: 100%; resize: none; outline:none; margin: 0; }
+.eEditorClient table,.eEditorClient td,.eEditorClient td{ background-color:#FFFFFF; padding:0; border:none; margin:0;}
+.eToolBar { overflow:visible; padding:2px 0 0 0!important; padding:3px 0 3px 0; padding:/**/3px 0 3px 0; min-height:24px; _height:22px; margin:0; border:none; background:#f3f8fb; filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#f3f8fb, gradientType=0);background:-moz-linear-gradient(-90deg, #ffffff, #f3f8fb);background:-o-linear-gradient(-90deg, #ffffff, #f3f8fb); background:-webkit-gradient(linear, 0% 0, 0% 100%, from(#ffffff), to(#f3f8fb)); background-repeat:repeat-y; -moz-user-select:none; -webkit-user-select:none; border:none; border-radius:5px 5px 0px 0px; }
+.eToolBarGroup { white-space:nowrap; float:left; height:24px; margin:0; padding:0; clear:none; }
+.eToolBarGroup li { white-space:nowrap; float:left; }
+.eToolBarGroupRight { white-space:nowrap; float:right; height:24px; margin:0; padding:0 2px 0 0; }
+.eToolBarGroupRight li { white-space:nowrap; float:left; }
+.eClear{clear:both}
+.eButton, .eButtonUp, .eButtonDown, .eButtonDropDown { display:block; width:20px; float:left; height:20px; background-image:url(icon.gif); -moz-user-select:none; border-radius:5px; }
+.eButton { border:none; margin:1px; }
+.eButtonUp, li.eButton:hover { border:1px ridge #ccc; margin:0; }
+.eButtonDown, li.eButton:active, .eButtonDropDown:active { border:1px inset #ccc; margin:0; }
+.eButtonDropDown { border:1px solid #666; margin:0; border-radius:5px 5px 0 0; }
+.eBtn { display:inline-block; border:none; background-color:#fff; height:25px; width:45px; background-image:url(btnBg.gif); cursor:default; -moz-user-select:none; }
+.eBtn:hover { background-position:0 25px; }
+.eBtn:active { background-position:0 50px; }
+.eMenuItem, .eMenuItemUp { display:block; clear:both; padding:2px; min-height:20px; _height:20px; line-height:24px; font-size:12px; width:120px; border:none; white-space:nowrap; cursor:default; color: #000; }
+.eMenuItemUp, .eMenuItem:hover { background-color:#F9FCFD; border:1px solid #ccc; padding:1px; }
+.ePopPanel { position:absolute; z-index:10002; background-color:#F3F3F3; border:1px solid #808080; padding:1px; overflow:visible; font-size:12px; line-height:24px; min-width:120px; cursor:default; color: #000; box-shadow:3px 3px 3px #999; -webkit-box-shadow:3px 3px 3px #999; -moz-box-shadow:3px 3px 3px #999; -moz-user-select:-moz-none; -webkit-user-select:-webkit-none; }
+.ePopPanel .eBar { text-align:right; padding:3px 5px; }
+.ePopPanel .ePopForm { padding:3px; margin:0px; }
+.ePopPanel a { color: #00F; text-decoration: none; }
+.eTabBar { padding-left: 10px; clear:both; background:#F3F3F3; margin-bottom: 5px; min-width:350px; border-bottom: 1px solid #999; }
+.eTabBar a { display:inline-block; height:26px; padding:5px 10px 0; margin:0 5px; border: none; cursor:default; text-decoration: none; position:relative; top:1px; font-size: 12px; color: #000; font-weight: bold; }
+.eTabBar a.active { padding:5px 9px 0; border-top: 1px solid #999; border-right: 1px solid #999; border-left: 1px solid #CCC; background: #F3F3F3;/**/ border-radius: 5px 5px 0px 0px; }
+.eFace { width:260px; cursor:default; }
+.eFace img { margin:1px; cursor:pointer; }
+.eFace img:hover, .eFace img.imgHover { margin:0px; border:1px solid #ccc; background-color:#fff; }
+.eDragMaskDiv { position:absolute; left:0; top:0; right:0; bottom:0; /* background-color:#f5f5f5; */ z-index:1;  -moz-user-select:none; -webkit-user-select:none;}
+.eButtonAddRow, .eButtonAddCol, .eButtonDeleteRC, .eButtonTableContext { position:absolute; z-index:10001; overflow:hidden; display:block; background-image:url(icon.gif); }
+.eStatusBar{text-align:center; overflow:hidden; padding:0; background-color:#f6f6f6;/* #f6f6f6 #f3f8fb */ border-top:1px solid #718da6; height:10px; line-height:10px; cursor:s-resize; -moz-user-select:none; -webkit-user-select:none;}
+.eResizeH { display:inline-block; overflow:hidden; background-image:url(icon.gif); border:none; /*1px solid #718da6;*/ }
+.eResizeWH { display:inline-block; float:right; overflow:hidden; background:url(icon.gif) no-repeat -1133px -10px; border:none; /*1px solid #718da6;*/ width:10px; height:10px; cursor:se-resize;/* */ }
+.eResizeH { height:10px; width:24px; background-position:-1143px -6px; }
+.eButtonAddRow { height:9px; width:12px; background-position:-1072px -6px; }
+.eButtonAddRow:hover { background-position:-1086px -6px; }
+.eButtonAddCol { height:12px; width:9px; background-position:-1048px -4px; }
+.eButtonAddCol:hover { background-position:-1060px -4px; }
+.eButtonDeleteRC { height:12px; width:12px; background-position:-1100px -4px; }
+.eButtonDeleteRC:hover { background-position:-1116px -4px; }
+.eButtonTableContext {  width:20px; height:20px;background-position:-676px 0; border:1px solid #ccc; background-color:#ebebeb; border-radius:0 0 5px 5px;  }
+.eTableContextPanel {/* min */ position:absolute; z-index:10001; background-color:#F3F3F3; border:none; padding:1px; overflow:hidden; font-size:12px; line-height:24px; width:20px; height:20px; cursor:default; color: #000; -moz-user-select:-moz-none; -webkit-user-select:-webkit-none; }
+.eTableContextPanel:hover, .eTableContextPanelHover { border:1px solid #808080; overflow:visible; width:120px; height:80px; box-shadow:3px 3px 3px #999; -webkit-box-shadow:3px 3px 3px #999; -moz-box-shadow:3px 3px 3px #999; }
+/******************* toolbar button style eBTNXXX ***************************/
+#eBTNparagraph { background-position:-133px 0; }
+#eBTNfontsize { background-position:-113px 0; }
+#eBTNfontname { background-position:-91px 0; }
+#eBTNforecolor { background-position:-361px 0; }
+#eBTNbackcolor { background-position:-382px 0; }
+#eBTNbold { background-position:-32px 0; }
+#eBTNitalic { background-position:-52px 0; }
+#eBTNunderline { background-position:-71px 0; }
+#eBTNstrikethrough { background-position:-806px 0; }
+#eBTNremoveformat { background-position:-785px 0; }
+/*#eBTNmoreformat { width:10px; background-position:-933px 0; }*/
+#eBTNsubmenu { width:10px; background-position:-933px 0; }
+#eBTNsubscript { background-position:-846px 0; }
+#eBTNsuperscript { background-position:-827px 0; }
+#eBTNalign { background-position:-291px 0; }
+#eBTNjustifyleft { background-position:-151px 0; }
+#eBTNjustifycenter { background-position:-171px 0; }
+#eBTNjustifyright { background-position:-191px 0; }
+#eBTNlist { width:22px; background-position:-313px 0; }
+#eBTNunorderedlist { background-position:-231px 0; }
+#eBTNorderedlist { background-position:-211px 0; }
+#eBTNiodent { width:22px; background-position:-334px 0; }
+#eBTNoutdent { background-position:-252px 0; }
+#eBTNindent { background-position:-272px 0; }
+#eBTNinserthorizontalrule { background-position:-865px 0; }
+#eBTNcreatelink { background-position:-407px 0; }
+#eBTNunlink { background-position:-430px 0; }
+#eBTNinserttable { background-position:-676px 0; }
+#eBTNinsertimage { background-position:-472px 0; }
+#eBTNinsertface { background-position:-512px 0; }
+#eBTNinsertflash { background-position:-615px 0; }
+#eBTNinsertmusic { background-position:-634px 0; }
+#eBTNinsertvideo { background-position:-655px 0; }
+#eBTNcleanword { background-position:-696px 0; }
+#eBTNtypeset { background-position:-451px 0; }
+#eBTNmode { background-position:-716px 0; }
+#eBTNmode-reset { background-position:-1166px 0; }
+#eBTNsplitpage { background-position:-737px 0; }
+#eBTNgroup { width:7px; background-position:-21px 0; }
+#eBTNseparator { width:5px; background-position:-28px 0; }
+#eBTNfullscreen { background-position:-944px 0; }
+#eBTNfullscreen-reset { background-position:-964px 0; }
+#eBTNhelp { background-position:-909px 0; }
+/* table */
+#eMergeCells{background-position:-1400px 0;}
+#eSplitCells{background-position:-1420px 0;}
+.eButton.eCellAlign{width:19px; height:19px;}
+.eButton.eCellAlign:hover{ border:1px ridge #ccc; margin:0; }
+#eCellAlignLT{background-position:-1193px -1px; }
+#eCellAlignCT{background-position:-1216px -1px; }
+#eCellAlignRT{background-position:-1239px -1px; }
+#eCellAlignLC{background-position:-1262px -1px; }
+#eCellAlignCC{background-position:-1285px -1px; }
+#eCellAlignRC{background-position:-1308px -1px; }
+#eCellAlignLB{background-position:-1331px -1px; }
+#eCellAlignCB{background-position:-1354px -1px; }
+#eCellAlignRB{background-position:-1377px -1px; }
+#eTableAlign { background-position:-451px 0; }

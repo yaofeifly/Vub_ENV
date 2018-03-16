@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./video.css" rel="stylesheet">
+</head>
+<body style="margin:0px;padding:0px;">
+<script>
+var ffhd_url=parent.now;//鎾斁瑙嗛鍦板潃
+var ffhd_w = parent.playerw;//鎾斁鍣ㄥ搴?
+var ffhd_h = parent.playerh;//鎾斁鍣ㄩ珮搴?
+var ffhd_adh = ffhd_adh;//骞垮憡楂樺害
+var ffhd_ad = parent.adsPage;//缂撳啿鍜屾殏鍋滆皟鐢ㄥ箍鍛婂湴
+var ffhd_c = 'seacms'; //闈炲嚒褰遍煶鎺ㄥ箍娓犻亾锛屼竴鑸负鍩熷悕绠€鍐欙紝濡俠aidu
+var ffhd_install = 'http://error.xfplay.com/error.htm'; //瀹夎缃戦〉锛屾渶濂芥湰鍦板寲
+var ffhd_weburl = parent.webpageurl;
+
+function isIE() {
+	if (!!window.ActiveXObject || "ActiveXObject" in window)  
+		return true;  
+	else  
+		return false;  
+}  
+function $ShowSetup() {
+	return '<iframe src="http://error.xfplay.com/error.htm" width="100%" height="'+ffhd_h+'" marginWidth="0" frameSpacing="0" marginHeight="0" frameBorder="0" scrolling="no" vspale="0" noResize></iframe>';
+}
+function WriteShowSetup(){
+	document.getElementById('FFHDPlayer').style.display='none';
+	document.write($ShowSetup());
+}
+function $PlayerNt(){
+	if (navigator.plugins) {
+		var install = true;
+		for (var i=0;i<navigator.plugins.length;i++) {
+			if(navigator.plugins[i].name == 'xfplay p2p plugin'){
+				install = false;break;
+			}
+		}
+		if(!install){
+			player = '<object id="FFHDPlayer" name="FFHDPlayer" type="application/xfplay-plugin" width="100%" height="'+ffhd_h+'"  PARAM_URL="'+ffhd_url+'" CurWebPage="'+ffhd_weburl+'"></object>';
+			return player;
+		}
+	}
+	return $ShowSetup();
+}
+function $PlayerIe(){
+	player = '<object classid="clsid:E38F2429-07FE-464A-9DF6-C14EF88117DD" width="100%" height="'+ffhd_h+'" id="FFHDPlayer" name="FFHDPlayer" onerror="WriteShowSetup();"><param name="url" value="'+ffhd_url+'"/><param name="CurWebPage" value="'+ffhd_weburl+'"/></object>';
+	return player;
+}
+function $Showhtml(){
+	if(!isIE()){
+		return $PlayerNt();
+	}else{
+		return $PlayerIe();
+	}
+}
+document.write($Showhtml());
+</script>   
+</body>
+</html>

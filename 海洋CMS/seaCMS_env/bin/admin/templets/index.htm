@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>管理中心 - 海洋CMS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="robots" content="noindex,nofollow" />
+<link rel="stylesheet" href="img/admin.css" type="text/css" media="all" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="img/admin.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script src="img/drag.js" type="text/javascript"></script>
+<style type="text/css">
+#gMenuMap {
+	text-align:left;
+}
+#gMenuMap a {
+	color:#666;
+}
+.fm3, .fm4 {
+	background:url(img/34.gif) no-repeat;
+	width:7px;
+	display:block;
+	cursor:pointer
+}
+.fm4 {
+	background-position:-6px 0
+}
+.menutd2 {
+	background-color:#F2F9FD;
+	border-right:solid 1px #B5CFD9;
+}
+</style>
+</head>
+<body style="margin: 0px" scroll="no">
+<table cellpadding="0" cellspacing="0" width="100%" height="100%">
+  <tr>
+    <td colspan="3" height="90"><div class="header">
+        <div class="logo" onClick="window.open('../');" style="cursor:pointer;">后台管理中心 - Power By SeaCMS</div>
+        <div class="pannel">
+          <p>您好<em><?php echo $cuserLogin->getUserName(); ?></em>(
+            <?php
+        if($cuserLogin->getUserRank()==1) {
+        	echo "系统管理员";
+        }
+        else {
+        	echo "网站编辑";
+        }
+        ?>
+            )&nbsp;&nbsp;&nbsp;&nbsp;<em><span onClick="clearCache()" style="cursor:pointer"><font color="#FF0000">[更新缓存]</font></span></em><span id="upcacheresult" style="color:#FF0000"></span>&nbsp;&nbsp; [<a href="exit.php" target="_top">退出</a>] [<a href="../" target="_blank">网站首页</a>]&nbsp;&nbsp;<a href="javascript:void(0);" onClick="view('gMenuMap');selfLabelWindefault('gMenuMap');"><img width="72"  height="18"  src="img/btn_map.gif" title="系统功能地图"  style="margin-bottom:-4px;"  /></a></p>
+</div>
+        <div class="navbg"></div>
+        <div class="nav"> 
+          <!--上部菜单 changeMenu(左侧菜单id号后部分，右侧默认打开的url)-->
+          <ul id="topmenu">
+            <?php
+          if($cuserLogin->getUserRank()==1)
+          {
+          foreach($menu AS $key => $value)
+          {
+          ?>
+            <li><em><a href="#" id="header_<?php echo $key ;?>" onClick="changeMenu('<?php echo $key ;?>', '<?php echo $value['link']; ?>');"><img src="img/<?php echo $key ;?>.png"> <?php echo $value[0]; ?></a></em></li>
+            <?php 
+          }
+          }
+          else{
+          ?>
+            <li><em><a href="#" class="content" id="header_content" onClick="changeMenu('content', 'admin_video.php?action=else');">数据管理</a></em></li>
+          <?php 
+          }
+          ?>
+          </ul>
+          <!--当前所在位置导航 js动态插入-->
+          <div class="iamhere">
+            <p id="admincpnav"></p>
+          </div>
+          <div class="navbd"></div>
+        </div>
+      </div></td>
+  </tr>
+  <tr>
+    <td class="menutd" id="menutd" valign="top" width="171"><div id="leftmenu" class="menu" style="width:171px">
+      
+      <!--左菜单 ul id号为menu_XXXX形式，XXXX与上部导航菜单传递参数、JS中topMenus数组一至，li a中的链接与上部导航菜单传递参数一至-->
+      
+     <?php
+if($cuserLogin->getUserRank()==1)
+{
+foreach($menu AS $key => $value)
+{
+	
+?>      
+	<ul id="menu_<?php echo $key; ?>" style="display: none" >
+<?php
+    foreach($value AS $key1 => $value1)
+    {
+    if($key1>0){
+    if($value1==''){
+?>
+      <li class="menuspace"><?php echo $value1;?></li>
+      <?php
+}else{
+?>
+      <li><?php echo $value1; ?></li>
+  	<?php
+}
+}
+}
+?>
+	</ul>
+    
+	<?php
+}
+}else{
+?>
+	<ul id="menu_content"style="display: none" >
+	<?php
+    //print_r($menuedit['content']);
+    foreach($menuedit['editor'] AS $key1 => $value1)
+    {
+?>	    
+<?php
+	if($value1==''){
+?>
+		<li class="menuspace"><?php echo $value1;?></li>
+<?php
+}else{
+?>
+		<li><?php echo $value1; ?></li>
+<?php
+}
+}
+?>
+					</ul>
+<?php
+}
+?>    
+	  </div>
+      <div class="footer">
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;Powered By Seacms</p>
+      </div></td>
+    <td class="menutd2" valign="middle" width="1"><span id="fm" class="fm3" onClick="tooglemenutd(this)" title="点此伸缩左侧菜单栏"> </span></td>
+    <td valign="top" class="maincontent"><iframe src="index_body.php" name="I2" width="100%" height="100%" frameborder="0"scrolling="yes" style="overflow: visible;"></iframe></td>
+  </tr>
+</table>
+<div id="gMenuMap" class="popdiv" style="width:900px;top:100px;z-index:1000; display:none;"> </div>
+<script type="text/JavaScript">
+	var dc=$('menutd');
+	var topMenus = new Array('common','content','template','make','user','tool','gathersoft','webhelper','system');//大菜单参数数组
+	var menu_key = initMenu('leftmenu');//初始化
+	changeMenu(menu_key ? menu_key : 'index');
+	//初始化左侧菜单高度
+	var tt=0
+	$("leftmenu").style.height=document.body.clientHeight-90-7-33+"px";
+	var  resizeTimer = null;
+	function doResize(){
+	  $("leftmenu").style.height=document.body.clientHeight-90-7-33+"px";;resizeTimer=null
+	}
+	window.onresize = function(){
+	   if(resizeTimer==null){
+			resizeTimer = setTimeout("doResize()",300);
+		}
+	}
+	function MarkMenuMap(){
+		var hrefs, s;
+		s = '<div class="poptitie"><img src="../pic/btn_close.gif" onClick="hide(\'gMenuMap\');" />后台功能地图</div><table width="100%" border="0" cellspacing="0" cellpadding="0" class="tb2"  ><tr>';
+		s += '<td width="10" valign="top"><h4>&nbsp;</h4></td>';
+		for(var i=0;i<topMenus.length;i++){
+			s += '<td valign="top" width="150"><ul class="cmblock"><li><h4>' + $('header_' + topMenus[i]).innerHTML + '</h4></li>';
+			hrefs = $('menu_' + topMenus[i]).getElementsByTagName('a');
+			for(var j = 0; j < hrefs.length; j++) {
+				s += hrefs[j].innerHTML!='' ? '<li><a href="'+hrefs[j].href+'" onclick="hide(\'gMenuMap\');changeMenu(\'' + topMenus[i] + '\',\''+hrefs[j].href+'\')" target="' + hrefs[j].target + '">' + hrefs[j].innerHTML + '</a></li>' : '';
+			}
+			s += '<li>&nbsp;</li></ul></td>';
+		}
+		s += '</tr></table>';
+		return s;
+	}
+	function getClientWidth(){
+		return document.body.clientWidth;
+	}
+	function selfLabelWindefault(divid){
+		$(divid).style.left=(getClientWidth()-$(divid).offsetWidth)/2+"px";
+		$(divid).style.top=(getScroll()+100)+"px";
+	}
+	$('gMenuMap').innerHTML=MarkMenuMap();
+	function tooglemenutd(){
+		dc.style.display = dc.style.display != 'none' ? 'none' : '';
+		$('fm').className = dc.style.display != 'none' ? 'fm3' : 'fm4';
+		setCookie('MENUON',dc.style.display != 'none' ? '' : '1',365*24);
+	}
+	/*if(getCookie('MENUON')=='1'){
+		dc.style.display = 'none';
+		$('fm').className = 'fm4';
+	}*/
+</script>
+</body>
+</html>

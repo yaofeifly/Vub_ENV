@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员管理</title>
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;会员&nbsp;&raquo;&nbsp;会员组 ';</script>
+<div class="container" id="cpcontainer">
+  <?php
+if($action=='add')
+{
+?>
+<form action="?action=addsave" method="post">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+      <tr class="thead">
+        <td colspan="5">新增用户组</td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;会员组名称：</td>
+        <td class="td_border"><input id="gname" type="text" value="" size="20" name="gname"></td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;包含分类：          </td>
+        <td class="td_border"><?php
+        $dsql->SetQuery("select tid,tname from sea_type where tptype=0");
+        $dsql->Execute('tp_list');
+	    $i=0;
+        while($row1=$dsql->GetArray('tp_list'))
+        {
+		if (($i%11)==0){echo "<br>";}
+        ?>
+        <input type="checkbox" checked name="gtype[]" value="<?php echo $row1["tid"]?>"/><?php echo $row1["tname"]?>
+        <?php
+		$i++;
+        }
+        unset($row1);
+        ?></td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;权限：</td>
+        <td class="td_border"><input type="checkbox" checked="" value="1" name="g_auth[]">
+浏览分类页
+<input type="checkbox" checked="" value="2" name="g_auth[]">
+浏览内容页
+<input type="checkbox" checked="" value="3" name="g_auth[]">
+浏览播放页 </td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;升级所需积分：
+          (使用积分购买组权限)</td>
+        <td class="td_border"><input id="g_upgrade" type="text" value="" size="20" name="g_upgrade"></td>
+      </tr>
+      <!--tr>
+        <td class="td_border" width="22%" height="30">&nbsp;权限值：
+          (值越大权限越高,向下兼容)</td>
+        <td class="td_border"><input id="g_authvalue" type="text" value="" size="20" name="g_authvalue"></td>
+      </tr-->
+      <tr>
+        <td height="30" colspan="2" class="td_border">&nbsp;<input class="rb1" type="submit" value="确认保存" name="Submit">&nbsp;
+        <input class="rb1" type="button" onclick="self.location.href='admin_members_group.php'" value="返 回"></td>
+      </tr>
+    </table>
+  </form>
+  <?php
+}
+elseif($action=='edit')
+{
+	$authArr = explode(',',$row['g_auth']);
+    $typeArr = explode(',',$row['gtype']);
+?>
+  <form action="?action=editsave" method="post">
+  <input type="hidden" value="<?php echo $id; ?>" name="id"/>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+      <tr class="thead">
+        <td colspan="5" class="td_title">编辑用户组</td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;会员组名称：</td>
+        <td class="td_border"><input id="gname" type="text" value="<?php echo $row['gname']?>" size="20" name="gname"></td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;包含分类：</td>
+        <td class="td_border"><?php
+        $dsql->SetQuery("select tid,tname from sea_type where tptype=0");
+        $dsql->Execute('tp_list');
+	    $i=0;
+        while($row1=$dsql->GetArray('tp_list'))
+        {
+		if (($i%11)==0){echo "<br>";}
+        ?>
+        <input type="checkbox" name="gtype[]" <?php if(in_array($row1['tid'],$typeArr)) echo 'checked'?> value="<?php echo $row1["tid"]?>"/><?php echo $row1["tname"]?>
+        <?php
+		$i++;
+        }
+        unset($row1);
+        ?></td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;权限：</td>
+        <td class="td_border"><input type="checkbox" <?php if(in_array(1,$authArr)) echo 'checked'?> value="1" name="g_auth[]">
+浏览分类页
+<input type="checkbox" <?php if(in_array(2,$authArr)) echo 'checked'?> value="2" name="g_auth[]">
+浏览内容页
+<input type="checkbox" <?php if(in_array(3,$authArr)) echo 'checked'?> value="3" name="g_auth[]">
+浏览播放页 </td>
+      </tr>
+      <tr>
+        <td class="td_border" width="22%" height="30">&nbsp;升级所需积分：
+          (使用积分购买组权限)</td>
+        <td class="td_border"><input id="g_upgrade" type="text" value="<?php echo $row['g_upgrade']?>" size="20" name="g_upgrade"></td>
+      </tr>
+      <!--tr>
+        <td class="td_border" width="22%" height="30">&nbsp;权限值：
+          (值越大权限越高,向下兼容)</td>
+        <td class="td_border"><input id="g_authority" type="text" value="<?php echo $row['g_authvalue']?>" size="20" name="g_authvalue"></td>
+      </tr-->
+      <tr>
+        <td height="30" colspan="2" class="td_border">&nbsp;<input class="rb1" type="submit" value="确认保存" name="Submit">&nbsp;
+        <input class="rb1" type="button" onclick="self.location.href='admin_members_group.php'" value="返 回"></td>
+      </tr>
+    </table>
+  </form>
+  <?php
+}
+else
+{
+    $numPerPage=30;
+    $page = isset($page) ? intval($page) : 1;
+    if($page==0) $page=1;
+    $csqlStr="select count(*) as dd from `sea_member_group`";
+    $row = $dsql->GetOne($csqlStr);
+    if(is_array($row)){
+    $TotalResult = $row['dd'];
+    }else{
+    $TotalResult = 0;
+    }
+    $TotalPage = ceil($TotalResult/$numPerPage);
+    if ($page>$TotalPage) $page=$TotalPage;
+    $limitstart = ($page-1) * $numPerPage;
+    if($limitstart<0) $limitstart=0;
+    $sqlStr="select * from `sea_member_group` order by gid asc limit $limitstart,$numPerPage";
+?>
+  <form action="?action=delall" method="post">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+      <tr class="thead">
+        <td colspan="5" class="td_title">用户组管理</td>
+      </tr>
+      <TR>
+        <TD width="4%" align="left" height="30" class="td_btop3">
+        <TD width="15%" align="left" height="30" class="td_btop3">用户组名称</TD>
+        <TD width="15%" align="left" height="30" class="td_btop3">组内人数</TD>
+        <TD width="15%" align="left" height="30" class="td_btop3">购买所需积分</TD>
+        <TD width="15%" align="left" height="30" class="td_btop3">操作</TD>
+      </TR>
+      <?php
+    $dsql->SetQuery($sqlStr);
+    $dsql->Execute('mytag_list');
+    while($row=$dsql->GetObject('mytag_list'))
+    {
+    $gid=$row->gid;
+    $rs=$dsql->getOne("SELECT count(id) as dd FROM sea_member WHERE gid=$gid");
+?>
+      <tr>
+        <td height="30" class="td_border" align="left"><?php if($gid!=1&&$gid!=2){?><input type="checkbox" value="<?php echo $gid;?>" name="g_id[]" class="checkbox"/><?php }?></TD>
+        <td height="30" class="td_border" align="left"><?php echo $row->gname;?></TD>
+        <td height="30" class="td_border" align="left"><?php echo $rs['dd'];?></TD>
+        <td height="30" class="td_border" align="left"><?php echo $row->g_upgrade;?>&nbsp;</TD>
+        <td height="30" class="td_border" align="left"><a href="?action=edit&id=<?php echo $gid;?>">编辑</a> <a href="?action=del&id=<?php echo $gid;?>" style="<?php if($gid==1||$gid==2) echo "display:none"?>">删除</a></TD>
+      </tr>
+<?php
+	}
+?>
+      <tr>
+        <td colspan="7" height="30" class="td_border"><div class="cuspages">
+            <div class="pages">全选
+              <input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','g_id[]')" />
+              反选
+              <input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','g_id[]')" />
+              <input type="submit" value="批量删除" onclick="if(confirm('确定要批量删除吗')){return true}else{return false}" class="rb1"  />
+              &nbsp;
+              <input type="button" value="添加" onclick="location.href='?action=add'" class="rb1"  />
+              &nbsp;&nbsp; 页次0/0 每页30 总收录数据0条 <a href="?page=1">首页</a> <a href="?page=1">首页</a> <a href="?page=-1">上一页</a> <span></span><a href="?page=1">下一页</a> <a href="?page=0">尾页</a></div>
+          </div></td>
+      </tr>
+    </TABLE>
+  </form>
+<?php	
+}
+?>
+</div>
+<?php
+viewFoot();
+?>
+</body>
+</html>

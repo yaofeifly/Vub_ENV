@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>播放器相关配置-系统-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="js/main.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;系统&nbsp;&raquo;&nbsp;播放器配置 ';</script>
+<script type="text/javascript">
+function upformone(i){
+	$('id').value=i,$('sort').value=$('sort'+i).value,$('info').value=$('info'+i).value;$('postfix').value=$('postfix'+i).value,$('flag').value=$('flag'+i);
+	$('form1').submit();
+}
+</script>
+<script>
+var ColorHex=new Array('00','33','66','99','CC','FF')
+var SpColorHex=new Array('FF0000','00FF00','0000FF','FFFF00','00FFFF','FF00FF')
+var current=null
+var targetElement = null;
+function intocolor(){
+	var colorTable=''
+	for (i=0;i<2;i++){
+	for (j=0;j<6;j++){
+		colorTable=colorTable+'<tr height=12>'
+		colorTable=colorTable+'<td width=11 style="background-color:#000000">'
+		if (i==0){
+			colorTable=colorTable+'<td width=11 style="background-color:#'+ColorHex[j]+ColorHex[j]+ColorHex[j]+'">'
+		}else{
+			colorTable=colorTable+'<td width=11 style="background-color:#'+SpColorHex[j]+'">'
+		}
+		colorTable=colorTable+'<td width=11 style="background-color:#000000">'
+		for (k=0;k<3;k++)
+		{
+			for (l=0;l<6;l++){colorTable=colorTable+'<td width=11 style="background-color:#'+ColorHex[k+i*3]+ColorHex[l]+ColorHex[j]+'">'}
+		}
+	}
+}
+colorTable='<table width=253 border="0" cellspacing="0" cellpadding="0" style="border:1px #000000 solid;border-bottom:none;border-collapse: collapse" bordercolor="000000">'
+		   +'<tr height=30><td colspan=21 bgcolor=#cccccc>'
+		   +'<table cellpadding="0" cellspacing="1" border="0" style="border-collapse: collapse">'
+		   +'<tr><td width="3"><td><input type="text" name="DisColor" size="6"  style="border:solid 1px #000000;"></td>'
+		   +'<td width="3"><td><input type="text" name="HexColor" size="7" style="border:inset 1px;font-family:Arial;" value="#000000"></td></tr></table></td></table>'
+		   +'<table border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse" bordercolor="000000" onmouseover="doOver()" onmouseout="doOut()" onclick="doclick()" style="cursor:hand;">'
+		   +colorTable+'</table>';
+colorpanel.innerHTML=colorTable
+}
+
+function doOver() {
+	  if ((event.srcElement.tagName=="TD") && (current!=event.srcElement)) {
+		if (current!=null){current.style.backgroundColor = current._background}
+		event.srcElement._background = event.srcElement.style.backgroundColor
+		DisColor.style.backgroundColor = event.srcElement.style.backgroundColor
+		HexColor.value = event.srcElement.style.backgroundColor.toUpperCase();
+		event.srcElement.style.backgroundColor = "white"
+		current = event.srcElement
+	  }
+}
+
+function doOut() {
+	if (current!=null) current.style.backgroundColor = current._background.toUpperCase();
+}
+
+function doclick()
+{
+	if (event.srcElement.tagName == "TD")
+	{
+		var clr = event.srcElement._background;
+		clr = clr.toUpperCase();
+		if (targetElement)
+		{
+			targetElement.value = clr.replace(/#/g,'');
+		}
+		DisplayClrDlg(false);
+		return clr;
+	}
+}
+
+function OnDocumentClick()
+{
+	var srcElement = window.event.srcElement;
+	if (typeof(srcElement.title) != "undefined"&&srcElement.title.indexOf('clrDlg')==0){
+		targetElement = window.event.srcElement;
+		DisplayClrDlg(true);
+	}
+	else
+	{
+		while (srcElement && srcElement.id!="colorpanel")
+		{
+			srcElement = srcElement.parentElement;
+		}
+		if (!srcElement)
+		{
+			DisplayClrDlg(false);
+		}
+	}
+}
+
+function DisplayClrDlg(display)
+{
+	var clrPanel = document.getElementById("colorpanel");
+	if (display)
+	{
+		var left = document.body.scrollLeft + event.clientX;
+		var top = document.body.scrollTop + event.clientY;
+		if (event.clientX+clrPanel.style.pixelWidth > document.body.clientWidth)
+		{
+			left -= clrPanel.style.pixelWidth;
+		}
+		if (event.clientY+clrPanel.style.pixelHeight > document.body.clientHeight)
+		{
+			top -= clrPanel.style.pixelHeight;
+		}
+
+		clrPanel.style.pixelLeft = left;
+		clrPanel.style.pixelTop = top;
+		clrPanel.style.display = "block";
+	}
+	else
+	{
+		clrPanel.style.display = "none";
+	}
+}
+</script>
+<div class="container" id="cpcontainer">
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;系统&nbsp;&raquo;&nbsp;站点配置';</script>
+<?php
+if($action=="boardsource")
+{
+?>
+<form id="form1" name="form1" method="post" action="?action=modifysource" target="hiddensubmit">
+<input type="hidden" name="id" id="id" value="" />
+<input type="hidden" name="sort" id="sort" value="" />
+<input type="hidden" name="info" id="info" value="" />
+<input type="hidden" name="postfix" id="postfix" value="" />
+<input type="hidden" name="flag" id="flag" value="" />
+</form>
+<form id="form2" name="form2" method="post" action="?action=save">
+<table class="tb">
+	<tr class="thead"><td colspan="4">播放来源管理</td></tr>
+
+	<tr align="center" bgcolor="#f5fafe">
+		<td  align="left" width="120">来源名称</td>
+		<td width="100">排序</td>
+        <td width="100">后缀</td>
+		<td width="693">来源简介</td>
+		<td width="196">操作</td>
+	</tr>
+<?php
+	$xml = simplexml_load_file($playerKindsfile);
+    $id=0;
+	foreach($xml as $player){
+    $id++;
+?>
+	<tr align="center"  bgcolor="#f5fafe">
+    <td  align="left" ><input type="checkbox" class="checkbox"  name="e_id[]" value="<?php echo $id ?>"  checked /><input type="text" style="width:90px; background:#eeeeee" id="flag<?php echo $id ?>" name="flag<?php echo $id ?>" value="<?php  echo gbutf8($player['flag']); ?>"  /></td>
+    <td><input type="text" id="sort<?php echo $id ?>" name="sort<?php echo $id ?>" value="<?php echo $player['sort']; ?>" style="width:50px;" maxlength="6" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onchange="this.onkeyup();"/></td>
+            <td><input type="text" id="postfix<?php echo $id ?>" name="postfix<?php echo $id ?>" value="<?php echo $player['postfix']; ?>" style="width:80px; background:#eeeeee" onkeyup="this.value=this.value.replace(/[^\d|\w]/g,'');" onchange="this.onkeyup();" readonly="readonly" /></td>
+		<td><textarea id="info<?php echo $id ?>" name="info<?php echo $id ?>" cols="80" rows="2"><?php echo gbutf8($player->intro); ?></textarea></td>
+
+		<td><a href="?action=modifysourceban&id=<?php echo $id; ?>" title="隐藏或显示">
+        <?php 
+        	if($player['open']==1)
+            	echo "隐藏";
+            else
+            	echo "<font color=\"red\">显示</font>";
+        ?></a>&nbsp;&nbsp;<!--<a href="javascript://" onclick="upformone(<?php echo $id ?>)">修改</a>&nbsp;&nbsp;--><a href="?action=delete&id=<?php echo $id ?>" onclick="return confirm('确定要删除吗')">删除</a>
+		</td>
+	</tr>
+ 	<?php
+    }
+    ?>
+	
+
+	<tr class="thead"><td colspan="4">
+<input type="checkbox" class="checkbox" id="chkall" onclick="checkAll(this.checked,'input','e_id[]')"/>全选 <input type="submit" name="submit" value="修改选中项" class="btn" /></td></tr>
+</table>
+</form>
+<form method="post" action="?action=addnew">
+<table class="tb">
+	<tr class="thead"><td colspan="4">播放来源添加</td></tr>
+
+	<tr align="center" bgcolor="#f5fafe">
+		<td  align="left" width="86">来源名称</td>
+		<td width="145">排序</td>
+        <td width="100">后缀</td>
+		<td width="693">来源简介</td>
+		<td width="196">操作</td>
+	</tr>
+
+	<tr align="center" bgcolor="#f5fafe">
+
+		<td><input name="playername" value="" size="10" /></td>
+		<td><input name="order" value="0" size="10"  onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onchange="this.onkeyup();"/></td>
+        <td><input name="trail" value="" size="10" onkeyup="this.value=this.value.replace(/[^\d|\w]/g,'');" onchange="this.onkeyup();"/></td>
+		<td><textarea name="info" cols="80" rows="2"></textarea></td>
+		<td><input type="submit" value="保存" /></td>
+	</tr>
+<strong><font color="green" >
+ * 排序需在网站设置中开启才生效，按数字从小到大排列<br>
+ * 更多播放器请访问http://www.seacms.net/forum.php?mod=viewthread&tid=6获取</font></strong>
+</table>
+</form>
+
+<iframe src="about:blank" name="hiddensubmit" width="0" height="0" frameborder="0"scrolling="no" style="display:none"></iframe>
+</div>
+<?php
+}else{
+?>
+
+
+
+
+
+<form method="post" action="?action=edit">
+<table class="tb">
+<tr class="thead"><td colspan="2">播放器相关配置</td></tr>
+<tr>
+<td>电脑端播放器宽度：</td>
+<td><input type="text" name="playerwidth" size="10" value="<?php echo $playerWidth;?>" />(px)</td>
+</tr>
+
+<tr>
+<td >电脑端播放器高度：</td>
+<td><input type="text" name="playerheight" size="10" value="<?php echo $playerHeight;?>" />(px)</td>
+</tr>
+<tr>
+<td >手机端播放器宽度：</td>
+<td><input type="text" name="mplayerwidth" size="10" value="<?php echo $mplayerWidth;?>" />(px)</td>
+</tr>
+<tr>
+
+<td >手机端播放器高度：</td>
+<td><input type="text" name="mplayerheight" size="10" value="<?php echo $mplayerHeight;?>" />(px)</td>
+</tr>
+
+<tr>
+<td >缓冲广告页：</td>
+<td><input type="text" name="adbeforeplay" size="60" value="<?php echo $playerBeforeAdUrl;?>" /></td>
+</tr>
+
+<tr>
+<td >广告时间：</td>
+<td><input type="text" name="adtimebeforeplay" size="15" value="<?php echo $playerBeforeTime;?>"onkeyup="value=value.replace(/[^1234567890]+/g,'');if(this.value==''){this.value=1};"/> (秒)</td>
+</tr>
+<tr>
+<td ></td>
+<td>提示：以上配置项如出现错误或无法修改，请手动修改/js/play.js文件。</td>
+</tr>
+</table>
+
+
+
+<tr><td></td><td><input type="submit" value="确认更新" class="btn" />&nbsp;<input type="button" value="返   回" class="btn" onClick="javascript:history.go(-1)" /></td></tr>
+</table>
+
+</form>
+
+<?php
+}
+viewFoot();
+?>
+</body>
+</html>

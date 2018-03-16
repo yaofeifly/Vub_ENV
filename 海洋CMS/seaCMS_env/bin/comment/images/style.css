@@ -1,0 +1,67 @@
+@charset "utf-8";
+/*common*/
+body{font-size:12px;font-family:宋体;color:#464644;margin:0;text-align:center}
+div{margin:0 auto;padding:0}
+from,ul,img{border:0}.clean{clear:both;height:0;font-size:0;overflow:hidden}
+h1,h2,h3,h4,h5,h6,h7,form,select,input,ul,li,label,img{padding:0;margin:0}li{list-style:none;overflow:hidden}
+a:link,a:visited{text-decoration:none;color:#1349f9}
+/*header*/
+#header{height:60px;margin-bottom:15px}
+#header h1{height:30px;padding:0 5px 0 8px;border-bottom:1px solid #ccc}
+#header h1 span,#header h1 a{height:30px;line-height:30px;font-size:14px}
+#header h1 span{float:left;height:30px;line-height:30px}
+#header h1 a{float:right;background:url(bg.gif) 0 -186px no-repeat;padding:0 15px 0 27px}
+#header h2{height:30px;line-height:30px;padding:0 15px;font-weight:normal;font-size:12px;text-align:left}
+#header h2 span{color:#f00}
+/*comment*/
+#comment{padding:0 15px;overflow:hidden}
+#comment .row{margin-bottom:8px;border-bottom:1px dashed #C2C3BA;overflow:hidden}
+#comment .row h3{height:30px;margin-bottom:8px;padding:0 5px;overflow:hidden;font-size:12px;color:#8D8D8D}
+#comment .row h3 span{float:left;height:30px;line-height:30px}
+#comment .row h3 span.star{float:left;height:16px;padding:6px 0 0 15px}
+#comment .row h3 span.star img{float:left;margin-right:2px}
+#comment .row h3 label{float:right;height:30px;line-height:30px;font-weight:normal}
+#comment .row .con{padding:0 15px;text-align:left;overflow:hidden}
+#comment .row .con .mycon{line-height:25px}
+#comment .row .con .mycon span.flower{background:url(bg.gif) 3px -142px no-repeat;padding-left:20px;color:#1349f9;cursor:pointer}
+.reply{border:1px solid #D1D5DB;background:#FFFEF5;padding:3px;margin-bottom:8px}
+.reply h4{height:25px;line-height:25px;margin-bottom:8px;padding:0 5px;overflow:hidden;font-size:12px;text-align:left;color:#8D8D8D}
+.reply h4 span{margin-right:8px;float:left}
+.reply h4 label{float:right;font-weight:normal}
+.reply p{line-height:25px;margin:0;padding:0 5px;border:0;text-align:left}
+#comment .row .menu{height:25px;line-height:25px}
+#comment .row .menu a{float:right;height:25px;margin-right:8px;padding-left:15px}
+#comment .row .menu a.item1{background:url(bg.gif) 0 4px no-repeat}
+#comment .row .menu a.item2{background:url(bg.gif) 0 -37px no-repeat}
+#comment .row .menu a.item3{background:url(bg.gif) 0 -84px no-repeat}
+/*header*/
+.header {height:40px}
+/*text*/
+.text {text-align:center;float:left;margin-top:12px}
+.text a{display:inline-block;background: url(btn_open.gif) no-repeat;width:94px;height:23px;color:#ffffff;padding-top:5px;}
+/*page*/
+.pager{display:inline-block;*display:inline;zoom:1;margin-top:12px}
+.pager a,.pager span{float:left;font-family:Tahoma;height:22px;line-height:22px;padding:0 8px;margin-left:3px;border:1px solid #296cb3}
+.pager a:hover {background:#296cb3;color:#fff}
+.pager span {background:#296cb3;color:#FFF}
+/*talk*/
+.footer{width:100%;overflow:hidden}
+.footer h5{height:30px;line-height:30px;margin-bottom:8px;padding:8px 0 0 8px;font-size:14px;text-align:left;border-bottom:1px solid #ccc}
+.footer h5 span{font-size:12px;font-weight:normal}
+.exit {float:right;background: url(btn_close.gif) no-repeat;height:25px;width:25px;}
+#talk{width:100%;margin-right:15px;text-align:left}
+#talk div{margin:0;border:1px solid #ccc;background:#fff}
+#talk #uploadpic{width:450px;padding:5px;border-bottom:0;display:none}
+#talk #face{padding:5px;border-bottom:0;}
+#talk #face a{float:right;background: url(btn_close.gif) no-repeat;height:25px;width:25px;}
+#talk #face img{cursor:pointer;margin-right:3px;}
+#talk #cancel{padding:5px;display:none;border-bottom:0}
+#talk .tc{border-bottom:0;overflow:hidden}
+#talk .tc textarea{width:99.5%;height:137px;border:0;background:#fff;font-size:12px}
+#talk .captcha{padding:5px;border-bottom:0}
+#talk .captcha input{width:50px}
+#talk .captcha #getcode{border:0;display:none}
+#talk .btn{padding:5px}
+#talk .btn label{cursor:pointer}
+/*addiv*/
+.isad{float:left;width:300px}

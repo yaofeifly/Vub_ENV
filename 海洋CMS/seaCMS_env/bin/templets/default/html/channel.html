@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{channelpage:typename} 第{channelpage:page}页-{seacms:sitename}</title>
+<meta name="keywords" content="{channelpage:typename}第{channelpage:page}页{channelpage:keywords}" />
+<meta name="description" content="{channelpage:typename}第{channelpage:page}页{channelpage:description}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg vod-type">
+  <div class="row">
+  	<div class="col-xs-12 sea-col">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-film sea-text"></span> <a href="#">{channelpage:typename}</a> <small>共有<span class="sea-text">{channellist:recordcount}</span>个影片 第<span class="sea-text">{channellist:page}</span>页</small> <a class="btn btn-success btn-sm pull-right" href="#" onclick='document.getElementById("sx").style.display="block"'>筛选</a></h4>
+      </div>
+    </div>
+	<div id="sx" style="display:none;">
+  	<div class="clearfix"></div>
+  	<dl class="dl-horizontal">
+      <dt>类型：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="/{seacms:sitepath}search.php?searchtype=5"  class="btn btn-sm btn-default gallery-cell">全部</a>
+	  {seacms:typecaslist type=5,6,7,8,9,10,11,12,13,14,15,16,3,4}
+	  <a href="[typecaslist:link]" {if:"[typecaslist:value]"=="{channelpage:typename}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[typecaslist:value]</a>
+	  {/seacms:typecaslist}
+	  </dd>
+	  
+      <dt>地区：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:areacaslist}<a href="[areacaslist:link]"  class="btn btn-sm btn-default gallery-cell">[areacaslist:value]</a>{/seacms:areacaslist}
+	  </dd>
+	  
+	  <dt>年份：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:yearcaslist}<a href="[yearcaslist:link]"  class="btn btn-sm btn-default gallery-cell">[yearcaslist:value]</a>{/seacms:yearcaslist}
+	  </dd>
+	  
+	  <dt>字母：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:lettercaslist}<a href="[lettercaslist:link]"  class="btn btn-sm btn-default gallery-cell">[lettercaslist:value]</a>{/seacms:lettercaslist}
+	  </dd>
+	  
+	  <dt>语言：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:langcaslist}<a href="[langcaslist:link]"  class="btn btn-sm btn-default gallery-cell">[langcaslist:value]</a>{/seacms:langcaslist}
+	  </dd>
+	  
+	  <dt>剧情：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:jqcaslist}<a href="[jqcaslist:link]"  class="btn btn-sm btn-default gallery-cell">[jqcaslist:value]</a>{/seacms:jqcaslist}
+	  </dd>
+	  
+	  <dt>状态：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:statecaslist}<a href="[statecaslist:link]"  class="btn btn-sm btn-default gallery-cell">[statecaslist:value]</a>{/seacms:statecaslist}
+	  </dd>
+	  
+	  <dt>版本：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:vercaslist}<a href="[vercaslist:link]"  class="btn btn-sm btn-default gallery-cell">[vercaslist:value]</a>{/seacms:vercaslist}
+	  </dd>
+	  
+	  <dt>收费：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  <a href="#"  class="btn btn-sm btn-success gallery-cell">全部</a>
+	  {seacms:moneycaslist}<a href="[moneycaslist:link]"  class="btn btn-sm btn-default gallery-cell">[moneycaslist:value]</a>{/seacms:moneycaslist}
+	  </dd>
+	  
+    </dl>
+	</div>
+  </div>
+</div>
+<div class="clearfix sea-clearfix"></div>
+<div class="container sea-bg vod-type">
+<div class="row">
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group">
+      <a href="#" class="btn btn-success" id="orderhits">最新上映</a>
+      <a href="{channelpage:order-hit-link}" class="btn btn-default" id="orderaddtime">最近热播</a>
+      <a href="{channelpage:order-score-link}" class="btn btn-default" id="ordergold">评分最高</a>
+    </div>
+  </div>
+  <!-- -->
+  <div class="clearfix"></div>
+  <ul class="list-unstyled">
+      {seacms:channellist size=24 order=time}
+      <li class="col-md-2 col-sm-2 col-xs-4 text-center sea-vod-img-new sea-col">
+        <a href="[channellist:link]">
+        <img class="img-responsive img-thumbnail sea-img" data-original="[channellist:pic]" alt="[channellist:name]" src="[channellist:pic]">
+        </a>
+        <h4 class="sea-text-hidden text-left">
+          <a href="[channellist:link]" title="[channellist:name]">[channellist:name]</a>
+        </h4>
+        <h6 class="sea-text-hidden text-left">
+          [channellist:actor]
+        </h6>
+      </li>
+      {/seacms:channellist}
+    </ul>
+  <!-- -->
+  <div class="clearfix"></div>
+  <div class="col-xs-12 sea-col text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [channellist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+         {if:{channellist:page}>1}
+            <li><a href="{channellist:backlink}">上一页</a></li>
+         {else}{end if}
+         {if:{channellist:page}<{channellist:pagecount}}
+            <li><a href="{channellist:nextlink}">下一页</a></li>
+         {else}{end if}
+         </ul> 
+      </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

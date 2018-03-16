@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+* {
+font-size:14px;
+line-height:150%;
+padding:0px;
+margin:0px auto;
+}
+td { padding-left:10px; }
+body {
+	margin-top:6px;
+	background-color: #E6E4D5;
+}
+.bt
+{
+  height:24px;
+  width:60px;
+  border-bottom:1px solid #726B36;
+  border-right:1px solid #726B36;
+  border-left:1px solid #DAD5B1;
+  border-top:1px solid #DAD5B1;
+}
+</style>
+<script language='javascript'>
+function SelOK()
+{
+   var okstr = '';
+   var tmpvalue = '';
+   var totalbox = 12;
+   var selid = location.search.replace('?','');
+   for(var i=1;i<=totalbox;i++)
+   {
+      if(document.getElementById('font'+i).checked)
+	  {
+	     tmpvalue = document.getElementById('font'+i).value;
+		 tmpvalue = tmpvalue.replace(/&lt;/,'<');
+		 tmpvalue = tmpvalue.replace(/&gt;/,'>');
+		 okstr += (okstr=='' ? "{seacms:trim replace=''}"+tmpvalue+"{/seacms:trim}" : "\r\n{seacms:trim replace=''}"+tmpvalue+"{/seacms:trim}");
+	  }
+   }
+   if(okstr!='')
+   {
+	 var nobj = window.opener.document.getElementById(selid);
+	 if(nobj != null) nobj.value = (nobj.value=='' ? okstr : "\r\n"+okstr);
+   }
+   window.opener = true;
+   window.close();
+}
+</script>
+<title>规则选择框</title>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<form id="form1" name="form1" method="post" action="">
+<table width="300" border="0" cellpadding="1" cellspacing="1" bgcolor="#BCC083">
+  <tr>
+    <td width="149" bgcolor="#FFFFFF">
+      <input name="font1" type="checkbox" id="font1" value="&lt;a([^&gt;]*)&gt;(.*)&lt;/a&gt;" />
+      超链接    </td>
+    <td width="151" bgcolor="#FFFFFF"><input name="font7" type="checkbox" id="font7" value="&lt;object([^&gt;]*)&gt;(.*)&lt;/object&gt;" />
+      Object</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="font2" type="checkbox" id="font2" value="&lt;script([^&gt;]*)&gt;(.*)&lt;/script&gt;" />
+      javascript脚本</td>
+    <td bgcolor="#FFFFFF"><input name="font8" type="checkbox" id="font8" value="&lt;embed([^&gt;]*)&gt;(.*)&lt;/embed&gt;" />
+      embed</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="font3" type="checkbox" id="font3" value="&lt;!--(.*)--&gt;" />
+      &lt;!--()--&gt;</td>
+    <td bgcolor="#FFFFFF"><input name="font9" type="checkbox" id="font9" value="&lt;iframe([^&gt;]*)&gt;(.*)&lt;/iframe&gt;" />
+      iframe</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="font4" type="checkbox" id="font4" value="&lt;table([^&gt;]*)&gt;(.*)&lt;/table&gt;" />
+      table</td>
+    <td bgcolor="#FFFFFF"><input name="font10" type="checkbox" id="font10" value="&lt;param([^&gt;]*)&gt;(.*)&lt;/param&gt;" />
+      param</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="font5" type="checkbox" id="font5" value="&lt;style([^&gt;]*)&gt;(.*)&lt;/style&gt;" />
+      style</td>
+    <td bgcolor="#FFFFFF"><input name="font11" type="checkbox" id="font11" value="&lt;div([^.]*)&gt;" />
+      &lt;div([^.]*)&gt;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#FFFFFF"><input name="font6" type="checkbox" id="font6" value="&lt;img([^&gt;]*)&gt;" />
+img</td>
+    <td bgcolor="#FFFFFF"><input name="font12" type="checkbox" id="font12" value="&lt;/div&gt;" />
+&lt;/div&gt;</td>
+  </tr>
+  <tr>
+    <td height="32" colspan="2" align="center" bgcolor="#FFFFFF">
+    <input type="button" name="sb" id="sb" value="确定" class='bt' onclick="SelOK();" />
+    </td>
+    </tr>
+</table>
+</form>
+</body>
+</html>

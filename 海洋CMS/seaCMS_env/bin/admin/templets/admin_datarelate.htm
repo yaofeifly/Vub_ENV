@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>高级工具</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据操作高级工具 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <?php
+if($action=="batch"){
+?>
+      <form action="?action=batchsubmit" method="post">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+          <tr class="thead">
+            <td colspan="15"  align="left" class="td_title">数据批量替换</td>
+          </tr>
+          <tr>
+            <td>将字段：
+              <select name="v_field" style="width:150px">
+                <?php echoFieldOptions();?>
+              </select>
+              中的字符：
+              <input type="text" size="25" name="v_str1" />
+              替换成：
+              <input type="text" size="25" name="v_str2" />
+              <input class="rb1" type="submit" value="确认替换" />
+              <br>
+              <br>
+              <font color=#FF0000>注意，程序遇到待替换的字符就会立即替换且不可恢复，请小心处理。</font></td>
+          </tr>
+        </table>
+      </form>
+      <?php
+}elseif($action=="delvideoform"){
+?>
+      <form action="?action=delByFrom" method="post">
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+        <tr class="thead">
+          <td colspan="15"  align="left" class="td_title">删除指定播放来源</td>
+        </tr>
+        <tr>
+          <td> 选择播放来源：
+            <select  name="from" id="from">
+              <option value="">请选择删除的来源</option>
+              <?php echo makePlayerSelect2("");?>
+            </select></td>
+        </tr>
+        <tr>
+          <td>处理每页数据间隔时间：
+            <input type="text" name="wtime" size="5" value="5" />
+            秒&nbsp;(默认5)</td>
+        </tr>
+        <tr>
+          <td>按特征删除：
+            <input type="text" name="domain" class="txt" value="" />
+            提示：留空为不限制，可以输入网址、域名、包含的字符特征</td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="确认删除"  class="rb1" onclick="if(fromvalue!=''){delsubmit.action='?action=delByFrom';delsubmit.submit();}else{alert('请选择删除的来源!')}"/>&nbsp;注意：为了防止意外、请操作前务必先备份数据库</td>
+        </tr>
+
+      </table>
+	  </form>
+	  <p>
+	  <form action="?action=delByDown" method="post">
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+        <tr class="thead">
+          <td colspan="15"  align="left" >删除指定下载来源</td>
+        </tr>
+        <tr>
+          <td> 选择下载来源：
+            <select  name="from" id="from">
+              <option value="">请选择删除的来源</option>
+              <?php echo makePlayerSelect3("");?>
+            </select></td>
+        </tr>
+        <tr>
+          <td>处理每页数据间隔时间：
+            <input type="text" name="wtime" size="5" value="5" />
+            秒&nbsp;(默认5)</td>
+        </tr>
+        <tr>
+          <td>按特征删除：
+            <input type="text" name="domain" class="txt" value="" />
+            提示：留空为不限制，可以输入网址、域名、包含的字符特征</td>
+        </tr>
+        <tr>
+          <td><input type="submit" value="确认删除"  class="rb1" onclick="if(fromvalue!=''){delsubmit.action='?action=delByFrom';delsubmit.submit();}else{alert('请选择删除的来源!')}"/>&nbsp;注意：为了防止意外、请操作前务必先备份数据库</td>
+        </tr>
+      </table>
+	  </form>
+      <?php
+}elseif($action=="ftppic"){
+?>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style" >
+        <form action="?action=saveftppic" method="post"  name="form1" id="form1">
+          <tr>
+            <td height="30" colspan="2" class="td_title">&nbsp;远程图片FTP服务器设置</td>
+          </tr>
+          <tr>
+            <td width="20%" height="24" align="left" class="td_border">&nbsp;是否开启FTP远程图片： <br></td>
+            <td width="80%" align="left" class="td_border"><input class="radio" type="radio" value="1" name="edit__app_ftp"<?php if($app_ftp==1) echo ' checked';?>>
+              开启
+              <input class="radio" type="radio" value="0" name="edit__app_ftp"<?php if($app_ftp==0) echo ' checked';?>>
+              关闭 &nbsp;<font color="#FF0000">＊</font>开启将影响上传速度,但是可以将附件转移到FTP服务器(上传图片或采集时自动保存到远程服务器) </td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;FTP 服务器：</td>
+            <td align="left" class="td_border"><input id="edit__app_ftphost" type="text" size="30" value="<?php echo $app_ftphost ?>" name="edit__app_ftphost" >
+              &nbsp;<font color="#FF0000">＊</font> 服务器地址,不需要加&quot;http://&quot;,一般为IP</td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;FTP 用户名：</td>
+            <td align="left" class="td_border"><input id="edit__app_ftpuser" type="text" size="30" value="<?php echo $app_ftpuser ?>" name="edit__app_ftpuser" >
+              &nbsp;<font color="#FF0000">＊</font> FTP服务器登录用的用户名 </td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;FTP 密码：</td>
+            <td align="left" class="td_border"><input id="edit__app_ftppass" type="text" size="30" value="<?php echo $app_ftppass ?>" name="edit__app_ftppass" >
+              &nbsp;<font color="#FF0000">＊</font> FTP服务器登录用的密码 </td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;FTP 端口：</td>
+            <td align="left" class="td_border"><input id="edit__app_ftpport" type="text" size="10" value="<?php echo $app_ftpport ?>" name="edit__app_ftpport" >
+              ＊ 服务器端口, 一般为 21 </td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;远程图片保存文件夹： </td>
+            <td align="left" class="td_border"><input id="edit__app_ftpdir" type="text" size="30" value="<?php echo $app_ftpdir ?>" name="edit__app_ftpdir" >
+              &nbsp;<font color="#FF0000">＊</font> (请确保已经建立)相对于FTP服务器根目录, 如/www/ ,根目录为/</td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;远程图片访问地址：</td>
+            <td align="left" class="td_border"><input id="edit__app_ftpurl" type="text" size="30" value="<?php echo $app_ftpurl ?>" name="edit__app_ftpurl" >
+              &nbsp;<font color="#FF0000">＊</font> (末尾不要带/)</td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;是否删除本地图片：</td>
+            <td align="left" class="td_border"><input class="radio" type="radio" value="1" name="edit__app_ftpdel"<?php if($app_ftpdel==1) echo ' checked';?> />
+              开启
+              <input class="radio" type="radio" value="0" name="edit__app_ftpdel"<?php if($app_ftpdel==0) echo ' checked';?> />
+              关闭 &nbsp;<font color="#FF0000">＊</font>成功上传到远程服务器后，是否删除对应的文件 </td>
+          </tr>
+          <tr>
+            <td height="24" align="left" class="td_border">&nbsp;是否更新数据图片地址：</td>
+            <td align="left" class="td_border"><input class="radio" type="radio" value="1" name="edit__app_updatepic"<?php if($app_updatepic==1) echo ' checked';?> />
+              开启
+              <input class="radio" type="radio" value="0" name="edit__app_updatepic"<?php if($app_updatepic==0) echo ' checked';?> />
+              关闭 &nbsp;<font color="#FF0000">＊</font>成功上传到远程服务器后，是否更新数据的图片地址为服务器地址，如开启需设置远程图片访问地址及远程图片保存文件夹</td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2" align="left" class="td_border"><input type="submit" name="Submit" id="Submit" value="提交" class="rb1" />
+              &nbsp;
+              <input class="rb1" type="button" onclick="location.href='?action=checkpic'" value="返回">
+              &nbsp;
+              <input class="rb1" type="button" onclick="location.href='?action=uplpictoftp'" value="上传本地图片到FTP"></td>
+          </tr>
+        </form>
+      </table>
+      <?php
+}
+?>
+    </div>
+  </div>
+</div>
+<?php
+viewFoot();
+?>
+</body>
+</html>

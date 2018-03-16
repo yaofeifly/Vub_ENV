@@ -1,0 +1,27 @@
+<div class="carousel slide" id="sea-slide">
+  <!-- 轮播（Carousel）指标 -->
+  <ol class="carousel-indicators">
+{seacms:videolist num=3 commend=5} 
+    <li data-target="#sea-slide" data-slide-to="[videolist:i]" {if:"[videolist:i]"="1"}class="active"{else}{end if}></li>
+{/seacms:videolist}
+    </volist>
+  </ol>   
+  <!-- 轮播（Carousel）项目 -->
+  <div class="carousel-inner">
+
+  {seacms:videolist num=3 commend=5} 
+      <div class="item {if:"[videolist:i]"="1"} active{else}{end if}">
+        <a href="[videolist:playlink]">
+        <img src="[videolist:spic]" alt="[videolist:name]">
+        <div class="carousel-caption">[videolist:name]</div>
+        </a>
+      </div>
+{/seacms:videolist}
+	  
+	  
+  </div>
+  <!-- 轮播（Carousel）导航 -->
+  <a class="carousel-control left" href="#sea-slide" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+  <a class="carousel-control right" href="#sea-slide" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+<script>$('#sea-slide').carousel({interval: 2000 });</script>

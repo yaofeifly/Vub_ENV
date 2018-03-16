@@ -1,0 +1,46 @@
+@import url("../../TQEditor.css");
+
+.eEditor{ border-color:#393; background:#fff; }
+.eEditorClient{border-top-color:#393;background:#fff;}
+
+.eToolBar{background:#ECFFEC;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ECFFEC,gradientType=0);
+background:linear-gradient(180deg, #ffffff, #ECFFEC);
+}
+.eButton,.eButtonUp,.eButtonDown,.eButtonDropDown{background-image:url(../../icon.gif); }
+.eButtonUp,li.eButton:hover{border-color:#393;}
+.eButtonDown,li.eButton:active,.eButtonDropDown:active{border-color:#393;}
+.eButtonDropDown{border-color:#393;margin:0;}
+
+.eBtn{background-color:#fff; background-image:url(../../btnBg.gif); }
+.eMenuItem,.eMenuItemUp{
+	color: #000;
+}
+.eMenuItemUp,.eMenuItem:hover{ background-color:#fff; border-color:#393; }
+.ePopPanel{
+	background-color:#ECFFEC;
+	border-color:#393;
+	color: #000;
+	box-shadow:3px 3px 3px #393;
+	-webkit-box-shadow:3px 3px 3px #393;
+	-moz-box-shadow:3px 3px 3px #393;
+}
+.ePopPanel a{color: #393;}
+
+.eTabBar{
+	border-bottom-color: #393;
+	background:#fff;
+}
+.eTabBar a{
+	color: #000;
+}
+.eTabBar a.active{
+	border-top-color:#393;
+	border-right-color:#393;
+	border-left-color: #393;
+	background: #ECFFEC;
+}
+.eFace img:hover,.eFace img.imgHover{border-color:#393;background-color:#fff;}
+.eStatusBar{
+	background-color:#ECFFEC;
+	border-top-color:#393;
+}

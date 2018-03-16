@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{playpage:name}在线播放-{playpage:typename}-{seacms:sitename}</title>
+<meta name="keywords" content="{playpage:name}免费在线观看,{playpage:name}剧情介绍,{playpage:name}电影海报" />
+<meta name="description" content="{playpage:name}剧情:{playpage:des len=50}" />
+<link href="images/xunlei.css" rel="stylesheet"  />
+<script src="images/xunlei.js"></script>
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container vod-detail sea-bg">
+<div class="row">
+	<div class="col-md-8 sea-col">
+  	<div class="page-header">
+      <h4><span class="glyphicon glyphicon-film sea-text"></span> <a href="#">{playpage:typename}</a> <small>{playpage:name}{playpage:note}</small></h4>
+    </div>
+    <ul class="list-unstyled vod-infos">
+    	<li class="col-xs-4 sea-col-0">
+      	<img class="img-responsive img-thumbnail sea-img vod-pic" data-original="{playpage:pic}" alt="{playpage:name}" src="{playpage:pic}">
+      </li>
+      <li class="col-xs-8">
+      	<h4><a href="{playpage:link}" class="sea-text">{playpage:name}</a></h4>
+      	<dl class="dl-horizontal">
+          <dt>主演：</dt>
+          <dd class="sea-text-hidden">{playpage:actor}</dd>
+          <dt>类型：</dt>
+          <dd class="sea-text-hidden">{playpage:jqtype}</dd>
+          <dt>导演：</dt>
+          <dd class="sea-text-hidden">{playpage:director}</dd>
+          <dt class="hidden-xs">地区：</dt>
+          <dd class="hidden-xs">{playpage:publisharea} </dd>
+          <dt>年份：</dt>
+          <dd>{playpage:publishtime}</dd>
+          <dt class="hidden-xs">剧情：</dt>
+          <dd class="hidden-xs vod-content">{playpage:des len=99} <a href="#vod_content" class="btn btn-link sea-text">详细...</a></dd>
+        </dl>
+      </li>
+    </ul>
+    <div class="clearfix sea-clearfix"></div>
+	{seacms:load block_tab_playlist.html}
+    <div class="clearfix sea-clearfix"></div>
+	{playpage:downlist}
+	<div class="page-header">
+      <h4><span class="glyphicon glyphicon-link sea-text"></span>[downlist:from]</h4>
+    </div>
+	<ul class="download-group fn-clear downurl"><script type="text/javascript">
+	var GvodUrls[downlist:i] = "[downlist:linkstr]";echoDown(GvodUrls[downlist:i],[downlist:i]);
+		</script>
+	</ul>
+	{/playpage:downlist}
+	<div class="clearfix sea-clearfix"></div>
+    <div class="page-header">
+      <h4><span class="glyphicon glyphicon-heart-empty sea-text"></span> 猜你喜欢</h4>
+    </div>
+    <ul class="list-unstyled">
+      {seacms:videolist num=9 type=current} 
+	  {if:[videolist:i]>8}
+      <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot hidden-md hidden-lg">
+      {else}
+      <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot">
+      {end if}
+      <a href="[videolist:link]">
+        <img class="img-responsive sea-img" data-original="[videolist:pic]" alt="[videolist:name]" src="[videolist:pic]">
+      </a>
+      <h4 class="sea-text-hidden">
+        <a href="[videolist:link]">[videolist:name]</a>
+      </h4>
+      </li>
+      {/seacms:videolist} 
+    </ul>
+    <div class="clearfix sea-clearfix"></div>
+    <div class="page-header">
+    	<a name="vod_content"></a>
+      <h4><span class="glyphicon glyphicon-th-list sea-text"></span> 剧情介绍</h4>
+    </div>
+    <p class="lead vod-content">
+    	{playpage:des}
+    </p>
+	<div class="clearfix sea-clearfix"></div>
+    <div class="page-header">
+    	<a name="vod_content"></a>
+      <h4><span class="glyphicon glyphicon-edit sea-text"></span> 影片评论</h4>
+    </div>
+    <p class="lead vod-content">
+    	{playpage:comment}
+    </p>
+  </div><!-- -->
+  <div class="col-md-4 sea-col visible-lg visible-md">
+  	<div class="page-header">
+      <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热播榜</h4>
+    </div>
+    <ol class="sea-vod-hot">
+      {seacms:videolist num=15 order=hot type=current} 
+	  <li><a href="[videolist:link]">[videolist:name]</a>
+        <small class="pull-right">[videolist:time style=mm-dd]</small>
+      </li>{/seacms:videolist} 
+    </ol>
+  </div><!-- -->
+</div>
+</div>
+{seacms:foot}
+<!---插入观看数，请不要重复出现此标签-->
+<div style="display:none;">{playpage:hit}</div>
+</body>
+</html>

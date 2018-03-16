@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{seacms:topicname}_第{topicpagelist:page}页_{seacms:sitename}</title>
+<meta name="keywords" content="{seacms:sitename}" />
+<meta name="description" content="{seacms:sitename}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg sea-special special-detail">
+<div class="row">
+  <div class="col-xs-12 sea-col">
+    <div class="page-header">
+      <h4><span class="sea-text">专题：{seacms:topicname}</span></h4> 
+    </div>
+    <div class="media">
+      <a class="pull-left" href="javascript:;">
+        <img class="media-object" src="/{seacms:topicpic}" >
+      </a>
+      <div class="media-body content">
+        {seacms:topicdes}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="container sea-bg vod-type">
+<div class="row">
+  <!-- -->
+  <div class="clearfix"></div>
+  <ul class="list-unstyled">
+      {seacms:topicpagelist size=24 order=time}
+      <li class="col-md-2 col-sm-2 col-xs-4 text-center sea-vod-img-new sea-col">
+        <a href="[topicpagelist:link]">
+        <img class="img-responsive img-thumbnail sea-img" data-original="[topicpagelist:pic]" alt="[topicpagelist:name]" src="[topicpagelist:pic]">
+        </a>
+        <h4 class="sea-text-hidden text-left">
+          <a href="[topicpagelist:link]" title="[topicpagelist:name]">[topicpagelist:name]</a>
+        </h4>
+        <h6 class="sea-text-hidden text-left">
+          [topicpagelist:actor]
+        </h6>
+      </li>
+      {/seacms:topicpagelist}
+    </ul>
+  <!-- -->
+  <div class="clearfix"></div>
+  <div class="col-xs-12 sea-col text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [topicpagelist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+         {if:{topicpagelist:page}>1}
+            <li><a href="{topicpagelist:backlink}">上一页</a></li>
+         {else}{end if}
+         {if:{topicpagelist:page}<{topicpagelist:pagecount}}
+            <li><a href="{topicpagelist:nextlink}">下一页</a></li>
+         {else}{end if}
+         </ul> 
+      </div>
+</div>
+</div>
+<include file="Home:footer" />
+</body>
+</html>

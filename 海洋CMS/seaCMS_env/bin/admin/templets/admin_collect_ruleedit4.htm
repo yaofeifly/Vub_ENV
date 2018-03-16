@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="img/style.css" rel="stylesheet" type="text/css" />
+<title>添加采集项目</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+input{height:12px;}
+.txt{width:250px;}
+.tb2 td{padding:2px 5px 2px 5px;height:25px;text-align:left;}
+.tb2 .thc{text-align:center;line-height:30px; background-color: #F5F7F8;font-size:18px;font-weight:bold;color:#000}
+.tb2 .thr{text-align:center;height:20px}
+.label{padding:0;width:150px;text-align:right;border-right:1px solid #DEEFFA;}
+.rb1{height:22px}
+.red{color:red}
+.blue{color:blue}
+form, fieldset {margin:0;padding:0}
+.tb td{text-align:left;}
+#step4{text-align:left;margin:10px;}
+</style>
+<script type="text/javascript">
+function show(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="";
+	}
+}
+
+function hide(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="none";
+	}
+}
+</script>
+</head>
+<body bgcolor="#F7FBFF">
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1" align=center>
+<form name="addruleform" id="addruleform" method="post" action="?action=<?php echo $action;?>">
+<input type='hidden' name='step' value='5' />
+<input type='hidden' name='id' value='<?php echo $id;?>' />
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb">
+	<thead>
+		<tr class="thead"><th>&nbsp;<font color="#000000">操作选项： </font><a href="?childdir=www.1000ys.com">管理采集规则</a> | <a href="?action=wizard">添加采集规则</a> | <a href="?action=ClearCache" title="更改脚本文件名后请使用此功能" target="hiddensubmit">清除垃圾文件</a> | 支持破解防盗链：<span class="red"></span></th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1. 通过本向导将传统的采集规则转换成采集规则</td>
+		</tr>
+	</tbody>
+</table>
+
+<table class="tb2">
+	<thead>
+		<tr>
+			<th colspan="2" class="thc">使用采集规则向导生成采集规则</th>
+		</tr>
+		<tr>
+			<th colspan="2" class="thr"><font id="stephit1">１. 设置基本参数</font>&nbsp;&nbsp;<font id="stephit2">２. 采集列表连接设置</font>&nbsp;&nbsp;<font id="stephit3">３. 采集内容与影片地址设置</font>&nbsp;&nbsp;<font id="stephit4" color="red">４. 在线模拟预览结果</font>&nbsp;&nbsp;<font id="stephit5">５. 完成向导并真实演示</font></th>
+		</tr>
+	</thead>
+</table>
+<div id="step4">
+<?php 
+	if($cofrom==1)getNewsTestItemRule($id,$previewurl,$previewpic);
+	else getTestItemRule($id,$previewurl,$previewpic);
+?>
+</div>
+<table class="tb2">
+	<tbody>
+		<tr>
+			<td class="label"></td>
+			<td><input type="button" class="rb1" name="back" value="返回上一步" onclick="javascript:history.back(-1)" />&nbsp;&nbsp;<input type="submit" name="Submit" class="rb1" value="完成设置" /></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+<table width="100%" cellspacing="5">
+<tr>
+ <td align="center"><?php echo $cfg_powerby?></td>
+</tr>
+</table>
+
+</div>
+
+</body>
+</html>

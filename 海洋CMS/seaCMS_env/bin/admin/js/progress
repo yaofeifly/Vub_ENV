@@ -1,0 +1,22 @@
+<table bgcolor="#eeeeee" border="0" width="400" cellspacing="0" cellpadding="1" height=20"><tr><td id="td1"></td><td id="td2"></td><td id="td3"></td><td id="td4"></td><td id="td5"></td><td id="td6"></td><td id="td7"></td><td id="td8"></td><td id="td9"></td><td id="td10"></td><td id="td11"></td><td id="td12"></td><td id="td13"></td><td id="td14"></td><td id="td15"></td><td id="td16"></td><td id="td17"></td><td id="td18"></td><td id="td19"></td><td id="td20"></td><td id="td21"></td><td id="td22"></td><td id="td23"></td><td id="td24"></td><td id="td25"></td><td id="td26"></td><td id="td27"></td><td id="td28"></td><td id="td29"></td><td id="td30"></td><td id="td31"></td><td id="td32"></td><td id="td33"></td><td id="td34"></td><td id="td35"></td><td id="td36"></td><td id="td37"></td><td id="td38"></td><td id="td39"></td><td id="td40"></td><td id="td41"></td><td id="td42"></td><td id="td43"></td><td id="td44"></td><td id="td45"></td><td id="td46"></td><td id="td47"></td><td id="td48"></td><td id="td49"></td><td id="td50"></td><td id="td51"></td><td id="td52"></td><td id="td53"></td><td id="td54"></td><td id="td55"></td><td id="td56"></td><td id="td57"></td><td id="td58"></td><td id="td59"></td><td id="td60"></td><td id="td61"></td><td id="td62"></td><td id="td63"></td><td id="td64"></td><td id="td65"></td><td id="td66"></td><td id="td67"></td><td id="td68"></td><td id="td69"></td><td id="td70"></td><td id="td71"></td><td id="td72"></td><td id="td73"></td><td id="td74"></td><td id="td75"></td><td id="td76"></td><td id="td77"></td><td id="td78"></td><td id="td79"></td><td id="td80"></td><td id="td81"></td><td id="td82"></td><td id="td83"></td><td id="td84"></td><td id="td85"></td><td id="td86"></td><td id="td87"></td><td id="td88"></td><td id="td89"></td><td id="td90"></td><td id="td91"></td><td id="td92"></td><td id="td93"></td><td id="td94"></td><td id="td95"></td><td id="td96"></td><td id="td97"></td><td id="td98"></td><td id="td99"></td><td id="td100"></td>
+<td id="prog" width="40" style="color:#ff0000; background-Color:#ffffff">0%</td>
+</tr></table>
+
+<script>
+function progress(i)
+{
+	for (j=1;j<=i;j++)
+	{
+		e = document.getElementById("td"+j);
+		if (e!=null)
+			e.style.backgroundColor="#0000ff";
+		//e.style.height='50px';
+	}
+	ee = document.getElementById("prog");
+	if (i>100)
+		pro=100;
+	else
+		pro=i;
+	ee.innerHTML = pro+"%";
+}
+</script>

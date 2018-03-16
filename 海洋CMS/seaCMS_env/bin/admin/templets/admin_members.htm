@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员管理</title>
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;会员&nbsp;&raquo;&nbsp;会员 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <?php
+      if($ac=='search')
+	  {
+      ?>
+      <form action="?ac=delall" method="post"  name="delform" id="delform" >
+      <table class="tb_style" id="tb_search_members" width="100%" border="0" cellpadding="0" cellspacing="0" >
+      <tr class="thead">
+        <td colspan="9" class="td_title">用户管理</td>
+      </tr>
+      <tr>
+      <td class="td_border" colspan="10" align="center"  height="30" >共搜索到 <?php echo count($srow); ?> 名符合条件的用户<a href="admin_members.php">重新搜索</a>
+      <td></tr>
+      <?php
+      	if(isset($srow[0]))
+        {
+       ?>
+      <tr height="30" ><td class="td_border">&nbsp;</td><td class="td_border">UID</td><td class="td_border">用户名</td><td class="td_border">邮箱</td><td class="td_border">注册时间</td><td class="td_border">注册IP</td><td class="td_border">用户组</td><td class="td_border">用户点数</td><td class="td_border">会员状态</td><td class="td_border">操作</td></tr>
+      <?php
+      	}
+      	foreach($srow as $row)
+        {
+        	$rs = $dsql->GetOne("select gname from sea_member_group where gid = ".$row['gid']);
+        	echo '<tr bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor=\'#FFE4C4\'" onmouseout="style.backgroundColor=\'#FBFEFF\'">';
+            echo '<td class="td_border" height="30" ><input class="checkbox" type="checkbox" value="'.$row['id'].'" name="uidarray[]"></td>';
+            echo '<td class="td_border" height="30" >'.$row['id'].'</td>';
+            echo '<td class="td_border" height="30" >'.$row['username'].'</td>';
+            echo '<td class="td_border" height="30" >'.$row['email'].'</td>';
+            echo '<td class="td_border" height="30" >'.date('Y-m-d H:i:s',$row['regtime']).'</td>';
+            echo '<td class="td_border" height="30" >'.$row['regip'].'</td>';
+            echo '<td class="td_border" height="30" >'.$rs['gname'].'</td>';
+            echo '<td class="td_border" height="30" >'.$row['points'].'</td>';
+            echo '<td class="td_border" height="30" >'.($row['state']?'正常':'禁止').'</td>';
+            echo '<td class="td_border" height="30" ><a href="?ac=edit&id='.$row['id'].'">编辑</a>&nbsp;<a href="?ac=del&id='.$row['id'].'" onclick="if(confirm(\'确定删除？操作不可恢复\')){return true;}else{return false;}">删除</a></td>';
+      		echo '</tr>';
+      	}
+        unset($rs);
+        if(isset($srow[0]))
+        {
+      ?>
+      <tr>
+      <td class="td_border" colspan="10">
+      <input class="checkbox" type="checkbox" onclick="checkAll(this.checked,'input','uidarray[]')" name="chkall">
+删? &nbsp;
+<input id="submit_submit" class="rb1" type="submit" value="提交" title="按 Enter 键可随时提交你的修改" name="submit">
+      <td></tr>
+      <?php 
+      	}
+      ?>
+      </table>
+      </form>
+      <?php
+      }
+      elseif($ac=='edit')
+	  {
+      ?>
+      <form action="?ac=editsave" method="post">
+      <input type="hidden" name="id" value="<?php echo $id?>" />
+       <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb_style">
+      <tr class="thead">
+        <td colspan="5" class="td_title">编辑用户</td>
+      </tr>
+      <tr>
+        <td class="td_border" width="11%" height="30">&nbsp;用户组：</td>
+        <td class="td_border"><select name="gid">
+        <?php
+        $dsql->SetQuery("select gid,gname from sea_member_group");
+        $dsql->Execute("group_list");
+        while($row1=$dsql->GetArray("group_list"))
+        { 
+        ?>
+       <option value="<?php echo $row1['gid'] ?>" <?php if($row1['gid']==$row['gid'])echo 'selected'?>><?php echo $row1['gname'] ?></option>
+       <?php
+       	}
+       ?></select></td>
+      </tr>
+      <tr>
+        <td class="td_border" width="11%" height="30">&nbsp;点数：</td>
+        <td class="td_border"><input id="upoints" type="text" value="<?php echo $row['points'] ?>" size="20" name="upoints" /></td>
+      </tr>
+	  <tr>
+        <td class="td_border" width="11%" height="30">&nbsp;密码：</td>
+        <td class="td_border"><input id="psd" type="text" value="" size="20" name="psd" /> *不修改请留空</td>
+      </tr>
+      <tr>
+        <td class="td_border" width="11%" height="30">&nbsp;用户状态：</td>
+        <td class="td_border">
+            <label>
+              <input type="radio" name="ustate" value="0" <?php if($row['state']==0) echo 'checked' ?> id="ustate_0" />
+              禁止</label>
+            <label>
+              <input type="radio" name="ustate" value="1" <?php if($row['state']==1) echo 'checked' ?> id="ustate_1" />
+            正常</label></td>
+      </tr>
+      <tr>
+        <td height="30" colspan="2" class="td_border">&nbsp;<input class="rb1" type="submit" value="确认保存" name="Submit">&nbsp;
+        <input class="rb1" type="button" onclick="history.go(-1)" value="返 回"></td>
+      </tr>
+    </table>
+  	</form>
+      <?php 
+      }else
+      {
+      ?>
+      <table width="100%" id="tb_search_member" border="0" cellpadding="0" cellspacing="0" class="tb_style" style="<?php if(!empty($ac)) echo 'display:none';?>" >
+        <form action="?ac=search" method="post"  name="form1" id="form1" >
+        
+      <tr class="thead">
+        <td colspan="2" class="td_title">用户管理</td>
+      </tr>
+          <tr>
+            <td height="30"  colspan="2" align="left" class="td_border">&nbsp;用户名:</td>
+          </tr>
+          <tr>
+            <td class="td_border" height="30" >&nbsp;
+              <input type="text" style="width:250px" name="uname" id="uname"  value="" />
+              &nbsp;可使用通配符 *</td>
+          </tr>
+          <tr>
+            <td  colspan="2"  height="30" align="left" class="td_border">&nbsp;用户 UID:</td>
+          </tr>
+          <tr>
+            <td class="td_border" height="30" >&nbsp;
+              <input type="text" style="width:250px" name="uid" id="uid"  value="" />
+              &nbsp;多个值之间用半角逗号 "," 隔开。</td>
+          </tr>
+          <tr>
+            <td class="td_border">&nbsp;
+              <input type="submit" name="Submit"  value="搜索" class="rb1" /> <input type="submit" name="Submit"  value="全部用户列表" class="rb1" /></td>
+          </tr>
+        </form>
+      </table>
+      <?php 
+      	}
+      ?>
+    </div>
+  </div>
+</div>
+<?php
+viewFoot();
+?>
+</body>
+</html>

@@ -1,0 +1,255 @@
+@charset "utf-8";
+body{
+	margin:0;
+	padding:0;
+}
+html, body {
+	height:100%;
+}
+body {
+	min-height:100%;
+	height:auto !important;
+	height:100%;
+	font-family:"Microsoft YaHei",微软雅黑,"SimSun",宋体;
+	font-size:12px;
+	color:#333;
+	background-color: #fff;
+	line-height: 15px;
+	font-weight:400;
+	background-color: #ececec;
+}
+
+ol, ul {
+	list-style:none;
+}
+img {
+	border:0;
+}
+
+
+/* 链接
+-------------------------------------------------------------------*/
+a:link, a:visited {
+	color:#1a7caf;
+	text-decoration:none;
+}
+a:hover, a:active {
+	color:#1a7caf;
+	text-decoration:underline;
+}
+
+/* 表单
+-------------------------------------------------------------------*/
+input {
+	color:#000;
+	font-size:12px;
+	font-family:"Microsoft YaHei",微软雅黑,"SimSun",宋体;
+}
+
+input[type="text"],
+input[type="password"] {
+ *margin:-1px 5px 0 5px;
+	width:219px;
+	height:15px;
+	border:1px solid #a7a6aa;
+	background:#FFF url("input.gif") 0 0 no-repeat;
+	margin-top: 0;
+	margin-right: 5px;
+	margin-bottom: 0;
+	margin-left: 5px;
+	padding: 2px;
+}
+
+
+* html input.text {
+	width:223px;
+	height:12px;
+	border:1px solid #a7a6aa;
+	background:#FFF url("input.gif") 0 0 no-repeat;
+	margin-top: -1px;
+	margin-right: 5px;
+	margin-bottom: 0;
+	margin-left: 2px;
+	padding: 3px;
+	line-height: 12px;
+}
+.button,
+button {
+	margin:0;
+	height:21px;
+	line-height:21px;
+	font-size:12px;
+	cursor:pointer;
+	border:none;
+	text-align: center;
+}
+
+.button2 {
+	width:50px;
+        height:26px;
+	color:#fff;
+	background:url("dengru.jpg");
+}
+/* 常用样式
+-------------------------------------------------------------------*/
+.wrapper {
+	max-width: 80%;
+	min-width: 450px;
+	/*width:450px;*/
+	clear: both;
+	margin-right: auto;
+	margin-left: auto;
+}
+*html .wrapper {
+	width:expression(document.body.clientWidth < 1280? "960px": "1060px" );
+}/**/
+
+.clear {
+	clear:both;
+	height:0;
+	overflow:hidden;
+}
+.mB10 {
+	margin-bottom: 10px;
+}
+.mL10 {
+	margin-left:10px;
+}
+.mR10 {
+	margin-right:10px;
+}
+
+.fLeft {
+	float:left;
+}
+
+.fRight {
+	float:right;
+}
+.lineBorder {
+	border: 1px solid #a8a8a8;
+}
+
+/* 页眉
+-------------------------------------------------------------------*/
+.header {
+	background-image: url(bg_head.jpg);
+	background-repeat: repeat-x;
+	height: 110px;
+}
+.header .wrapper .fLeft {
+	height: 60px;
+	margin-top: 0;
+}
+.header .wrapper .fRight {
+	width: 593px;
+}
+/* 登入信息
+-------------------------------------------------------------------*/
+.topBar {
+	float: right;
+        margin-right: 35px;
+	height: 12px;
+	margin-bottom: 15px;
+	line-height: 12px;
+	margin-top:85px;
+}
+.topBar span, .topBar .userMenu li {
+	padding-right: 8px;
+	padding-left: 8px;
+	line-height: 12px;
+	height: 12px;
+	padding-top: 1px;
+	white-space: nowrap;
+
+}
+.topBar span {
+	float: right;
+}
+.topBar span i {
+	font-style: normal;
+	color: #FFFFFF;
+	padding-right: 3px;
+}
+.topBar .userMenu {
+	float: right;
+}
+.topBar .userMenu li {
+	float: left;
+}
+.topBar .userMenu li.help {
+	border-left-width: 2px;
+	border-left-style: solid;
+	border-left-color: #fff;
+	text-align: right;
+	padding-right: 0px;
+       
+}
+
+/* 登录box
+-------------------------------------------------------------------*/
+#login {
+	background:#fff;
+}
+#login .location {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #ccc;
+	margin-bottom: 10px;
+}
+#login .theme {
+	clear: both;
+	padding: 30px;
+	width: 80%;
+}
+
+#login .theme li {
+	margin-bottom: 20px;
+	line-height: 20px;
+	height: 20px;
+}
+#login .theme span {
+	color: #000000;
+	width: 15%;
+	display: block;
+	float: left;
+	text-align: right;
+}
+
+/* 页脚
+-------------------------------------------------------------------*/
+.footer {
+	text-align: center;
+	clear:both;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 8px;
+	padding-top: 8px;
+	background-color: #FFFFFF;
+	margin-bottom: 8px;
+	padding-bottom: 8px;
+}
+.footer ul {
+	margin-right: auto;
+	margin-left: auto;
+	width: 570px;
+	overflow: hidden;
+}
+.footer li {
+	float: left;
+	width: 70px;
+	text-align: center;
+	margin-left: -2px;
+	border-left-width: 1px;
+	border-left-style: solid;
+	margin-right: 2px;
+	border-left-color: #666666;
+}
+.footer p {
+	text-align: center;
+	margin-right: auto;
+	margin-bottom: 8px;
+	margin-left: auto;
+	clear: both;
+	margin-top: 8px;
+}

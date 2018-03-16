@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>高级工具</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script language="javascript">
+function getCheckboxItem(){
+	 var myform = document.form1;
+	 var allSel="";
+	 if(myform.tables.value) return myform.tables.value;
+	 for(i=0;i<myform.tables.length;i++)
+	 {
+		 if(myform.tables[i].checked){
+			 if(allSel=="")
+				 allSel=myform.tables[i].value;
+			 else
+				 allSel=allSel+","+myform.tables[i].value;
+		 }
+	 }
+	 return allSel;	
+}
+function checkSubmit()
+{
+	var myform = document.form1;
+	myform.tablearr.value = getCheckboxItem();
+	return true;
+}
+
+</script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据备份 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb " id="tips">
+<tr class="thead"><th>技巧提示</th></tr>
+<tr><td class="tipsblock"><ul id="tipslis"><li>备份后请仔细检测一次备份是否成功，网页备份理论上可能出现虚假成功。</li><li>数据备份功能根据您的选择备份全部数据，导出的数据文件可用“数据恢复”功能或 phpMyAdmin 导入。</li><li>全部备份均不包含模板文件和附件文件。模板、附件的备份只需通过 FTP 等下载 不提供单独备份。</li><li id="tips_more" style="border: none; background: none; margin-bottom: 6px;"><a href="###" onclick="var tiplis = $('tipslis').getElementsByTagName('li');for(var i = 0; i < tiplis.length; i++){tiplis[i].style.display=''}$('tips_more').style.display='none';">显示全部提示...</a></li><li style="display: none">数据备份选项中的设置，仅供高级用户的特殊用途使用，当您尚未对数据库做全面细致的了解之前，请使用默认参数备份，否则将导致备份数据错误等严重问题。</li></ul></td></tr></table>
+<form name="form1" onSubmit="checkSubmit()" method="post" action="?action=bak">
+<input type='hidden' name='tablearr' value='' />
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+<tr class="thead"><td colspan="2">数据备份类型</td></tr>
+<tr>
+<td>
+<ul>
+<li><input class="radio" type="radio" name="type" value="ssea" checked onclick="$('showtables').style.display = 'none';"> 网站全部数据</li>
+<li><input class="radio" type="radio" name="type" value="custom" onclick="$('showtables').style.display = '';"> 自定义备份</li>
+</ul>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tbody id="showtables" style="display: none">
+<tr><td><input class="checkbox" name="chkall" onclick="checkAll(this.checked,'input','tables')" checked="checked" type="checkbox" id="chkalltables" /><label for="chkalltables"> 全选 - 数据表</td></tr>
+<tr>
+<td colspan="2">
+<ul class="dblist">
+<?php 
+foreach($Tables as $t){
+?>
+<li class="checked"><input type="checkbox" name="tables" value="<?php echo $t;?>" class="checkbox" checked="checked" /> <?php echo $t;?></li>
+<?php
+}
+?>
+</ul>
+</td>
+</tr>
+</tbody>
+<tbody id="advanceoption" style="display: none">
+<tr><td colspan="2">数据备份方式</td></tr>
+<tr><td>
+<ul class="nofloat">
+<li><input class="radio" type="radio" name="method" value="multivol" checked="checked" /><label for="method_multivol">  分卷备份 - 文件长度限制(kb)</label> <input type="text" class="txt" size="40" name="fsize" value="2048" /></li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr class="thead"><th colspan="15">数据备份选项</th></tr>
+<tr><td colspan="2">指定备份数据格式</td></tr>
+<tr><td>
+<ul class="nofloat"><li><input class="radio" type="radio" name="datatype" value="MYSQL40"<?php if($mysql_version<4.1) echo " checked";?>> MySQL 3.23/4.0.x</li><li><input class="radio" type="radio" name="datatype" value="MYSQL41"<?php if($mysql_version>=4.1) echo " checked";?>> MySQL 4.1.x/5.x</li></ul></td><td></td></tr>
+<tr><td colspan="2">备份表结构信息</td></tr>
+<tr><td><ul><li class="checked"><input class="radio" type="radio" name="isstruct" value="1" checked> 是</li><li><input class="radio" type="radio" name="isstruct" value="0" > 否</li></ul></td><td></td></tr>
+<?php  if(@function_exists('gzcompress') && false) {  ?>
+<tr><td colspan="2">完成后压缩成ZIP</td></tr>
+<tr><td><ul><li class="checked"><input class="radio" type="radio" name="iszip" value="1" checked> 是</li><li><input class="radio" type="radio" name="iszip" value="0" > 否</li></ul></td><td></td></tr>
+<?php } ?>
+</tbody>
+<tr><td colspan="15"><div class="fixsel"><input type="submit" class="rb1" name="exportsubmit" value="提交"  /> &nbsp;<input class="checkbox" type="checkbox" value="1" onclick="$('advanceoption').style.display = $('advanceoption').style.display == 'none' ? '' : 'none'; this.value = this.value == 1 ? 0 : 1; this.checked = this.value == 1 ? false : true" id="btn_more" /><label for="btn_more">更多选项</label></div></td></tr>
+</table>
+</form>
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{seacms:sitename}-高级搜索</title>
+<meta name="keywords" content="{seacms:searchword},{seacms:sitename}" />
+<meta name="description" content="{seacms:searchword},{seacms:sitename}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg vod-type">
+  <div class="row">
+  	<div class="col-xs-12 sea-col">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-film sea-text"></span> <a href="#">{searchpage:typename}</a> <small>共有<span class="sea-text">{cascadelist:recordcount}</span>个影片 第<span class="sea-text">{cascadelist:page}</span>页</small> <a class="btn btn-success btn-sm pull-right" href="http://{seacms:siteurl}/search.php?page=1&searchtype=5" >筛选</a></h4>
+      </div>
+    </div>
+	<div id="sx">
+  	<div class="clearfix"></div>
+  	<dl class="dl-horizontal">
+      <dt>类型：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:typeitemlist type=5,6,7,8,9,10,11,12,13,14,15,16,3,4}
+	  <a href="[typeitemlist:link]" {if:"[typeitemlist:value]"=="{searchpage:typename}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[typeitemlist:value]</a>
+	  {/seacms:typeitemlist}
+	  </dd>
+	  
+      <dt>地区：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:areaitemlist}<a href="[areaitemlist:link]" {if:"[areaitemlist:value]"=="{searchpage:area}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[areaitemlist:value]</a>{/seacms:areaitemlist}
+	  </dd>
+	  
+	  <dt>年份：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:yearitemlist}<a href="[yearitemlist:link]"  {if:"[yearitemlist:value]"=="{searchpage:year}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[yearitemlist:value]</a>{/seacms:yearitemlist}
+	  </dd>
+	  
+	  <dt>字母：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:letteritemlist}<a href="[letteritemlist:link]"  {if:"[letteritemlist:value]"=="{searchpage:letter}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[letteritemlist:value]</a>{/seacms:letteritemlist}
+	  </dd>
+	  
+	  <dt>语言：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:langitemlist}<a href="[langitemlist:link]"  {if:"[langitemlist:value]"=="{searchpage:lang}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[langitemlist:value]</a>{/seacms:langitemlist}
+	  </dd>
+	  
+	  <dt>剧情：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:jqitemlist}<a href="[jqitemlist:link]"  {if:"[jqitemlist:value]"=="{searchpage:jq}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[jqitemlist:value]</a>{/seacms:jqitemlist}
+	  </dd>
+	  
+	  <dt>状态：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:stateitemlist}<a href="[stateitemlist:link]"  {if:"[stateitemlist:value]"=="{searchpage:state}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[stateitemlist:value]</a>{/seacms:stateitemlist}
+	  </dd>
+	  
+	  <dt>版本：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:veritemlist}<a href="[veritemlist:link]"  {if:"[veritemlist:value]"=="{searchpage:ver}"}class="btn btn-sm  btn-success gallery-cell "{else} class="btn btn-sm btn-default gallery-cell"{end if}>[veritemlist:value]</a>{/seacms:veritemlist}
+	  </dd>
+	  
+	  <dt>收费：</dt>
+      <dd class="sea-text-hidden sea-gallery">
+	  {seacms:moneyitemlist}{if:"[moneyitemlist:value]"=="{searchpage:money}"}<a href="[moneyitemlist:link]"  class="btn btn-sm  btn-success gallery-cell ">[moneyitemlist:value]</a>{else}<a href="[moneyitemlist:link]"  class="btn btn-sm  btn-default gallery-cell ">[moneyitemlist:value]</a>{end if}{/seacms:moneyitemlist}
+	  </dd>
+	  
+    </dl>
+	</div>
+  </div>
+</div>
+<div class="clearfix sea-clearfix"></div>
+<div class="container sea-bg vod-type">
+<div class="row">
+  <div class="btn-toolbar" role="toolbar">
+    <div class="btn-group">
+      <a href="{searchpage:order-time-link}" {if:"{searchpage:ordername}"=="time"} class="btn btn-success" {else} class="btn btn-default" {end if} id="orderhits">最新上映</a>
+      <a href="{searchpage:order-hit-link}" {if:"{searchpage:ordername}"=="hit"} class="btn btn-success" {else} class="btn btn-default" {end if} id="orderaddtime">最近热播</a>
+      <a href="{searchpage:order-score-link}" {if:"{searchpage:ordername}"=="score"} class="btn btn-success" {else} class="btn btn-default" {end if} id="ordergold">评分最高</a>
+    </div>
+  </div>
+  <!-- -->
+  <div class="clearfix"></div>
+  <ul class="list-unstyled">
+      {seacms:cascadelist size=24 order=time}
+      <li class="col-md-2 col-sm-2 col-xs-4 text-center sea-vod-img-new sea-col">
+        <a href="[cascadelist:link]">
+        <img class="img-responsive img-thumbnail sea-img" data-original="[cascadelist:pic]" alt="[cascadelist:name]" src="[cascadelist:pic]">
+        </a>
+        <h4 class="sea-text-hidden text-left">
+          <a href="[cascadelist:link]" title="[cascadelist:name]">[cascadelist:name]</a>
+        </h4>
+        <h6 class="sea-text-hidden text-left">
+          [cascadelist:actor]
+        </h6>
+      </li>
+      {/seacms:cascadelist}
+    </ul>
+  <!-- -->
+  <div class="clearfix"></div>
+  <div class="col-xs-12 sea-col text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [cascadelist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+         {if:{cascadelist:page}>1}
+            <li><a href="{cascadelist:backlink}">上一页</a></li>
+         {else}{end if}
+         {if:{cascadelist:page}<{cascadelist:pagecount}}
+            <li><a href="{cascadelist:nextlink}">下一页</a></li>
+         {else}{end if}
+         </ul> 
+      </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

@@ -1,0 +1,162 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>影片管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff; background:#DDDDDD}
+select {font-size:12px;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;新闻管理 ';</script>
+<?php
+$numPerPage=20;
+if(empty($order)) $order="n_addtime";
+$orderStr= " order by d.$order desc";
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+$whereStr="  ";
+if ($action=="nullpic") $whereStr.=" and d.v_pic=''";
+if ($n_recycled=="ok") $whereStr.=" and d.n_recycled=1";
+if (!empty($type)) $whereStr.=" and d.tid in (".getTypeId($type).")";
+if (!empty($keyword)) $whereStr.=" and d.n_title like '%".$keyword."%'";
+$whereorder = str_replace("where order","order",str_replace("where and","and",$whereStr.$orderStr));
+$csqlStr="select count(*) as dd from `sea_news` d where d.n_recycled=0 ".$whereorder;
+if ($n_recycled=="ok")$csqlStr="select count(*) as dd from `sea_news` d where d.n_recycled=1 ".$whereorder;
+$row = $dsql->GetOne($csqlStr);
+if(is_array($row)){
+$TotalResult = $row['dd'];
+}else{
+$TotalResult = 0;
+}
+$TotalPage = ceil($TotalResult/$numPerPage);
+if ($page>$TotalPage) $page=$TotalPage;
+$limitstart = ($page-1) * $numPerPage;
+if($limitstart<0) $limitstart=0;
+$sqlStr="select d.n_id,d.n_title,d.n_hit,0,d.tid,d.n_addtime,d.n_commend,t.tname from sea_news d left join `sea_type` t on t.tid=d.tid where d.n_recycled=0 ".$whereorder." limit $limitstart,$numPerPage";
+if ($n_recycled=="ok") $sqlStr="select d.n_id,d.n_title,d.n_hit,0,d.tid,d.n_addtime,d.n_commend,t.tname from sea_news d left join `sea_type` t on t.tid=d.tid  where 1=1 ".$whereorder." limit $limitstart,$numPerPage";
+//echo $sqlStr;die();
+?>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1"><span class="td_border" style="text-align:center"><?php echo $n_id;?></span>
+<table class="tb_style" border="0" cellspacing="0" cellpadding="0">
+<tr><td colspan="15" class="td_title">&nbsp;新闻管理<?php if($n_recycled=="ok"){?>-回收站<?php }else{?>&nbsp;&nbsp;&nbsp;<a onclick="location.href='admin_datarelate.php?action=downnewspic&downtype=all';return false;" href="#"><font color="red">同步图片</font></a><?php }?>
+<?php
+ 
+	if($page==1)
+	{
+	require_once(sea_DATA."/config.ftp.php");
+	echo "<div id='updatepic' style='float:right;'>远程图片<font color='red'>";
+	$row=$dsql->GetOne("select count(*) as dd from sea_news where instr(n_pic,'#err')=0".($app_ftp==0?"":" and instr(n_pic,'$app_ftpurl')=0")." and instr(n_pic,'http')<>0");
+	$num=$row['dd'];
+	echo $num;
+	echo "</font>张</div>";
+	}
+			
+			?>
+</td></tr>	
+<tr>
+<form action="?" method="post" >
+<td height="40" align="left" colspan="10">  
+
+&nbsp;关键字&nbsp;<input  name="keyword" type="text" id="keyword" size="20">
+<select name="type" id="type"  ><option value="">请选择文章分类</option>
+<?php makeTypeOption(0,"&nbsp;|&nbsp;",1)?>
+</select>
+<input type="submit" name="selectBtn" value="查 询..." class="btn"  />&nbsp;
+<select  onchange="self.location.href='?type='+this.options[this.selectedIndex].value+'&n_commend='">
+<option value="">按文章分类查看</option>
+<?php makeTypeOption(0,"&nbsp;|&nbsp;",1)?>
+</select></td>
+</form>
+</tr>
+<?php
+if($TotalResult==0){
+    if(!empty($keyword)){
+    echo "<tr align='center'><td>关键字  <font color=red>\"".$keyword."\"</font>   没有记录</td></tr>";
+    }
+}else{
+	if(!empty($keyword)){
+?>
+  <tr ><td colspan="10">关键字  <font color=red> <?php echo $keyword;?> </font>   的记录如下</td></tr>
+<?php
+	}
+}
+?>
+  <tr bgcolor="#f5fafe">
+	<td height="30" align="center" bgcolor="#FFFFFF" class="td_btop3">&nbsp;ID<a href="?order=n_id&type=<?php echo $type;?>&page=<?php echo $page;?>&n_commend=<?php echo $n_commend;?>"><img src="img/minus.gif" title="按ID排序" /></a></td>
+	<td bgcolor="#FFFFFF" class="td_btop3">标题</td>
+	<td bgcolor="#FFFFFF" class="td_btop3">人气<a href="?order=n_hit&type=<?php echo $type;?>&page=<?php echo $page;?>&n_commend=<?php echo $n_commend;?>"><img src="img/minus.gif" title="按人气排序" /></a></td>
+	<td bgcolor="#FFFFFF" class="td_btop3">数据类别</td>
+	<td bgcolor="#FFFFFF" class="td_btop3">推荐星级<a href="?order=n_commend&type=<?php echo $type;?>&page=<?php echo $page;?>&n_commend=<?php echo $n_commend;?>"><img src="img/minus.gif" title="按推荐星级排序" /></a></td>
+	<td bgcolor="#FFFFFF" class="td_btop3">时间<a href="?order=n_addtime&type=<?php echo $type;?>&page=<?php echo $page;?>&n_commend=<?php echo $n_commend;?>"><img src="img/minus.gif" title="按时间排序" /></a></td>
+    <?php if($cfg_runmode2=='0'){?><td bgcolor="#FFFFFF" class="td_btop3">生成</td><?php }?>
+	<td align="center" bgcolor="#FFFFFF" class="td_btop3">操作</td>
+  </tr><form method="post" name="videolistform">
+<?php
+
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('video_list');
+while($row=$dsql->GetObject('video_list'))
+{
+$n_id=$row->n_id;
+$tid=$row->tid;
+$contentUrl=getArticleLink($tid,$n_id,'');
+?>
+  <tr bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor='#E6F2FB'" onmouseout="style.backgroundColor='#FBFEFF'">
+	<td height="30" class="td_border" style="text-align:left"><input type="checkbox" value="<?php echo $n_id;?>" name="e_id[]" class="checkbox" /><?php echo $n_id; ?></td>
+	<td class="td_border"><a href="<?php echo $contentUrl;?>" target="_blank"><?php echo $row->n_title;?></a></td>
+	<td class="td_border"><?php echo $row->n_hit;?></td>
+	<td class="td_border"><a href="?type=<?php echo $row->tid;?>&order=<?php echo $order;?>"><?php if($row->tname){echo $row->tname;}else{echo "<font color=red >数据分类错误</font>";}?></a></td>
+	<td id="star<?php echo $n_id;?>" class="td_border"><script>starView(<?php echo $row->n_commend;?>,<?php echo $n_id;?>,1)</script></td>
+	<td class="td_border"><span title="<?php echo MyDate('Y-m-d H:i:s',$row->n_addtime);?>"><?php echo isCurrentDay($row->n_addtime);?></span></td>
+    <?php if($cfg_runmode2=='0'){?><td class="td_border"><?php isNewsMake($n_id,$contentUrl);?></td><?php }?>
+	<td class="td_border" align="center"><a href="?action=edit&id=<?php echo $n_id;?>">编辑</a> <a href="?action=del&id=<?php echo $n_id;?>" onClick="return confirm('确定要删除吗')">删除</a> <a href="?action=<?php echo $n_recycled=='ok'?'restore':'hide' ?>&id=<?php echo $n_id;?>"><?php echo $n_recycled=='ok'?'还原':'隐藏' ?></a></td>
+  </tr>
+<?php }?>
+
+<tr><td height="30" colspan="11" class="td_border">&nbsp;全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" /><input type="submit" value="<?php if($n_recycled=='ok'){?>数据还原<?php }else{ ?>批量删除 <?php } ?>" onclick="<?php if($n_recycled=='ok'){?>if(confirm('确定要还原吗')){videolistform.action='?action=restoreall';}else{return false}<?php }else{ ?>if(confirm('确定要删除吗')){videolistform.action='?action=delall';}else{return false}<?php } ?>" class="rb1"  /> 
+<input type="submit" value="<?php if($n_recycled=='ok'){?>永久删除<?php }else{ ?>批量生成<?php } ?>" class="rb1" onclick="<?php if($n_recycled=='ok'){?>if(confirm('确定要永久删除吗')){videolistform.action='?action=delall';}else{return false}<?php }else{ ?>videolistform.action='admin_makehtml.php?action=selectednews'<?php } ?>" />
+<select name="movetype" id="movetype"  ><option value="">请选择目标分类</option>
+<?php makeTypeOption(0,"&nbsp;|&nbsp;",1)?>
+</select>
+<input type="submit" value="批量移动" class="rb1" onclick="if($('movetype').value==''){alert('请选择目标分类');return false;};if(confirm('确定要批量移动数据吗')){videolistform.action='?action=psettype'}else{return false;}"/>
+<?php if($n_recycled!='ok'){?><input type="submit" style="width:90px" value="删除分类数据" class="rb1" onclick="if($('movetype').value==''){alert('请选择目标分类');return false;};if(confirm('谨慎操作，数据不可恢复\n确定要删除此分类的所有数据吗')){videolistform.action='?action=deltypedata'}else{return false;}"/><?php }?>
+</td>
+</tr>
+</form>
+<tr><td height="30" colspan="11" class="td_border">
+<?php if($n_recycled=="ok"){ ?>
+<div class="cuspages"><div class="pages">
+&nbsp;页次：<?php echo $page;?>/<?php echo $TotalPage;?>  每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1&n_recycled=ok&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">首页</a> <a href="?page=<?php echo ($page-1);?>&n_recycled=ok&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">上一页</a> 
+<?php echo makePageNumber($page, 10, $TotalPage, "videolist");?>
+<a href="?page=<?php echo ($page+1);?>&n_recycled=ok&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">下一页</a> <a href="?page=<?php echo $TotalPage;?>&n_recycled=ok&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">尾页</a>&nbsp;&nbsp;跳转<input type="text" id="skip" value="" onkeyup="this.value=this.value.replace(/[^\d]+/,'')" style="width:40px"/>&nbsp;&nbsp;<input type="button" value="确定" class="btn" onclick="location.href='?page='+ document.getElementById('skip').value +'&n_recycled=ok&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>';"/></div></div>
+<?php
+}else{ ?>
+<div class="cuspages"><div class="pages">
+&nbsp;页次：<?php echo $page;?>/<?php echo $TotalPage;?>  每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">首页</a> <a href="?page=<?php echo ($page-1);?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">上一页</a> 
+<?php echo makePageNumber($page, 10, $TotalPage, "videolist");?>
+<a href="?page=<?php echo ($page+1);?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">下一页</a> <a href="?page=<?php echo $TotalPage;?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>">尾页</a>&nbsp;&nbsp;跳转<input type="text" id="skip" value="" onkeyup="this.value=this.value.replace(/[^\d]+/,'')" style="width:40px"/>&nbsp;&nbsp;<input type="button" value="确定" class="btn" onclick="location.href='?page='+ document.getElementById('skip').value +'&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&n_commend=<?php echo $n_commend;?>';"/></div></div>
+<?php } ?>
+</td>
+</tr>
+
+</table>
+          </div>             
+      </div>
+      </div>
+
+<script type='text/javascript'>alertUpdatePicNews();</script>
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

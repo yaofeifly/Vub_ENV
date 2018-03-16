@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="./video.css" rel="stylesheet">
+</head>
+<body style="margin:0px;padding:0px;">
+<script>
+var XgPlayer = {
+'Url': parent.now,  //本集播放地址，需更改
+'NextcacheUrl': parent.next,  //缓冲下一集，需更改
+'LastWebPage': '',
+'NextWebPage': parent.nextPage,  //下一集播放页面地址，需更改
+'Buffer': parent.adsPage,  // 播缓冲AD，需更改
+'Pase': parent.adsPage,  // 暂停AD，需更改
+'Width': parent.playerw,   // 播放器显示宽度
+'Height': parent.playerh,  // 播放器显示高度
+'Second': parent.adsTime,  // 缓冲时间
+"Installpage":'http://static.xigua.com/installpage.html'
+};
+
+document.write('<script language="javascript" src="http://static.xigua.com/m_xiguaplayer.js" charset="utf-8"><\/script>');          
+</script>  
+</body>
+</html>

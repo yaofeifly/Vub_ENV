@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link type="text/css" href="img/alerts.css" rel="stylesheet" media="screen">
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>资源管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script>
+var _1;
+function onUpClick(tg,el){
+	_1=el;openWindow2(101,320,25,0);
+	var msgDiv=$("msg");
+	var _t = tg.offsetTop;
+    var _l = tg.offsetLeft;
+    while (tg = tg.offsetParent){_t+=tg.offsetTop; _l+=tg.offsetLeft;}
+    msgDiv.style.cssText+="border:1px solid #55BBFF;background: #C1E7FF;padding:3px 0px 3px 4px;"
+	msgDiv.style.top = (_t-1)+"px";
+    msgDiv.style.left = (_l-1)+"px";
+	msgDiv.innerHTML='<button type="button" class="btn" style="margin:0 6px 0 0;height:23px;float:right;padding:0;" onclick="closeWin()">关闭</button><iframe src="uploadzt.htm" scrolling="no" topmargin="0" width="280" height="50" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe>';
+}
+
+function onUploadBack(fn){
+	if(!!_1) _1.value=fn;
+	closeWin();
+}
+</script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;专题管理 ';</script>
+<div class="r_main">
+       
+   
+			<div class="r_content">
+				<div class="r_content_1">
+                <form id="topicform" action="" method="post" name="topicform">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+                     <tr>
+                       <td width="100%" colspan="8" class="td_title">&nbsp;视频专题列表</td>
+                     </tr>
+                     </table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+    <TR align="center">
+      <TD height="30" width="7%" bgcolor="#FFFFFF" class="td_btop3">ID</TD>
+      <TD height="30" width="8%" bgcolor="#FFFFFF" class="td_btop3">专题名称</TD>
+      <TD height="30" width="7%" bgcolor="#FFFFFF" class="td_btop3">专题模板</TD>
+       <TD height="30" width="7%" bgcolor="#FFFFFF" class="td_btop3">专题别名</TD>
+       <TD height="30" width="15%" bgcolor="#FFFFFF" class="td_btop3">专题图片</TD>
+	   <TD height="30" width="6%" bgcolor="#FFFFFF" class="td_btop3">关键词</TD>
+       <TD height="30" width="6%" bgcolor="#FFFFFF" class="td_btop3">专题描述</TD>
+       <TD height="30" width="6%" bgcolor="#FFFFFF" class="td_btop3">专题视频</TD>
+       <TD height="30" width="6%" bgcolor="#FFFFFF" class="td_btop3">视频数量</TD>
+      <TD height="30" width="7%" bgcolor="#FFFFFF" class="td_btop3">排序</TD>
+      <TD height="30" width="11%" bgcolor="#FFFFFF" class="td_btop3">操作</TD>
+    </TR>
+
+<?php
+$numPerPage=20;
+$page = isset($page) ? intval($page) : 1;
+if($page==0) $page=1;
+
+	$csqlStr="select count(*) as dd from sea_topic";
+    $row = $dsql->GetOne($csqlStr);
+    if(is_array($row)){
+        $TotalResult = $row['dd'];
+    }else{
+        $TotalResult = 0;
+    }
+    $TotalPage = ceil($TotalResult/$numPerPage);
+    if ($page>$TotalPage) $page=$TotalPage;
+    $limitstart = ($page-1) * $numPerPage;
+    if($limitstart<0) $limitstart=0;
+	
+$sql="select * from sea_topic ORDER BY  id DESC limit $limitstart,$numPerPage";
+	$dsql->SetQuery($sql);
+	$dsql->Execute('al');
+	while($row=$dsql->GetObject('al'))
+	{
+				
+				if(!is_array($row))
+				{
+                    $ts=$row->vod;
+					if($ts !=="")
+					{
+        			$ta=explode("ttttt",$ts);
+        			$tcount=count($ta);
+					}else
+					{
+					$tcount=0;
+					}
+				}
+				else
+				{
+					$tcount=0;
+				}
+?>  
+     <TR align="center" bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor='#E6F2FB'" onmouseout="style.backgroundColor='#FBFEFF'" <?php if($id==$row->id){?> class="editlast"<?php }?> name="topictr" id="topictr<?php echo $row->id;?>" >
+      <TD height="30" width="7%"  bgcolor="#FFFFFF" class="td_border"><input type="checkbox" value="<?php echo $row->id;?>" name="e_id[]"  checked="checked"  class="checkbox" /><?php echo $row->id;?></TD>
+      <TD bgcolor="#FFFFFF" width="8%" class="td_border"><input type="text" name="name<?php echo $row->id;?>" value="<?php echo $row->name;?>"/></TD>
+      <td bgcolor="#FFFFFF" width="7%" class="td_border"><input type="text" name="template<?php echo $row->id;?>" value="<?php echo $row->template;?>" size="15" /></td>
+      <td bgcolor="#FFFFFF" width="7%"class="td_border"><input type="text" name="enname<?php echo $row->id;?>" value="<?php echo $row->enname;?>" size="15" /></td>
+      <td bgcolor="#FFFFFF" width="15%" class="td_border"><input type="text" name="pic<?php echo $row->id;?>" value="<?php echo $row->pic;?>" /><button type="button" class="rb1" style="border:0" onclick="onUpClick(this,this.form.elements['pic<?php echo $row->id;?>'])">浏览..</button></td>
+	  
+	  <TD bgcolor="#FFFFFF" width="10%" class="td_border"><input type="text" name="keyword<?php echo $row->id;?>" value="<?php echo $row->keyword;?>"/></TD>
+	  
+      <TD bgcolor="#FFFFFF" width="6%" class="td_border"><img <?php if($row->des){?>src='img/modify1.gif'<?php }else{?>src='img/modify.gif'<?php }?>  title='修改专题描述' style="cursor:pointer" onClick="viewCurrentTopicTr('<?php echo $row->id;?>');openTopicDesWin('topicdes','<?php echo $row->id;?>')" /></TD>
+      
+      
+      <TD bgcolor="#FFFFFF" width="6%" class="td_border"><a href="admin_topic_vod.php?tid=<?php echo $row->id;?>"><img <?php if($row->vod){?>src='img/icon_l02.gif'<?php }else{?>src='img/icon_l01.gif'<?php }?> ></a>
+      </TD>
+      
+      <TD bgcolor="#FFFFFF" width="6%" class="td_border"><font color="red"><?php echo $tcount-1;?></font></TD>
+      
+      
+      <TD bgcolor="#FFFFFF" width="7%" class="td_border"><input name="sort<?php echo $row->id;?>" type="text" value="<?php echo $row->sort;?>" size="5" /></TD>
+      <TD bgcolor="#FFFFFF" width="11%" class="td_border"><a  href="?action=last&id=<?php echo $row->id;?>">上移</a> <a  href="?action=next&id=<?php echo $row->id;?>">下移</a> <a  onclick="if(confirm('确定要删除吗')){return true;}else{return false;}" href="?action=del&id=<?php echo $row->id;?>">删除</a></TD>
+    </TR>
+<?php }?>
+							
+                  
+ <tr><td height="30" colspan="8" class="td_border" bgcolor="#FFFFFF">全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" /><input type="submit" value="批量删除" onclick="if(confirm('确定要删除吗')){topicform.action='?action=delall';}else{return false}" class="rb1"  />&nbsp;&nbsp;<input type="submit" value="批量修改选中专题" name="Submit" class="rb1" onclick="topicform.action='?action=edit';" /></td></tr>
+                  
+     </form>
+<tr>
+          <td height="30" colspan="11" class="td_border">
+            <div class="cuspages">
+              <div class="pages"> &nbsp;页次：<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1<?php echo $jumpurl ?>">首页</a> <a href="?page=<?php echo ($page-1);?><?php echo $jumpurl ?>">上一页</a> <?php echo makePageNumber($page, 10, $TotalPage, "videolist");?> <a href="?page=<?php echo ($page+1);?><?php echo $jumpurl ?>">下一页</a> <a href="?page=<?php echo $TotalPage;?><?php echo $jumpurl ?>">尾页</a>&nbsp;&nbsp;跳转
+                <input type="text" id="skip" value="" onkeyup="this.value=this.value.replace(/[^\d]+/,'')" style="width:40px"/>
+                &nbsp;&nbsp;
+                <input type="button" value="确定" class="btn" onclick="location.href='?page='+ document.getElementById('skip').value +'&v_recycled=<?php echo $v_recycled ?>&v_isunion=<?php echo $v_isunion ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&downfrom=<?php echo $downfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>';"/>
+              </div>
+            </div>
+ </td>
+        </tr>	 
+</table> 
+<form action="?action=add" method="post">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+	  <tr><td colspan="8" class="td_title">添加专题</td></tr>
+	  <tr align="center">
+		<TD height="60" width="6%" bgcolor="#FFFFFF" class="td_btop3">&nbsp;</TD>
+		<TD width="18%" bgcolor="#FFFFFF" class="td_btop3">名称<font color='red'>＊</font><br><input type="text" size="20" name="name" /></TD>
+		<TD width="20%" bgcolor="#FFFFFF" class="td_btop3">模板<br><input type="text" name="template" size="20"/></TD>
+		<TD width="12%" bgcolor="#FFFFFF" class="td_btop3">别名<br><input type="text" name="enname"  size="20"/></TD>
+		<TD width="20%" bgcolor="#FFFFFF" class="td_btop3">图片<br><input type="text" name="pic"  size="20"/></TD>			
+		<TD width="6%" bgcolor="#FFFFFF" class="td_btop3">&nbsp;</td>
+		<TD width="7%" bgcolor="#FFFFFF" class="td_btop3">排序<br><input type="text" size="3" name="sort"/></TD>
+		<TD width="11%" bgcolor="#FFFFFF" class="td_btop3">&nbsp;<br>&nbsp;<input type="submit" value="添加专题" class="rb1" /></TD>
+	  </tr>
+	</table>
+</form>
+		</div>
+	</div>
+</div>
+
+<div id="topicdes" style="top:100px; display:none;" class="popdiv">
+	<div class="poptitie"><img src="img/btn_close.gif" alt="关闭" onClick="$('topicdes').style.display='none'" />专题描述修改 </div>
+    <div class="popbody"><div>
+ <table width="100%" border="0" cellspacing="0" cellpadding="0">
+<form id="formdes" action="admin_ajax.php?action=submittopicdes" method="post">
+<tr>
+  <td width="554" >专题简介：<br>
+  <input type="hidden" name="f_id" id="f_id">
+  <textarea cols="72" rows="14" name="f_des" id="f_des"></textarea></td><td></td>
+</tr>
+<tr><td><input type="button" onClick="submitTopicDes('topicdes')" value="修     改" class="rb1" /></td></tr>
+</form>
+</table>
+</div></div>
+</div>
+<script type="text/javascript" src="js/drag.js"></script>	
+
+<?php
+viewFoot();
+?>
+
+
+</body>
+</html>

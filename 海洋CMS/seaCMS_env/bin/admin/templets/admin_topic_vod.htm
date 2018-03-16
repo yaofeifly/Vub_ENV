@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>专题影片管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script type="text/javascript">
+// 图片预览
+function showpic(event,imgsrc){	
+	var left = event.clientX+document.documentElement.scrollLeft+20;
+	var top = event.clientY+document.documentElement.scrollTop+20;
+	$("preview").style.display="";
+	$("preview").style.left=left+"px";
+	$("preview").style.top=top+"px";
+	$("pic_a1").setAttribute('src',imgsrc);
+}
+// 取消预览
+function hiddenpic(){
+	$("preview").style.display="none";
+}
+</script>
+<style type="text/css">
+.btn {
+	border:1px solid;
+	border-color:#fff #999 #999 #fff;
+	background:#DDDDDD
+}
+select {
+	font-size:12px;
+}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;专题内视频管理 ';</script>
+<?php
+	$tid=addslashes($_GET[tid]);
+    $vid=addslashes($_GET[vid]);
+    $numPerPage=30;
+    $v_state=isset($v_state) ? $v_state : '';
+    $v_commend=isset($v_commend) ? $v_commend : '';
+    $v_recycled=isset($v_recycled) ? $v_recycled : '';
+    $repeat=isset($repeat) ? $repeat : '';
+    if(empty($order)) $order="v_addtime";
+    $orderStr= " order by d.$order desc";
+    $page = isset($page) ? intval($page) : 1;
+    if($page==0) $page=1;
+    $whereStr="  ";
+    if ($action=="nullpic") $whereStr.=" and d.v_pic=''";
+    if ($v_state=="ok") $whereStr.=" and d.v_state>0";
+    if ($v_commend=="ok") $whereStr.=" and d.v_commend>0";
+    if ($v_recycled=="ok") $whereStr.=" and d.v_recycled=1";
+    
+    if ($repeat=="ok") {
+        if($allrepeat=="ok")
+        {
+       		$dsql->SetQuery("select v_name from sea_data where v_recycled=0 group by v_name having count(*)>1");
+            $dsql->Execute('video_have');
+            $repeatsql="";
+            while($rowh=$dsql->GetObject('video_have'))
+            {
+                if(!empty($rowh->v_name))
+                {
+                    $repeatsql.="'".$rowh->v_name."',";
+                }
+            }
+            if(empty($repeatsql))
+            {
+                showMsg('恭喜，无重复数据','admin_datarelate.php?action=repeat');
+                exit();
+            }else
+            {
+            	$whereStr .= " and d.v_name in (".rtrim($repeatsql,',').")";
+            }
+            
+        }else
+        {
+            $dsql->SetQuery("select substring(v_name,1,$rlen) as v_name from sea_data where v_recycled=0 group by substring(v_name,1,$rlen) having count(*)>1");
+            $dsql->Execute('video_have');
+            $repeatsql="";
+            while($rowh=$dsql->GetObject('video_have'))
+            {
+                if(!empty($rowh->v_name))
+                {
+                    $repeatsql.="or d.v_name like '$rowh->v_name%' ";
+                }
+            }
+            $whereStr.=rtrim(" and 1=2 or ".ltrim($repeatsql,"or"),"or ");
+        }
+    }
+    if ($empty=="ok") {
+        $whereStr.=" and p.body =''";
+    }
+    if (!empty($type)) $whereStr.=" and d.tid in (".getTypeId($type).")";
+
+    if (!empty($topic)) $whereStr.=" and d.v_topic =".$topic;
+    if (!empty($keyword)) $whereStr.=" and d.v_name like '%".$keyword."%' or d.v_actor like '%".$keyword."%' or d.v_nickname like '%".$keyword."%' or d.v_director like '%".$keyword."%' ";
+	if (!empty($area)) $whereStr.=" and d.v_publisharea = '$area'";
+	if (!empty($year)) $whereStr.=" and d.v_publishyear = '$year'";
+	if (!empty($yuyan)) $whereStr.=" and d.v_lang = '$yuyan'";
+	if (!empty($letter)) $whereStr.=" and d.v_letter = '$letter'";
+	if (!empty($commend)) $whereStr.=" and d.v_commend = '$commend'";
+	if (!empty($ver)) $whereStr.=" and d.v_ver = '$ver'";
+    if (!empty($playfrom)) $whereStr.=" and p.body like '%".$playfrom."$$%' ";
+    if (!empty($etype)) $whereStr.=" or FIND_IN_SET('".getTypeId($etype)."',d.v_extratype)<>0";
+    $whereorder = str_replace("where order","order",str_replace("where and","and",$whereStr.$orderStr));
+	//计算有多少条数据
+    $csqlStr="select count(*) as dd from `sea_data` d left join `sea_playdata` p on p.v_id=d.v_id where d.v_recycled=0 ".$whereorder;
+    if ($v_recycled=="ok")$csqlStr="select count(*) as dd from `sea_data` d left join `sea_playdata` p on p.v_id=d.v_id where d.v_recycled=1 ".$whereorder;
+    $row = $dsql->GetOne($csqlStr);
+    if(is_array($row)){
+        $TotalResult = $row['dd'];
+    }else{
+        $TotalResult = 0;
+    }
+    $TotalPage = ceil($TotalResult/$numPerPage);
+    if ($page>$TotalPage) $page=$TotalPage;
+    $limitstart = ($page-1) * $numPerPage;
+    if($limitstart<0) $limitstart=0;
+    
+    $sqlStr="select  d.v_pic,d.v_isunion,d.v_id,d.v_name,d.v_hit,0,d.v_state,d.tid,d.v_topic,d.v_addtime,d.v_jq,d.v_enname,d.v_commend,p.body as v_playdata,p.body1 as v_playdata1,t.tname from sea_data d left join `sea_type` t on t.tid=d.tid left join `sea_playdata` p on p.v_id=d.v_id where d.v_recycled=0 ".$whereorder." limit $limitstart,$numPerPage";
+    
+    if ($v_recycled=="ok") $sqlStr="select d.v_pic,d.v_isunion,d.v_id,d.v_name,d.v_enname,d.v_hit,0,d.v_state,d.tid,d.v_topic,d.v_addtime,d.v_jq,d.v_commend,p.body as v_playdata,p.body1 as v_playdata1,t.tname from sea_data d left join `sea_type` t on t.tid=d.tid left join `sea_playdata` p on p.v_id=d.v_id where 1=1 ".$whereorder." limit $limitstart,$numPerPage";
+	$jumpurl = "&tid=$tid&v_recycled=$v_recycled&order=$order&type=$type&etype=$etype&keyword=$keyword&v_state=$v_state&v_commend=$v_commend&repeat=$repeat&allrepeat=$allrepeat&topic=$topic&playfrom=$playfrom&empty=$empty&rlen=$rlen&jqtype=$jqtype&area=$area&year=$year&yuyan=$yuyan&letter=$letter&commend=$commend&ver=$ver";
+
+
+    $sql="select * from sea_topic where id=$tid";
+	$dsql->SetQuery($sql);
+	$dsql->Execute('al') ;
+	while($row=$dsql->GetObject('al'))
+	{
+	$ts=$row->vod;
+    $intopic=explode("ttttt",$ts);
+	}
+
+?>
+
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+    <tr>
+    <td width="100%" colspan="8" class="td_title">&nbsp;专题已含视频列表：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC6600">【点击后面 x 将影片从专题中移出】</font></td>
+    </tr>
+</table>
+
+<div style="background-color:#CCFFFF; padding:10px;">
+
+<?php
+	echo "<a href=?action=topicdelall&tid=$tid><font color=red>XX 全部清除 XX</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+if($ts !=="")
+{
+	$t=str_replace('ttttt',',',$ts);
+    $sql="select * from sea_data where v_id IN ($t)";
+	$dsql->SetQuery($sql);
+	$dsql->Execute('al') ;
+	while($row=$dsql->GetObject('al'))
+	{
+	echo "<a href=?action=topicdel&vid=$row->v_id&tid=$tid>$row->v_name X</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	}
+}
+else
+{echo "该专题暂无数据";}
+?>
+</div>
+
+
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+	<table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+    <tr>
+    <td width="100%" colspan="8" class="td_title">&nbsp;全站待选视频列表：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="#CC6600">【点击 插入数据 即增加影片到专题】</font><font color="green">&nbsp;&nbsp;【点击查询按钮重置筛选条件】</font></td>
+    </tr>
+</table>
+
+      <table class="tb_style" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <div id="preview" style="position:absolute;display:none;width:100;height:100;" class="showpic"> <img name="pic_a1" id="pic_a1" width="100" height="100"></div>
+          <form action="?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&jqtype=<?php echo $jqtype; ?>" method="post" >
+            <td height="40" align="left" colspan="10">&nbsp;关键字&nbsp;
+              <input  name="keyword" type="text" id="keyword" size="20">
+              
+              <select name="type" id="type"  >
+                <option value="">全部分类</option>
+                <?php makeTypeOption(0,"&nbsp;|&nbsp;",0)?>
+              </select>
+			  <input type="submit" name="selectBtn" value="查询或重置" class="btn"  />
+              &nbsp;
+              <select  onchange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>&type='+this.options[this.selectedIndex].value">
+                <option value="">按分类</option>
+                <?php makeTypeOption(0,"&nbsp;|&nbsp;",0)?>
+              </select>
+              <select id='v_playfrom' name='v_playfrom' style="width:80px" onChange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>&playfrom='+this.options[this.selectedIndex].value">
+                <option value=''>按来源</option>
+                <?php echo makePlayerSelect("");?>
+              </select>
+			  <select id='area' name='area' style="width:80px" onChange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>&area='+this.options[this.selectedIndex].value">
+                <option value=''>按地区</option>
+                <?php echo zzget('area');?>
+              </select>
+			  <select id='year' name='year' style="width:80px" onChange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>&year='+this.options[this.selectedIndex].value">
+                <option value=''>按年代</option>
+                <?php echo zzget('year');?>
+              </select>
+			  <select id='yuyan' name='yuyan' style="width:80px" onChange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>&yuyan='+this.options[this.selectedIndex].value">
+                <option value=''>按语言</option>
+                <?php echo zzget('yuyan');?>
+              </select>
+			  <select id='ver' name='ver' style="width:80px" onChange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver='+this.options[this.selectedIndex].value">
+                <option value=''>按版本</option>
+                <?php echo zzget('ver');?>
+              </select>
+			  <select id='commend' name='commend' style="width:80px" onChange="self.location.href='?tid=<?php echo $tid ?>&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&ver=<?php echo $ver;  ?>&commend='+this.options[this.selectedIndex].value">
+			    <option value=''>按星级</option>
+                <option value='0'>零星</option>
+				<option value='1'>一星</option>
+				<option value='2'>二星</option>
+				<option value='3'>三星</option>
+				<option value='4'>四星</option>
+				<option value='5'>五星</option>
+              </select>
+			  </td>
+          </form> 
+		  </td>
+        </tr>
+        <?php
+if($TotalResult==0){
+    if(!empty($keyword)){
+    echo "<tr><td colspan=10><font color=red>\"".$keyword."\"</font>无数据</td></tr>";
+    }
+}else{
+	if(!empty($keyword)){
+?>
+        <tr >
+          <td colspan="10">关键字 <font color=red> <?php echo $keyword;?> </font> 的记录如下</td>
+        </tr>
+        <?php
+	}
+}
+?>
+        <tr bgcolor="#f5fafe">
+          <td width="5%" height="30" align="center" bgcolor="#FFFFFF" class="td_btop3" >&nbsp;ID<a href="?order=v_id&type=<?php echo $type;?>&page=<?php echo $page;?>&tid=<?php echo $tid ?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>"><img src="img/minus.gif" title="按ID排序" /></a></td>
+          <td width="30%" bgcolor="#FFFFFF" class="td_btop3">标题</td>
+          <td width="10%" bgcolor="#FFFFFF" class="td_btop3">图片位置</td>
+          <td width="5%" bgcolor="#FFFFFF" class="td_btop3">人气<a href="?order=v_hit&type=<?php echo $type;?>&page=<?php echo $page;?>&tid=<?php echo $tid ?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>"><img src="img/minus.gif" title="按人气排序" /></a></td>
+          <td width="13%" bgcolor="#FFFFFF" class="td_btop3">来源</td>
+          <td width="8%" bgcolor="#FFFFFF" class="td_btop3">数据类别</td>
+          <td width="9%" bgcolor="#FFFFFF" class="td_btop3">推荐星级<a href="?order=v_commend&type=<?php echo $type;?>&page=<?php echo $page;?>&tid=<?php echo $tid ?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>"><img src="img/minus.gif" title="按推荐星级排序" /></a></td>
+          <td width="10%" bgcolor="#FFFFFF" class="td_btop3">时间<a href="?order=v_addtime&type=<?php echo $type;?>&page=<?php echo $page;?>&tid=<?php echo $tid ?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>"><img src="img/minus.gif" title="按时间排序" /></a></td>
+          <?php if($cfg_runmode=='0'){?>
+          <td width="30" bgcolor="#FFFFFF" class="td_btop3">生成</td>
+          <?php }?>
+          <td width="10%" align="center" bgcolor="#FFFFFF" class="td_btop3">操作</td>
+        </tr>
+<form method="post" name="videolistform" action="?action=topicaddall&tid=<?php echo $tid ?>">
+          <?php
+
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('video_list');
+while($row=$dsql->GetObject('video_list'))
+{
+$v_id=$row->v_id;
+$contentUrl=getContentLink($row->tid,$v_id,"",date('Y-n',$row->v_addtime),$row->v_enname);
+$fromstr=getFromStr($row->v_playdata)." ".getFromStr($row->v_playdata1);
+?>
+          <tr bgcolor="#FBFEFF" style="background-color:#FBFEFF" onmouseover="style.backgroundColor='#E6F2FB'" onmouseout="style.backgroundColor='#FBFEFF'">
+            <td height="30" class="td_border" style="text-align:center">
+			<?php
+			if(in_array($v_id,$intopic))
+			{ 
+			echo "X";
+			}
+			else
+			{
+			echo "<input type=checkbox value=$v_id name=e_id[] class=checkbox />";
+			}
+			?>
+            
+			<?php echo $v_id;?></td>
+             <td class="td_border"><a href="<?php echo $contentUrl;?>" target="_blank" onMouseOver="showpic(event,'<?php if(strpos($row->v_pic,'uploads')===0)echo '/'.$GLOBALS['cfg_cmspath'].$row->v_pic; else echo $row->v_pic;?>');" onMouseOut="hiddenpic();"><?php echo $row->v_name;?></a><span id="state<?php echo $v_id;?>">
+             <?php $vstate = $row->v_state; if($vstate==0){echo "<img src=\"img/icon_01.gif\"  title='设置连载状态' style=\"cursor:pointer\" onclick=\"setVideoState($v_id)\"/>";}else{echo "<sup style='color:#ff0000;font-weight:bold;cursor:pointer;' onclick=\"setVideoState($v_id)\" title='修改连载状态'>($vstate)</sup>";}?>
+              </span></td>
+            <td class="td_border"><?php if(strpos($row->v_pic,'uploads/')===0)echo "本地";elseif(strpos($row->v_pic,$app_ftpurl)!==false)echo "FTP服务器";elseif(strpos($row->v_pic,'#err')!==false)echo "下载图片时发生错误";elseif(empty($row->v_pic)
+            )echo "空";else echo "资源站"; ?></td>
+            <td class="td_border"><?php echo $row->v_hit;?></td>
+            <td class="td_border"><?php if(empty($fromstr)) echo "无数据来源"; else echo $fromstr;?></td>
+            <td class="td_border">
+              <?php if($row->tname){echo $row->tname." ".$row->v_jq;}else{echo "<font color=red >数据分类错误</font>";}?>
+              </td>
+         
+            <td id="star<?php echo $v_id;?>" class="td_border"><script>starView(<?php echo $row->v_commend;?>,<?php echo $v_id;?>,0)</script></td>
+            <td class="td_border"><span title="<?php echo MyDate('Y-m-d H:i:s',$row->v_addtime);?>"><?php echo isCurrentDay($row->v_addtime);?></span></td>
+            <?php if($cfg_runmode=='0'){?>
+            <td class="td_border"><?php isVideoMake($v_id,$contentUrl);?></td>
+            <?php }?>
+            <td class="td_border" align="center">
+			<?php
+			if(in_array($v_id,$intopic))
+			{
+			echo "已存在";
+			}
+			else
+			{
+			echo "<a href=?action=topicadd&vid=$v_id&tid=$tid>插入数据</a>";
+			}
+			?>
+			</td>
+          </tr>
+          <?php }?>
+		  <tr>
+            <td height="30" colspan="11" class="td_border">&nbsp;全选
+              <input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />
+              反选
+              <input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" />
+              <input type="submit" style="width:120px" value="批量插入数据" class="rb1" />
+			</td>
+          </tr>
+        </form>
+        <tr>
+          <td height="30" colspan="11" class="td_border">
+            <div class="cuspages">
+              <div class="pages"> &nbsp;页次：<?php echo $page;?>/<?php echo $TotalPage;?> 每页<?php echo $numPerPage;?> 总收录数据<?php echo $TotalResult;?>条 <a href="?page=1<?php echo $jumpurl ?>">首页</a> <a href="?page=<?php echo ($page-1);?><?php echo $jumpurl ?>">上一页</a> <?php echo makePageNumber($page, 10, $TotalPage, "videolist");?> <a href="?page=<?php echo ($page+1);?><?php echo $jumpurl ?>">下一页</a> <a href="?page=<?php echo $TotalPage;?><?php echo $jumpurl ?>">尾页</a>&nbsp;&nbsp;跳转
+                <input type="text" id="skip" value="" onkeyup="this.value=this.value.replace(/[^\d]+/,'')" style="width:40px"/>
+                &nbsp;&nbsp;
+                <input type="button" value="确定" class="btn" onclick="location.href='?page='+ document.getElementById('skip').value +'&v_recycled=<?php echo $v_recycled ?>&order=<?php echo $order;?>&type=<?php echo $type;?>&keyword=<?php echo $keyword;?>&v_state=<?php echo $v_state;?>&v_commend=<?php echo $v_commend;?>&repeat=<?php echo $repeat;?>&topic=<?php echo $topic;?>&playfrom=<?php echo $playfrom;?>&empty=<?php echo $empty;?>&rlen=<?php echo $rlen;?>&jqtype=<?php echo $jqtype;  ?>&area=<?php echo $area;  ?>&year=<?php echo $year;  ?>&yuyan=<?php echo $yuyan;  ?>&letter=<?php echo $letter;  ?>&commend=<?php echo $commend;  ?>&ver=<?php echo $ver;  ?>';"/>
+              </div>
+            </div>
+ </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<?php if ($action=="else"){?>
+
+<?php }?>
+<?php
+viewFoot();
+?>
+</body>
+</html>

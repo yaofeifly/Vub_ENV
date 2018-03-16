@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>高级工具</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script language="javascript">
+function getCheckboxItem(){
+	 var myform = document.form1;
+	 var allSel="";
+	 if(myform.bakfile.value) return myform.bakfile.value;
+	 for(i=0;i<myform.bakfile.length;i++)
+	 {
+		 if(myform.bakfile[i].checked){
+			 if(allSel=="")
+				 allSel=myform.bakfile[i].value;
+			 else
+				 allSel=allSel+","+myform.bakfile[i].value;
+		 }
+	 }
+	 return allSel;	
+}
+function checkSubmit()
+{
+	var myform = document.form1;
+	myform.bakfiles.value = getCheckboxItem();
+	return true;
+}
+
+</script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据恢复 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb" id="tips">
+<tr class="thead"><th>技巧提示</th></tr>
+<tr><td class="tipsblock"><ul id="tipslis"><li>本功能在恢复备份数据的同时，将全部覆盖原有数据，请确定恢复前已将论坛关闭，恢复全部完成后可以将论坛重新开放。</li><li>数据恢复功能只能恢复由当前版本 导出的数据文件，其他软件导出格式可能无法识别。</li><li>从本地恢复数据需要服务器支持文件上传并保证数据尺寸小于允许上传的上限，否则只能使用从服务器恢复。</li><li>如果一组备份数据有多个分卷备份文件，请选择该组备份文件的全部分卷进行恢复，用时间前缀来区分不同备份。</li></ul></td></tr></table>
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+<form name="form1" onSubmit="checkSubmit()" action="admin_database.php?action=redat" method="post">
+<input type='hidden' name='bakfiles' value='' />
+    <tr class="thead"> 
+      <td height="24" colspan="4" valign="top">
+      	<strong>发现的备份文件：</strong>
+         <?php if(count($filelists)==0) echo " 没找到任何备份文件... "; ?></td>
+    </tr>
+    <?php
+    for($i=0;$i<count($filelists);$i++)
+    {
+    	echo "<tr  bgcolor='#FFFFFF' align='center' height='24'>\r\n";
+      $mtd = "<td width='10%'>
+             <input name='bakfile' id='bakfile' type='checkbox' class='checkbox' value='".$filelists[$i]."' /> 
+             </td>
+             <td width='40%'>{$filelists[$i]}</td>\r\n";
+      echo $mtd;
+      if(isset($filelists[$i+1]))
+      {
+      	$i++;
+      	$mtd = "<td width='10%'>
+              <input name='bakfile' id='bakfile' type='checkbox' class='checkbox' value='".$filelists[$i]."' /> 
+              </td>
+              <td width='40%'>{$filelists[$i]}</td>\r\n";
+        echo $mtd;
+      }else{
+      	echo "<td></td><td></td>\r\n";
+      }
+      echo "</tr>\r\n";
+    }
+    ?>
+        <tr> 
+      <td height="24" colspan="4"><label>全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','bakfile')" /></label><label>反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','bakfile')" /></label></td>
+    </tr>
+	  <tr class="thead"> 
+      <td height="24" colspan="4" valign="top">
+      	<strong>附加参数：</strong>
+      </td>
+    </tr>
+    <tr>
+      <td height="24" colspan="4"> 
+        <input name="redStruct" type="checkbox" class="checkbox" id="redStruct" checked='1' />
+        还原表结构信息
+        <input name="delfile" type="checkbox" class="checkbox" id="delfile" value="1" />
+        还原后删除备份文件 </td>
+    </tr>
+    <tr> 
+      <td height="33" colspan="4">
+      	 &nbsp; 
+      	 <input type="submit" name="Submit" value="开始还原数据" class="rb1" />
+      </td>
+    </tr>
+</form>
+</table>
+
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

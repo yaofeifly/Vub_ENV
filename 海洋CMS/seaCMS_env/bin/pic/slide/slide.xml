@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bcaster>
+<!--注意：
+1.幻灯片图片位于目录/pic/slide/下面
+2.幻灯片标签调用方式：例如{seacms:slide width=500 height=260}
+-->
+  <item item_url="2.jpg" link="#" title="测试数据3" desc="感人的"/>
+	<item item_url="1.jpg" link="#" title="测试数据2" desc="史上最强悍的"/>
+	<item item_url="0.jpg" link="#" title="测试数据1" desc="这是个非常经典的"/>
+	<item item_url="3.jpg" link="#" title="测试数据4" desc="国外经典"/>
+<item item_url="4.jpg" link="#" title="测试数据5" desc="国内经典d "/></bcaster>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{seacms:sitename}</title>
+<meta name="keywords" content="{seacms:sitenotice}">
+<meta name="description" content="{seacms:sitenotice}">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg">
+  <div class="row">
+    <div class="col-md-8 sea-slide-pic">
+	  {seacms:load block_slide.html}
+    </div>
+    <ol class="col-md-4 sea-slide-new visible-lg visible-md">
+     {seacms:videolist num=7} 
+	 <li>
+        <a href="[videolist:playlink]">[videolist:name]</a>
+        <small class="pull-right">[videolist:time style=mm-dd]</small>
+      </li>
+	  {/seacms:videolist} 
+    </ol>
+    <div class="clearfix"></div>
+    <ul class="row list-unstyled text-center index-nav visible-xs visible-sm">
+      {seacms:menulist type=all}
+      <li class="col-xs-4">
+        <a href="[menulist:link]" class="btn btn-success btn-block">[menulist:typename]</a>
+      </li>
+      {/seacms:menulist} 
+	  <li class="col-xs-4"><a href="{seacms:topiclink}" class="btn btn-success btn-block">专辑</a></li>
+	  <li class="col-xs-4"><a href="{seacms:newslink}" class="btn btn-success btn-block">文章</a></li>		
+      <li class="col-xs-4"><a href="/{seacms:sitepath}gbook.php" class="btn btn-success btn-block">留言</a></li>
+	  <li class="col-xs-4"><a href="/{seacms:sitepath}member.php" class="btn btn-success btn-block">会员中心</a></li>
+	  <li class="col-xs-4"><a href="/{seacms:sitepath}new.html" class="btn btn-success btn-block">最近更新</a></li>
+	  <li class="col-xs-4"><a href="/{seacms:sitepath}top/hot.html" class="btn btn-success btn-block">热门排行</a></li>
+    </ul>
+  </div>
+</div>
+<div class="clearfix sea-clearfix"></div> 
+
+
+<!--大分类框架1--->
+<div class="container sea-bg">
+  <div class="row">
+    <div class="col-md-8 sea-col index-left">
+    <div class="page-header">
+      <h4>
+        <span class="glyphicon glyphicon-film sea-text"></span> 
+		{seacms:menulist type=1}
+		<a href="[menulist:link]">[menulist:typename]</a>
+		{/seacms:menulist}
+        <small class="hidden-xs">
+		{seacms:smallmenulist type=1}
+		<a href="[smallmenulist:link]">[smallmenulist:typename]</a>
+		{/seacms:smallmenulist}
+		</small>
+      </h4>
+    </div>
+    <!-- -->
+    <ul class="list-unstyled">
+  {seacms:videolist num=9 type=1} 
+	  {if:[videolist:i]>8}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot hidden-md hidden-lg">
+	  {else}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot ">
+	  {end if}
+      <a href="[videolist:link]">
+        <img class="img-responsive sea-img" data-original="[videolist:pic]"  alt="[videolist:name]" src="[videolist:pic]"  style="display: block;">
+      </a>
+      <h4 class="sea-text-hidden">
+        <a href="[videolist:link]" title="[videolist:name]">[videolist:name]</a>
+      </h4>
+      </li>
+   {/seacms:videolist} 
+    </ul>
+    </div><!--lg-8end -->
+    <div class="col-md-4 sea-col index-right visible-lg visible-md">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热播榜</h4>
+      </div>
+      <ol class="sea-vod-hot">
+        {seacms:videolist num=10 order=hot type=1} <li>
+          <a href="[videolist:link]">[videolist:name]</a>
+          <small class="pull-right">[videolist:time style=mm-dd]</small>
+        </li>
+		{/seacms:videolist} 
+      </ol>
+      <ul class="list-unstyled sea-vod-type">
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=农村">农村</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=恐怖">恐怖</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=宫廷">宫廷</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=剧情">剧情</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=言情">言情</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=家庭">家庭</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=励志">励志</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=偶像">偶像</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=都市">都市</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=时装">时装</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=年代">年代</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=生活">生活</a></li>
+      </ul>
+    </div><!--lg-4 end -->
+  </div><!--row end -->
+</div>
+<div class="clearfix sea-clearfix"></div>
+
+<!--大分类框架2--->
+<div class="container sea-bg">
+  <div class="row">
+    <div class="col-md-8 sea-col index-left">
+    <div class="page-header">
+      <h4>
+        <span class="glyphicon glyphicon-film sea-text"></span> 
+		{seacms:menulist type=2}
+		<a href="[menulist:link]">[menulist:typename]</a>
+		{/seacms:menulist}
+        <small class="hidden-xs">
+		{seacms:smallmenulist type=2}
+		<a href="[smallmenulist:link]">[smallmenulist:typename]</a>
+		{/seacms:smallmenulist}
+		</small>
+      </h4>
+    </div>
+    <!-- -->
+    <ul class="list-unstyled">
+  {seacms:videolist num=9 type=2} 
+	  {if:[videolist:i]>8}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot hidden-md hidden-lg">
+	  {else}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot ">
+	  {end if}
+      <a href="[videolist:link]">
+        <img class="img-responsive sea-img" data-original="[videolist:pic]"  alt="[videolist:name]" src="[videolist:pic]"  style="display: block;">
+      </a>
+      <h4 class="sea-text-hidden">
+        <a href="[videolist:link]" title="[videolist:name]">[videolist:name]</a>
+      </h4>
+      </li>
+   {/seacms:videolist} 
+    </ul>
+    </div><!--lg-8end -->
+    <div class="col-md-4 sea-col index-right visible-lg visible-md">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热播榜</h4>
+      </div>
+      <ol class="sea-vod-hot">
+        {seacms:videolist num=10 order=hot type=2} <li>
+          <a href="[videolist:link]">[videolist:name]</a>
+          <small class="pull-right">[videolist:time style=mm-dd]</small>
+        </li>
+		{/seacms:videolist} 
+      </ol>
+      <ul class="list-unstyled sea-vod-type">
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2015">2015</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&year=2014">2014</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2013">2013</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2012">2012</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&year=2011">2011</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2010">2010</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2009">2009</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&year=2008">2008</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2007">2007</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&year=2006">2006</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2005">2005</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&year=2004">2004</a></li>
+      </ul>
+    </div><!--lg-4 end -->
+  </div><!--row end -->
+</div>
+<div class="clearfix sea-clearfix"></div>
+
+<!--大分类框架3--->
+<div class="container sea-bg">
+  <div class="row">
+    <div class="col-md-8 sea-col index-left">
+    <div class="page-header">
+      <h4>
+        <span class="glyphicon glyphicon-film sea-text"></span> 
+		{seacms:menulist type=3}
+		<a href="[menulist:link]">[menulist:typename]</a>
+		{/seacms:menulist}
+        <small class="hidden-xs">
+		{seacms:smallmenulist type=3}
+		<a href="[smallmenulist:link]">[smallmenulist:typename]</a>
+		{/seacms:smallmenulist}
+		</small>
+      </h4>
+    </div>
+    <!-- -->
+    <ul class="list-unstyled">
+  {seacms:videolist num=9 type=3} 
+	  {if:[videolist:i]>8}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot hidden-md hidden-lg">
+	  {else}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot ">
+	  {end if}
+      <a href="[videolist:link]">
+        <img class="img-responsive sea-img" data-original="[videolist:pic]"  alt="[videolist:name]" src="[videolist:pic]"  style="display: block;">
+      </a>
+      <h4 class="sea-text-hidden">
+        <a href="[videolist:link]" title="[videolist:name]">[videolist:name]</a>
+      </h4>
+      </li>
+   {/seacms:videolist} 
+    </ul>
+    </div><!--lg-8end -->
+    <div class="col-md-4 sea-col index-right visible-lg visible-md">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热播榜</h4>
+      </div>
+      <ol class="sea-vod-hot">
+        {seacms:videolist num=10 order=hot type=3} <li>
+          <a href="[videolist:link]">[videolist:name]</a>
+          <small class="pull-right">[videolist:time style=mm-dd]</small>
+        </li>
+		{/seacms:videolist} 
+      </ol>
+      <ul class="list-unstyled sea-vod-type">
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&area=大陆">大陆</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=香港">香港</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=台湾">台湾</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&area=韩国">韩国</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=泰国">泰国</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&area=美国">美国</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=日本">日本</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&area=法国">法国</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=印度">印度</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=英国">英国</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&area=德国">德国</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&area=其它">其它</a></li>
+      </ul>
+    </div><!--lg-4 end -->
+  </div><!--row end -->
+</div>
+<div class="clearfix sea-clearfix"></div>
+
+<!--大分类框架4--->
+<div class="container sea-bg">
+  <div class="row">
+    <div class="col-md-8 sea-col index-left">
+    <div class="page-header">
+      <h4>
+        <span class="glyphicon glyphicon-film sea-text"></span> 
+		{seacms:menulist type=4}
+		<a href="[menulist:link]">[menulist:typename]</a>
+		{/seacms:menulist}
+        <small class="hidden-xs">
+		{seacms:smallmenulist type=4}
+		<a href="[smallmenulist:link]">[smallmenulist:typename]</a>
+		{/seacms:smallmenulist}
+		</small>
+      </h4>
+    </div>
+    <!-- -->
+    <ul class="list-unstyled">
+  {seacms:videolist num=9 type=4} 
+	  {if:[videolist:i]>8}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot hidden-md hidden-lg">
+	  {else}
+		  <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot ">
+	  {end if}
+      <a href="[videolist:link]">
+        <img class="img-responsive sea-img" data-original="[videolist:pic]"  alt="[videolist:name]" src="[videolist:pic]"  style="display: block;">
+      </a>
+      <h4 class="sea-text-hidden">
+        <a href="[videolist:link]" title="[videolist:name]">[videolist:name]</a>
+      </h4>
+      </li>
+   {/seacms:videolist} 
+    </ul>
+    </div><!--lg-8end -->
+    <div class="col-md-4 sea-col index-right visible-lg visible-md">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热播榜</h4>
+      </div>
+      <ol class="sea-vod-hot">
+        {seacms:videolist num=10 order=hot type=4} <li>
+          <a href="[videolist:link]">[videolist:name]</a>
+          <small class="pull-right">[videolist:time style=mm-dd]</small>
+        </li>
+		{/seacms:videolist} 
+      </ol>
+      <ul class="list-unstyled sea-vod-type">
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=农村">农村</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=恐怖">恐怖</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=宫廷">宫廷</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=剧情">剧情</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=言情">言情</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=家庭">家庭</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=励志">励志</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=偶像">偶像</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=都市">都市</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-success" href="/{seacms:sitepath}search.php?searchtype=5&jq=时装">时装</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=年代">年代</a></li>
+<li class="col-md-3 sea-text-hidden sea-col"><a class="btn btn-sm btn-default" href="/{seacms:sitepath}search.php?searchtype=5&jq=生活">生活</a></li>
+      </ul>
+    </div><!--lg-4 end -->
+  </div><!--row end -->
+</div>
+<div class="clearfix sea-clearfix"></div>
+
+
+
+
+</div>
+</div>
+<div class="container sea-bg hidden-xs">
+<div class="row">
+	<div class="col-xs-12 sea-col">
+  	<div class="page-header">
+      <h4><span class="glyphicon glyphicon-link sea-text"></span> 友情链接</h4>
+    </div>
+    <p class="sea-link">
+    {seacms:linklist type=font}
+	<a href="[linklist:link]" target="_blank">[linklist:name]</a>
+	{/seacms:linklist}
+    </p>
+  </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

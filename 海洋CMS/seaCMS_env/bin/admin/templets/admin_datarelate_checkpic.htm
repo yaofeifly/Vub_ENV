@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css"> 
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;图片管理 ';</script><div class="container" id="cpcontainer"> 
+<table class="tb">
+<tr class="thead">
+  <td colspan="15"  align="left" >图片管理</td></tr>
+<tr><td><input type="button" class="btn" value="查询无图片的数据" onClick="location.href='admin_video.php?action=nullpic';">&nbsp;&nbsp;<input type="button" class="btn" value="图片下载错误的数据" onClick="location.href='admin_video.php?action=errpic';">&nbsp;&nbsp;<input type="button" class="btn" value="清空数据图片不存在地址" onClick="if(confirm('注意：该操作大量占用系统资源，请务必在系统空闲时执行')){location.href='?action=existpic';}else{return false;}">&nbsp;&nbsp;<input type="button" class="btn" value="删除多余数据图片" onClick="if(confirm('注意：该操作大量占用系统资源，请务必在系统空闲时执行')){location.href='?action=sumitcheck';}else{return false}">&nbsp;&nbsp;<input type="button" class="btn" value="重新下载失败图片" onClick="location.href='admin_datarelate.php?action=redown';">&nbsp;&nbsp;</td>
+</tr>
+<!--tr><td><input type="button" class="btn" value="查询无图片的新闻" onClick="location.href='admin_news.php?action=nullpic';" disabled >&nbsp;&nbsp;<input type="button" class="btn" value="清空新闻图片不存在地址" onClick="location.href='?action=existpic&table=news';" style="width:140px" disabled >&nbsp;&nbsp;<input type="button" class="btn" value="删除多余新闻图片" onClick="if(confirm('注意：使用此功能前,务必确认数据图片文件夹是/pic/newspic/')){location.href='?action=sumitcheck&table=news';}else{return false}" disabled ></td></tr-->
+<tr><td><input type="button" class="btn" value="下载视频图片到本地" onClick="location.href='admin_datarelate.php?action=downpic&downtype=all';"  >&nbsp;<input type="button" class="btn" value="下载文章图片到本地" onClick="location.href='admin_datarelate.php?action=downnewspic&downtype=all';"  >&nbsp;
+  <!--<input type="button" class="btn" value="本地图片加水印" onClick="location.href='admin_datarelate.php?action=watermark';"  >&nbsp;-->
+  <input name="button" type="button" class="btn" onclick="location.href='?action=ftppic';" value="设置上传图片到FTP" />&nbsp;
+  </td></tr>
+<tr>
+  <td>
+提示：以上操作大量占用系统资源，请务必在系统空闲时执行！<br /><br />
+</td></tr>
+</table>
+</div>
+<?php 
+	viewFoot();
+?>
+</body>
+</html>

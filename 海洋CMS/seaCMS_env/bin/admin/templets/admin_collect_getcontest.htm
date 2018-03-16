@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="img/style.css" rel="stylesheet" type="text/css" />
+<title>添加采集项目</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+input{height:12px;}
+.txt{width:250px;}
+.tb2 td{padding:2px 5px 2px 5px;height:25px;text-align:left;}
+.tb2 .thc{text-align:center;line-height:30px; background-color: #F5F7F8;font-size:18px;font-weight:bold;color:#000}
+.tb2 .thr{text-align:center;height:20px}
+.label{padding:0;width:150px;text-align:right;border-right:1px solid #DEEFFA;}
+.rb1{height:22px}
+.red{color:red}
+.blue{color:blue}
+form, fieldset {margin:0;padding:0}
+.tb td{text-align:left;}
+#step4{text-align:left;margin:10px;}
+</style>
+</head>
+<!--当前导航-->
+<body bgcolor="#F7FBFF">
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1" align=center>
+<table class="tb2">
+	<thead>
+		<tr>
+			<th colspan="2" class="thc">测试页面采集规则</th>
+		</tr>
+	</thead>
+</table>
+<div id="step4">
+<?php 
+	if($cofrom==1)getNewsTestItemRule($id,$url,$pic);
+	else getTestItemRule($id,$url,$pic);
+    ?>
+</div>
+</div>
+</div>
+</div>
+
+<div class="bottom">
+<table width="100%" cellspacing="5">
+<tr>
+ <td align="center"><?php echo $cfg_powerby?></td>
+</tr>
+</table>
+
+</div>
+
+</body>
+</html>

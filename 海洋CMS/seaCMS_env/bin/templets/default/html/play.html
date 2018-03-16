@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{playpage:name}在线播放-{playpage:typename}-{seacms:sitename}</title>
+<meta name="keywords" content="{playpage:name}免费在线观看,{playpage:name}剧情介绍,{playpage:name}电影海报" />
+<meta name="description" content="{playpage:name}剧情:{playpage:des len=50}" />
+<script src="/{seacms:sitepath}js/play.js"></script>
+<script>var playn='{playpage:name}', playp='{playpage:part}';</script>
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container vod-play sea-bg">
+<div class="row">
+	<div class="col-md-8 sea-col">
+    <div class="page-header">
+      <h4>
+      <span class="glyphicon glyphicon-film sea-text"></span><a href="#">{playpage:typename}</a> <small><a href="{playpage:link}" class="sea-text">{playpage:name}</a> {playpage:part}</small>
+      <div class="pull-right sea-share hidden-xs"></div>
+      </h4>
+    </div>
+    <div class="sea-player">
+
+      {playpage:playurlinfo}{playpage:player}
+
+    </div>
+    <div class="clearfix sea-clearfix"></div>
+    <ul class="list-unstyled text-center sea-vip vipxs8">
+    	{playpage:mark len=5 style=star }
+    </ul>
+    <div class="clearfix sea-clearfix"></div>
+ 		{seacms:load block_tab_playlist.html}
+    <div class="clearfix sea-clearfix"></div>
+    <div class="page-header">
+      <h4><span class="glyphicon glyphicon-heart-empty sea-text"></span> 猜你喜欢</h4>
+    </div>
+     <ul class="list-unstyled">
+      {seacms:videolist num=9 type=current} 
+	  {if:[videolist:i]>8}
+      <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot hidden-md hidden-lg">
+      {else}
+      <li class="col-md-3 col-sm-2 col-xs-4 text-center sea-col sea-vod-img-hot">
+      {end if}
+      <a href="[videolist:link]">
+        <img class="img-responsive sea-img" data-original="[videolist:pic]" alt="[videolist:name]" src="[videolist:pic]">
+      </a>
+      <h4 class="sea-text-hidden">
+        <a href="[videolist:link]">[videolist:name]</a>
+      </h4>
+      </li>
+      {/seacms:videolist} 
+    </ul>
+    <div class="clearfix sea-clearfix"></div>
+    <div class="page-header">
+      <h4><span class="glyphicon glyphicon-edit sea-text"></span> 影片评论</h4>
+    </div>
+    <div class="sea-comment">{playpage:comment}</div>
+  </div><!-- -->
+  <div class="col-md-4 sea-col visible-lg visible-md">
+
+  	<div class="page-header sea-border-none">
+      <h4><span class="glyphicon glyphicon-signal sea-text"></span> 大家都在看</h4>
+    </div>
+    <ul class="row list-unstyled sea-play-item">
+      {seacms:videolist num=5 order=hot} 
+      <li class="col-xs-4 text-center">
+        <a href="[videolist:link]">
+          <img class="img-responsive img-thumbnail sea-img" data-original="[videolist:pic]" alt="[videolist:name]" src="[videolist:pic]">
+        </a>
+      </li>
+      <li class="col-xs-8">
+        <p class="sea-text-hidden">
+        <a href="[videolist:link]" class="sea-text">[videolist:name]</a></p>
+        <p class="sea-text-hidden">主演：[videolist:actor]</p>
+        <p>类型：[videolist:typename]</p>
+        <p>更新：[videolist:time style=mm-dd]</p>
+      </li>
+      <div class="clearfix sea-clearfix"></div>
+     {/seacms:videolist} 
+    </ul>
+  </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

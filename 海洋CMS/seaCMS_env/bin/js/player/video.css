@@ -1,0 +1,38 @@
+*{margin:0;padding:0;}
+#play_header{width:100%;height:33px;line-height:33px;background:#000;border-bottom:1px solid #222;color:#fff;font-size:14px;font-family:Microsoft YaHei,'宋体',arial;overflow:hidden;}
+#play_header a{display:block;font-size:inherit;font-family:inherit;color:#fff;text-decoration:none;}
+#play_header a:hover{text-decoration:underline;}
+#header1{float:left;display:inline;width:20%;text-align:center; }
+#header2{float:left;display:inline;width:51%;text-align:center;}
+#header3{float:right;display:inline;width:28%;text-align:center;border-left:1px solid #222;}
+#header1 a{border-right:1px solid #222;width:49%;float:left;}
+
+#play_box{overflow:hidden;}
+#video_menu{float:left;width:0;height:407px;background: #000;overflow-x:hidden; overflow-y:auto;SCROLLBAR-BASE-COLOR:#1F1F1F;SCROLLBAR-TRACK-COLOR:#000;SCROLLBAR-3DLIGHT-COLOR:#000;SCROLLBAR-SHADOW-COLOR:#000;SCROLLBAR-FACE-COLOR:#1F1F1F;SCROLLBAR-HIGHLIGHT-COLOR:#000;font-family:Microsoft YaHei,'宋体',arial;}
+#video_menu ul,#video_menu li,#video_menu dl,#video_menu dd,#video_menu li p{margin:0;padding:0;}
+#video_menu li{border-bottom:1px solid #302E25;overflow:hidden;}
+#video_menu li p{clear:both;color: #fff;height:35px;line-height:35px;padding-left:15px;font-size:16px;cursor:pointer;}
+#video_menu li p.current1{color:#E12060;}
+#video_menu dl{width:110%;display:none;}
+#video_menu dd{float:left;width:45%;height:25px;line-height:25px;text-align: center;background:#101010;border-bottom: 1px solid #302E25;border-right: 1px solid #302E25;font-size: 12px;color: #eee;overflow:hidden;}
+#video_menu dd a{display:block;color:#302E25; text-decoration:none;}
+#video_menu dd a:hover{color:#E12060;text-decoration:underline;}
+#video_menu dd a.current2{background:#E12060;color:#fff;}
+#video_menu dd a.current2:hover{color:#fff !important;}
+#player{width:100%;float:left;}
+
+#video_menu::-webkit-scrollbar {width:11px;}
+#video_menu::-webkit-scrollbar-track {
+background-color:#000;
+-webkit-border-radius: 2em;
+-moz-border-radius: 2em;
+border-radius:2em;
+border:1px solid #111;
+}
+#video_menu::-webkit-scrollbar-thumb {
+cursor:pointer;
+background-color:#444;
+-webkit-border-radius: 2em;
+-moz-border-radius: 2em;
+border-radius:2em;
+}

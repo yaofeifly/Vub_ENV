@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $cfg_soft_enname; ?> Home</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script src="js/drag.js" type="text/javascript"></script>
+<link type="text/css" href="img/alerts.css" rel="stylesheet" media="screen">
+<script language="javascript">
+
+</script>
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+-->
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;系统简要信息';</script>
+
+<div class="r_main">
+	<div class="r_content">
+		<div class="r_content_1">
+		
+            <div class="S_info">&nbsp;系统信息摘要 【当前版本：<font color='#ff0000'><?php echo $cfg_version; ?></font>&nbsp;&nbsp;最新版本：<script language="JavaScript" type="text/javascript" charset="utf-8" src="http://www.seacms.net/api/ver.js"> </script>】</div>
+            <div class="S_info2">
+            
+			<div class="S_list">&nbsp;&nbsp;PHP版本：<?php echo @phpversion(); ?></div>
+            <div class="S_list">GD版本：<?php echo @gdversion(); ?></div>
+            <div class="S_list">&nbsp;&nbsp;是否安全模式：<font color='red'><?php echo ($isSafeMode ? 'On' : 'Off')?></font></div>
+            <div class="S_list">支持上传的最大文件 ：<?php echo ini_get("post_max_size")?></div>
+            <div class="S_list">&nbsp;&nbsp;Register_Globals：<font color='red'><?php echo ini_get("register_globals") ? 'On' : 'Off'?></font></div>
+            <div class="S_list">Magic_Quotes_Gpc：<font color='red'><?php echo ini_get("magic_quotes_gpc") ? 'On' : 'Off'?></font></div>
+            <div class="S_list">&nbsp;&nbsp;是否允许打开远程连接：<?php echo ini_get("allow_url_fopen") ? '支持' : '不支持'?></div>
+            <div class="S_list">其它必须函数检测：
+	<?php
+          $needfunc = array('dir','phpinfo','fsockopen','iconv');
+          $n = 0;
+          foreach($needfunc as $k) {
+          	if(!function_exists($k)) {
+          		echo "<font color='red'>[{$k}×]</font> ";
+          		$n++;
+          	}
+          }
+          if($n==0) {
+          	echo "符合要求";
+          }
+          else {
+          	echo "被禁用的函数可能导致部份功能无法使用！";
+          }
+       ?></div>
+	   <div class="S_list">&nbsp;&nbsp;域名：<?php echo  @GetHostByName($_SERVER['SERVER_NAME']);echo " - "; echo $_SERVER['SERVER_PORT'] ?></div>
+	   <div class="S_list">引擎：<?php echo  @$_SERVER['SERVER_SOFTWARE']; ?></div>
+	   <div class="S_list">&nbsp;&nbsp;MySql版本：<?php echo @mysql_get_server_info(); ?> </div>
+	   <div class="S_list">系统：<?php echo @php_uname('s'); echo " - ";echo @php_uname('v'); ?></div>
+
+                     
+        
+            </div>
+<div  style="clear:left"></div>
+			<div class="v_info">&nbsp;相关说明</div>
+			<div class="v_show">
+<script language="JavaScript" type="text/javascript" charset="utf-8" src="http://www.seacms.net/api/info.js"> </script>
+			</div>
+			
+			
+			
+            <div  style="clear:left"></div>
+            <div class="S_info">&nbsp;欢迎访问官方主页获取帮助：<a href="http://www.seacms.net" target="_blank" >www.seacms.net</a></div>
+		</div>
+	</div>
+</div>
+<?php
+viewFoot();
+?>
+</body>
+
+</html>

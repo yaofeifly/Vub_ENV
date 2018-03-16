@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>系统账号管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;管理员&nbsp;&raquo;&nbsp;系统管理员设置 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<form  method="post" name="managerform">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+<tr class="thead"><th colspan="7">管理员管理</th></tr>
+    <TR align="center">
+      <TD>ID</TD>
+      <TD>用户名</TD>
+       <TD>最近登录时间</TD>
+       <TD>最近登陆IP</TD>
+       <TD>管理员级别</TD>
+       <TD>状态</TD>
+      <TD>操作</TD>
+    </TR>
+<?php
+$sqlStr="select id,name,loginip,logintime,groupid,state from `sea_admin` order by logintime desc";
+$dsql->SetQuery($sqlStr);
+$dsql->Execute('manager_list');
+while($row=$dsql->GetObject('manager_list'))
+{
+$aid=$row->id;
+?>	
+     <TR align="center"<?php if($id==$aid) echo " class=\"editlast\"";?>>
+      <TD><input type="checkbox" value="<?php echo $aid;?>" name="e_id[]" class="checkbox" /><?php echo $aid;?></TD>
+      <TD><?php echo $row->name;?></TD>
+      <TD><?php echo isCurrentDay($row->logintime);?>&nbsp;</TD>
+      <TD><?php echo $row->loginip;?>&nbsp;</TD>
+      <TD><?php echo getManagerLevel($row->groupid);?></TD>
+      <TD><?php echo getManagerState($row->state);?></TD>
+      <TD><a href="?action=edit&id=<?php echo $aid;?>">编辑</a>&nbsp;&nbsp;<a onclick="if(confirm('确定要删除吗')){return true;}else{return false;}"  href="?action=del&id=<?php echo $aid;?>">删除</font></TD>
+    </TR>
+<?php
+}
+?>
+          <tr><td colspan="7">全选<input type="checkbox" name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','e_id[]')" />反选<input type="checkbox" name="chkothers" id="chkothers" class="checkbox" onclick="checkOthers('input','e_id[]')" /><input type="submit" value="批量删除" onclick="if(confirm('确定要批量删除吗')){managerform.action='?action=delall';}else{return false}" class="rb1"  />&nbsp;&nbsp;</td></tr>
+</TABLE>
+</form> 
+<?php
+if($action=="edit"){
+$row = $dsql->GetOne("Select * From `sea_admin` where id='$id'");
+?>
+<form action="?action=save&id=<?php echo $id;?>" method="post" name="editmanager" >
+<table class="tb mt20">
+<tr class="thead"><th colspan="2">编辑管理员</th></tr>
+    <TR>
+      <TD vAlign=center width="20%" >用户名：</TD>
+      <TD ><input type="text" size="30" name="username" value="<?php echo $row['name'];?>" onBlur="isExistUsername('<?php echo $id;?>')"/><span id="checkmanagername" style="color:#FF0000"><font color="red">＊</font></span></TD>
+    </TR>
+    <TR>
+      <TD >密码：</TD>
+      <TD ><input type="password" size="30" name="pwd"   value="" /><font color="red">＊</font></TD>
+    </TR>
+   
+   <TR>
+      <TD >密码确认：</TD>
+      <TD ><input type="password" size="30" name="pwd2" value="" /><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >管理员级别：</TD>
+      <TD ><label><input type="radio" size="20" name="groupid" class="radio"  value="1"<?php if($row['groupid']==1) echo "checked";?>/>系统管理员(<font color="red">拥有全部权限</font>)</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="radio" size="20" name="groupid" value="2"<?php if($row['groupid']==2) echo "checked";?>/>网站编辑(<font color="red">只拥有影片管理权限</font>)</label><font color="red">＊</font></TD>
+    </TR>
+     <TR>
+      <TD >是否锁定</TD>
+      <TD ><label><input type="radio" class="radio" size="20" name="state"  value="1"<?php if($row['state']==1) echo "checked";?>/>激活</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" class="radio" size="20" name="state" value="0"<?php if($row['state']==0) echo "checked";?>/>锁定</label><font color="red">＊</font></TD>
+    </TR>
+    <TR align="center"  >
+    <TD align="left" ></TD>
+      <TD align="left" ><input type="submit" value="修改管理员" name="v_eidtsubmit" class="rb1" id="eidtsubmit" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR>
+</td></tr></table>
+</form>
+<script>$("eidtsubmit").focus()</script>
+<?php
+}else{
+?>
+<form action="?action=add" method="post" >
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb mt20">
+<tr class="thead"><th colspan="2">添加管理员</th></tr>
+    <TR>
+      <TD vAlign=center width="20%" >用户名：</TD>
+      <TD ><input type="text" size="30" name="username" id="username"  onBlur="isExistUsername('')"/><span id="checkmanagername" style="color:#FF0000"><font color="red">＊</font></span></TD>
+    </TR>
+    <TR>
+      <TD >密码：</TD>
+      <TD ><input type="password" size="30" name="pwd" /><font color="red">＊</font></TD>
+    </TR>
+   
+   <TR>
+      <TD >密码确认：</TD>
+      <TD ><input type="password" size="30" name="pwd2" /><font color="red">＊</font></TD>
+    </TR>
+    <TR>
+      <TD >管理员级别：</TD>
+      <TD ><label><input type="radio" size="20" name="groupid"  value="1" checked class="radio"/>系统管理员(<font color="red">拥有全部权限</font>)</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="radio" size="20" name="groupid" value="2" class="radio" />网站编辑(<font color="red">只拥有数据管理权限</font>)</label><font color="red">＊</font></TD>
+    </TR>
+    
+    <TR align="center"  >
+    <TD align="left" ></TD>
+      <TD align="left" ><input type="submit" value="添加管理员" class="rb1" />
+      &nbsp;<input type="button" value="返   回"  class="rb1" onClick="javascript:history.go(-1)" /></TD>
+    </TR>
+</td></tr></table>
+</form>
+<?php
+}
+?>
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

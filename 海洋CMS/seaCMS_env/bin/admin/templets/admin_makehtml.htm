@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>生成设置</title>
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;生成&nbsp;&raquo;&nbsp;生成静态 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <ul id="makeHtmlTab">
+        <li class="hover"><a onclick="viewComMakeOps()" href="javascript:void(0)">生成视频相关</a></li>
+        <li><a onclick="viewNewsMakeOps()" href="javascript:void(0)">生成新闻相关</a></li>
+        <li><a onclick="viewSpeMakeOps()" href="javascript:void(0)">生成其它</a></li>
+      </ul>
+      <table class="tb" border="0" cellspacing="0" cellpadding="0">
+        <tr id="tr_make_all">
+          <td><input type="button" value="生成视频首页" class="rb1"  onClick="javascript:window.open('?action=index&by=video','msg');">
+            <input type="button" value="生成地图页" class="rb1"  onClick="javascript:window.open('?action=map&by=video','msg');">
+            <input type="button" value="生成JS调用" class="rb1"  onClick="javascript:window.open('?action=js&by=video','msg');">
+            <input type="button" value="一键生成全站" class="rb1"  onClick="javascript:window.open('?action=site&action3=site&by=video','msg');">
+            <input type="button" value="生成未生成的影片" class="rb1"  onClick="javascript:window.open('?action=allcontent&action2=allcontent&makenoncreate=1','msg');">
+            <input type="button" value="一键生成当天" class="rb1"  onClick="javascript:window.open('?action=day','msg');"></td>
+        </tr>
+        <tr id="tr_make_zt" style="display:none;">
+          <td><form action="?action=topic" method="post" target="msg">
+              <?php echo makeTopicSelect("topic","请选择专题","");?>
+              <input type="submit"  class="rb1"  value="生成专题页" >
+              <input type="button"  class="rb1"  value="生成全部专题页" onClick="javascript:window.open('?action=alltopic','msg');">
+            </form></td>
+        </tr>
+        <tr id="tr_make_type">
+          <td><form action="?action=channel" method="post" target="msg" id="cform">
+              <select name="channel" id="channel"  style="width:121px">
+                <option value="">请选择分类</option>
+                <?php makeTypeOption(0,"&nbsp;|&nbsp;");?>
+              </select>
+              <input type="submit"  class="rb1"  value="生成栏目页" >
+              <input type="button"  class="rb1"  value="生成全部栏目页" onClick="javascript:window.open('?action=allchannel','msg');">
+              开始页数：
+              <input type="text" id="startpage" name="startpage" value='1' size="3" maxlength="3"/>
+              结束页数：
+              <input type="text" id="endpage" name="endpage" value='1' size="3" maxlength="6"/>
+              <script type="text/javascript">
+			  function submitform()
+			  {
+				  $('cform').action="?action=lengthchannel"
+				  $('cform').submit()
+			  }
+			</script>
+              <input type="button"  class="rb1"  value="生成部分栏目页" onclick="submitform()">
+            </form></td>
+        </tr>
+        <tr id="tr_make_content">
+          <td><script type="text/javascript">
+				function submitvform()
+				{
+				$('viewform').action="?action=daysview"
+				$('viewform').submit()
+				}
+				</script>
+            <form action="?action=content" method="post" target="msg" id="viewform">
+              <select name="channel" id="channel"  style="width:121px" >
+                <option value="">请选择分类</option>
+                <?php makeTypeOption(0,"&nbsp;|&nbsp;");?>
+              </select>
+              <input type="submit"  class="rb1"  value="生成内容页" >
+              <input type="button"  class="rb1"  value="生成全部内容页" onClick="javascript:window.open('?action=allcontent&action2=allcontent','msg');">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="button" class="rb1" value="生成" onClick="submitvform()">
+              <select name="days" id="days" >
+                <?php for($i=1;$i<4;$i++){
+echo "<option value=\"$i\">$i</option>";
+}?>
+              </select>
+              日内内容页
+            </form>
+            <br />
+            &nbsp;注意：网站在静态模式下，如果<a href="admin_config.php" target="main"><font color="blue">网站配置</font></a>中选择了<font color="red">"生成播放页"</font>，那么生成内容页的同时、将会生成播放页 </td>
+        </tr>
+        <tr id="tr_makenews_all" style="display:none;">
+          <td><input type="button" value="生成新闻首页" class="rb1"  onClick="javascript:window.open('?action=index&by=news','msg');">
+            <input type="button" value="生成地图页" class="rb1"  onClick="javascript:window.open('?action=map&by=news','msg');">
+            <input type="button" value="生成JS调用" class="rb1"  onClick="javascript:window.open('?action=js&by=news','msg');">
+            <input type="button" value="一键生成全站" class="rb1"  onClick="javascript:window.open('?action=newssite&action3=site&by=news','msg');">
+          <input type="button" value="一键生成当天" class="rb1"  onClick="javascript:window.open('?action=newsday','msg');"></td>
+        </tr>
+        <tr id="tr_makenews_type" style="display:none;">
+          <td><form action="?action=newschannel" method="post" target="msg" id="nform">
+            <select name="channel" id="channel"  style="width:121px">
+                <option value="">请选择分类</option>
+                <?php makeTypeOption(0,"&nbsp;|&nbsp;",1);?>
+              </select>
+              <input type="submit"  class="rb1"  value="生成栏目页" >
+              <input type="button"  class="rb1"  value="生成全部栏目页" onClick="javascript:window.open('?action=allpart','msg');">
+              开始页数：
+              <input type="text" id="startpage" name="startpage" value='1' size="3" maxlength="3"/>
+              结束页数：
+              <input type="text" id="endpage" name="endpage" value='1' size="3" maxlength="6"/>
+              <script type="text/javascript">
+			  function submitnform()
+			  {
+				  $('nform').action="?action=lengthpart"
+				  $('nform').submit()
+			  }
+			  </script>
+              <input type="button"  class="rb1"  value="生成部分栏目页" onclick="submitnform()">
+            </form></td>
+        </tr>
+        <tr id="tr_makenews_content" style="display:none;">
+          <td><script type="text/javascript">
+			  function submitndform()
+			  {
+				  $('viewnform').action="?action=newsdaysview"
+				  $('viewnform').submit()
+			  }
+			  </script>
+            <form action="?action=newscontent" method="post" target="msg" id="viewnform">
+              <select name="channel" id="channel"  style="width:121px" >
+                <option value="">请选择分类</option>
+                <?php makeTypeOption(0,"&nbsp;|&nbsp;",1);?>
+              </select>
+              <input type="submit"  class="rb1"  value="生成内容页" >
+              <input type="button"  class="rb1"  value="生成全部内容页" onClick="javascript:window.open('?action=allnewscontent&action2=allnewscontent','msg');">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="button" class="rb1" value="生成" onClick="submitndform()">
+              <select name="days" id="days" >
+                <?php for($i=1;$i<4;$i++){
+echo "<option value=\"$i\">$i</option>";
+}?>
+              </select>
+              日内内容页
+            </form>
+            <br />
+            &nbsp;注意：网站在静态模式下，如果<a href="admin_config.php" target="main"><font color="blue">网站配置</font></a>中选择了<font color="red">"生成播放页"</font>，那么生成内容页的同时、将会生成播放页 </td>
+        </tr>
+        <tr id="tr_make_self" style="display:none;">
+          <td><script type="text/javascript">
+			  function submitcform()
+			  {
+			  	  $('customform').action="?action=allcustom"
+			  	  $('customform').submit()
+			  }
+			  </script>
+            <form action="?action=custom" method="post" target="msg" id="customform">
+              <select name="custom" id="custom" >
+                <option value="">请选择自定义模板文件</option>
+                <?php
+$templetdird = $cfg_basedir."templets/".$cfg_df_style."/".$cfg_df_html."/";
+$dh = dir($templetdird);
+   while($filename=$dh->read())
+   {
+      if(strpos($filename,"elf_")>0) echo "<option value='$filename'>$filename</option>\r\n";
+   }
+?>
+              </select>
+              <input type="submit"  class="rb1"  value="生成自定义页" >
+              <input type="button"  class="rb1"  value="生成全部自定义页" onClick="submitcform()">
+            </form></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<iframe style="Z-INDEX: 1; VISIBILITY: inherit; WIDTH: 100%; HEIGHT: 400px;" name="msg"  frameBorder=0 scrolling=yes></iframe>
+</body>
+</html>

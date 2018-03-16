@@ -1,0 +1,553 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="img/style.css" rel="stylesheet" type="text/css" />
+<title>添加采集项目</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+input {
+	height:12px;
+}
+.txt {
+	width:250px;
+}
+.tb2 td {
+	padding:2px 5px 2px 5px;
+	height:25px;
+	text-align:left;
+}
+.tb2 .thc {
+	text-align:center;
+	line-height:30px;
+	background-color: #F5F7F8;
+	font-size:18px;
+	font-weight:bold;
+	color:#000
+}
+.tb2 .thr {
+	text-align:center;
+	height:20px
+}
+.label {
+	padding:0;
+	width:150px;
+	text-align:right;
+	border-right:1px solid #DEEFFA;
+}
+.rb1 {
+	height:22px
+}
+.red {
+	color:red
+}
+.blue {
+	color:blue
+}
+form, fieldset {
+	margin:0;
+	padding:0
+}
+.tb td {
+	text-align:left;
+}
+</style>
+<script type="text/javascript">
+function show(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="";
+	}
+}
+
+function hide(){
+	var arg=arguments;
+	for(var i=0;i<arg.length;i++){
+		$(arg[i]).style.display="none";
+	}
+}
+</script>
+</head>
+<!--当前导航-->
+<body bgcolor="#F7FBFF">
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;采集&nbsp;&raquo;&nbsp;自定义采集 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1" align=center>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tb">
+        <thead>
+          <tr class="thead">
+            <th>&nbsp;<font color="#000000">操作选项： </font><a href="?childdir=www.1000ys.com">管理采集规则</a> | <a href="?action=wizard">添加采集规则</a> | <a href="?action=ClearCache" title="更改脚本文件名后请使用此功能" target="hiddensubmit">清除垃圾文件</a> | 支持破解防盗链：<span class="red"></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. 通过本向导将传统的采集规则转换成采集规则2. 替换规则{seacms:trim replace='替换后的内容'}要替换的内容{/seacms:trim}，多个规则回车换行即可</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="tb2">
+        <thead>
+          <tr>
+            <th colspan="2" height="20" align="left"><span id="showurl">当前采集地址：<font color=red><?php echo $previewurl ?></font></span></th>
+          </tr>
+          <tr id="htmltable" style="<?php if(empty($showcode))echo 'display:none';?>">
+            <th colspan="2"><textarea id="htmlcode" style="width:99%;height:200px;font-family:Fixedsys" wrap="off" readonly><?php 
+            $content = !empty($showcode)?@file_get_contents($previewurl):'';
+            $content = $coding=='gb2312'?gbutf8($content):$content;
+            if(!$content) echo "读取URL出错";
+            echo htmlspecialchars($content);
+            ?>
+</textarea></th>
+          </tr>
+          <tr>
+            <th colspan="2" class="thc">使用采集规则向导生成采集规则</th>
+          </tr>
+          <tr>
+            <th colspan="2" class="thr"><font id="stephit1">１. 设置基本参数</font>&nbsp;&nbsp;<font id="stephit2">２. 采集列表连接设置</font>&nbsp;&nbsp;<font id="stephit3" color="red">３. 采集内容与影片地址设置</font>&nbsp;&nbsp;<font id="stephit4">４. 在线模拟预览结果</font>&nbsp;&nbsp;<font id="stephit5">５. 完成向导并真实演示</font></th>
+          </tr>
+        </thead>
+      </table>
+      <form name="addruleform" id="addruleform" method="post" action="?action=addrule">
+        <input type='hidden' name='step' value='4' />
+        <input type="hidden" name="id" value="<?php echo $id;?>" />
+        <input type="hidden" name="tid" value="<?php echo $tid;?>" />
+        <input type="hidden" name="playfrom" value="<?php echo $playfrom;?>" />
+        <input type="hidden" name="autocls" value="<?php echo $autocls;?>" />
+        <input type="hidden" name="classid" value="<?php echo $classid;?>" />
+        <input type="hidden" name="getherday" value="<?php echo $getherday;?>" />
+        <input type='hidden' name='previewurl' value="<?php echo $previewurl;?>" />
+        <input type='hidden' name="intodatabase" value="<?php echo $intodatabase;?>" />
+        <?php if(trim($previewpic)!='') echo "<input type='hidden' name='previewpic' value=\"".$previewpic."\" />";?>
+        <table class="tb2" id="step3">
+          <tbody>
+            <tr>
+              <td class="label">可选采集字段</td>
+              <td><?php if($picmode==0){?>
+                <input type="checkbox" class="checkbox" name="fields[]3" value="pic" onclick="if(this.checked){show('picbody')}else{hide('picbody')}" checked="checked"/>
+                图片
+                <?php }?>
+                <input type="checkbox" class="checkbox" name="fields[]" value="actor" onclick="if(this.checked){show('actorbody')}else{hide('actorbody')}"/>
+                演员
+                <input type="checkbox" class="checkbox" name="fields[]" value="director" onclick="if(this.checked){show('directorbody')}else{hide('directorbody')}"/>
+                导演
+                <input type="checkbox" class="checkbox" name="fields[]" value="state" onclick="if(this.checked){show('statebody')}else{hide('statebody')}"/>
+                连载
+                <input type="checkbox" class="checkbox" name="fields[]" value="note" onclick="if(this.checked){show('notebody')}else{hide('notebody')}"/>
+                备注
+                <input type="checkbox" class="checkbox" name="fields[]2" value="area" onclick="if(this.checked){show('areabody')}else{hide('areabody')}"/>
+                地区
+                <input type="checkbox" class="checkbox" name="fields[]" value="year" onclick="if(this.checked){show('yearbody')}else{hide('yearbody')}"/>
+                年份
+                <input type="checkbox" class="checkbox" name="fields[]" value="lang" onclick="if(this.checked){show('langbody')}else{hide('langbody')}"/>
+                语言
+                <input type="checkbox" class="checkbox" name="fields[]" value="des" onclick="if(this.checked){show('desbody')}else{hide('desbody')}" checked/>
+                介绍 
+                <input type="checkbox" class="checkbox" name="fields[]" value="down" onclick="if(this.checked){show('downbody')}else{hide('downbody')}" checked/>
+                下载地址 </td>
+            </tr>
+          </tbody>
+          <tbody id="namebody">
+          <input type='checkbox' name='item[]' checked='1'  value='name' style='display:none' />
+          <tr>
+            <td class="label">影片名称开始代码：</td>
+            <td><textarea name="namea" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">影片名称结束代码：</td>
+            <td><textarea name="nameb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">影片名称替换规则：</td>
+            <td><textarea name="name_trim" id="name_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('name_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <?php if($picmode==0){?>
+          <tbody id="picbody">
+          <input type='checkbox' name='item[]' checked='1'  value='pic' style='display:none' />
+          <tr>
+            <td class="label">图片开始代码：</td>
+            <td><textarea name="pica" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">图片结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取图片</div></td>
+            <td><textarea name="picb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">图片替换规则：</td>
+            <td><textarea name="pic_trim" id="pic_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('pic_trim')" /></td>
+          </tr>
+            </tbody>
+          <?php }?>
+          
+          <tbody id="autoclsbody"<?php if($autocls==0) echo " style=\"display:none\"";?>>
+          <input type='checkbox' name='item[]' checked='1'  value='cls' style='display:none' />
+          <tr>
+            <td class="label red">分类开始代码：</td>
+            <td><textarea name="clsa" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label red">分类结束代码：</td>
+            <td><textarea name="clsb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label red">分类替换规则：</td>
+            <td><textarea name="cls_trim" id="cls_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('cls_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <?php if($getherday){?>
+          <tbody id="datebody">
+          <input type='checkbox' name='item[]' checked='1'  value='pdate' style='display:none' />
+          <tr>
+            <td class="label red">日期开始代码：<br>
+              必填</td>
+            <td><textarea name="pdatea" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label red">日期结束代码：<br>
+              必填</td>
+            <td><textarea name="pdateb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label red">日期替换规则：</td>
+            <td><textarea name="pdate_trim" id="pdate_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('pdate_trim')" /></td>
+          </tr>
+            </tbody>
+          <?php }?>
+          
+          <tbody id="actorbody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='actor' style='display:none' />
+          <tr>
+            <td class="label">演员开始代码：</td>
+            <td><textarea name="actora" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">演员结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取演员</div></td>
+            <td><textarea name="actorb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">演员替换规则：</td>
+            <td><textarea name="actor_trim" id="actor_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('actor_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="directorbody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='director' style='display:none' />
+          <tr>
+            <td class="label">导演开始代码：</td>
+            <td><textarea name="directora" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">导演结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取导演</div></td>
+            <td><textarea name="directorb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">导演替换规则：</td>
+            <td><textarea name="director_trim" id="director_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('director_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="statebody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='state' style='display:none' />
+          <tr>
+            <td class="label">连载开始代码：</td>
+            <td><textarea name="statea" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">连载结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取连载</div></td>
+            <td><textarea name="stateb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">连载替换规则：</td>
+            <td><textarea name="state_trim" id="state_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('state_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="notebody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='note' style='display:none' />
+          <tr>
+            <td class="label">备注开始代码：</td>
+            <td><textarea name="notea" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">备注结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取备注</div></td>
+            <td><textarea name="noteb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">备注替换规则：</td>
+            <td><textarea name="note_trim" id="note_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('note_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="areabody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='parea' style='display:none' />
+          <tr>
+            <td class="label">地区开始代码：</td>
+            <td><textarea name="pareaa" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">地区结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取地区</div></td>
+            <td><textarea name="pareab" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">地区替换规则：</td>
+            <td><textarea name="parea_trim" id="parea_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('parea_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="yearbody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='pyear' style='display:none' />
+          <tr>
+            <td class="label">年份开始代码：</td>
+            <td><textarea name="pyeara" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">年份结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取年份</div></td>
+            <td><textarea name="pyearb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">年份替换规则：</td>
+            <td><textarea name="pyear_trim" id="pyear_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('pyear_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="langbody" style="<?php if(strpos($flds,"lang")===false) echo "display:none";?>">
+          <input type='checkbox' name='item[]' checked='1'  value='plang' style='display:none' />
+          <tr>
+            <td class="label">语言开始代码：</td>
+            <td><textarea name="planga" rows="4" cols="80" wrap="off"><?php echo getrulevalue($itemloopstr,"planga");?></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">语言结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取语言</div></td>
+            <td><textarea name="plangb" rows="4" cols="80" wrap="off"><?php echo getrulevalue($itemloopstr,"plangb");?></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">语言替换规则：</td>
+            <td><textarea name="plang_trim" id="plang_trim" rows="3" cols="50" wrap="off"><?php echo getrulevalue($itemloopstr,"plang_trim");?></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('plang_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody id="desbody">
+          <input type='checkbox' name='item[]' checked='1'  value='des' style='display:none' />
+          <tr>
+            <td class="label">介绍开始代码：</td>
+            <td><textarea name="desa" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">介绍结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取介绍</div></td>
+            <td><textarea name="desb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">介绍替换规则：</td>
+            <td><textarea name="des_trim" id="des_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('des_trim')" /></td>
+          </tr>
+            </tbody>
+            
+          <tbody id="downbody">
+          <input type='checkbox' name='item[]' checked='1'  value='down' style='display:none' />
+          <tr>
+            <td class="label">下载地址开始代码：</td>
+            <td><textarea name="downa" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">下载地址结束代码：
+              <div class="blue">开始标签 和 结束标签<br />
+                为空不截取下载地址</div></td>
+            <td><textarea name="downb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">下载地址替换规则：</td>
+            <td><textarea name="down_trim" id="down_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('down_trim')" /></td>
+          </tr>
+          </tbody>
+          
+          <tbody>
+            <tr>
+              <td class="label red">列表范围：</td>
+              <td><input type="radio" class="radio" name="splay" value="0" onclick="hide('plistbody');"checked/>
+                关闭
+                <input type="radio" class="radio" name="splay" value="1" onclick="show('plistbody')"/>
+                开启</td>
+            </tr>
+          </tbody>
+          <tbody id="plistbody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='plist' style='display:none' />
+          <tr>
+            <td class="label">列表开始代码：</td>
+            <td><textarea name="plista" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">列表结束代码：</td>
+            <td><textarea name="plistb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">列表替换规则：</td>
+            <td><textarea name="plist_trim" id="plist_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('plist_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <?php if($playfrom==''){?>
+          <tbody>
+            <tr>
+              <td class="label red">获取播放器设置：</td>
+              <td><input type="radio" class="radio" name="serveron" value="0" onclick="show('serveronbody');"/>
+                非影片列表范围获取
+                <input type="radio" class="radio" name="serveron" value="1" onclick="show('serveronbody')"/>
+                影片列表范围获取
+                <input type="radio" class="radio" name="serveron" value="2" onclick="hide('serveronbody');clearvalue('servera','serverb');"checked/>
+                关闭播放器获取</td>
+            </tr>
+          </tbody>
+          <tbody id="serveronbody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='plist' style='display:none' />
+          <tr>
+            <td class="label">播放器开始代码：</td>
+            <td><textarea name="servera" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">播放器结束代码：</td>
+            <td><textarea name="serverb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">播放器替换规则：</td>
+            <td><textarea name="server_trim" id="server_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('server_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <?php }?>
+          <tbody>
+            <tr>
+              <td class="label red">获取影片地址方式：</td>
+              <td><input type="radio" class="radio" name="playgetsrc" value="1" onclick="show('playlinkbody')" checked/>
+                播放页获取所有影片地址
+                <input type="radio" class="radio" name="playgetsrc" value="0" onclick="hide('playlinkbody');clearvalue('playlinka','playlinkb');"/>
+                内容页直接获取影片地址</td>
+            </tr>
+          </tbody>
+          <tbody id="playlinkbody">
+          <input type='checkbox' name='item[]' checked='1'  value='playlink' style='display:none' />
+          <tr>
+            <td class="label">播放页链接开始代码：</td>
+            <td><textarea name="playlinka" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">播放页链接结束代码：</td>
+            <td><textarea name="playlinkb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">播放页链接替换规则：</td>
+            <td><textarea name="playlink_trim" id="playlink_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('playlink_trim')" /></td>
+          </tr>
+            </tbody>
+          
+          <tbody>
+          <input type='checkbox' name='item[]' checked='1'  value='msrc' style='display:none' />
+          <tr>
+            <td class="label">影片地址(如:qvod,bdhd)开始代码：</td>
+            <td><textarea name="msrca" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">影片地址(如:qvod,bdhd)结束代码：</td>
+            <td><textarea name="msrcb" rows="4" cols="80" wrap="off"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">影片地址(如:qvod,bdhd)替换规则：</td>
+            <td><textarea name="msrc_trim" id="msrc_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('msrc_trim')" /></td>
+          </tr>
+          <!--tr>
+			<td class="label">使用地址采集插件：</td>
+			<td><input name="plugin" type="text" id="plugin" value="" size="25" style="width:250px" /></td>
+		</tr-->
+          
+            </tbody>
+          
+          <tbody>
+            <tr>
+              <td class="label red">采集数据分集名称：</td>
+              <td><input type="radio" class="radio" name="getpart" value="0" onclick="hide('getpartbody')" checked/>
+                系统预设
+                <input type="radio" class="radio" name="getpart" value="1" onclick="show('getpartbody');"/>
+                截取分集名称
+                <input type="radio" class="radio" name="getpart" value="2" onclick="hide('getpartbody');"/>
+               	不截取分集名称</td>
+            </tr>
+          </tbody>
+          <tbody id="getpartbody" style="display:none">
+          <input type='checkbox' name='item[]' checked='1'  value='part' style='display:none' />
+          <tr>
+            <td class="label">分集名称开始：</td>
+            <td><textarea name="parta" rows="4" cols="80"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">分集名称结束：</td>
+            <td><textarea name="partb" rows="4" cols="80"></textarea></td>
+          </tr>
+          <tr>
+            <td class="label">分集名称替换规则：</td>
+            <td><textarea name="part_trim" id="part_trim" rows="3" cols="50" wrap="off"></textarea>
+              <input type="button" class="rb1" name="button" id="button" value="常用规则" onclick="SelTrim('part_trim')" /></td>
+          </tr>
+            </tbody>
+          
+        </table>
+        <table class="tb2">
+          <tbody>
+            <tr>
+              <td class="label"></td>
+              <td><input type="button" class="rb1" name="back" value="返回上一步" onclick="javascript:history.back(-1)" />
+                &nbsp;&nbsp;
+                <input type="submit" name="Submit" class="rb1" value="保存信息并进入下一步设置" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="bottom">
+  <table width="100%" cellspacing="5">
+    <tr>
+      <td align="center"><?php echo $cfg_powerby?></td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>

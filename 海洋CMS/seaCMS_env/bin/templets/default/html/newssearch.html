@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+{seacms:load block_header.html}
+<title>{seacms:newssearchword}_{seacms:sitename}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-bg sea-news news-list">
+<div class="row">
+	<div class="col-md-8 col-xs-12 sea-col">
+  	<div class="page-header">
+      <h4><span class="glyphicon glyphicon-pencil sea-text"></span> <a href="#">{seacms:newssearchword}</a></h4>
+    </div>
+    {seacms:newssearchlist size=10 order=time}
+    <div class="row item">
+      <div class="col-xs-8 col-sm-9">
+        <h4>
+          <a href="[newssearchlist:link]">
+          [newssearchlist:title]
+          </a>
+        </h4>
+        <p class="text-muted hidden-xs">
+          [newssearchlist:outline len=99]
+        </p>
+        <h6 class="visible-xs">
+          <span class="glyphicon glyphicon-eye-open"></span> [newssearchlist:hit]
+          <span class="glyphicon glyphicon-time"></span> [newssearchlist:time]
+        </h6>
+      </div>
+      <div class="col-xs-4 col-sm-3 text-center">
+        <a href="[newssearchlist:link]">
+        <img src="[newssearchlist:pic]" class="img-responsive img-thumbnail" title="[newssearchlist:title]" onerror="javascript:this.src='/pic/nopic.gif';">
+        </a>
+      </div>
+    </div>
+    <div class="news-hr"></div>
+    {/seacms:newssearchlist}
+	
+
+      <div class="text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [newssearchlist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+         {if:{newssearchlist:page}>1}
+            <li><a href="{newssearchlist:backlink}">上一页</a></li>
+         {else}{end if}
+         {if:{newssearchlist:page}<{newssearchlist:pagecount}}
+            <li><a href="{newssearchlist:nextlink}">下一页</a></li>
+         {else}{end if}
+         </ul>
+      </div>
+ 
+  </div><!-- -->
+  <div class="col-md-4 sea-col visible-md visible-lg">
+  	 <div class="page-header sea-border-none">
+      <h4><span class="glyphicon glyphicon-th-list sea-text"></span> 相关分类</h4>
+    </div>
+    <ul class="row list-unstyled text-center news-item-type">
+     {seacms:menulist by=news type=top}
+      <li class="col-xs-4">
+        <a href="[menulist:link]" class="btn btn-sm btn-default btn-block">[menulist:typename]</a>
+      </li>
+      {/seacms:menulist}
+    </ul>
+    <div class="clearfix sea-clearfix"></div>
+    <div class="page-header sea-border-none">
+      <h4><span class="glyphicon glyphicon-signal sea-text"></span> 热点资讯</h4>
+    </div>
+    <ol class="news-item-hot">
+       {seacms:newslist num=15 order=hit type=all}
+      <li><a href="[newslist:link]">[newslist:title]</a></li>
+	  {/seacms:newslist}
+    </ol>
+  </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

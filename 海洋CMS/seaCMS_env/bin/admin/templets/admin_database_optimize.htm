@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style.css" rel="stylesheet" type="text/css" />
+<title>高级工具</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据优化 ';</script>
+<div class="r_main">
+<div class="r_content">
+	<div class="r_content_1">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb" id="tips">
+<tr class="thead"><th>技巧提示</th></tr>
+<tr><td class="tipsblock"><ul id="tipslis"><li>数据表优化可以去除数据文件中的碎片，使记录排列紧密，提高读写速度。</li></ul></td></tr></table>
+<form name="opform" method="post" action="?action=optimize&submit=ok">
+<table border="0" cellpadding="0" cellspacing="0" align="center" class="tb">
+<tr class="thead"><th colspan="15">待优化数据表列表</th></tr>
+<tr class="header"><td>&nbsp;</td><td>数据表</td><td>类型</td><td>记录数</td><td>数据</td><td>索引</td><td>碎片</td></tr>
+<?php
+if($submit!="ok"){
+if(empty($totalsize)) {
+echo "<tr><td colspan=\"6\">数据表没有碎片，不需要再优化。</td></tr></table>";
+}else{
+foreach($showtablerow as $t){
+echo "<tr class=\"hover\"><td>$t[0]</td><td>$t[1]</td><td>$t[2]</td><td>$t[3]</td><td>$t[4]</td><td>$t[5]</td><td>$t[6]</td></tr>\n";
+}
+?>
+<tr><td colspan="6">尺寸 <?php echo sizecount($totalsize);?></td></tr><tr><td colspan="15"><div class="fixsel"><input name="chkall" id="chkall" class="checkbox" onclick="checkAll(this.checked,'input','optimizetables[]')" checked="checked" type="checkbox" /><label for="chkall">优化?</label> &nbsp;<input type="submit" class="rb1" name="optimizesubmit" value="提交"  /></div></td></tr></table>
+</form>
+<?php
+}
+}else{
+foreach($showtablerow as $t){
+echo "<tr class=\"hover\"><td>$t[0]</td><td>$t[1]</td><td>$t[2]</td><td>$t[3]</td><td>$t[4]</td><td>$t[5]</td><td>$t[6]</td></tr>\n";
+}
+?>
+<tr><td colspan="6">尺寸 <?php echo sizecount($totalsize);?></td></tr></table>
+<?php
+}
+?>
+	</div>
+</div>
+</div>
+
+<?php
+viewFoot();
+?>
+
+</body>
+</html>

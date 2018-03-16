@@ -1,0 +1,222 @@
+<!DOCTYPE html >
+<html>
+ <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="author" content="TengQiu Li" />
+  <title>Upload Image</title>
+<style type="text/css">
+html,body{padding-top:0 ;padding-bottom:0 ;margin-bottom:0;margin-top:0; overflow:hidden;}
+.descTxt{font-size:12px; position:relative; top:-8px; left:5px; }
+.resultContainer{max-height:200px; overflow:auto;}
+.waiting,.uploading,.uploaded{border:1px solid #3300FF; font-size:12px; padding:3px;margin:2px 0;}
+.waiting{
+	background-color:#FFFFE1;
+}
+.uploading{
+	padding-left:20px;
+	background:#FF9 url(loading.gif) no-repeat 2px center;
+	border-color: #F90;
+}
+.uploaded{background-color: #F4FFFB;}
+.uploadError{background-color: #f00; color:#fff;}
+.flash_wrapper{border:none;background:none;padding:0; cursor:pointer;width:80px;height:80px;}
+</style>
+<script src="swfupload.js" type="text/javascript"></script>
+<script src="uploadApi.js" type="text/javascript"></script>
+<!-- 
+usage: upload.htm?url=url/to/receive/uploaded/file&type=allow_upload_file_extensions
+example: 
+upload.htm?url=http://www.e512.net/upload.php&type=*.jpg;*.gif;*.png 
+-->
+<script type="text/javascript">
+var isIE =!!window.ActiveXObject,
+	isIE6 = isIE && !window.XMLHttpRequest,
+	a = location.search.substring(1).split('&'),
+	urlPath=location.pathname,
+	//参数,会同时作为POST变量提交至接收页
+	GET={
+	'url':'',
+	'max_size':'2 MB', //单文件最大尺寸
+	'exts':'*.jpg;*.gif;*.png;*.jpeg', // 
+	'description':'文件',
+	'text':'上 传',
+	'field_name':'file',
+	'file_max_count':0, //允许上传文件个数, 0表示可以任意
+	//'is_image':false, //上传的是图片
+	'upload_type':'',//上传的调用类型 // link|image|flash|video|music
+	'debug':0  //是否显示调试信息
+	};
+//----------------
+urlPath=urlPath.substr(0,urlPath.lastIndexOf('/')+1);
+for(var i=a.length-1;i>=0;i--){
+	var p=a[i].indexOf('=');
+	if(p>0){
+		GET[a[i].substr(0,p)]=decodeURIComponent(a[i].substring(p+1));
+	}
+}
+function str2b(s){ s=s.toLowerCase(); return !(s=='off' || s=='0' || s=='false');}
+GET.debug=str2b(GET.debug);
+//GET.is_image=str2b(GET.is_image);
+GET.upload_type=GET.upload_type;
+function $(id){return document.getElementById(id);}
+
+function fixHeight()
+{
+	var h = 18+document.body.offsetHeight;
+	window.frameElement.style.minHeight=h+'px';
+	if(isIE6){
+		var rd=document.getElementById('resultDiv');
+		if(rd.offsetHeight>100){
+			rd.style.height='200px';
+		}
+		window.frameElement.style.height=h+'px';
+	}
+}
+//-----------------------------
+//file={post:{},id:'唯一ID',creationdate:'文件创建时间戳',name:'文件名',index:'在队列中的位置索引', type:'.文件后缀', filestatus:-1,modificationdate:'文件修改时间戳',size:'文件大小'}
+function fileQueued(file)
+{
+	var e=document.createElement('DIV');
+	e.id=file.id;
+	e.innerHTML=file.name;
+	e.className='waiting';
+	$('resultDiv').appendChild(e);
+	fixHeight();
+	e.scrollIntoView(false);
+}
+function fileQueueError(file, errorCode, message)
+{
+	switch(errorCode){
+		case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED : message='超出允许上传数量'; break; 
+		case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT : message='文件太大, 请上传小于'+GET.max_size+'的文件'; break; 
+		case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE : message='空文件'; break; 
+		case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE : message='无效文件类型'; break; 
+	}
+	this.debug('上传文件 ['+file.name+'] 出错. \n错误码:'+errorCode+'\n出错信息:'+message);
+	alert('上传文件['+file.name+']出错. \n错误码:'+errorCode+'\n出错信息:'+message);
+	if($(file.id))$(file.id).className='uploadError';
+}
+function fileDialogComplete(numFilesSelected, numFilesQueued)
+{
+	try {
+		if (numFilesQueued > 0) {
+			this.startUpload();
+		}
+	} catch (ex) {
+		this.debug(ex);
+	}
+}
+function uploadProgress(file, bytesLoaded,bytesTotal)
+{
+	$(file.id).className='uploading';
+	var p=Math.floor(bytesLoaded*100/bytesTotal);
+	$(file.id).innerHTML='已完成 '+p.toString()+'% '+file.name;
+}
+function uploadSuccess(file, serverData)
+{
+	//serverData = "{url:'',error_code:'0', message:'succ', exe_js:''}"; // json string 
+	try{
+		var o= $(file.id);
+		o.className='uploaded';
+		var a=eval('['+serverData+']');
+		var r=a[0];
+
+		//selectResult(r.url);
+
+
+		//var e=document.createElement('DIV');
+		//e.innerHTML=r.url;
+		//$('resultDiv').appendChild(e);
+		
+		if(r.error_code>0){
+			o.innerHTML='文件['+file.name+']上传出错.';
+			alert('上传文件['+file.name+']出错. \n错误码:'+r.error_code+'\n出错信息:'+r.message);
+			return;
+		}else{
+			var s='';
+			if(GET.upload_type=='image'){ //is_image
+				if(parentEditor().config.directInsertUploadImage) insertResult(r.url);
+				s='<img src="'+r.url+'" onclick="selectResult(\''+r.url+'\')" width=80 height=80 align=left />'+file.name+'<br /><button onclick="selectResult(\''+r.url+'\')">选择</button><br /><button onclick="insertResult(\''+r.url+'\')">插入</button><div style="clear:both"></div>';
+
+			}else{
+				s =	'<button onclick="selectResult(\''+r.url+'\')">选择</button>'+file.name;
+			}
+			o.innerHTML = s;
+		}
+		if(r.exe_js){
+			try{ eval(r.exe_js); }catch(e){this.debug(e); }
+		}
+		fixHeight();
+	}catch(e){
+		this.debug(serverData);
+	}
+}
+function uploadComplete(file)
+{
+	try {
+		if (this.getStats().files_queued > 0) {
+			this.startUpload();
+		}
+	} catch (e) {
+		this.debug(e);
+	}
+}
+function uploadError(file, errorCode, message) 
+{
+	alert('上传文件['+file.name+']出错. \n错误码:'+errorCode+'\n出错信息:'+message);
+}
+
+//-----------------------------
+
+var setting= {
+	// Backend Settings
+	upload_url: GET.url,
+	post_params: {'uploadedBy':'TQEditor'},
+
+	// File Upload Settings
+	file_size_limit : GET.max_size,	// 2 MB
+	file_types : GET.exts,//'*.jpg;*.gif;*png',
+	file_types_description : GET.description,//"文件",
+	file_upload_limit : GET.file_max_count,
+	file_post_name:GET.field_name,
+
+	// Event Handler Settings
+	file_queued_handler : fileQueued,
+	file_queue_error_handler : fileQueueError,
+	file_dialog_complete_handler : fileDialogComplete,
+	upload_progress_handler : uploadProgress,
+	upload_error_handler : uploadError,
+	upload_success_handler : uploadSuccess,
+	upload_complete_handler : uploadComplete,
+
+	// Button Settings
+	button_image_url : "btnBg.gif",
+	button_placeholder_id : 'container',
+	button_width: 45,
+	button_height: 25,
+	button_text : '<span class="btn">'+GET.text+'</span>',
+	button_text_style : '.btn{line-height:25px;font-size:12px; text-align:center;}',
+	button_text_top_padding: 2,
+	button_text_left_padding: 0,
+	button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+	button_cursor: SWFUpload.CURSOR.HAND,
+	
+	// Flash Settings
+	flash_url : urlPath +"swfupload.swf",
+
+	// Debug Settings
+	debug: GET.debug
+}
+</script>
+
+</head>
+<body>
+<div style="min-height:45px;" ><span id="container"></span><span class="descTxt"> 允许上传文件格式(<script type="text/javascript">document.write(GET.exts);</script>)</span></div>
+<div id="resultDiv" class="resultContainer"></div>
+<script type="text/javascript">
+new SWFUpload(setting);
+//fixHeight();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<script>var sitePath='{seacms:sitepath}'</script>
+{seacms:load block_header.html}
+<title>{seacms:searchword}-{seacms:sitename}</title>
+<meta name="keywords" content="{seacms:searchword},{seacms:sitename}" />
+<meta name="description" content="{seacms:searchword},{seacms:sitename}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+{seacms:top}
+{seacms:load block_header_m.html}
+<div class="container sea-nav my-search">
+<div class="row">
+	<div class="col-xs-12 sea-col" style="margin-top:10px;">
+  	<form id="sea-search" role="form" action="{seacms:sitepath}search.php" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control" id="sea-wd" name="searchword" placeholder="Search">
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+<div class="container sea-bg vod-type">
+  <div class="row">
+  	<div class="col-xs-12 sea-col">
+      <div class="page-header">
+        <h4><span class="glyphicon glyphicon-film sea-text"></span> <a href="#">{seacms:searchword} </a> <small>共有<span class="sea-text">{seacms:searchnum}</span>个影片 第<span class="sea-text">{searchlist:page}</span>页</small></h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clearfix sea-clearfix"></div>
+<div class="container sea-bg vod-type">
+<div class="row">
+
+  <!-- -->
+  <div class="clearfix"></div>
+  <ul class="list-unstyled">
+      {seacms:searchlist size=24 order=time}
+      <li class="col-md-2 col-sm-2 col-xs-4 text-center sea-vod-img-new sea-col">
+        <a href="[searchlist:link]">
+        <img class="img-responsive img-thumbnail sea-img" data-original="[searchlist:pic]" alt="[searchlist:name]" src="[searchlist:pic]">
+        </a>
+        <h4 class="sea-text-hidden text-left">
+          <a href="[searchlist:link]" title="[searchlist:name]">[searchlist:name]</a>
+        </h4>
+        <h6 class="sea-text-hidden text-left">
+          [searchlist:actor]
+        </h6>
+      </li>
+      {/seacms:searchlist}
+    </ul>
+  <!-- -->
+  <div class="clearfix"></div>
+  <div class="col-xs-12 sea-col text-center">
+        <ul class="pagination pagination-lg hidden-xs page">
+          [searchlist:pagenumber len=3]
+        </ul>
+        <ul class="pager visible-xs">
+         {if:{searchlist:page}>1}
+            <li><a href="{searchlist:backlink}">上一页</a></li>
+         {else}{end if}
+         {if:{searchlist:page}<{searchlist:pagecount}}
+            <li><a href="{searchlist:nextlink}">下一页</a></li>
+         {else}{end if}
+         </ul> 
+      </div>
+</div>
+</div>
+{seacms:foot}
+</body>
+</html>

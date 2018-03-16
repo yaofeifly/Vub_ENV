@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots" content="noindex,nofollow" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<TITLE>数据库相关操作-工具-seacms后台管理</TITLE>
+<link href="img/admin.css" rel="stylesheet" type="text/css" />
+<script src="../js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<style type="text/css">
+.btn{border:1px solid;border-color:#fff #999 #999 #fff;}
+</style>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;数据高级工具 ';</script>
+<div class="container" id="cpcontainer">
+<form  method="post" action="?action=result">
+<table class="tb">
+    <tr class="thead"><td>SQL高级助手</td></tr>
+    <tr><td><textarea name="sql" rows="3" cols="110" value=""></textarea><br /> <input type="submit" class="btn"  value="执行SQL语句">  <input type="reset" value="清除" class="btn"></td></tr>
+	<tr><td>
+	1: 列出所有数据  select * from sea_data<br/>
+	2: 删除所有数据（id不还原为0）  delete  from sea_data/sea_playdata/sea_content 三个表各执行一次<br/>
+	3: 列出某一栏目数据  select  *  from sea_data where tid =(select tid from sea_type where tname = '频道1') <br/>
+	4: 删除某一栏目数据  delete  from sea_data where tid =(select tid from sea_type where tname = '频道1') <br/>
+	5: 清空所有数据（id还原为从0开始） TRUNCATE sea_data/sea_playdata/sea_content 三个表各执行一次<br/>
+    <span style="color:#F00">(请谨慎操作，以免造成数据错误！<a target="_blank" href="http://www.seacms.net">[?]</a>)</span><br/>
+	</td></tr>
+	</table>
+</form></div>
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;工具&nbsp;&raquo;&nbsp;SQL高级助手';</script>
+<?php viewFoot(); ?>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link  href="img/style1.css" rel="stylesheet" type="text/css" />
+<title>新闻管理</title>
+<script src="js/common.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+<script type="text/javascript" src="editor/TQEditor.js" ></script>
+</head>
+<body>
+<!--当前导航-->
+<script type="text/JavaScript">if(parent.$('admincpnav')) parent.$('admincpnav').innerHTML='后台首页&nbsp;&raquo;&nbsp;数据&nbsp;&raquo;&nbsp;新闻修改 ';</script>
+<div class="r_main">
+  <div class="r_content">
+    <div class="r_content_1">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0"  class="tb_style">
+        <form action="?action=save&acttype=edit" method="post" name="addform" id="addform" >
+        <input type="hidden" value="<?php echo $id; ?>" name="n_id"  /> 
+           <tr>
+            <td colspan="3" class="td_title">&nbsp;修改文章</td>
+          </tr>
+          <tr>
+            <td width="70"  height="30" align="right" class="td_border">&nbsp;标 题：&nbsp;</td>
+            <td class="td_border"><input type="text" name="n_title" id="n_title" autocomplete="off" onChange="checkRepeat();" value="<?php echo $vrow['n_title']?>" size="23" />
+              拼 音：&nbsp;<input type="text" size="23" id="n_entitle" name="n_entitle" value="<?php echo $vrow['n_entitle'] ?>" onchange="this.value=this.value.replace(/[^\w]+/ig,'')">
+              <font color="#FF0000">＊</font><span id="n_title_ok"></span> 颜色：
+              <select name="n_color" >
+                <?php if($n_color){?>
+                <option style="background-color:<?php echo $n_color;?>;color: <?php echo $n_color;?>" value="<?php echo $n_color;?>"><?php echo $n_color;?></option>
+                <?php }else{?>
+                <option style="" value="">无色</option>
+                <?php }?>
+                <option style="background-color:#FF0000;color: #FF0000" value="#FF0000">红色</option>
+                <option style="background-color:#FF33CC;color: #FF33CC" value="#FF33CC">粉红</option>
+                <option style="background-color:#00FF00;color: #00FF00" value="#00FF00">绿色</option>
+                <option style="background-color:#0000CC;color: #0000CC" value="#0000CC">深蓝</option>
+                <option style="background-color:#FFFF00;color: #FFFF00" value="#FFFF00">黄色</option>
+                <option style="background-color:#660099;color: #660099" value="#660099">紫色</option>
+                <option style="" value="">无色</option>
+              </select>
+              &nbsp;&nbsp;文章分类：
+              <select name="v_type" id="v_type">
+                <option value="">请选择文章分类</option>
+                <?php makeTypeOptionSelected(0,"&nbsp;|&nbsp;&nbsp;","",$vtype,1);?>
+              </select>
+              <font color="#FF0000">＊</font></td>
+          </tr>
+          <tr>
+            <td width="70" height="30" align="right" class="td_border">&nbsp;图片地址：</td>
+            <td height="30" class="td_border"><input name="v_pic" type="text" id="v_pic" value="<?php echo $vrow['n_pic']?>" size="30" />
+              &nbsp;←
+              <input name="doClear" type="button" class="rb1" id="doClear" value="清  除" onclick="javascript:document.addform.v_pic.value='';"/>
+              &nbsp;
+              <iframe src="upload.htm" scrolling="No" topmargin="0" width="280" height="30" marginwidth="0" marginheight="0" frameborder="0" align="center"></iframe>
+              </td>
+          </tr>
+          <tr>
+            <td width="70" height="30" align="right" class="td_border">&nbsp;作 者：</td>
+            <td height="30" class="td_border"><input size="30" name="n_author" value="<?php echo $vrow['n_author']?>"  />
+              来&nbsp;&nbsp;源：
+              <input name="n_from"  size="10" value="<?php echo $vrow['n_from']?>" />
+              &nbsp;星级：<span style="width:85px;display:inline-block" id="star<?php echo $vrow[n_id];?>"><script>starView(<?php echo $vrow[n_commend];?>,<?php echo $vrow[n_id];?>,1)</script></span>&nbsp;
+              <input type="checkbox" class="checkbox" name="isupdatetime" checked />
+              更新时间</td>
+          </tr>
+          <tr>
+            <td width="70" height="30" align="right" class="td_border">&nbsp;关键词：</td>
+            <td height="30" class="td_border"><input type="text" id="n_keyword" name="n_keyword" size="30"  value="<?php echo $vrow['n_keyword']?>"/>
+              点击率：
+              <input type="text" name="n_hit" id="n_hit" maxlength="9" value="<?php echo $vrow['n_hit']?>" size="10" /> </td>
+              </td>
+          </tr>
+          <tr>
+            <td  height="30" align="right" class="td_border">&nbsp;简  述：</td>
+            <td><textarea maxlength="100" cols="101" rows="8" name="n_outline" style="font-size:12px"><?php echo $vrow['n_outline']?></textarea></td>
+          </tr>
+          <?php if($cfg_mb_open){?>
+          <tr>
+            <td width="70" height="30" align="right" class="td_border">&nbsp;浏览权限：</td>
+            <td height="30" class="td_border"><?php echo makeRankSelect("n_rank","",$row["n_rank"]);?>&nbsp;播放消费点数：
+              <input name="n_money" type="text" maxlength="9" value="0" size="10"/>
+              &nbsp; <font color="#FF0000">&nbsp;＊已开启会员功能</font></td>
+          </tr>
+          <?php }?>
+          <?php if($cfg_mb_open){?>
+          <tr>
+            <td width="70" height="30" align="right" class="td_border">&nbsp;浏览权限：</td>
+            <td height="30" class="td_border"><?php echo makeRankSelect("n_rank","",$vrow["n_rank"]);?>&nbsp;播放消费点数：
+              <input name="n_money" type="text" maxlength="9" value="<?php echo $vrow['n_money']?>" size="10"/>
+              &nbsp; <font color="#FF0000">&nbsp;＊已开启会员功能</font></td>
+          </tr>
+          <?php }?>
+          <tr>
+            <td class="td_border" align="right">&nbsp;&nbsp; 内&nbsp;&nbsp;容：</td>
+            <td class="td_border"><textarea id="n_content" name="n_content" style="width:700px;height:300px;" ><?php echo $n_content;?></textarea>
+			<script type="text/javascript">
+			new TQEditor('n_content',{imageUploadUrl:'editor/upload.php',imageFileTypes: '*.jpg;*.gif;*.png;*.jpeg',linkUploadUrl: 'editor/upload.php',
+linkFileSize:'2MB'});//必须在表单域后
+	        </script>
+			<p><font color="green">* 分页标签：#p# &nbsp;&nbsp;&nbsp;带副标题分页标签：#p#副标题#e# </font></p>
+			</td>
+			
+          </tr>
+          <tr>
+            <input type="hidden" name="v_id" value="<?php echo $id;?>">
+            <input type="hidden" name="v_back" value="<?php echo $Pirurl;?>" />
+            <td height="40" colspan="2" align="center" class="td_border">&nbsp;
+              <input type="submit" name="Submit" value="确认保存" class="rb1" onClick="if($('n_title').value.length==0){alert('请填写名称');return false;};if($('v_type').value.length==0){alert('请选择分类');return false;}"/>
+              &nbsp;&nbsp;
+              <input type="reset" name="reset" value="清除重置" class="rb1"/></td>
+          </tr>
+        </form>
+      </table>
+    </div>
+  </div>
+</div>
+<?php
+viewFoot();
+?>
+<script type="text/javascript" src="js/drag.js"></script>
+</body>
+</html>
