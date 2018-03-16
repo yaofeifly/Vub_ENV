@@ -1,6 +1,6 @@
 # Struts2-053漏洞分析
 
-![](/imgsstrust2.jpg)
+![](imgs/strust2.jpg)
 
 ## 1.&emsp;漏洞描述
 
@@ -41,15 +41,15 @@
 
 再将默认的execute方法执行的结果集通过DefaultActionInvocation中的createResult方法传递到ftl模板里
 
-![](/imgs1.png)
+![](imgs/1.png)
 
-![](/imgs2.png)
+![](imgs/2.png)
 
-![](/imgs3.png)
+![](imgs/3.png)
 
 然后接着取出了payload
 
-![](/imgs4.png)
+![](imgs/4.png)
 
 最终FreeMarker模板使用assign指令调用struts.translateVariables方法去执行keyValue的栈顶元素。
 
@@ -57,7 +57,7 @@
 
 1. 访问工程，看到输入框，输入值直接返回
 
-![](/imgs5.png)
+![](imgs/5.png)
 
 2. 输入payload：
 
@@ -72,7 +72,7 @@ java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.sta
 
 替换Exp中的 `(#cmd='whoami')` 中的命令即可。
 
-![](/imgs6.png)
+![](imgs/6.png)
 
 成功返回命令执行信息。
 
