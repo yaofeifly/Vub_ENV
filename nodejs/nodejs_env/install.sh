@@ -16,15 +16,13 @@ ln -s /opt/node/bin/npm /usr/bin/npm
 
 mkdir -p /htdocs
 
-mv node_modules /htdocs
-
-mv hello.js /htdocs
-
-mv package.json /htdocs
+mv node.tar.gz /htdocs
 
 mv flag.txt /htdocs
 
 cd /htdocs
+
+tar -zxvf /htdocs/node.tar.gz
 
 nohup node hello.js > myLog.log 2>&1 &
 
